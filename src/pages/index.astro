@@ -9,7 +9,7 @@ import Carousel from '../components/Carousel.astro';
   <!-- ============================================================
        BLOCO 1 — HERO
   ============================================================ -->
-  <section class="s-hero reveal">
+  <section class="s-hero">
     <div class="hero-badge">
       <span class="hero-dot"></span>
       🔴 INSCRIÇÕES ABERTAS · TURMA ABRIL · ENCERRAM 31/03
@@ -35,6 +35,7 @@ import Carousel from '../components/Carousel.astro';
         width="1376"
         height="768"
         loading="eager"
+        fetchpriority="high"
         decoding="async"
       />
     </div>
@@ -157,9 +158,9 @@ import Carousel from '../components/Carousel.astro';
     <p class="section-sub">Acesso completo à versão premium — os mesmos treinos dos alunos de pacotes mais longos.</p>
 
     <div class="mockup-row">
-      <div class="mockup-phone"><img src="/images/app-screen-1.webp" alt="App Método Goleiro 2.0" /></div>
-      <div class="mockup-phone"><img src="/images/app-screen-2.webp" alt="App Método Goleiro 2.0" /></div>
-      <div class="mockup-phone"><img src="/images/app-screen-3.webp" alt="App Método Goleiro 2.0" /></div>
+      <div class="mockup-phone"><img src="/images/app-screen-1.webp" alt="App Método Goleiro 2.0" width="739" height="1600" loading="lazy" /></div>
+      <div class="mockup-phone"><img src="/images/app-screen-2.webp" alt="App Método Goleiro 2.0" width="739" height="1600" loading="lazy" /></div>
+      <div class="mockup-phone"><img src="/images/app-screen-3.webp" alt="App Método Goleiro 2.0" width="739" height="1600" loading="lazy" /></div>
     </div>
   </section>
 
