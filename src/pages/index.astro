@@ -12,7 +12,7 @@ import Carousel from '../components/Carousel.astro';
   <section class="s-hero reveal">
     <div class="hero-badge">
       <span class="hero-dot"></span>
-      PROGRAMA GOLEIRO DE ELITE
+      🔴 INSCRIÇÕES ABERTAS · TURMA ABRIL · ENCERRAM 31/03
     </div>
 
     <h1 class="hero-headline">
@@ -280,6 +280,19 @@ import Carousel from '../components/Carousel.astro';
     <h2 class="section-title">Comece hoje. Sinta a diferença no jogo.</h2>
     <p class="section-sub">Escolha o plano ideal para o seu momento.</p>
 
+    <div class="countdown-wrap">
+      <div class="countdown-label">Inscrições da Turma Abril encerram em:</div>
+      <div class="countdown" id="countdown">
+        <div class="cd-unit"><span class="cd-n" id="cd-d">--</span><span class="cd-l">dias</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-n" id="cd-h">--</span><span class="cd-l">horas</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-n" id="cd-m">--</span><span class="cd-l">min</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-n" id="cd-s">--</span><span class="cd-l">seg</span></div>
+      </div>
+    </div>
+
     <div class="plans-grid">
 
       <!-- PLANO STARTER -->
@@ -302,6 +315,7 @@ import Carousel from '../components/Carousel.astro';
         </div>
         <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline">COMEÇAR POR R$97</a>
         <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+        <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
       </div>
 
       <!-- TEMPORADA COMPLETA -->
@@ -323,6 +337,7 @@ import Carousel from '../components/Carousel.astro';
         </div>
         <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO A TEMPORADA COMPLETA</a>
         <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+        <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
       </div>
 
     </div>
@@ -492,6 +507,10 @@ import Carousel from '../components/Carousel.astro';
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Como funciona a garantia de 7 dias?</button>
         <div class="faq-a">Se nos primeiros 7 dias você decidir que o programa não é pra você, é só avisar no WhatsApp. Devolvemos 100% do valor sem perguntas e sem burocracia.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Posso me inscrever a qualquer momento?</button>
+        <div class="faq-a">Não. As inscrições são abertas por turma e há limite de vagas para garantir a qualidade do acompanhamento individual. A Turma Abril encerra no dia 31/03. Após essa data, a próxima abertura tem data definida. Se as inscrições estão abertas agora, é o momento certo.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Posso pagar no cartão?</button>
@@ -877,6 +896,46 @@ import Carousel from '../components/Carousel.astro';
     letter-spacing: .08em; text-transform: uppercase;
     margin-top: 4px;
   }
+  .vagas-aviso {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; color: #ff6b6b;
+    letter-spacing: .06em; text-transform: uppercase;
+    margin-top: 10px; text-align: center;
+  }
+  .vagas-aviso strong { color: #ff4444; }
+
+  .countdown-wrap {
+    text-align: center; margin-bottom: 32px;
+    padding: 20px; border: 1px solid rgba(223,255,0,.2);
+    border-radius: 4px; background: rgba(223,255,0,.03);
+  }
+  .countdown-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; color: var(--gray);
+    letter-spacing: .1em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .countdown {
+    display: flex; justify-content: center;
+    align-items: center; gap: 8px;
+  }
+  .cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 52px; }
+  .cd-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    color: var(--neon); line-height: 1;
+  }
+  .cd-l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem; color: var(--muted);
+    letter-spacing: .1em; text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .cd-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; color: var(--neon);
+    opacity: .4; align-self: flex-start; margin-top: 4px;
+  }
 
   /* ── COMO ACESSAR ── */
   .access-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
@@ -1021,4 +1080,25 @@ import Carousel from '../components/Carousel.astro';
       }
     });
   });
+
+  // Countdown — Turma Abril encerra 31/03/2026 23:59:59
+  const deadline = new Date('2026-03-31T23:59:59-03:00').getTime();
+  function updateCountdown() {
+    const diff = deadline - Date.now();
+    if (diff <= 0) {
+      document.getElementById('countdown')?.remove();
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    (document.getElementById('cd-d') as HTMLElement).textContent = pad(d);
+    (document.getElementById('cd-h') as HTMLElement).textContent = pad(h);
+    (document.getElementById('cd-m') as HTMLElement).textContent = pad(m);
+    (document.getElementById('cd-s') as HTMLElement).textContent = pad(s);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 </script>
