@@ -60,6 +60,16 @@ import Carousel from '../components/Carousel.astro';
   <div class="hr"></div>
 
   <!-- ============================================================
+       BLOCO DE DOR
+  ============================================================ -->
+  <section class="section pain-block reveal" style="transition-delay:.1s">
+    <p class="pain-p">Cada treino errado não te deixa só sem resultado. Ele te afasta do nível que você poderia ter atingido se tivesse treinado certo desde o começo.</p>
+    <p class="pain-p">Você pode continuar assim. Ou pode parar o ciclo agora.</p>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- ============================================================
        BLOCO 3 — RUMINAÇÕES MENTAIS
   ============================================================ -->
   <section class="section reveal" style="transition-delay:.1s">
@@ -617,6 +627,16 @@ import Carousel from '../components/Carousel.astro';
   }
 
   /* ── RUMINAÇÕES ── */
+  .pain-block { text-align: center; max-width: 560px; margin-inline: auto; }
+  .pain-p {
+    font-size: clamp(1.15rem, 3.5vw, 1.4rem);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .pain-p:last-child { color: var(--neon); font-weight: 700; margin-bottom: 0; }
+
   .ruminations { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
   .rum-item {
     border: 1px solid var(--border); border-radius: 4px;
