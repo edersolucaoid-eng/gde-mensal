@@ -447,7 +447,7 @@ import Carousel from '../components/Carousel.astro';
     <h2 class="section-title">A maior consultoria de preparação física de goleiros do mundo.</h2>
 
     <div class="authority-wrap">
-      <img src="/images/quem-somos.webp" alt="Goleiro de Elite" class="authority-img" />
+      <img src="/images/quem-somos.webp" alt="Goleiro de Elite" class="authority-img" width="680" height="510" loading="lazy" />
       <div class="authority-body">
         <div class="authority-name">Pedro Ferreira</div>
         <div class="authority-role">Criador do programa Goleiro de Elite</div>
@@ -719,7 +719,7 @@ import Carousel from '../components/Carousel.astro';
   .h-stat--wide { flex: 2; }
   .h-l {
     font-family: 'JetBrains Mono', monospace;
-    font-size: .55rem; color: var(--muted);
+    font-size: .55rem; color: var(--gray);
     letter-spacing: .1em; text-transform: uppercase;
   }
   .h-div { width: 1px; height: 40px; background: var(--border); }
@@ -1039,7 +1039,14 @@ import Carousel from '../components/Carousel.astro';
   }
   .buy-btn:hover { background: #eeff22; transform: translateY(-2px); }
   .buy-btn:active { transform: translateY(0); }
-  .buy-btn--pulse { animation: pulse 2s ease-in-out infinite; }
+  .buy-btn--pulse { position: relative; overflow: visible; }
+  .buy-btn--pulse::after {
+    content: ''; position: absolute; inset: 0;
+    border-radius: 3px;
+    background: rgba(223,255,0,.35);
+    animation: pulse 2s ease-out infinite;
+    pointer-events: none;
+  }
   .offer-micro {
     font-family: 'JetBrains Mono', monospace;
     font-size: .58rem; color: var(--muted);
@@ -1190,7 +1197,7 @@ import Carousel from '../components/Carousel.astro';
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.2rem; color: var(--white); letter-spacing: .08em;
   }
-  .footer-tagline { font-size: .85rem; color: var(--muted); }
+  .footer-tagline { font-size: .85rem; color: var(--gray); }
   .footer-links {
     display: flex; gap: 10px; align-items: center;
     font-size: .82rem; color: var(--muted); margin-top: 4px;
@@ -1201,7 +1208,7 @@ import Carousel from '../components/Carousel.astro';
   .footer-whatsapp:hover { color: #1fbd57 !important; }
   .footer-legal {
     font-family: 'JetBrains Mono', monospace;
-    font-size: .58rem; color: var(--muted);
+    font-size: .58rem; color: var(--gray);
     letter-spacing: .06em; margin-top: 8px;
   }
 
