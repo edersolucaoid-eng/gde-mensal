@@ -172,8 +172,15 @@ import Carousel from '../components/Carousel.astro';
   ============================================================ -->
   <section class="section reveal" style="transition-delay:.1s">
     <div class="section-tag">O app</div>
-    <h2 class="section-title">Seus treinos no bolso. A qualquer hora.</h2>
-    <p class="section-sub">Acesso completo à versão premium — os mesmos treinos dos alunos de pacotes mais longos.</p>
+    <h2 class="section-title">Não é PDF. Não é curso. São os seus treinos.</h2>
+    <p class="section-sub">O professor elabora cada treino milimetricamente para o seu perfil. Você acessa tudo no app — e cada exercício vem com vídeo de execução e instrução detalhada.</p>
+
+    <div class="app-pills">
+      <div class="app-pill">📵 Sem PDF genérico</div>
+      <div class="app-pill">🎬 Vídeo em cada exercício</div>
+      <div class="app-pill">📋 Instrução detalhada</div>
+      <div class="app-pill">👤 Feito pro seu perfil</div>
+    </div>
 
     <div class="mockup-row">
       <div class="mockup-phone"><img src="/images/app-screen-1.webp" alt="App Método Goleiro 2.0" width="739" height="1600" loading="lazy" /></div>
@@ -766,6 +773,22 @@ import Carousel from '../components/Carousel.astro';
     width: 1px; height: 24px;
     background: linear-gradient(to bottom, var(--neon), var(--border));
     margin-left: 20px; opacity: .4;
+  }
+
+  /* ── APP PILLS ── */
+  .app-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 20px 0 8px;
+  }
+  .app-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--neon);
+    border: 1px solid rgba(223,255,0,.25);
+    border-radius: 99px;
+    padding: 6px 14px;
+    background: rgba(223,255,0,.05);
   }
 
   /* ── MOCKUP ── */
