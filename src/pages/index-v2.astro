@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Carousel from '../components/Carousel.astro';
 ---
 
-<Base title="Método Goleiro 2.0 | Musculação Específica para Goleiros">
+<Base title="Método Goleiro 2.0 | Musculação Específica para Goleiros" heroImage="/images/hero-professor.webp">
 <main class="page">
 
   <!-- ============================================================
@@ -11,16 +11,23 @@ import Carousel from '../components/Carousel.astro';
   ============================================================ -->
   <section class="s-hero">
     <div class="hero-visual">
-      <img
-        src="/images/hero-professor.png"
-        alt="Professor e especialista do Método Goleiro 2.0"
-        width="600"
-        height="600"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        class="hero-prof-img"
-      />
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/images/hero-professor-480.webp 480w, /images/hero-professor.webp 900w"
+          sizes="100vw"
+        />
+        <img
+          src="/images/hero-professor.webp"
+          alt="Professor e especialista do Método Goleiro 2.0"
+          width="900"
+          height="900"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="hero-prof-img"
+        />
+      </picture>
       <div class="hero-visual-overlay"></div>
       <div class="hero-visual-text">
         <h1 class="hero-headline">
@@ -314,7 +321,7 @@ import Carousel from '../components/Carousel.astro';
     <p class="section-sub">Escolha o plano ideal para o seu momento.</p>
 
     <div class="countdown-wrap">
-      <div class="countdown-label">Inscrições da Turma Abril encerram em:</div>
+      <div class="countdown-label">Inscrições da Turma Maio encerram em:</div>
       <div class="countdown" id="countdown">
         <div class="cd-unit"><span class="cd-n" id="cd-d">--</span><span class="cd-l">dias</span></div>
         <div class="cd-sep">:</div>
@@ -351,7 +358,7 @@ import Carousel from '../components/Carousel.astro';
           </div>
           <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline">ENTRAR NO MÉTODO GOLEIRO 2.0</a>
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
 
         <!-- PLANO ANUAL -->
@@ -381,7 +388,7 @@ import Carousel from '../components/Carousel.astro';
           </div>
           <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO O PLANO ANUAL</a>
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
 
       </div>
@@ -521,7 +528,7 @@ import Carousel from '../components/Carousel.astro';
           </div>
           <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline buy-btn--pulse">ENTRAR NO MÉTODO GOLEIRO 2.0</a>
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
 
         <div class="offer-card offer-card--featured">
@@ -550,7 +557,7 @@ import Carousel from '../components/Carousel.astro';
           </div>
           <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn buy-btn--pulse">QUERO O PLANO ANUAL</a>
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
 
       </div>
@@ -619,7 +626,7 @@ import Carousel from '../components/Carousel.astro';
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Posso me inscrever a qualquer momento?</button>
-        <div class="faq-a">Não. As inscrições são abertas por turma com limite de vagas para garantir a qualidade do acompanhamento. A Turma Abril encerra dia 31/03. Se as inscrições estão abertas agora, é o momento certo.</div>
+        <div class="faq-a">Não. As inscrições são abertas por turma com limite de vagas para garantir a qualidade do acompanhamento. A Turma Maio encerra dia 30/04. Se as inscrições estão abertas agora, é o momento certo.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Posso pagar no cartão?</button>
@@ -675,18 +682,6 @@ import Carousel from '../components/Carousel.astro';
     padding: 0 0 20px;
     display: flex; flex-direction: column; align-items: center;
     text-align: center; gap: 20px;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .65rem; font-weight: 700; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--neon);
-    border: 1px solid rgba(223,255,0,.25); border-radius: 99px;
-    padding: 6px 16px;
-  }
-  .hero-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--neon); animation: blink 1.8s ease-in-out infinite;
   }
   .hero-visual {
     position: relative;
@@ -832,10 +827,10 @@ import Carousel from '../components/Carousel.astro';
     font-size: .7rem; font-weight: 700;
     letter-spacing: .06em;
     color: var(--neon);
-    border: 1px solid rgba(223,255,0,.25);
+    border: 1px solid rgba(211,172,103,.25);
     border-radius: 99px;
     padding: 6px 14px;
-    background: rgba(223,255,0,.05);
+    background: rgba(211,172,103,.05);
   }
   .app-pill--no {
     color: var(--muted);
@@ -856,7 +851,7 @@ import Carousel from '../components/Carousel.astro';
     flex: 1; min-width: 140px; max-width: 200px;
     border: 1px solid var(--border); border-radius: 16px;
     background: var(--card); overflow: hidden;
-    box-shadow: 0 0 30px rgba(223,255,0,.05);
+    box-shadow: 0 0 30px rgba(211,172,103,.05);
   }
   .mockup-phone img { width: 100%; height: auto; display: block; }
 
@@ -868,7 +863,7 @@ import Carousel from '../components/Carousel.astro';
     background: var(--card); padding: 18px 20px;
     transition: border-color .2s;
   }
-  .deliv-item:hover { border-color: rgba(223,255,0,.2); }
+  .deliv-item:hover { border-color: rgba(211,172,103,.2); }
   .deliv-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
   .deliv-title {
     font-size: 1rem; font-weight: 700;
@@ -886,7 +881,7 @@ import Carousel from '../components/Carousel.astro';
     border: 1px solid var(--border); border-radius: 4px;
     background: var(--card); padding: 20px;
   }
-  .for-col.for-yes { border-color: rgba(223,255,0,.2); }
+  .for-col.for-yes { border-color: rgba(211,172,103,.2); }
   .for-col.for-no  { border-color: rgba(255,60,60,.15); }
   .for-col-label {
     font-family: 'JetBrains Mono', monospace;
@@ -913,12 +908,12 @@ import Carousel from '../components/Carousel.astro';
   }
   .rum-bullets li::before, .deliv-bullets li::before, .authority-bullets li::before {
     content: '—'; position: absolute; left: 0;
-    color: rgba(223,255,0,.5); font-weight: 700;
+    color: rgba(211,172,103,.5); font-weight: 700;
   }
 
   /* ── RECAP ── */
   .recap-card {
-    border: 1px solid rgba(223,255,0,.2); border-radius: 4px;
+    border: 1px solid rgba(211,172,103,.2); border-radius: 4px;
     background: var(--card); overflow: hidden;
     position: relative;
   }
@@ -1158,8 +1153,8 @@ import Carousel from '../components/Carousel.astro';
 
   .countdown-wrap {
     text-align: center; margin-bottom: 32px;
-    padding: 20px; border: 1px solid rgba(223,255,0,.2);
-    border-radius: 4px; background: rgba(223,255,0,.03);
+    padding: 20px; border: 1px solid rgba(211,172,103,.2);
+    border-radius: 4px; background: rgba(211,172,103,.03);
   }
   .countdown-label {
     font-family: 'JetBrains Mono', monospace;
@@ -1259,8 +1254,8 @@ import Carousel from '../components/Carousel.astro';
   /* ── GARANTIA ── */
   .guarantee {
     display: flex; align-items: flex-start; gap: 14px;
-    border: 1px solid rgba(223,255,0,.15); border-radius: 4px;
-    background: rgba(223,255,0,.03); padding: 18px 20px;
+    border: 1px solid rgba(211,172,103,.15); border-radius: 4px;
+    background: rgba(211,172,103,.03); padding: 18px 20px;
     margin-top: 20px; text-align: left;
   }
   .guarantee-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
@@ -1279,14 +1274,16 @@ import Carousel from '../components/Carousel.astro';
     gap: 12px; transition: background .15s;
   }
   .faq-q::after { content: '+'; color: var(--neon); font-size: 1.2rem; flex-shrink: 0; transition: transform .2s; }
-  .faq-q[aria-expanded="true"] { background: rgba(223,255,0,.05); }
+  .faq-q[aria-expanded="true"] { background: rgba(211,172,103,.05); }
   .faq-q[aria-expanded="true"]::after { transform: rotate(45deg); }
   .faq-a {
-    display: none; padding: 0 20px 16px;
+    max-height: 0; overflow: hidden;
+    padding: 0 20px;
     font-size: .92rem; color: var(--gray); line-height: 1.65;
     background: var(--card);
+    transition: max-height .35s ease, padding .35s ease;
   }
-  .faq-a.open { display: block; }
+  .faq-a.open { max-height: 400px; padding: 0 20px 16px; }
 
   /* ── FOOTER ── */
   .site-footer {
@@ -1364,12 +1361,12 @@ import Carousel from '../components/Carousel.astro';
     });
   });
 
-  // Countdown — Turma Abril encerra 31/03/2026 23:59:59
-  const deadline = new Date('2026-03-31T23:59:59-03:00').getTime();
+  // Countdown — Turma Maio encerra 30/04/2026 23:59:59
+  const deadline = new Date('2026-04-30T23:59:59-03:00').getTime();
   function updateCountdown() {
     const diff = deadline - Date.now();
     if (diff <= 0) {
-      document.getElementById('countdown')?.remove();
+      document.querySelector('.countdown-wrap')?.remove();
       return;
     }
     const d = Math.floor(diff / 86400000);
