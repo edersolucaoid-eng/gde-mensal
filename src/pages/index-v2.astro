@@ -1034,14 +1034,18 @@ import Carousel from '../components/Carousel.astro';
     display: inline-block; margin-bottom: 12px;
   }
   .offer-item--highlight {
-    color: var(--white);
-    border-color: rgba(211,172,103,.2);
-    background: rgba(211,172,103,.05);
+    color: #f4f4f4;
+    border-color: rgba(255,255,255,.18);
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .offer-item--star {
     color: var(--neon);
-    border-color: rgba(211,172,103,.4);
-    background: rgba(211,172,103,.1);
+    border-color: rgba(211,172,103,.5);
+    background: rgba(211,172,103,.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     font-weight: 700;
   }
   .offer-installment {
@@ -1102,14 +1106,19 @@ import Carousel from '../components/Carousel.astro';
   }
   .offer-item {
     font-size: .85rem; font-weight: 600;
-    color: var(--gray); text-align: left;
-    padding: 8px 10px; border: 1px solid var(--border);
-    border-radius: 4px; background: rgba(23,22,68,.6);
+    color: #f4f4f4; text-align: left;
+    padding: 8px 10px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 4px;
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .offer-item--full {
     grid-column: 1 / -1;
-    color: var(--white);
-    border-color: rgba(211,172,103,.2);
+    color: #f4f4f4;
+    border-color: rgba(255,255,255,.15);
+    background: rgba(255,255,255,.1);
   }
   .buy-btn {
     display: block; width: 100%;
