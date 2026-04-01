@@ -18,8 +18,14 @@ const { title = "Método Goleiro 2.0 | Preparação Física para Goleiros", hero
   <meta property="og:url" content="https://metodo.goleirodeelite.com/" />
   <meta property="og:image" content="https://metodo.goleirodeelite.com/images/hero-antes-depois.webp" />
   <meta name="twitter:card" content="summary_large_image" />
-  <!-- Preload imagem hero (LCP) -->
-  <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
+  <!-- Preload imagem hero (LCP) — imagesrcset garante versão correta por viewport -->
+  <link rel="preload" as="image"
+    imagesrcset="/images/hero-professor-480.webp 480w, /images/hero-professor.webp 900w"
+    imagesizes="100vw"
+    href="/images/hero-professor.webp"
+    fetchpriority="high" />
+  <!-- Preconnect terceiros críticos -->
+  <link rel="preconnect" href="https://capi-automation.s3.us-east-2.amazonaws.com" crossorigin />
   <!-- Google Tag Manager (deferred) -->
   <script>window.addEventListener('load',function(){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://server.goleirodeelite.com/9smvimemi.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','5wlfyfq=AAlYKj07QCMrWVMrWyBVVR9QV0NYUAkdVAoKAQwfHxwNCAABAAIIXQoCCA%3D%3D');});</script>
   <!-- End Google Tag Manager -->
