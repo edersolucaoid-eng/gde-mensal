@@ -15,30 +15,29 @@ import Carousel from '../components/Carousel.astro';
       🔴 INSCRIÇÕES ABERTAS · TURMA ABRIL · ENCERRAM 31/03
     </div>
 
-    <h1 class="hero-headline">
-      +1.200 goleiros brasileiros treinam com o Método Goleiro 2.0,<br />
-      <em>enquanto você improvisa na academia achando que está treinando certo.</em>
-    </h1>
+    <div class="hero-visual">
+      <img
+        src="/images/hero-professor.png"
+        alt="Professor e especialista do Método Goleiro 2.0"
+        width="600"
+        height="600"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-prof-img"
+      />
+      <div class="hero-visual-overlay"></div>
+      <div class="hero-visual-text">
+        <h1 class="hero-headline">
+          +1.200 goleiros brasileiros treinam com o Método Goleiro 2.0,<br />
+          <em>enquanto você improvisa na academia achando que está treinando certo.</em>
+        </h1>
+      </div>
+    </div>
 
     <p class="hero-sub">
       O resultado é que eles sentem o corpo executando o que a cabeça manda e você continua tomando os mesmos gols bobos toda vez que vai jogar.
     </p>
-
-    <div class="hero-img-wrap">
-      <div class="hero-img-labels">
-        <span class="hero-label hero-label--before">ANTES DO MÉTODO</span>
-        <span class="hero-label hero-label--after">DEPOIS DO MÉTODO</span>
-      </div>
-      <img
-        src="/images/hero-antes-depois.webp"
-        alt="Antes e depois do Método Goleiro 2.0"
-        width="1376"
-        height="768"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </div>
 
     <div class="hero-stats">
       <div class="h-stat"><span class="h-n">+1.200</span><span class="h-l">Goleiros Treinados</span></div>
@@ -683,11 +682,35 @@ import Carousel from '../components/Carousel.astro';
     width: 6px; height: 6px; border-radius: 50%;
     background: var(--neon); animation: blink 1.8s ease-in-out infinite;
   }
+  .hero-visual {
+    position: relative;
+    width: 100%; max-width: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .hero-prof-img {
+    width: 100%; height: auto; display: block;
+  }
+  .hero-visual-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, #000000 35%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero-visual-text {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0 20px 22px;
+    text-align: left;
+  }
+
   .hero-headline {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 6.5vw, 3.8rem);
-    line-height: 1.08; letter-spacing: .02em;
+    font-size: clamp(1.45rem, 5vw, 2.8rem);
+    line-height: 1.1; letter-spacing: .02em;
     color: var(--white);
+    text-shadow: 0 2px 14px rgba(0,0,0,.95);
   }
   .hero-headline em {
     font-style: normal; color: var(--neon);
@@ -698,29 +721,6 @@ import Carousel from '../components/Carousel.astro';
   }
   .hero-sub strong { color: var(--white); font-weight: 700; }
 
-  .hero-img-wrap {
-    width: 100%; border-radius: 6px; overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 0 60px rgba(223,255,0,.06);
-    position: relative;
-  }
-  .hero-img-wrap img { width: 100%; height: auto; display: block; }
-  .hero-img-labels {
-    position: absolute; top: 0; left: 0; right: 0;
-    display: flex; z-index: 2; pointer-events: none;
-  }
-  .hero-label {
-    flex: 1; text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(.75rem, 2.5vw, 1.1rem);
-    letter-spacing: .12em; padding: 8px 4px;
-  }
-  .hero-label--before {
-    background: rgba(0,0,0,.65); color: #aaa;
-  }
-  .hero-label--after {
-    background: rgba(10,26,0,.75); color: var(--neon);
-  }
 
   .hero-stats {
     display: flex; align-items: center; gap: 0;
