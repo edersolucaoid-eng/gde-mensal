@@ -652,10 +652,17 @@ import Carousel from '../components/Carousel.astro';
 </Base>
 
 <style>
-  /* ── V2 COLOR OVERRIDES ── */
+  /* ── V2 COLOR OVERRIDES — identidade visual #171644 / #d3ac67 / #f4f4f4 ── */
   :root {
-    --bg:    #000000;
-    --white: #FFFFFF;
+    --bg:       #171644;
+    --card:     #1e1d52;
+    --neon:     #d3ac67;
+    --neon-dim: rgba(211,172,103,.07);
+    --white:    #f4f4f4;
+    --gray:     #a8a6c0;
+    --muted:    #6b698a;
+    --border:   #2a2860;
+    --selected: #201e5a;
   }
 
   /* ── HERO ── */
@@ -690,7 +697,7 @@ import Carousel from '../components/Carousel.astro';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 60%;
-    background: linear-gradient(to top, #000000 35%, transparent 100%);
+    background: linear-gradient(to top, #171644 35%, transparent 100%);
     pointer-events: none;
   }
   .hero-visual-text {
@@ -983,8 +990,8 @@ import Carousel from '../components/Carousel.astro';
   }
   .carousel-arrow {
     background: none;
-    border: 1px solid rgba(229,57,53,.5);
-    color: #E53935;
+    border: 1px solid rgba(211,172,103,.5);
+    color: #d3ac67;
     border-radius: 50%;
     width: 38px; height: 38px;
     font-size: 1.5rem; line-height: 1;
@@ -992,17 +999,17 @@ import Carousel from '../components/Carousel.astro';
     transition: background .15s;
     display: flex; align-items: center; justify-content: center;
   }
-  .carousel-arrow:hover { background: rgba(229,57,53,.12); }
+  .carousel-arrow:hover { background: rgba(211,172,103,.12); }
   .carousel-dot {
     width: 9px; height: 9px;
     border-radius: 50%;
-    background: rgba(255,255,255,.25);
+    background: rgba(244,244,244,.2);
     cursor: pointer;
     transition: background .2s, transform .2s;
     display: inline-block;
   }
   .carousel-dot.active {
-    background: #E53935;
+    background: #d3ac67;
     transform: scale(1.4);
   }
 
@@ -1015,7 +1022,7 @@ import Carousel from '../components/Carousel.astro';
     font-family: 'JetBrains Mono', monospace;
     font-size: .62rem; font-weight: 700;
     letter-spacing: .15em; text-transform: uppercase;
-    color: #0A0A0A; background: var(--neon);
+    color: #171644; background: var(--neon);
     padding: 5px 12px; border-radius: 99px;
     display: inline-block; margin-bottom: 12px;
   }
@@ -1038,11 +1045,11 @@ import Carousel from '../components/Carousel.astro';
   }
   .buy-btn--outline {
     background: transparent;
-    border: 1px solid #E53935;
-    color: #E53935;
+    border: 1px solid #d3ac67;
+    color: #d3ac67;
     box-shadow: none;
   }
-  .buy-btn--outline:hover { background: rgba(229,57,53,.08); transform: translateY(-2px); }
+  .buy-btn--outline:hover { background: rgba(211,172,103,.1); transform: translateY(-2px); }
 
   .offer-card {
     width: 100%; max-width: 420px; margin: 0 auto;
@@ -1098,22 +1105,23 @@ import Carousel from '../components/Carousel.astro';
   }
   .buy-btn {
     display: block; width: 100%;
-    background: #E53935; color: #FFFFFF;
+    background: #d3ac67; color: #171644;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.25rem; letter-spacing: .08em;
     padding: 18px 16px; border-radius: 3px;
     text-decoration: none; text-align: center;
     transition: background .15s, transform .15s;
-    box-shadow: 0 8px 40px rgba(229,57,53,.35);
+    box-shadow: 0 8px 40px rgba(211,172,103,.35);
     margin-bottom: 12px;
+    font-weight: 700;
   }
-  .buy-btn:hover { background: #EF5350; transform: translateY(-2px); }
+  .buy-btn:hover { background: #e0bc7a; transform: translateY(-2px); }
   .buy-btn:active { transform: translateY(0); }
   .buy-btn--pulse { position: relative; overflow: visible; }
   .buy-btn--pulse::after {
     content: ''; position: absolute; inset: 0;
     border-radius: 3px;
-    background: rgba(229,57,53,.35);
+    background: rgba(211,172,103,.35);
     animation: pulse 2s ease-out infinite;
     pointer-events: none;
   }
@@ -1295,8 +1303,8 @@ import Carousel from '../components/Carousel.astro';
   }
   .wa-doubt-btn {
     display: inline-flex; align-items: center; gap: 10px;
-    background: transparent; color: #25D366;
-    border: 1px solid rgba(37,211,102,.4);
+    background: #25D366; color: #fff;
+    border: 1px solid #25D366;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.1rem; letter-spacing: .08em;
     padding: 14px 28px; border-radius: 3px;
@@ -1304,7 +1312,7 @@ import Carousel from '../components/Carousel.astro';
     box-shadow: none;
     transition: background .15s, transform .15s;
   }
-  .wa-doubt-btn:hover { background: rgba(37,211,102,.08); transform: translateY(-2px); }
+  .wa-doubt-btn:hover { background: #1fbd57; transform: translateY(-2px); }
 </style>
 
 <script>
