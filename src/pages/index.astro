@@ -3,42 +3,43 @@ import Base from '../layouts/Base.astro';
 import Carousel from '../components/Carousel.astro';
 ---
 
-<Base title="Método Goleiro 2.0 | Musculação Específica para Goleiros">
+<Base title="Método Goleiro 2.0 | Musculação Específica para Goleiros" heroImage="/images/hero-professor.webp">
 <main class="page">
 
   <!-- ============================================================
        BLOCO 1 — HERO
   ============================================================ -->
   <section class="s-hero">
-    <div class="hero-badge">
-      <span class="hero-dot"></span>
-      🔴 INSCRIÇÕES ABERTAS · TURMA ABRIL · ENCERRAM 31/03
+    <div class="hero-visual">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/images/hero-professor-480.webp 480w, /images/hero-professor.webp 900w"
+          sizes="100vw"
+        />
+        <img
+          src="/images/hero-professor.webp"
+          alt="Professor e especialista do Método Goleiro 2.0"
+          width="900"
+          height="900"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="hero-prof-img"
+        />
+      </picture>
+      <div class="hero-visual-overlay"></div>
+      <div class="hero-visual-text">
+        <h1 class="hero-headline">
+          +1.200 goleiros brasileiros treinam com o Método Goleiro 2.0,<br />
+          <em>enquanto você improvisa na academia achando que está treinando certo.</em>
+        </h1>
+      </div>
     </div>
-
-    <h1 class="hero-headline">
-      +1.200 goleiros brasileiros treinam com o Método Goleiro 2.0,<br />
-      <em>enquanto você improvisa na academia achando que está treinando certo.</em>
-    </h1>
 
     <p class="hero-sub">
       O resultado é que eles sentem o corpo executando o que a cabeça manda e você continua tomando os mesmos gols bobos toda vez que vai jogar.
     </p>
-
-    <div class="hero-img-wrap">
-      <div class="hero-img-labels">
-        <span class="hero-label hero-label--before">ANTES DO MÉTODO</span>
-        <span class="hero-label hero-label--after">DEPOIS DO MÉTODO</span>
-      </div>
-      <img
-        src="/images/hero-antes-depois.webp"
-        alt="Antes e depois do Método Goleiro 2.0"
-        width="1376"
-        height="768"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </div>
 
     <div class="hero-stats">
       <div class="h-stat"><span class="h-n">+1.200</span><span class="h-l">Goleiros Treinados</span></div>
@@ -320,7 +321,7 @@ import Carousel from '../components/Carousel.astro';
     <p class="section-sub">Escolha o plano ideal para o seu momento.</p>
 
     <div class="countdown-wrap">
-      <div class="countdown-label">Inscrições da Turma Abril encerram em:</div>
+      <div class="countdown-label">Inscrições da Turma Maio encerram em:</div>
       <div class="countdown" id="countdown">
         <div class="cd-unit"><span class="cd-n" id="cd-d">--</span><span class="cd-l">dias</span></div>
         <div class="cd-sep">:</div>
@@ -332,63 +333,71 @@ import Carousel from '../components/Carousel.astro';
       </div>
     </div>
 
-    <div class="plans-grid">
+    <div class="plans-carousel-wrap">
+      <div class="plans-carousel" id="plans-a">
 
-      <!-- PLANO MENSAL -->
-      <div class="offer-card">
-        <div class="offer-name">PRIMEIRO MÊS</div>
-        <div class="offer-desc">Teste o método. Sinta a diferença.</div>
-        <div class="offer-price-row">
-          <span class="offer-currency">R$</span>
-          <span class="offer-amount">97</span>
-          <span class="offer-period">/ mês</span>
+        <!-- PLANO MENSAL -->
+        <div class="offer-card">
+          <div class="offer-name">PRIMEIRO MÊS</div>
+          <div class="offer-desc">Teste o método. Sinta a diferença.</div>
+          <div class="offer-price-row">
+            <span class="offer-currency">R$</span>
+            <span class="offer-amount">97</span>
+            <span class="offer-period">/ mês</span>
+          </div>
+          <div class="offer-items">
+            <div class="offer-item">✓ Treino personalizado</div>
+            <div class="offer-item">✓ Avaliação Postural</div>
+            <div class="offer-item">✓ Protocolo pré-jogo</div>
+            <div class="offer-item">✓ Protocolo pós-jogo</div>
+            <div class="offer-item">✓ Guia Nutricional</div>
+            <div class="offer-item">✓ Comunidade de Goleiros</div>
+            <div class="offer-item">✓ App premium</div>
+            <div class="offer-item">✓ Garantia 7 Dias</div>
+            <div class="offer-item">✓ Professor no WhatsApp</div>
+          </div>
+          <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline">ENTRAR NO MÉTODO GOLEIRO 2.0</a>
+          <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
-        <div class="offer-items">
-          <div class="offer-item">✓ Treino personalizado</div>
-          <div class="offer-item">✓ Avaliação Postural</div>
-          <div class="offer-item">✓ Protocolo pré-jogo</div>
-          <div class="offer-item">✓ Protocolo pós-jogo</div>
-          <div class="offer-item">✓ Guia Nutricional</div>
-          <div class="offer-item">✓ Comunidade de Goleiros</div>
-          <div class="offer-item">✓ App premium</div>
-          <div class="offer-item">✓ Garantia 7 Dias</div>
-          <div class="offer-item">✓ Professor no WhatsApp</div>
+
+        <!-- PLANO ANUAL -->
+        <div class="offer-card offer-card--featured">
+          <div class="offer-badge-top">⭐ TRANSFORMAÇÃO REAL</div>
+          <div class="offer-name">TEMPORADA COMPLETA</div>
+          <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
+          <div class="offer-price-row">
+            <span class="offer-currency">R$</span>
+            <span class="offer-amount">797</span>
+            <span class="offer-period">/ ano</span>
+          </div>
+          <div class="offer-installment">ou 12x R$86,30 no cartão</div>
+          <div class="offer-items">
+            <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
+            <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pré-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pós-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Guia Nutricional</div>
+            <div class="offer-item offer-item--highlight">✓ Comunidade de Goleiros</div>
+            <div class="offer-item offer-item--highlight">✓ App premium</div>
+            <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
+            <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Avaliação de evolução mensal</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Call individual com Nutricionista</div>
+          </div>
+          <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO O PLANO ANUAL</a>
+          <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
-        <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline">ENTRAR NO MÉTODO GOLEIRO 2.0</a>
-        <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-        <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+
       </div>
-
-      <!-- PLANO ANUAL -->
-      <div class="offer-card offer-card--featured">
-        <div class="offer-badge-top">⭐ TRANSFORMAÇÃO REAL</div>
-        <div class="offer-name">TEMPORADA COMPLETA</div>
-        <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
-        <div class="offer-price-row">
-          <span class="offer-currency">R$</span>
-          <span class="offer-amount">797</span>
-          <span class="offer-period">/ ano</span>
-        </div>
-        <div class="offer-installment">ou 12x R$86,30 no cartão</div>
-        <div class="offer-items">
-          <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
-          <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
-          <div class="offer-item offer-item--highlight">✓ Protocolo pré-jogo</div>
-          <div class="offer-item offer-item--highlight">✓ Protocolo pós-jogo</div>
-          <div class="offer-item offer-item--highlight">✓ Guia Nutricional</div>
-          <div class="offer-item offer-item--highlight">✓ Comunidade de Goleiros</div>
-          <div class="offer-item offer-item--highlight">✓ App premium</div>
-          <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
-          <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
-          <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias</div>
-          <div class="offer-item offer-item--full offer-item--star">⭐ Avaliação de evolução mensal</div>
-          <div class="offer-item offer-item--full offer-item--star">⭐ Call individual com Nutricionista</div>
-        </div>
-        <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO O PLANO ANUAL</a>
-        <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-        <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+      <div class="carousel-nav">
+        <button class="carousel-arrow" data-carousel="plans-a" data-dir="-1" aria-label="Plano anterior">&#8249;</button>
+        <span class="carousel-dot active" data-carousel="plans-a" data-idx="0"></span>
+        <span class="carousel-dot" data-carousel="plans-a" data-idx="1"></span>
+        <button class="carousel-arrow" data-carousel="plans-a" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
-
     </div>
   </section>
 
@@ -447,10 +456,14 @@ import Carousel from '../components/Carousel.astro';
     <h2 class="section-title">A maior consultoria de preparação física de goleiros do mundo.</h2>
 
     <div class="authority-wrap">
-      <img src="/images/quem-somos.webp" alt="Goleiro de Elite" class="authority-img" width="680" height="510" loading="lazy" />
+      <div class="authority-top">
+        <img src="/images/quem-somos.webp" alt="Pedro Ferreira — Goleiro de Elite" class="authority-img" width="80" height="80" loading="lazy" />
+        <div>
+          <div class="authority-name">Pedro Ferreira</div>
+          <div class="authority-role">Criador do programa Goleiro de Elite</div>
+        </div>
+      </div>
       <div class="authority-body">
-        <div class="authority-name">Pedro Ferreira</div>
-        <div class="authority-role">Criador do programa Goleiro de Elite</div>
         <ul class="authority-bullets">
           <li>+1.200 goleiros treinados — do amador ao semi-profissional</li>
           <li>Método desenvolvido do zero para as demandas reais da posição</li>
@@ -491,61 +504,69 @@ import Carousel from '../components/Carousel.astro';
     <h2 class="section-title">Pronto para ser um paredão?</h2>
     <p class="section-sub">Tudo que você precisa pra começar está aqui. Sem complicação.</p>
 
-    <div class="plans-grid">
+    <div class="plans-carousel-wrap">
+      <div class="plans-carousel" id="plans-b">
 
-      <div class="offer-card">
-        <div class="offer-name">PRIMEIRO MÊS</div>
-        <div class="offer-desc">Teste o método. Sinta a diferença.</div>
-        <div class="offer-price-row">
-          <span class="offer-currency">R$</span>
-          <span class="offer-amount">97</span>
-          <span class="offer-period">/ mês</span>
+        <div class="offer-card">
+          <div class="offer-name">PRIMEIRO MÊS</div>
+          <div class="offer-desc">Teste o método. Sinta a diferença.</div>
+          <div class="offer-price-row">
+            <span class="offer-currency">R$</span>
+            <span class="offer-amount">97</span>
+            <span class="offer-period">/ mês</span>
+          </div>
+          <div class="offer-items">
+            <div class="offer-item">✓ Treino personalizado</div>
+            <div class="offer-item">✓ Avaliação Postural</div>
+            <div class="offer-item">✓ Protocolo pré-jogo</div>
+            <div class="offer-item">✓ Protocolo pós-jogo</div>
+            <div class="offer-item">✓ Guia Nutricional</div>
+            <div class="offer-item">✓ Comunidade de Goleiros</div>
+            <div class="offer-item">✓ App premium</div>
+            <div class="offer-item">✓ Garantia 7 Dias</div>
+            <div class="offer-item">✓ Professor no WhatsApp</div>
+          </div>
+          <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline buy-btn--pulse">ENTRAR NO MÉTODO GOLEIRO 2.0</a>
+          <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
-        <div class="offer-items">
-          <div class="offer-item">✓ Treino personalizado</div>
-          <div class="offer-item">✓ Avaliação Postural</div>
-          <div class="offer-item">✓ Protocolo pré-jogo</div>
-          <div class="offer-item">✓ Protocolo pós-jogo</div>
-          <div class="offer-item">✓ Guia Nutricional</div>
-          <div class="offer-item">✓ Comunidade de Goleiros</div>
-          <div class="offer-item">✓ App premium</div>
-          <div class="offer-item">✓ Garantia 7 Dias</div>
-          <div class="offer-item">✓ Professor no WhatsApp</div>
+
+        <div class="offer-card offer-card--featured">
+          <div class="offer-badge-top">⭐ TRANSFORMAÇÃO REAL</div>
+          <div class="offer-name">TEMPORADA COMPLETA</div>
+          <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
+          <div class="offer-price-row">
+            <span class="offer-currency">R$</span>
+            <span class="offer-amount">797</span>
+            <span class="offer-period">/ ano</span>
+          </div>
+          <div class="offer-installment">ou 12x R$86,30 no cartão</div>
+          <div class="offer-items">
+            <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
+            <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pré-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pós-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Guia Nutricional</div>
+            <div class="offer-item offer-item--highlight">✓ Comunidade de Goleiros</div>
+            <div class="offer-item offer-item--highlight">✓ App premium</div>
+            <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
+            <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Avaliação de evolução mensal</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Call individual com Nutricionista</div>
+          </div>
+          <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn buy-btn--pulse">QUERO O PLANO ANUAL</a>
+          <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Maio</div>
         </div>
-        <a href="https://pay.goleirodeelite.com/checkout/209015635:1" class="buy-btn buy-btn--outline buy-btn--pulse">ENTRAR NO MÉTODO GOLEIRO 2.0</a>
-        <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-        <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+
       </div>
-
-      <div class="offer-card offer-card--featured">
-        <div class="offer-badge-top">⭐ TRANSFORMAÇÃO REAL</div>
-        <div class="offer-name">TEMPORADA COMPLETA</div>
-        <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
-        <div class="offer-price-row">
-          <span class="offer-currency">R$</span>
-          <span class="offer-amount">797</span>
-          <span class="offer-period">/ ano</span>
-        </div>
-        <div class="offer-installment">ou 12x R$86,30 no cartão</div>
-        <div class="offer-items">
-          <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
-          <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
-          <div class="offer-item offer-item--highlight">✓ Protocolo pré-jogo</div>
-          <div class="offer-item offer-item--highlight">✓ Protocolo pós-jogo</div>
-          <div class="offer-item offer-item--highlight">✓ Guia Nutricional</div>
-          <div class="offer-item offer-item--highlight">✓ Comunidade de Goleiros</div>
-          <div class="offer-item offer-item--highlight">✓ App premium</div>
-          <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
-          <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
-          <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias</div>
-          <div class="offer-item offer-item--full offer-item--star">⭐ Avaliação de evolução mensal</div>
-          <div class="offer-item offer-item--full offer-item--star">⭐ Call individual com Nutricionista</div>
-        </div>
-        <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn buy-btn--pulse">QUERO O PLANO ANUAL</a>
-        <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
-        <div class="vagas-aviso">🔴 Restam <strong>7 vagas</strong> para a Turma Abril</div>
+      <div class="carousel-nav">
+        <button class="carousel-arrow" data-carousel="plans-b" data-dir="-1" aria-label="Plano anterior">&#8249;</button>
+        <span class="carousel-dot active" data-carousel="plans-b" data-idx="0"></span>
+        <span class="carousel-dot" data-carousel="plans-b" data-idx="1"></span>
+        <button class="carousel-arrow" data-carousel="plans-b" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
-
     </div>
 
     <div class="guarantee">
@@ -605,7 +626,7 @@ import Carousel from '../components/Carousel.astro';
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Posso me inscrever a qualquer momento?</button>
-        <div class="faq-a">Não. As inscrições são abertas por turma com limite de vagas para garantir a qualidade do acompanhamento. A Turma Abril encerra dia 31/03. Se as inscrições estão abertas agora, é o momento certo.</div>
+        <div class="faq-a">Não. As inscrições são abertas por turma com limite de vagas para garantir a qualidade do acompanhamento. A Turma Maio encerra dia 30/04. Se as inscrições estão abertas agora, é o momento certo.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Posso pagar no cartão?</button>
@@ -642,30 +663,58 @@ import Carousel from '../components/Carousel.astro';
 </Base>
 
 <style>
+  /* ── V2 COLOR OVERRIDES — identidade visual #171644 / #d3ac67 / #f4f4f4 ── */
+  :root {
+    --bg:       #000000;
+    --card:     #1e1d52;
+    --neon:     #d3ac67;
+    --neon-dim: rgba(211,172,103,.07);
+    --white:    #f4f4f4;
+    --gray:     #a8a6c0;
+    --muted:    #6b698a;
+    --border:   #2a2860;
+    --selected: #201e5a;
+  }
+
   /* ── HERO ── */
   .s-hero {
-    width: 100%; max-width: 680px;
-    padding: 60px 0 20px;
+    width: 100%; max-width: 100%;
+    padding: 0 0 20px;
     display: flex; flex-direction: column; align-items: center;
     text-align: center; gap: 20px;
   }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .65rem; font-weight: 700; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--neon);
-    border: 1px solid rgba(223,255,0,.25); border-radius: 99px;
-    padding: 6px 16px;
+  .hero-visual {
+    position: relative;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+    max-width: none;
+    border-radius: 0;
+    overflow: hidden;
   }
-  .hero-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--neon); animation: blink 1.8s ease-in-out infinite;
+  .hero-prof-img {
+    width: 100%; height: auto; display: block;
   }
+  .hero-visual-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, #000000 35%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero-visual-text {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0 24px 36px;
+    text-align: center;
+  }
+
   .hero-headline {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 6.5vw, 3.8rem);
-    line-height: 1.08; letter-spacing: .02em;
+    font-size: clamp(1.45rem, 5vw, 2.8rem);
+    line-height: 1.1; letter-spacing: .02em;
     color: var(--white);
+    text-shadow: 0 2px 14px rgba(0,0,0,.95);
   }
   .hero-headline em {
     font-style: normal; color: var(--neon);
@@ -676,29 +725,6 @@ import Carousel from '../components/Carousel.astro';
   }
   .hero-sub strong { color: var(--white); font-weight: 700; }
 
-  .hero-img-wrap {
-    width: 100%; border-radius: 6px; overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 0 60px rgba(223,255,0,.06);
-    position: relative;
-  }
-  .hero-img-wrap img { width: 100%; height: auto; display: block; }
-  .hero-img-labels {
-    position: absolute; top: 0; left: 0; right: 0;
-    display: flex; z-index: 2; pointer-events: none;
-  }
-  .hero-label {
-    flex: 1; text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(.75rem, 2.5vw, 1.1rem);
-    letter-spacing: .12em; padding: 8px 4px;
-  }
-  .hero-label--before {
-    background: rgba(0,0,0,.65); color: #aaa;
-  }
-  .hero-label--after {
-    background: rgba(10,26,0,.75); color: var(--neon);
-  }
 
   .hero-stats {
     display: flex; align-items: center; gap: 0;
@@ -801,10 +827,10 @@ import Carousel from '../components/Carousel.astro';
     font-size: .7rem; font-weight: 700;
     letter-spacing: .06em;
     color: var(--neon);
-    border: 1px solid rgba(223,255,0,.25);
+    border: 1px solid rgba(211,172,103,.25);
     border-radius: 99px;
     padding: 6px 14px;
-    background: rgba(223,255,0,.05);
+    background: rgba(211,172,103,.05);
   }
   .app-pill--no {
     color: var(--muted);
@@ -825,7 +851,7 @@ import Carousel from '../components/Carousel.astro';
     flex: 1; min-width: 140px; max-width: 200px;
     border: 1px solid var(--border); border-radius: 16px;
     background: var(--card); overflow: hidden;
-    box-shadow: 0 0 30px rgba(223,255,0,.05);
+    box-shadow: 0 0 30px rgba(211,172,103,.05);
   }
   .mockup-phone img { width: 100%; height: auto; display: block; }
 
@@ -837,7 +863,7 @@ import Carousel from '../components/Carousel.astro';
     background: var(--card); padding: 18px 20px;
     transition: border-color .2s;
   }
-  .deliv-item:hover { border-color: rgba(223,255,0,.2); }
+  .deliv-item:hover { border-color: rgba(211,172,103,.2); }
   .deliv-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
   .deliv-title {
     font-size: 1rem; font-weight: 700;
@@ -855,7 +881,7 @@ import Carousel from '../components/Carousel.astro';
     border: 1px solid var(--border); border-radius: 4px;
     background: var(--card); padding: 20px;
   }
-  .for-col.for-yes { border-color: rgba(223,255,0,.2); }
+  .for-col.for-yes { border-color: rgba(211,172,103,.2); }
   .for-col.for-no  { border-color: rgba(255,60,60,.15); }
   .for-col-label {
     font-family: 'JetBrains Mono', monospace;
@@ -882,12 +908,12 @@ import Carousel from '../components/Carousel.astro';
   }
   .rum-bullets li::before, .deliv-bullets li::before, .authority-bullets li::before {
     content: '—'; position: absolute; left: 0;
-    color: rgba(223,255,0,.5); font-weight: 700;
+    color: rgba(211,172,103,.5); font-weight: 700;
   }
 
   /* ── RECAP ── */
   .recap-card {
-    border: 1px solid rgba(223,255,0,.2); border-radius: 4px;
+    border: 1px solid rgba(211,172,103,.2); border-radius: 4px;
     background: var(--card); overflow: hidden;
     position: relative;
   }
@@ -930,34 +956,91 @@ import Carousel from '../components/Carousel.astro';
 
   /* ── OFFER CARD ── */
   .offer-section { text-align: center; }
-  .plans-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 16px; width: 100%; max-width: 680px; margin: 0 auto;
+
+  .plans-carousel-wrap {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    overflow: hidden;
   }
-  @media (max-width: 560px) { .plans-grid { grid-template-columns: 1fr; } }
+  .plans-carousel {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding: 8px 8% 20px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .plans-carousel::-webkit-scrollbar { display: none; }
+  .plans-carousel .offer-card {
+    flex: 0 0 84%;
+    min-width: 260px;
+    max-width: 380px;
+    scroll-snap-align: center;
+    margin: 0;
+  }
+
+  .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+  .carousel-arrow {
+    background: none;
+    border: 1px solid rgba(211,172,103,.5);
+    color: #d3ac67;
+    border-radius: 50%;
+    width: 38px; height: 38px;
+    font-size: 1.5rem; line-height: 1;
+    cursor: pointer;
+    transition: background .15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .carousel-arrow:hover { background: rgba(211,172,103,.12); }
+  .carousel-dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: rgba(244,244,244,.2);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+    display: inline-block;
+  }
+  .carousel-dot.active {
+    background: #d3ac67;
+    transform: scale(1.4);
+  }
 
   .offer-card--featured {
     border-color: var(--neon);
-    box-shadow: 0 0 80px rgba(223,255,0,.12);
+    box-shadow: 0 0 60px rgba(211,172,103,.18);
     position: relative;
   }
   .offer-badge-top {
     font-family: 'JetBrains Mono', monospace;
     font-size: .62rem; font-weight: 700;
     letter-spacing: .15em; text-transform: uppercase;
-    color: #0A0A0A; background: var(--neon);
+    color: #171644; background: var(--neon);
     padding: 5px 12px; border-radius: 99px;
     display: inline-block; margin-bottom: 12px;
   }
   .offer-item--highlight {
-    color: var(--white);
-    border-color: rgba(223,255,0,.15);
-    background: rgba(223,255,0,.04);
+    color: #f4f4f4;
+    border-color: rgba(255,255,255,.18);
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .offer-item--star {
     color: var(--neon);
-    border-color: rgba(223,255,0,.3);
-    background: rgba(223,255,0,.08);
+    border-color: rgba(211,172,103,.5);
+    background: rgba(211,172,103,.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     font-weight: 700;
   }
   .offer-installment {
@@ -968,22 +1051,23 @@ import Carousel from '../components/Carousel.astro';
   }
   .buy-btn--outline {
     background: transparent;
-    border: 1px solid var(--neon);
-    color: var(--neon);
+    border: 1px solid #d3ac67;
+    color: #d3ac67;
     box-shadow: none;
   }
-  .buy-btn--outline:hover { background: rgba(223,255,0,.08); transform: translateY(-2px); }
+  .buy-btn--outline:hover { background: rgba(211,172,103,.1); transform: translateY(-2px); }
 
   .offer-card {
     width: 100%; max-width: 420px; margin: 0 auto;
-    border: 1px solid rgba(223,255,0,.35); border-radius: 6px;
-    background: var(--card); padding: 32px 28px;
+    border: 1px solid rgba(211,172,103,.25); border-radius: 8px;
+    background: var(--card); padding: 28px 22px;
     position: relative; overflow: hidden;
-    box-shadow: 0 0 60px rgba(223,255,0,.08);
+    box-shadow: 0 4px 32px rgba(0,0,0,.4);
   }
   .offer-card::before {
     content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 3px; background: var(--neon);
+    width: 100%; height: 3px;
+    background: linear-gradient(to right, var(--neon), rgba(211,172,103,.3));
   }
   .offer-name {
     font-family: 'JetBrains Mono', monospace;
@@ -1016,34 +1100,40 @@ import Carousel from '../components/Carousel.astro';
     gap: 8px; margin-bottom: 24px;
   }
   .offer-item {
-    font-size: .88rem; font-weight: 600;
-    color: var(--gray); text-align: left;
-    padding: 8px 10px; border: 1px solid var(--border);
-    border-radius: 3px; background: rgba(0,0,0,.3);
+    font-size: .85rem; font-weight: 600;
+    color: #f4f4f4; text-align: left;
+    padding: 8px 10px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 4px;
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .offer-item--full {
     grid-column: 1 / -1;
-    color: var(--white);
-    border-color: rgba(223,255,0,.2);
+    color: #f4f4f4;
+    border-color: rgba(255,255,255,.15);
+    background: rgba(255,255,255,.1);
   }
   .buy-btn {
     display: block; width: 100%;
-    background: var(--neon); color: #0A0A0A;
+    background: #d3ac67; color: #171644;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.25rem; letter-spacing: .08em;
     padding: 18px 16px; border-radius: 3px;
     text-decoration: none; text-align: center;
     transition: background .15s, transform .15s;
-    box-shadow: 0 8px 40px rgba(223,255,0,.25);
+    box-shadow: 0 8px 40px rgba(211,172,103,.35);
     margin-bottom: 12px;
+    font-weight: 700;
   }
-  .buy-btn:hover { background: #eeff22; transform: translateY(-2px); }
+  .buy-btn:hover { background: #e0bc7a; transform: translateY(-2px); }
   .buy-btn:active { transform: translateY(0); }
   .buy-btn--pulse { position: relative; overflow: visible; }
   .buy-btn--pulse::after {
     content: ''; position: absolute; inset: 0;
     border-radius: 3px;
-    background: rgba(223,255,0,.35);
+    background: rgba(211,172,103,.35);
     animation: pulse 2s ease-out infinite;
     pointer-events: none;
   }
@@ -1063,8 +1153,8 @@ import Carousel from '../components/Carousel.astro';
 
   .countdown-wrap {
     text-align: center; margin-bottom: 32px;
-    padding: 20px; border: 1px solid rgba(223,255,0,.2);
-    border-radius: 4px; background: rgba(223,255,0,.03);
+    padding: 20px; border: 1px solid rgba(211,172,103,.2);
+    border-radius: 4px; background: rgba(211,172,103,.03);
   }
   .countdown-label {
     font-family: 'JetBrains Mono', monospace;
@@ -1114,12 +1204,19 @@ import Carousel from '../components/Carousel.astro';
 
   /* ── AUTORIDADE ── */
   .authority-wrap {
-    display: flex; gap: 28px; align-items: flex-start;
-    margin-top: 8px; flex-wrap: wrap;
+    display: flex; flex-direction: column;
+    gap: 20px; margin-top: 8px; width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 24px;
+  }
+  .authority-top {
+    display: flex; align-items: center; gap: 16px;
   }
   .authority-img {
-    width: 100%; max-width: 340px; flex-shrink: 0;
-    border: 1px solid var(--border); border-radius: 4px;
+    width: 80px; height: 80px; flex-shrink: 0;
+    border: 2px solid var(--neon); border-radius: 50%;
+    object-fit: cover; object-position: top center;
     display: block;
   }
   .authority-name {
@@ -1157,8 +1254,8 @@ import Carousel from '../components/Carousel.astro';
   /* ── GARANTIA ── */
   .guarantee {
     display: flex; align-items: flex-start; gap: 14px;
-    border: 1px solid rgba(223,255,0,.15); border-radius: 4px;
-    background: rgba(223,255,0,.03); padding: 18px 20px;
+    border: 1px solid rgba(211,172,103,.15); border-radius: 4px;
+    background: rgba(211,172,103,.03); padding: 18px 20px;
     margin-top: 20px; text-align: left;
   }
   .guarantee-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
@@ -1177,14 +1274,16 @@ import Carousel from '../components/Carousel.astro';
     gap: 12px; transition: background .15s;
   }
   .faq-q::after { content: '+'; color: var(--neon); font-size: 1.2rem; flex-shrink: 0; transition: transform .2s; }
-  .faq-q[aria-expanded="true"] { background: rgba(223,255,0,.05); }
+  .faq-q[aria-expanded="true"] { background: rgba(211,172,103,.05); }
   .faq-q[aria-expanded="true"]::after { transform: rotate(45deg); }
   .faq-a {
-    display: none; padding: 0 20px 16px;
+    max-height: 0; overflow: hidden;
+    padding: 0 20px;
     font-size: .92rem; color: var(--gray); line-height: 1.65;
     background: var(--card);
+    transition: max-height .35s ease, padding .35s ease;
   }
-  .faq-a.open { display: block; }
+  .faq-a.open { max-height: 400px; padding: 0 20px 16px; }
 
   /* ── FOOTER ── */
   .site-footer {
@@ -1225,8 +1324,8 @@ import Carousel from '../components/Carousel.astro';
   }
   .wa-doubt-btn {
     display: inline-flex; align-items: center; gap: 10px;
-    background: transparent; color: var(--neon);
-    border: 1px solid rgba(223,255,0,.4);
+    background: #25D366; color: #fff;
+    border: 1px solid #25D366;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.1rem; letter-spacing: .08em;
     padding: 14px 28px; border-radius: 3px;
@@ -1234,7 +1333,7 @@ import Carousel from '../components/Carousel.astro';
     box-shadow: none;
     transition: background .15s, transform .15s;
   }
-  .wa-doubt-btn:hover { background: rgba(223,255,0,.08); transform: translateY(-2px); }
+  .wa-doubt-btn:hover { background: #1fbd57; transform: translateY(-2px); }
 </style>
 
 <script>
@@ -1262,12 +1361,12 @@ import Carousel from '../components/Carousel.astro';
     });
   });
 
-  // Countdown — Turma Abril encerra 31/03/2026 23:59:59
-  const deadline = new Date('2026-03-31T23:59:59-03:00').getTime();
+  // Countdown — Turma Maio encerra 30/04/2026 23:59:59
+  const deadline = new Date('2026-04-30T23:59:59-03:00').getTime();
   function updateCountdown() {
     const diff = deadline - Date.now();
     if (diff <= 0) {
-      document.getElementById('countdown')?.remove();
+      document.querySelector('.countdown-wrap')?.remove();
       return;
     }
     const d = Math.floor(diff / 86400000);
@@ -1282,4 +1381,28 @@ import Carousel from '../components/Carousel.astro';
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // Plans carousel — arrows + dot sync
+  document.querySelectorAll<HTMLButtonElement>('.carousel-arrow').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.carousel!;
+      const dir = parseInt(btn.dataset.dir!);
+      const track = document.getElementById(id) as HTMLElement;
+      if (!track) return;
+      const card = track.querySelector<HTMLElement>('.offer-card');
+      if (!card) return;
+      track.scrollBy({ left: dir * (card.offsetWidth + 16), behavior: 'smooth' });
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('.plans-carousel').forEach(track => {
+    track.addEventListener('scroll', () => {
+      const card = track.querySelector<HTMLElement>('.offer-card');
+      if (!card) return;
+      const idx = Math.round(track.scrollLeft / (card.offsetWidth + 16));
+      document.querySelectorAll<HTMLElement>(`.carousel-dot[data-carousel="${track.id}"]`).forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+    });
+  });
 </script>
