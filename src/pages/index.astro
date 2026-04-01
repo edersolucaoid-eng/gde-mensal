@@ -1383,23 +1383,32 @@ import Carousel from '../components/Carousel.astro';
   setInterval(updateCountdown, 1000);
 
   // Plans carousel — arrows + dot sync
+  // Cacheia cardWidth por carousel para evitar reflow forçado nos handlers
+  const cardWidthCache = new Map<string, number>();
+  function getCardWidth(track: HTMLElement): number {
+    if (!cardWidthCache.has(track.id)) {
+      const card = track.querySelector<HTMLElement>('.offer-card');
+      cardWidthCache.set(track.id, card ? card.offsetWidth : 0);
+    }
+    return cardWidthCache.get(track.id)!;
+  }
+  window.addEventListener('resize', () => cardWidthCache.clear(), { passive: true });
+
   document.querySelectorAll<HTMLButtonElement>('.carousel-arrow').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.carousel!;
       const dir = parseInt(btn.dataset.dir!);
       const track = document.getElementById(id) as HTMLElement;
       if (!track) return;
-      const card = track.querySelector<HTMLElement>('.offer-card');
-      if (!card) return;
-      track.scrollBy({ left: dir * (card.offsetWidth + 16), behavior: 'smooth' });
+      track.scrollBy({ left: dir * (getCardWidth(track) + 16), behavior: 'smooth' });
     });
   });
 
   document.querySelectorAll<HTMLElement>('.plans-carousel').forEach(track => {
     track.addEventListener('scroll', () => {
-      const card = track.querySelector<HTMLElement>('.offer-card');
-      if (!card) return;
-      const idx = Math.round(track.scrollLeft / (card.offsetWidth + 16));
+      const w = getCardWidth(track);
+      if (!w) return;
+      const idx = Math.round(track.scrollLeft / (w + 16));
       document.querySelectorAll<HTMLElement>(`.carousel-dot[data-carousel="${track.id}"]`).forEach((dot, i) => {
         dot.classList.toggle('active', i === idx);
       });
