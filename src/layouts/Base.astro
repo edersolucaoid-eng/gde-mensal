@@ -26,8 +26,20 @@ const { title = "Método Goleiro 2.0 | Preparação Física para Goleiros", hero
     fetchpriority="high" />
   <!-- Preconnect terceiros críticos -->
   <link rel="preconnect" href="https://capi-automation.s3.us-east-2.amazonaws.com" crossorigin />
-  <!-- Google Tag Manager (deferred) -->
-  <script>window.addEventListener('load',function(){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://server.goleirodeelite.com/9smvimemi.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','5wlfyfq=AAlYKj07QCMrWVMrWyBVVR9QV0NYUAkdVAoKAQwfHxwNCAABAAIIXQoCCA%3D%3D');});</script>
+  <!-- Google Tag Manager (lazy: primeira interação ou 5s) -->
+  <script>
+    (function(){
+      var loaded=false;
+      function loadGTM(){
+        if(loaded)return; loaded=true;
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://server.goleirodeelite.com/9smvimemi.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','5wlfyfq=AAlYKj07QCMrWVMrWyBVVR9QV0NYUAkdVAoKAQwfHxwNCAABAAIIXQoCCA%3D%3D');
+      }
+      ['scroll','click','touchstart','keydown'].forEach(function(e){
+        window.addEventListener(e,loadGTM,{once:true,passive:true});
+      });
+      setTimeout(loadGTM,5000);
+    })();
+  </script>
   <!-- End Google Tag Manager -->
   <!-- Fontes não-bloqueantes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
