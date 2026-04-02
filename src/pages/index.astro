@@ -409,7 +409,6 @@ import Carousel from '../components/Carousel.astro';
         <button class="carousel-arrow" data-carousel="plans-a" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
     </div>
-    <p class="cdc-note">🔓 Sem risco de longo prazo. Se precisar cancelar depois dos 7 dias, devolvemos proporcionalmente os meses restantes nos planos Trimestral e Anual — é um direito seu pelo CDC, e a gente respeita isso.</p>
   </section>
 
   <div class="hr"></div>
@@ -603,13 +602,12 @@ import Carousel from '../components/Carousel.astro';
         <button class="carousel-arrow" data-carousel="plans-b" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
     </div>
-    <p class="cdc-note">🔓 Sem risco de longo prazo. Se precisar cancelar depois dos 7 dias, devolvemos proporcionalmente os meses restantes nos planos Trimestral e Anual — é um direito seu pelo CDC, e a gente respeita isso.</p>
-
-    <div class="guarantee">
-      <div class="guarantee-icon">🛡</div>
+    <div class="guarantee guarantee--cdc">
+      <div class="guarantee-icon">🔓</div>
       <div class="guarantee-body">
-        <div class="guarantee-title">Garantia de 7 Dias — Risco Zero</div>
-        <div class="guarantee-text">Se em 7 dias você sentir que o método não é para você, devolvemos 100% do investimento. Sem burocracia. Sem perguntas. O risco é 100% nosso.</div>
+        <div class="guarantee-title">Sem risco — em qualquer plano</div>
+        <div class="guarantee-text">7 dias de garantia integral em todos os planos. Sem perguntas, 100% do dinheiro de volta.</div>
+        <div class="guarantee-cdc-text">Nos planos Trimestral e Anual, se precisar cancelar depois dos 7 dias, devolvemos proporcionalmente os meses que não usou — é um direito seu pelo CDC, e a gente respeita isso.</div>
       </div>
     </div>
   </section>
@@ -1324,6 +1322,15 @@ import Carousel from '../components/Carousel.astro';
   .guarantee-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
   .guarantee-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
   .guarantee-text { font-size: 1rem; color: var(--gray); line-height: 1.6; }
+  .guarantee-cdc-text {
+    font-size: .88rem; color: var(--muted); line-height: 1.6;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .guarantee--cdc {
+    border-color: rgba(211,172,103,.35);
+    box-shadow: 0 0 40px rgba(211,172,103,.1);
+  }
 
   /* ── FAQ ── */
   .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
