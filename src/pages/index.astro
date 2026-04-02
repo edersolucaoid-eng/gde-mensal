@@ -328,6 +328,7 @@ import Carousel from '../components/Carousel.astro';
         <div class="offer-card">
           <div class="offer-name">PRIMEIRO MÊS</div>
           <div class="offer-desc">Teste o método. Sinta a diferença.</div>
+          <div class="offer-anchor">De <span>R$197</span></div>
           <div class="offer-price-row">
             <span class="offer-currency">R$</span>
             <span class="offer-amount">97</span>
@@ -348,17 +349,19 @@ import Carousel from '../components/Carousel.astro';
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
         </div>
 
-        <!-- PLANO ANUAL -->
+        <!-- PLANO TRIMESTRAL -->
         <div class="offer-card offer-card--featured">
-          <div class="offer-badge-top">⭐ TRANSFORMAÇÃO REAL</div>
-          <div class="offer-name">TEMPORADA COMPLETA</div>
-          <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
+          <div class="offer-badge-top">⭐ MAIS ESCOLHIDO</div>
+          <div class="offer-name">TRIMESTRAL</div>
+          <div class="offer-desc">Pague 3, treine por 6.</div>
+          <div class="offer-anchor">De <span>R$497</span></div>
           <div class="offer-price-row">
             <span class="offer-currency">R$</span>
-            <span class="offer-amount">797</span>
-            <span class="offer-period">/ ano</span>
+            <span class="offer-amount">447</span>
+            <span class="offer-period">à vista</span>
           </div>
-          <div class="offer-installment">ou 12x R$86,30 no cartão</div>
+          <div class="offer-installment">ou 3x R$161,90 no cartão</div>
+          <div class="offer-access">6 meses de acesso completo · <em>3 meses grátis incluídos</em></div>
           <div class="offer-items">
             <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
             <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
@@ -369,12 +372,41 @@ import Carousel from '../components/Carousel.astro';
             <div class="offer-item offer-item--highlight">✓ App premium</div>
             <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
             <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
-            <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias</div>
-            <div class="offer-item offer-item--full offer-item--star">⭐ Avaliação de evolução mensal</div>
-            <div class="offer-item offer-item--full offer-item--star">⭐ Call individual com Nutricionista</div>
           </div>
-          <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO O PLANO ANUAL</a>
+          <a href="#checkout-trimestral" class="buy-btn">GARANTIR MINHA VAGA</a>
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="offer-installment-disclaimer">Parcelamento disponível apenas no cartão de crédito. Sujeito a juros da operadora.</div>
+        </div>
+
+        <!-- PLANO ANUAL -->
+        <div class="offer-card offer-card--premium">
+          <div class="offer-badge-top">🏆 TRANSFORMAÇÃO REAL</div>
+          <div class="offer-name">ANUAL</div>
+          <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
+          <div class="offer-anchor">De <span>R$1.197</span></div>
+          <div class="offer-price-row">
+            <span class="offer-currency">R$</span>
+            <span class="offer-amount">797</span>
+            <span class="offer-period">à vista</span>
+          </div>
+          <div class="offer-installment">ou 12x R$84,30 no cartão</div>
+          <div class="offer-access">12 meses de acesso completo</div>
+          <div class="offer-items">
+            <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
+            <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pré-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pós-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Guia Nutricional</div>
+            <div class="offer-item offer-item--highlight">✓ Comunidade de Goleiros</div>
+            <div class="offer-item offer-item--highlight">✓ App premium</div>
+            <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
+            <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Consulta personalizada com nutricionista esportiva (EXCLUSIVO)</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias (EXCLUSIVO)</div>
+          </div>
+          <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO A TRANSFORMAÇÃO COMPLETA</a>
+          <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="offer-installment-disclaimer">Parcelamento disponível apenas no cartão de crédito. Sujeito a juros da operadora.</div>
         </div>
 
       </div>
@@ -382,6 +414,7 @@ import Carousel from '../components/Carousel.astro';
         <button class="carousel-arrow" data-carousel="plans-a" data-dir="-1" aria-label="Plano anterior">&#8249;</button>
         <span class="carousel-dot active" data-carousel="plans-a" data-idx="0"></span>
         <span class="carousel-dot" data-carousel="plans-a" data-idx="1"></span>
+        <span class="carousel-dot" data-carousel="plans-a" data-idx="2"></span>
         <button class="carousel-arrow" data-carousel="plans-a" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
     </div>
@@ -493,9 +526,11 @@ import Carousel from '../components/Carousel.astro';
     <div class="plans-carousel-wrap">
       <div class="plans-carousel" id="plans-b">
 
+        <!-- PLANO MENSAL -->
         <div class="offer-card">
           <div class="offer-name">PRIMEIRO MÊS</div>
           <div class="offer-desc">Teste o método. Sinta a diferença.</div>
+          <div class="offer-anchor">De <span>R$197</span></div>
           <div class="offer-price-row">
             <span class="offer-currency">R$</span>
             <span class="offer-amount">97</span>
@@ -516,16 +551,19 @@ import Carousel from '../components/Carousel.astro';
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
         </div>
 
+        <!-- PLANO TRIMESTRAL -->
         <div class="offer-card offer-card--featured">
-          <div class="offer-badge-top">⭐ TRANSFORMAÇÃO REAL</div>
-          <div class="offer-name">TEMPORADA COMPLETA</div>
-          <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
+          <div class="offer-badge-top">⭐ MAIS ESCOLHIDO</div>
+          <div class="offer-name">TRIMESTRAL</div>
+          <div class="offer-desc">Pague 3, treine por 6.</div>
+          <div class="offer-anchor">De <span>R$497</span></div>
           <div class="offer-price-row">
             <span class="offer-currency">R$</span>
-            <span class="offer-amount">797</span>
-            <span class="offer-period">/ ano</span>
+            <span class="offer-amount">447</span>
+            <span class="offer-period">à vista</span>
           </div>
-          <div class="offer-installment">ou 12x R$86,30 no cartão</div>
+          <div class="offer-installment">ou 3x R$161,90 no cartão</div>
+          <div class="offer-access">6 meses de acesso completo · <em>3 meses grátis incluídos</em></div>
           <div class="offer-items">
             <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
             <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
@@ -536,12 +574,41 @@ import Carousel from '../components/Carousel.astro';
             <div class="offer-item offer-item--highlight">✓ App premium</div>
             <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
             <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
-            <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias</div>
-            <div class="offer-item offer-item--full offer-item--star">⭐ Avaliação de evolução mensal</div>
-            <div class="offer-item offer-item--full offer-item--star">⭐ Call individual com Nutricionista</div>
           </div>
-          <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn buy-btn--pulse">QUERO O PLANO ANUAL</a>
+          <a href="#checkout-trimestral" class="buy-btn buy-btn--pulse">GARANTIR MINHA VAGA</a>
           <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="offer-installment-disclaimer">Parcelamento disponível apenas no cartão de crédito. Sujeito a juros da operadora.</div>
+        </div>
+
+        <!-- PLANO ANUAL -->
+        <div class="offer-card offer-card--premium">
+          <div class="offer-badge-top">🏆 TRANSFORMAÇÃO REAL</div>
+          <div class="offer-name">ANUAL</div>
+          <div class="offer-desc">12 meses de evolução com acompanhamento contínuo.</div>
+          <div class="offer-anchor">De <span>R$1.197</span></div>
+          <div class="offer-price-row">
+            <span class="offer-currency">R$</span>
+            <span class="offer-amount">797</span>
+            <span class="offer-period">à vista</span>
+          </div>
+          <div class="offer-installment">ou 12x R$84,30 no cartão</div>
+          <div class="offer-access">12 meses de acesso completo</div>
+          <div class="offer-items">
+            <div class="offer-item offer-item--highlight">✓ Treino personalizado</div>
+            <div class="offer-item offer-item--highlight">✓ Avaliação Postural</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pré-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Protocolo pós-jogo</div>
+            <div class="offer-item offer-item--highlight">✓ Guia Nutricional</div>
+            <div class="offer-item offer-item--highlight">✓ Comunidade de Goleiros</div>
+            <div class="offer-item offer-item--highlight">✓ App premium</div>
+            <div class="offer-item offer-item--highlight">✓ Garantia 7 Dias</div>
+            <div class="offer-item offer-item--highlight">✓ Professor no WhatsApp</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Consulta personalizada com nutricionista esportiva (EXCLUSIVO)</div>
+            <div class="offer-item offer-item--full offer-item--star">⭐ Protocolo novo a cada 30 dias (EXCLUSIVO)</div>
+          </div>
+          <a href="https://pay.goleirodeelite.com/checkout/209018601:1" class="buy-btn">QUERO A TRANSFORMAÇÃO COMPLETA</a>
+          <div class="offer-micro">🔒 Pagamento seguro · Garantia de 7 dias</div>
+          <div class="offer-installment-disclaimer">Parcelamento disponível apenas no cartão de crédito. Sujeito a juros da operadora.</div>
         </div>
 
       </div>
@@ -549,6 +616,7 @@ import Carousel from '../components/Carousel.astro';
         <button class="carousel-arrow" data-carousel="plans-b" data-dir="-1" aria-label="Plano anterior">&#8249;</button>
         <span class="carousel-dot active" data-carousel="plans-b" data-idx="0"></span>
         <span class="carousel-dot" data-carousel="plans-b" data-idx="1"></span>
+        <span class="carousel-dot" data-carousel="plans-b" data-idx="2"></span>
         <button class="carousel-arrow" data-carousel="plans-b" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
     </div>
@@ -1032,6 +1100,31 @@ import Carousel from '../components/Carousel.astro';
     font-size: .65rem; color: var(--gray);
     letter-spacing: .06em; text-align: center;
     margin-top: -12px; margin-bottom: 16px;
+  }
+  .offer-anchor {
+    font-size: .78rem; color: var(--muted);
+    text-align: center; margin-bottom: 2px;
+  }
+  .offer-anchor span {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+  .offer-access {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem; color: var(--gray);
+    letter-spacing: .04em; text-align: center;
+    margin-top: -10px; margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .offer-access em { color: var(--neon); font-style: normal; font-weight: 700; }
+  .offer-card--premium {
+    border-color: rgba(211,172,103,.3);
+    box-shadow: 0 4px 32px rgba(0,0,0,.4);
+  }
+  .offer-installment-disclaimer {
+    font-size: .62rem; color: var(--muted);
+    text-align: center; margin-top: 10px;
+    line-height: 1.5; font-style: italic;
   }
   .buy-btn--outline {
     background: transparent;
