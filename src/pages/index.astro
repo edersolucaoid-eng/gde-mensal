@@ -409,6 +409,7 @@ import Carousel from '../components/Carousel.astro';
         <button class="carousel-arrow" data-carousel="plans-a" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
     </div>
+    <p class="cdc-note">🔓 Sem risco de longo prazo. Se precisar cancelar depois dos 7 dias, devolvemos proporcionalmente os meses restantes nos planos Trimestral e Anual — é um direito seu pelo CDC, e a gente respeita isso.</p>
   </section>
 
   <div class="hr"></div>
@@ -602,6 +603,7 @@ import Carousel from '../components/Carousel.astro';
         <button class="carousel-arrow" data-carousel="plans-b" data-dir="1" aria-label="Próximo plano">&#8250;</button>
       </div>
     </div>
+    <p class="cdc-note">🔓 Sem risco de longo prazo. Se precisar cancelar depois dos 7 dias, devolvemos proporcionalmente os meses restantes nos planos Trimestral e Anual — é um direito seu pelo CDC, e a gente respeita isso.</p>
 
     <div class="guarantee">
       <div class="guarantee-icon">🛡</div>
@@ -1142,6 +1144,12 @@ import Carousel from '../components/Carousel.astro';
     font-size: .62rem; color: var(--muted);
     text-align: center; margin-top: 10px;
     line-height: 1.5; font-style: italic;
+  }
+  .cdc-note {
+    font-size: .8rem; color: var(--muted);
+    text-align: center; line-height: 1.6;
+    max-width: 480px; margin: 12px auto 0;
+    padding: 0 8px;
   }
   .buy-btn--outline {
     background: transparent;
