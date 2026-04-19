@@ -1,0 +1,1104 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Avaliação de Perfil | Método Goleiro 2.0">
+<main class="page">
+
+  <div class="quiz-header">
+    <div class="quiz-logo">GOLEIRO DE ELITE</div>
+    <div class="quiz-logo-sub">Avaliação de Perfil Gratuita</div>
+  </div>
+
+  <div class="card" id="quiz-card">
+
+    <!-- Barra de progresso (visível nos steps 1–6) -->
+    <div class="prog-row" id="prog-row">
+      <div class="prog-track">
+        <div class="prog-fill" id="prog-fill"></div>
+      </div>
+      <div class="prog-label"><span id="prog-current">1</span> / 6</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         STEP 1 — Perfil
+    ══════════════════════════════════════════════ -->
+    <div class="step" id="step-1">
+      <div class="q-num">// 01 — Perfil</div>
+      <div class="q-text">Você está aqui para...</div>
+      <div class="options col">
+        <div class="opt" data-step="1" data-v="amador">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🥅</span>
+          <span class="opt-label">Mim mesmo — sou goleiro amador</span>
+        </div>
+        <div class="opt" data-step="1" data-v="profissional">
+          <div class="opt-box"></div>
+          <span class="opt-ico">⭐</span>
+          <span class="opt-label">Mim mesmo — jogo em clube ou categoria de base</span>
+        </div>
+        <div class="opt" data-step="1" data-v="mae_pai">
+          <div class="opt-box"></div>
+          <span class="opt-ico">👨‍👩‍👦</span>
+          <span class="opt-label">Meu filho — quero melhorar o desempenho dele</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         STEP 2 — Maior dificuldade
+    ══════════════════════════════════════════════ -->
+    <div class="step" id="step-2" style="display:none">
+      <div class="q-num">// 02 — Dificuldade</div>
+      <div class="q-text"
+        data-voce="Qual é a sua maior dificuldade dentro do gol?"
+        data-filho="Qual é a maior dificuldade do seu filho dentro do gol?">
+        Qual é a sua maior dificuldade dentro do gol?
+      </div>
+      <div class="options col">
+        <div class="opt" data-step="2" data-v="explosao">
+          <div class="opt-box"></div>
+          <span class="opt-ico">⚡</span>
+          <span class="opt-label"
+            data-voce="Falta de explosão e velocidade de reação"
+            data-filho="Falta de explosão e velocidade de reação">
+            Falta de explosão e velocidade de reação
+          </span>
+        </div>
+        <div class="opt" data-step="2" data-v="duelos">
+          <div class="opt-box"></div>
+          <span class="opt-ico">💪</span>
+          <span class="opt-label"
+            data-voce="Perco os duelos aéreos com frequência"
+            data-filho="Perde os duelos aéreos com frequência">
+            Perco os duelos aéreos com frequência
+          </span>
+        </div>
+        <div class="opt" data-step="2" data-v="lesoes">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🤕</span>
+          <span class="opt-label"
+            data-voce="Sofro lesões ou dores com frequência"
+            data-filho="Sofre lesões ou dores com frequência">
+            Sofro lesões ou dores com frequência
+          </span>
+        </div>
+        <div class="opt" data-step="2" data-v="sem_treino">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🎯</span>
+          <span class="opt-label"
+            data-voce="Não tenho treino físico específico para goleiro"
+            data-filho="Não tem treino físico específico para goleiro">
+            Não tenho treino físico específico para goleiro
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         STEP 3 — O que já fez
+    ══════════════════════════════════════════════ -->
+    <div class="step" id="step-3" style="display:none">
+      <div class="q-num">// 03 — Tentativas</div>
+      <div class="q-text"
+        data-voce="O que você já fez para tentar resolver isso?"
+        data-filho="O que você já tentou para resolver isso com ele?">
+        O que você já fez para tentar resolver isso?
+      </div>
+      <div class="options col">
+        <div class="opt" data-step="3" data-v="academia">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🏋️</span>
+          <span class="opt-label"
+            data-voce="Treinei na academia, mas sem programa para goleiros"
+            data-filho="Colocou na academia, mas sem programa para goleiros">
+            Treinei na academia, mas sem programa para goleiros
+          </span>
+        </div>
+        <div class="opt" data-step="3" data-v="instrutor">
+          <div class="opt-box"></div>
+          <span class="opt-ico">📋</span>
+          <span class="opt-label"
+            data-voce="Pedi ajuda ao instrutor / técnico"
+            data-filho="Pediu ajuda ao instrutor / técnico do clube">
+            Pedi ajuda ao instrutor / técnico
+          </span>
+        </div>
+        <div class="opt" data-step="3" data-v="online">
+          <div class="opt-box"></div>
+          <span class="opt-ico">📱</span>
+          <span class="opt-label"
+            data-voce="Busquei vídeos e conteúdo online"
+            data-filho="Buscou vídeos e conteúdo online">
+            Busquei vídeos e conteúdo online
+          </span>
+        </div>
+        <div class="opt" data-step="3" data-v="nada">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🚫</span>
+          <span class="opt-label"
+            data-voce="Ainda não tentei nada específico"
+            data-filho="Ainda não tentou nada específico">
+            Ainda não tentei nada específico
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         STEP 4 — O que impede
+    ══════════════════════════════════════════════ -->
+    <div class="step" id="step-4" style="display:none">
+      <div class="q-num">// 04 — Obstáculo</div>
+      <div class="q-text"
+        data-voce="O que te impede de resolver isso de vez?"
+        data-filho="O que impede de resolver isso de vez para ele?">
+        O que te impede de resolver isso de vez?
+      </div>
+      <div class="options col">
+        <div class="opt" data-step="4" data-v="onde_comecar">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🔍</span>
+          <span class="opt-label"
+            data-voce="Não sei por onde começar"
+            data-filho="Não sabe por onde começar">
+            Não sei por onde começar
+          </span>
+        </div>
+        <div class="opt" data-step="4" data-v="sem_resultado">
+          <div class="opt-box"></div>
+          <span class="opt-ico">😓</span>
+          <span class="opt-label"
+            data-voce="Já tentei, mas não vi resultado"
+            data-filho="Já tentou, mas não viu resultado">
+            Já tentei, mas não vi resultado
+          </span>
+        </div>
+        <div class="opt" data-step="4" data-v="tempo">
+          <div class="opt-box"></div>
+          <span class="opt-ico">⏰</span>
+          <span class="opt-label"
+            data-voce="Falta de tempo para treinar com regularidade"
+            data-filho="Falta de tempo do filho para treinar">
+            Falta de tempo para treinar com regularidade
+          </span>
+        </div>
+        <div class="opt" data-step="4" data-v="custo">
+          <div class="opt-box"></div>
+          <span class="opt-ico">💸</span>
+          <span class="opt-label">
+            Custo de um acompanhamento profissional
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         STEP 5 — Resultado almejado
+    ══════════════════════════════════════════════ -->
+    <div class="step" id="step-5" style="display:none">
+      <div class="q-num">// 05 — Resultado</div>
+      <div class="q-text"
+        data-voce="Qual resultado você quer alcançar como goleiro?"
+        data-filho="Qual resultado você quer para o seu filho?">
+        Qual resultado você quer alcançar como goleiro?
+      </div>
+      <div class="options col">
+        <div class="opt" data-step="5" data-v="explosao"
+          data-label-voce="mais explosão e velocidade de reação"
+          data-label-filho="mais explosão e velocidade de reação">
+          <div class="opt-box"></div>
+          <span class="opt-ico">⚡</span>
+          <span class="opt-label"
+            data-voce="Mais explosão e velocidade de reação"
+            data-filho="Mais explosão e velocidade de reação">
+            Mais explosão e velocidade de reação
+          </span>
+        </div>
+        <div class="opt" data-step="5" data-v="duelos"
+          data-label-voce="dominar os duelos aéreos"
+          data-label-filho="dominar os duelos aéreos">
+          <div class="opt-box"></div>
+          <span class="opt-ico">💪</span>
+          <span class="opt-label"
+            data-voce="Dominar os duelos aéreos"
+            data-filho="Dominar os duelos aéreos">
+            Dominar os duelos aéreos
+          </span>
+        </div>
+        <div class="opt" data-step="5" data-v="resistencia"
+          data-label-voce="menos lesões e mais resistência"
+          data-label-filho="menos lesões e mais resistência">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🛡️</span>
+          <span class="opt-label"
+            data-voce="Menos lesões e mais resistência"
+            data-filho="Menos lesões e mais resistência">
+            Menos lesões e mais resistência
+          </span>
+        </div>
+        <div class="opt" data-step="5" data-v="nivel"
+          data-label-voce="subir de nível e me destacar"
+          data-label-filho="subir de nível e se destacar">
+          <div class="opt-box"></div>
+          <span class="opt-ico">📈</span>
+          <span class="opt-label"
+            data-voce="Subir de nível e me destacar"
+            data-filho="Subir de nível e se destacar">
+            Subir de nível e me destacar
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         BRIDGE — CTA de decisão
+    ══════════════════════════════════════════════ -->
+    <div class="step step--bridge" id="step-bridge" style="display:none">
+      <div class="bridge-eyebrow">Antes de continuar</div>
+      <div class="bridge-title" id="bridge-title">
+        Se eu te mostrasse um caminho claro para alcançar esse resultado,<br />você estaria disposto a avançar?
+      </div>
+      <div class="bridge-btns">
+        <button class="bridge-yes" id="bridge-yes">✅ Sim, quero ver como funciona</button>
+        <button class="bridge-no" id="bridge-no">Agora não é o meu momento</button>
+      </div>
+      <div class="nurturing" id="nurturing" style="display:none">
+        <p>Tudo bem — quando o momento chegar, o método continua disponível.</p>
+        <a href="https://metodo.goleirodeelite.com" class="nurturing-link">Ver o programa completo →</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         PITCH — Mini apresentação do programa
+    ══════════════════════════════════════════════ -->
+    <div class="step step--pitch" id="step-pitch" style="display:none">
+      <div class="pitch-badge">🥅 Método Goleiro 2.0</div>
+      <div class="pitch-title" id="pitch-title">
+        Veja o que o programa faz por você
+      </div>
+      <div class="pitch-bullets">
+        <div class="pitch-bullet">
+          <span class="pitch-ico">📋</span>
+          <div>
+            <strong>Treino criado para o seu perfil</strong>
+            <span> — não é PDF genérico, não é protocolo copiado de outro esporte</span>
+          </div>
+        </div>
+        <div class="pitch-bullet">
+          <span class="pitch-ico">💬</span>
+          <div>
+            <strong>Professor Pedro no WhatsApp</strong>
+            <span> — ajusta o protocolo conforme você evolui, sem horário fixo</span>
+          </div>
+        </div>
+        <div class="pitch-bullet">
+          <span class="pitch-ico">⚡</span>
+          <div>
+            <strong>Resultado perceptível nas primeiras semanas</strong>
+            <span> — mais explosão, mais domínio, mais confiança no gol</span>
+          </div>
+        </div>
+      </div>
+      <div class="pitch-stats">
+        <div class="p-stat"><span class="p-n">+1.200</span><span class="p-l">Goleiros</span></div>
+        <div class="p-div"></div>
+        <div class="p-stat"><span class="p-n">100%</span><span class="p-l">Online</span></div>
+        <div class="p-div"></div>
+        <div class="p-stat"><span class="p-n">7 Dias</span><span class="p-l">de Garantia</span></div>
+      </div>
+      <button class="pitch-cta" id="pitch-cta">ENTENDER MELHOR →</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         STEP 6 — Investimento
+    ══════════════════════════════════════════════ -->
+    <div class="step" id="step-6" style="display:none">
+      <div class="q-num">// 06 — Investimento</div>
+      <div class="q-text">Nossos planos partem de R$97. Você está pronto para dar esse passo?</div>
+      <div class="options col">
+        <div class="opt" data-step="6" data-v="sim">
+          <div class="opt-box"></div>
+          <span class="opt-ico">🚀</span>
+          <span class="opt-label">Sim, quero conhecer os planos</span>
+        </div>
+        <div class="opt" data-step="6" data-v="mais_info">
+          <div class="opt-box"></div>
+          <span class="opt-ico">💬</span>
+          <span class="opt-label">Quero entender melhor antes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         FORM — Captura de contato
+    ══════════════════════════════════════════════ -->
+    <div class="step step--form" id="step-form" style="display:none">
+      <div class="form-heading" id="form-heading">
+        Preencha seus dados — o professor Pedro vai entrar em contato pelo WhatsApp
+      </div>
+
+      <!-- Campos ocultos com respostas do quiz -->
+      <input type="hidden" id="sf-perfil"      value="" />
+      <input type="hidden" id="sf-dificuldade" value="" />
+      <input type="hidden" id="sf-tentou"      value="" />
+      <input type="hidden" id="sf-impedimento" value="" />
+      <input type="hidden" id="sf-resultado"   value="" />
+      <input type="hidden" id="sf-investimento" value="" />
+
+      <div class="sf-fields">
+        <div class="sf-field">
+          <input type="text" id="sf-name" placeholder="Seu nome completo" required autocomplete="name" />
+        </div>
+        <div class="sf-field">
+          <input type="email" id="sf-email" placeholder="Seu melhor e-mail" required autocomplete="email" />
+        </div>
+        <div class="sf-phone">
+          <select id="sf-ddi" class="sf-ddi"></select>
+          <input
+            type="tel"
+            id="sf-tel"
+            name="phone"
+            data-phone-with-ddi=""
+            maxlength="15"
+            placeholder="(00) 00000-0000"
+            required
+            autocomplete="tel"
+          />
+        </div>
+        <button class="sf-submit" id="sf-submit" type="button">QUERO SER CONTACTADO</button>
+        <div class="sf-micro">🔒 SEM SPAM · SEUS DADOS ESTÃO SEGUROS</div>
+      </div>
+
+      <script src="https://webhook.sellflux.app/v2/script_form.js" is:inline></script>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         OBRIGADO — Tela final inline
+    ══════════════════════════════════════════════ -->
+    <div class="step step--obrigado" id="step-obrigado" style="display:none">
+      <div class="obrig-ico">✅</div>
+      <div class="obrig-title">Perfeito! Você está no caminho certo.</div>
+      <div class="obrig-text">
+        O professor Pedro vai entrar em contato com você pelo WhatsApp em breve.<br />
+        Fique de olho no número <strong>+55 65 98135-1676</strong>.
+      </div>
+      <a
+        href="https://wa.me/5565981351676?text=Ol%C3%A1%2C%20acabei%20de%20preencher%20a%20avalia%C3%A7%C3%A3o%20de%20perfil%20e%20quero%20saber%20mais%20sobre%20o%20programa"
+        class="obrig-btn"
+        target="_blank"
+        rel="noopener"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+        </svg>
+        MANDAR MENSAGEM AGORA
+      </a>
+    </div>
+
+  </div><!-- /card -->
+
+  <footer class="quiz-footer">
+    © 2026 FFS CONSULTORIA LTDA · CNPJ 52.877.418/0001-85
+  </footer>
+
+</main>
+</Base>
+
+<style>
+  /* ── Sobrescrever tema base para manter identidade da landing (ouro + escuro) ── */
+  :root {
+    --bg:       #000000;
+    --card:     #0d0c1e;
+    --neon:     #d3ac67;
+    --neon-dim: rgba(211,172,103,.07);
+    --white:    #f4f4f4;
+    --gray:     #a8a6c0;
+    --muted:    #6b698a;
+    --border:   #1c1a36;
+    --selected: #1e1a40;
+  }
+
+  /* ── Layout ── */
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 60px;
+    gap: 24px;
+  }
+
+  /* ── Header ── */
+  .quiz-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .quiz-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: .18em;
+    color: var(--neon);
+  }
+  .quiz-logo-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Card ── */
+  .card {
+    width: 100%;
+    max-width: 560px;
+    background: var(--card);
+    border: 1px solid rgba(211,172,103,.2);
+    border-radius: 6px;
+    padding: 36px 28px 44px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(211,172,103,.06), 0 4px 40px rgba(0,0,0,.5);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 120px; height: 3px;
+    background: var(--neon);
+    box-shadow: 0 0 14px rgba(211,172,103,.5);
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 120px;
+    background: var(--neon);
+    box-shadow: 0 0 14px rgba(211,172,103,.5);
+  }
+
+  /* ── Progress ── */
+  .prog-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .prog-track {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--neon);
+    border-radius: 99px;
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 8px rgba(211,172,103,.5);
+  }
+  .prog-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+  .prog-label span { color: var(--neon); }
+
+  /* ── Steps: fade-in ── */
+  .step {
+    animation: fadeUp .35s ease both;
+  }
+
+  /* ── Question ── */
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--neon);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+    line-height: 1.15;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  /* ── Options ── */
+  .options { display: flex; gap: 8px; margin-top: 4px; }
+  .options.col { flex-direction: column; }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    background: transparent;
+  }
+  .opt:hover { border-color: rgba(211,172,103,.35); background: var(--neon-dim); }
+  .opt.selected { border-color: var(--neon); background: var(--selected); }
+  .opt.selected .opt-box { background: var(--neon); border-color: var(--neon); }
+  .opt.selected .opt-box::after { opacity: 1; }
+  .opt.selected .opt-label { color: var(--neon); }
+
+  .opt-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--muted);
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    transition: all .15s;
+  }
+  .opt-box::after {
+    content: '';
+    width: 5px; height: 9px;
+    border-right: 2px solid #0d0c1e;
+    border-bottom: 2px solid #0d0c1e;
+    transform: rotate(45deg) translate(-1px,-1px);
+    opacity: 0;
+    transition: opacity .12s;
+  }
+  .opt-ico { font-size: 1.1rem; flex-shrink: 0; }
+  .opt-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    transition: color .15s;
+    line-height: 1.3;
+  }
+
+  /* ── Bridge ── */
+  .step--bridge { text-align: center; }
+  .bridge-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .bridge-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .bridge-title em {
+    font-style: normal;
+    color: var(--neon);
+  }
+  .bridge-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bridge-yes {
+    width: 100%;
+    padding: 18px 24px;
+    background: var(--neon);
+    color: #0d0c1e;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    box-shadow: 0 6px 32px rgba(211,172,103,.3);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .bridge-yes:hover { background: #e0bc7a; transform: translateY(-2px); animation: none; }
+  .bridge-no {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: .06em;
+    cursor: pointer;
+    padding: 8px;
+    transition: color .15s;
+  }
+  .bridge-no:hover { color: var(--gray); }
+
+  .nurturing {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: rgba(255,255,255,.03);
+    animation: fadeUp .3s ease;
+  }
+  .nurturing p {
+    font-size: .9rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .nurturing-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    color: var(--neon);
+    letter-spacing: .06em;
+    text-decoration: none;
+  }
+  .nurturing-link:hover { text-decoration: underline; }
+
+  /* ── Pitch ── */
+  .step--pitch { text-align: center; }
+  .pitch-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #0d0c1e;
+    background: var(--neon);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+  }
+  .pitch-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .pitch-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  .pitch-bullet {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: rgba(255,255,255,.03);
+  }
+  .pitch-ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .pitch-bullet div {
+    font-size: .92rem;
+    color: var(--gray);
+    line-height: 1.55;
+  }
+  .pitch-bullet strong { color: var(--white); }
+
+  .pitch-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: rgba(255,255,255,.02);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .p-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 14px 8px;
+  }
+  .p-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--neon);
+    letter-spacing: .04em;
+  }
+  .p-l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .5rem;
+    color: var(--muted);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .p-div { width: 1px; height: 36px; background: var(--border); }
+
+  .pitch-cta {
+    width: 100%;
+    padding: 16px 24px;
+    background: transparent;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+    border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .pitch-cta:hover { background: var(--neon-dim); transform: translateY(-2px); }
+
+  /* ── Form ── */
+  .step--form {}
+  .form-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--neon);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .sf-fields { display: flex; flex-direction: column; gap: 10px; }
+
+  .sf-field input {
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    padding: 13px 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .sf-field input:focus { border-color: var(--neon); }
+  .sf-field input::placeholder { color: var(--muted); font-weight: 400; }
+
+  .sf-phone { display: flex; gap: 0; }
+  .sf-phone select {
+    max-width: 90px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    padding: 13px 8px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .sf-phone select:focus { border-color: var(--neon); }
+  .sf-phone input {
+    flex: 1;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-radius: 0 4px 4px 0;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    padding: 13px 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .sf-phone input:focus { border-color: var(--neon); }
+  .sf-phone input::placeholder { color: var(--muted); font-weight: 400; }
+
+  .sf-submit {
+    display: block;
+    width: 100%;
+    background: var(--neon);
+    color: #0d0c1e;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: .08em;
+    padding: 18px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background .15s, transform .15s;
+    box-shadow: 0 6px 32px rgba(211,172,103,.3);
+    text-align: center;
+  }
+  .sf-submit:hover { background: #e0bc7a; transform: translateY(-2px); }
+  .sf-submit:active { transform: translateY(0); }
+  .sf-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  .sf-micro {
+    margin-top: 8px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .58rem;
+    color: var(--muted);
+    letter-spacing: .08em;
+  }
+
+  /* ── Obrigado ── */
+  .step--obrigado { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .obrig-ico { font-size: 3rem; }
+  .obrig-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    letter-spacing: .03em;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .obrig-text {
+    font-size: .95rem;
+    color: var(--gray);
+    line-height: 1.65;
+    max-width: 400px;
+  }
+  .obrig-text strong { color: var(--neon); }
+  .obrig-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25d366;
+    color: #fff;
+    border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: .08em;
+    padding: 16px 28px;
+    text-decoration: none;
+    margin-top: 4px;
+    transition: background .15s, transform .1s;
+    box-shadow: 0 6px 24px rgba(37,211,102,.3);
+  }
+  .obrig-btn:hover { background: #1fbd57; transform: translateY(-2px); }
+
+  /* ── Footer ── */
+  .quiz-footer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem;
+    color: var(--muted);
+    letter-spacing: .06em;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 24px 16px 32px; }
+    .q-text { font-size: 1.35rem; }
+    .bridge-title { font-size: 1.45rem; }
+  }
+</style>
+
+<script>
+  // ── Estado global ────────────────────────────────────────────────
+  type Mode = 'voce' | 'filho';
+
+  const state: {
+    mode: Mode;
+    answers: Record<number, string>;
+    investimento: string;
+  } = {
+    mode: 'voce',
+    answers: {},
+    investimento: '',
+  };
+
+  // Mapeamento de valor → label legível para o bridge title
+  const resultadoLabels: Record<string, { voce: string; filho: string }> = {
+    explosao:   { voce: 'mais explosão e velocidade de reação', filho: 'mais explosão e velocidade de reação' },
+    duelos:     { voce: 'dominar os duelos aéreos',             filho: 'dominar os duelos aéreos' },
+    resistencia:{ voce: 'menos lesões e mais resistência',      filho: 'menos lesões e mais resistência' },
+    nivel:      { voce: 'subir de nível e me destacar',         filho: 'subir de nível e se destacar' },
+  };
+
+  // ── Helpers ──────────────────────────────────────────────────────
+  function showStep(id: string) {
+    document.querySelectorAll<HTMLElement>('.step').forEach(el => {
+      el.style.display = 'none';
+    });
+    const target = document.getElementById(`step-${id}`);
+    if (target) {
+      target.style.display = '';
+      target.style.animation = 'none';
+      void target.offsetWidth; // reflow
+      target.style.animation = '';
+    }
+    // Scroll suave ao topo do card
+    document.getElementById('quiz-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateProgress(step: number) {
+    const fill = document.getElementById('prog-fill') as HTMLElement;
+    const current = document.getElementById('prog-current') as HTMLElement;
+    fill.style.width = `${(step / 6) * 100}%`;
+    current.textContent = String(step);
+  }
+
+  function applyMode() {
+    document.querySelectorAll<HTMLElement>('[data-voce]').forEach(el => {
+      el.textContent = el.dataset[state.mode] ?? el.dataset.voce ?? '';
+    });
+  }
+
+  // ── Seleção de opções ────────────────────────────────────────────
+  document.querySelectorAll<HTMLElement>('.opt').forEach(opt => {
+    opt.setAttribute('role', 'button');
+    opt.setAttribute('tabindex', '0');
+
+    function select() {
+      const stepNum = parseInt(opt.dataset.step!);
+      const val = opt.dataset.v!;
+
+      // Marca visualmente
+      document.querySelectorAll<HTMLElement>(`.opt[data-step="${stepNum}"]`)
+        .forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+
+      // Salva resposta
+      state.answers[stepNum] = val;
+
+      // Lógica especial para Q1 (define modo)
+      if (stepNum === 1) {
+        state.mode = val === 'mae_pai' ? 'filho' : 'voce';
+        applyMode();
+      }
+
+      // Atualiza progresso (steps 1–6)
+      if (stepNum >= 1 && stepNum <= 6) {
+        updateProgress(stepNum);
+      }
+
+      // Avança após 320ms
+      setTimeout(() => {
+        if (stepNum < 5) {
+          showStep(String(stepNum + 1));
+        } else if (stepNum === 5) {
+          // Monta texto dinâmico do bridge
+          const resultado = state.answers[5] || '';
+          const labels = resultadoLabels[resultado];
+          const labelText = labels ? labels[state.mode] : 'alcançar esse resultado';
+          const bridgeTitle = document.getElementById('bridge-title')!;
+          bridgeTitle.innerHTML = `Se eu te mostrasse um caminho claro para <em>${labelText}</em>,<br />você estaria disposto a avançar?`;
+          showStep('bridge');
+          // Esconde barra de progresso nas telas de bridge/pitch/form
+          (document.getElementById('prog-row') as HTMLElement).style.display = 'none';
+        } else if (stepNum === 6) {
+          state.investimento = val;
+          // Heading do form varia conforme resposta
+          const heading = document.getElementById('form-heading')!;
+          heading.textContent = val === 'sim'
+            ? 'Preencha seus dados — o professor Pedro vai entrar em contato pelo WhatsApp'
+            : 'Deixa seu contato e o professor vai tirar todas as suas dúvidas';
+          showStep('form');
+        }
+      }, 320);
+    }
+
+    opt.addEventListener('click', select);
+    opt.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); }
+    });
+  });
+
+  // ── Bridge ───────────────────────────────────────────────────────
+  document.getElementById('bridge-yes')!.addEventListener('click', () => {
+    // Título do pitch personalizado
+    const pitchTitle = document.getElementById('pitch-title')!;
+    pitchTitle.textContent = state.mode === 'filho'
+      ? 'Veja o que o programa faz pelo seu filho'
+      : 'Veja o que o programa faz por você';
+    showStep('pitch');
+  });
+
+  document.getElementById('bridge-no')!.addEventListener('click', () => {
+    const nurturing = document.getElementById('nurturing')!;
+    nurturing.style.display = '';
+    nurturing.style.animation = 'none';
+    void nurturing.offsetWidth;
+    nurturing.style.animation = '';
+  });
+
+  // ── Pitch → Step 6 ──────────────────────────────────────────────
+  document.getElementById('pitch-cta')!.addEventListener('click', () => {
+    updateProgress(6);
+    (document.getElementById('prog-row') as HTMLElement).style.display = '';
+    showStep('6');
+  });
+
+  // ── Submit do formulário ─────────────────────────────────────────
+  document.getElementById('sf-submit')!.addEventListener('click', async () => {
+    const nameEl  = document.getElementById('sf-name')  as HTMLInputElement;
+    const emailEl = document.getElementById('sf-email') as HTMLInputElement;
+    const telEl   = document.getElementById('sf-tel')   as HTMLInputElement;
+    const ddiEl   = document.getElementById('sf-ddi')   as HTMLSelectElement;
+
+    // Validação manual
+    if (!nameEl.value.trim() || !emailEl.value.trim() || !telEl.value.trim()) {
+      [nameEl, emailEl, telEl].forEach(el => {
+        if (!el.value.trim()) el.style.borderColor = 'rgba(255,80,80,.6)';
+      });
+      return;
+    }
+
+    const submitBtn = document.getElementById('sf-submit') as HTMLButtonElement;
+    submitBtn.textContent = 'Enviando...';
+    submitBtn.disabled = true;
+
+    // Monta phone com DDI
+    const ddiValue = ddiEl.value || '55';
+    const phoneRaw = telEl.value.replace(/\D/g, '');
+    const phone = `+${ddiValue}${phoneRaw}`;
+
+    // Monta payload
+    const body = new URLSearchParams();
+    body.set('name',              nameEl.value.trim());
+    body.set('email',             emailEl.value.trim());
+    body.set('phone',             phone);
+    body.set('custom_perfil',     state.answers[1] || '');
+    body.set('custom_dificuldade',state.answers[2] || '');
+    body.set('custom_tentou',     state.answers[3] || '');
+    body.set('custom_impedimento',state.answers[4] || '');
+    body.set('custom_resultado',  state.answers[5] || '');
+    body.set('custom_investimento',state.investimento);
+
+    // GTM event
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
+      event: 'form_submit',
+      form_name: 'quiz_qualificacao_v2',
+      lead_perfil: state.answers[1],
+      lead_resultado: state.answers[5],
+    });
+
+    try {
+      await fetch(
+        'https://webhook.sellflux.app/v2/webhook/form/dd4b0c469c5da3d225bc29b22e4128c1?not_query=true',
+        { method: 'POST', body, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      );
+    } catch (_) {
+      // Mesmo em caso de erro de rede, mostramos a tela de obrigado
+      // para não frustrar o lead (o dado pode ter chegado mesmo assim)
+    }
+
+    showStep('obrigado');
+  });
+
+  // Revela primeiro step
+  document.getElementById('step-1')!.style.display = '';
+</script>
