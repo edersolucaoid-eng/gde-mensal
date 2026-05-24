@@ -1443,10 +1443,16 @@ hr {
     const slides = Array.from(document.querySelectorAll('.proof-slide'));
     const total = slides.length;
     let current = 2;
+    const INTERVAL = 3500;
 
     function update() {
       slides.forEach((slide, i) => {
-        const rel = i - current;
+        // Use wrapped relative position so the carousel loops smoothly
+        let rel = i - current;
+        // Wrap: pick the shortest path around the circle
+        if (rel > total / 2)  rel -= total;
+        if (rel < -total / 2) rel += total;
+
         slide.classList.remove('is-active');
         let tx, scale, rotY, opacity, brightness, zIndex, shadow;
 
@@ -1458,10 +1464,11 @@ hr {
           tx = rel * 200; scale = 0.87; rotY = rel > 0 ? -15 : 15;
           opacity = 0.55; brightness = 0.7; zIndex = 5; shadow = 'none';
         } else if (Math.abs(rel) === 2) {
-          tx = rel * 360; scale = 0.76; rotY = rel > 0 ? -25 : 25;
+          tx = rel * 340; scale = 0.76; rotY = rel > 0 ? -25 : 25;
           opacity = 0.3; brightness = 0.5; zIndex = 2; shadow = 'none';
         } else {
-          tx = rel * 180; scale = 0.68; rotY = rel > 0 ? -45 : 45;
+          // Park hidden cards at center — prevents horizontal overflow
+          tx = 0; scale = 0.65; rotY = 0;
           opacity = 0; brightness = 0.4; zIndex = 1; shadow = 'none';
         }
 
@@ -1473,16 +1480,19 @@ hr {
       });
     }
 
-    document.querySelector('.proof-nav-prev').addEventListener('click', () => {
-      current = (current - 1 + total) % total;
-      update();
-    });
-    document.querySelector('.proof-nav-next').addEventListener('click', () => {
-      current = (current + 1) % total;
-      update();
-    });
+    function next() { current = (current + 1) % total; update(); }
+    function prev() { current = (current - 1 + total) % total; update(); }
+
+    // Auto-play
+    let timer = setInterval(next, INTERVAL);
+    const outer = document.querySelector('.proof-carousel-outer');
+    outer.addEventListener('mouseenter', () => clearInterval(timer));
+    outer.addEventListener('mouseleave', () => { timer = setInterval(next, INTERVAL); });
+
+    document.querySelector('.proof-nav-prev').addEventListener('click', () => { prev(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    document.querySelector('.proof-nav-next').addEventListener('click', () => { next(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
     slides.forEach((slide, i) => {
-      slide.addEventListener('click', () => { current = i; update(); });
+      slide.addEventListener('click', () => { current = i; update(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
     });
 
     update();
