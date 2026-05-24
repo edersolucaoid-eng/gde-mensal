@@ -678,6 +678,29 @@ hr {
 }
 .plan-check svg { display: block; }
 
+/* eyebrow acima do card final */
+.plan-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* nota abaixo do card final */
+.plan-footnote {
+  font-size: .7rem;
+  color: rgba(255,255,255,.2);
+  line-height: 1.8;
+  text-align: center;
+  margin-top: 20px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ─── BUTTON ─────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
@@ -1191,23 +1214,69 @@ hr {
 </section>
 
 <!-- ── CTA FINAL ──────────────────────────────────────────────── -->
-<section class="s-yellow" style="text-align:center">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="cta-tag">Próxima turma · <span id="gde-date-cta">segunda-feira</span></span>
-      <h2 class="cta-hd">Entre na próxima turma.<br>Comece na segunda.</h2>
-      <div class="cta-price"><sup>R$</sup>35</div>
-      <div class="cta-note">Pagamento único · acesso imediato</div>
-      <ul class="cta-ul">
-        <li>5 treinos físicos específicos para goleiro</li>
-        <li>Acompanhamento ao vivo com treinadores certificados</li>
-        <li>Versão academia + versão casa</li>
-        <li>Menu nutricional da semana</li>
-        <li>Acesso vitalício à plataforma</li>
-      </ul>
-      <a href="https://pay.kiwify.com.br/KdBQQpk" class="btn">Garantir minha vaga agora</a>
-      <p class="cta-foot">O preço é intencional. Esse desafio é a porta de entrada — queremos que você experimente o método antes de qualquer decisão maior.</p>
+<section class="plan-sec" style="border-bottom:none">
+  <div class="plan-wrap">
+    <p class="plan-eyebrow reveal">Próxima turma · <span id="gde-date-cta">segunda-feira</span></p>
+    <div class="plan-card reveal" style="transition-delay:.06s">
+      <div class="plan-inner">
+        <div class="plan-body">
+
+          <div class="plan-header">
+            <div class="plan-label">Plano único</div>
+            <div class="plan-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Mais popular
+            </div>
+          </div>
+
+          <div class="plan-price"><sup>R$</sup>35</div>
+          <div class="plan-period">
+            pagamento único &nbsp;·&nbsp; <span class="plan-was">R$ 538</span> em valor
+          </div>
+
+          <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn">
+            Garantir minha vaga agora
+          </a>
+
+          <div class="plan-divider"></div>
+
+          <ul class="plan-features">
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              5 treinos físicos específicos para goleiro (academia + casa)
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Grupo ao vivo com treinadores certificados
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Correção por vídeo + Q&amp;A diário durante os 5 dias
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Menu nutricional específico para os 5 dias
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Acesso vitalício — refaça quantas turmas quiser
+            </li>
+          </ul>
+
+        </div>
+      </div>
     </div>
+    <p class="plan-footnote reveal" style="transition-delay:.1s">O preço é intencional. Esse desafio é a porta de entrada — queremos que você experimente o método antes de qualquer decisão maior.</p>
   </div>
 </section>
 
