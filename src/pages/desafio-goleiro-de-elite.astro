@@ -540,54 +540,143 @@ hr {
   margin-right: auto;
 }
 
-/* ─── MID CTA ────────────────────────────────────────────────── */
-.mid-cta {
-  background: var(--yellow);
-  padding: clamp(48px,7vw,80px) clamp(24px,5vw,48px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+/* ─── PLAN CARD CTA ──────────────────────────────────────────── */
+.plan-sec {
+  background: var(--black);
+  padding: clamp(60px,8vw,100px) 0;
+  border-top: 1px solid rgba(255,255,255,.05);
+  border-bottom: 1px solid rgba(255,255,255,.05);
 }
-.mid-cta-text { flex: 1; }
-.mid-cta-eyebrow {
+.plan-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 clamp(24px,5vw,48px);
+}
+/* outer card — thin border + faint amber ring */
+.plan-card {
+  border: 1px solid rgba(255,255,255,.1);
+  outline: 1px solid rgba(244,180,0,.15);
+  border-radius: 28px;
+  padding: 6px;
+}
+/* inner card — gradient bg */
+.plan-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(255,255,255,.06) 0%, transparent 60%);
+}
+/* decorative top glow */
+.plan-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 70% 0%, rgba(244,180,0,.2), transparent 70%);
+  pointer-events: none;
+}
+.plan-body { padding: 28px; position: relative; }
+/* header row */
+.plan-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.plan-label {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .65rem;
   font-weight: 700;
-  letter-spacing: .22em;
+  letter-spacing: .2em;
   text-transform: uppercase;
-  color: rgba(0,0,0,.45);
-  margin-bottom: 10px;
+  color: rgba(255,255,255,.5);
 }
-.mid-cta-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.2rem,5vw,3.8rem);
-  line-height: .9;
-  color: var(--black);
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 9999px;
+  background: rgba(244,180,0,.15);
+  border: 1px solid rgba(244,180,0,.25);
+  padding: 4px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--yellow);
 }
-.mid-cta-price {
+.plan-badge svg { flex-shrink: 0; }
+/* price */
+.plan-price {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem,8vw,6rem);
-  color: var(--black);
+  font-size: clamp(4rem,12vw,5.5rem);
+  color: var(--white);
   line-height: 1;
-  letter-spacing: -.02em;
-  flex-shrink: 0;
+  letter-spacing: -.01em;
+  margin-top: 4px;
 }
-.mid-cta-price sup {
-  font-size: 1.4rem;
-  vertical-align: super;
+.plan-price sup { font-size: 1.8rem; vertical-align: super; color: var(--yellow); }
+.plan-period {
+  font-size: .76rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 2px;
+  margin-bottom: 24px;
 }
-.mid-cta-right {
+.plan-was {
+  text-decoration: line-through;
+  color: rgba(255,255,255,.18);
+}
+/* CTA button */
+.plan-btn {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 10px 32px rgba(244,180,0,.22);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .15s;
+  margin-bottom: 28px;
+}
+.plan-btn:hover { opacity: .9; transform: translateY(-1px); }
+/* divider */
+.plan-divider {
+  height: 1px;
+  background: rgba(255,255,255,.07);
+  margin-bottom: 24px;
+}
+/* feature list */
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .9rem;
+  color: rgba(255,255,255,.72);
+  line-height: 1.4;
+}
+.plan-check {
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(244,180,0,.12);
+  border: 1px solid rgba(244,180,0,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
 }
-@media (max-width: 640px) {
-  .mid-cta { flex-direction: column; align-items: flex-start; }
-  .mid-cta-right { align-items: flex-start; }
-}
+.plan-check svg { display: block; }
 
 /* ─── BUTTON ─────────────────────────────────────────────────── */
 .btn {
@@ -918,17 +1007,70 @@ hr {
   </div>
 </section>
 
-<!-- ── CTA INTERMEDIÁRIO ──────────────────────────────────────── -->
-<div class="mid-cta reveal">
-  <div class="mid-cta-text">
-    <div class="mid-cta-eyebrow">Vagas limitadas · próxima turma</div>
-    <div class="mid-cta-title">Garanta sua vaga.<br>Comece na segunda.</div>
+<!-- ── PLAN CARD CTA ───────────────────────────────────────────── -->
+<section class="plan-sec">
+  <div class="plan-wrap">
+    <div class="plan-card reveal">
+      <div class="plan-inner">
+        <div class="plan-body">
+
+          <div class="plan-header">
+            <div class="plan-label">Plano único</div>
+            <div class="plan-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Mais popular
+            </div>
+          </div>
+
+          <div class="plan-price"><sup>R$</sup>35</div>
+          <div class="plan-period">
+            pagamento único &nbsp;·&nbsp; <span class="plan-was">R$ 538</span> em valor
+          </div>
+
+          <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn">
+            Garantir minha vaga agora
+          </a>
+
+          <div class="plan-divider"></div>
+
+          <ul class="plan-features">
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              5 treinos físicos específicos para goleiro (academia + casa)
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Grupo ao vivo com treinadores certificados
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Correção por vídeo + Q&amp;A diário durante os 5 dias
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Menu nutricional específico para os 5 dias
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Acesso vitalício — refaça quantas turmas quiser
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mid-cta-right">
-    <div class="mid-cta-price"><sup>R$</sup>35</div>
-    <a href="https://pay.kiwify.com.br/KdBQQpk" class="btn">Quero entrar agora</a>
-  </div>
-</div>
+</section>
 
 <!-- ── COMO RECEBO MEU ACESSO ─────────────────────────────────── -->
 <section class="s-light">
