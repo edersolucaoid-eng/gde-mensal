@@ -43,11 +43,22 @@ import Base from '../layouts/Base.astro';
 .d-head{margin-bottom:56px;}
 
 /* ── Yellow accent ───────────────────────────────── */
-.d-bar{width:32px;height:3px;background:#F4B400;margin-top:24px;}
+.d-bar{display:none;}
 
 /* ── HERO ────────────────────────────────────────── */
 .d-hero{background:#fff;display:flex;justify-content:center;}
 .d-hero img{width:100%;max-width:520px;height:auto;display:block;}
+
+/* ── Grain overlay (dark sections) ──────────────── */
+.d-grain{position:relative;}
+.d-grain::after{
+  content:'';pointer-events:none;
+  position:absolute;inset:0;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+  opacity:.028;mix-blend-mode:overlay;
+}
+.d-grain > *{position:relative;z-index:2;}
 
 /* ── VAGAS ───────────────────────────────────────── */
 .d-vagas{background:#0B0B0B;padding:64px 24px;text-align:center;}
@@ -72,7 +83,7 @@ import Base from '../layouts/Base.astro';
 .d-progress-fill{height:100%;background:#F4B400;border-radius:100px;width:74%;}
 .d-slots{font-size:.75rem;color:#444;margin-bottom:48px;}
 .d-slots strong{color:#F4B400;font-weight:700;}
-.d-sep{width:1px;height:48px;background:rgba(255,255,255,.08);margin:0 auto 48px;}
+.d-sep{width:40px;height:1px;background:rgba(255,255,255,.12);margin:0 auto 48px;}
 .d-cd-lbl{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:#444;margin-bottom:14px;}
 .d-cd-num{
   font-family:'Bebas Neue',sans-serif;
@@ -107,6 +118,7 @@ import Base from '../layouts/Base.astro';
 .d-proof-item{display:flex;flex-direction:column;gap:10px;}
 .d-proof-img{
   width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
+  border-radius:4px;
   transition:transform .3s;
 }
 .d-proof-img:hover{transform:scale(1.02);}
@@ -114,11 +126,13 @@ import Base from '../layouts/Base.astro';
 .d-proof-role{font-size:.72rem;color:#999;margin-top:2px;}
 
 /* ── METHOD ──────────────────────────────────────── */
-.d-method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.d-method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
 .d-mcard{
   padding:36px 32px;
   border-top:2px solid #F4B400;
-  background:rgba(255,255,255,.04);
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-top:2px solid #F4B400;
 }
 .d-mnum{
   font-family:'Bebas Neue',sans-serif;
@@ -135,13 +149,14 @@ import Base from '../layouts/Base.astro';
 /* ── BENEFITS ────────────────────────────────────── */
 .d-blist{display:flex;flex-direction:column;gap:0;border-top:1px solid #E5E5E5;}
 .d-brow{
-  display:grid;grid-template-columns:40px 1fr;
-  gap:24px;align-items:start;
-  padding:32px 0;border-bottom:1px solid #E5E5E5;
+  display:grid;grid-template-columns:64px 1fr;
+  gap:28px;align-items:start;
+  padding:36px 0;border-bottom:1px solid #E5E5E5;
 }
 .d-bnum{
   font-family:'Bebas Neue',sans-serif;
-  font-size:2rem;color:#F4B400;line-height:1;padding-top:2px;
+  font-size:3.8rem;color:#F4B400;line-height:1;padding-top:0;
+  opacity:.9;
 }
 .d-bname{font-size:1rem;font-weight:700;color:#0B0B0B;margin-bottom:8px;}
 .d-bbullets{list-style:none;display:flex;flex-direction:column;gap:6px;}
@@ -258,19 +273,25 @@ import Base from '../layouts/Base.astro';
   font-family:'Montserrat',sans-serif;
   font-weight:800;font-size:1rem;letter-spacing:.02em;
   padding:20px 52px;border-radius:4px;
-  text-decoration:none;transition:background .2s;
+  text-decoration:none;
+  transition:background .2s,transform .2s,box-shadow .2s;
 }
-.d-btn:hover{background:#fff;}
+.d-btn:hover{
+  background:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(244,180,0,.25);
+}
 
 /* ── FOOTER ──────────────────────────────────────── */
 .d-footer{
   background:#0B0B0B;padding:40px 24px;text-align:center;
   border-top:1px solid rgba(255,255,255,.05);
 }
-.d-footer-logo{width:40px;height:auto;margin-bottom:16px;opacity:.3;}
+.d-footer-logo{width:40px;height:auto;margin-bottom:16px;opacity:.55;}
 .d-footer-links{display:flex;gap:28px;justify-content:center;margin-bottom:12px;}
-.d-footer-links a{font-size:.7rem;color:#333;text-decoration:none;}
-.d-footer-copy{font-size:.68rem;color:#2a2a2a;}
+.d-footer-links a{font-size:.7rem;color:#555;text-decoration:none;}
+.d-footer-links a:hover{color:#F4B400;}
+.d-footer-copy{font-size:.68rem;color:#444;}
 
 /* ── Reveal ──────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
@@ -282,7 +303,7 @@ import Base from '../layouts/Base.astro';
   .d-method-grid{grid-template-columns:1fr;}
   .d-whom-grid{grid-template-columns:1fr;}
   .d-price{font-size:4.5rem;}
-  .d-brow{grid-template-columns:32px 1fr;gap:16px;}
+  .d-brow{grid-template-columns:52px 1fr;gap:16px;}
 }
 </style>
 
@@ -294,7 +315,7 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <!-- VAGAS + COUNTDOWN -->
-  <section class="d-vagas">
+  <section class="d-vagas d-grain">
     <div class="d-vagas-in">
       <div class="d-badge">⚡ Vagas Limitadas</div>
       <div class="d-vagas-num">70</div>
@@ -373,7 +394,7 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <!-- O MÉTODO (dark) -->
-  <section class="d-sec d-dark">
+  <section class="d-sec d-dark d-grain">
     <div class="d-wrap">
       <div class="d-head reveal">
         <div class="d-tag">O método</div>
@@ -633,7 +654,7 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <!-- CTA FINAL -->
-  <section class="d-cta-sec">
+  <section class="d-cta-sec d-grain">
     <div class="d-cta-in reveal">
       <div class="d-cta-badge">⚡ Próxima turma · <span id="d-next-date-cta">segunda-feira</span></div>
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);color:#fff;line-height:1;margin-bottom:32px;letter-spacing:.02em;">
