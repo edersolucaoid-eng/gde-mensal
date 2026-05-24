@@ -159,81 +159,33 @@ import Base from '../layouts/Base.astro';
   bottom:-60px;left:-60px;
 }
 .d-hero-inner {
-  display:grid;
-  grid-template-columns:1fr 380px;
-  gap:64px;align-items:center;
-  padding:64px 24px 56px;
-  width:100%;max-width:900px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+  padding:72px 24px 64px;
+  width:100%;max-width:720px;margin:0 auto;
   position:relative;z-index:1;
 }
 .d-hero-logo {
   width:88px;height:auto;
-  margin-bottom:28px;
+  margin-bottom:24px;
   filter:drop-shadow(0 4px 16px rgba(251,191,36,.3));
 }
 .d-hero-eyebrow {
   font-size:.72rem;font-weight:500;letter-spacing:.14em;
   color:var(--muted);text-transform:uppercase;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 .d-hero-eyebrow .green-dt{color:var(--blue);}
 .d-hero-h1 {
-  font-size:clamp(2rem,5.5vw,3.4rem);
-  font-weight:700;line-height:1.15;
+  font-size:clamp(2.2rem,6vw,4rem);
+  font-weight:700;line-height:1.1;
   letter-spacing:-.03em;color:var(--white);
-  margin-bottom:20px;
-}
-.d-hero-h1-contrast {
-  color:var(--blue);
-}
-.d-hero-lead {
-  font-size:clamp(1.05rem,2.5vw,1.2rem);
-  font-weight:700;color:var(--white);
-  margin-bottom:12px;
-}
-.d-hero-pains {
-  list-style:none;padding:0;margin:0 0 22px;
-  display:flex;flex-direction:column;gap:4px;
-}
-.d-hero-pains li {
-  font-size:.95rem;color:var(--muted);
-  padding-left:14px;position:relative;
-}
-.d-hero-pains li::before {
-  content:"—";position:absolute;left:0;color:rgba(255,255,255,.25);
+  margin-bottom:20px;max-width:600px;
 }
 .d-hero-p {
-  font-size:clamp(.95rem,2vw,1.05rem);
+  font-size:clamp(1rem,2.2vw,1.15rem);
   color:var(--muted);line-height:1.7;
-  margin-bottom:14px;max-width:460px;
-}
-.d-hero-checks {
-  list-style:none;padding:0;margin:0 0 22px;
-  display:flex;flex-direction:column;gap:6px;
-}
-.d-hero-checks li {
-  font-size:1rem;font-weight:600;color:var(--white);
-  display:flex;align-items:center;gap:10px;
-}
-.d-check {
-  color:var(--blue);font-size:1rem;flex-shrink:0;
-}
-.d-check-ctx {
-  font-weight:400;color:var(--muted);font-size:.9rem;
-}
-.d-hero-especifica {
-  font-size:.95rem;color:var(--muted);
-  margin-bottom:32px;
-}
-.d-hero-especifica strong {
-  color:var(--white);letter-spacing:.04em;
-}
-.d-hero-img {
-  width:100%;height:520px;
-  object-fit:cover;object-position:top center;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,.08);
-  display:block;
+  margin-bottom:36px;max-width:480px;
 }
 
 /* ── Pain section ───────────────────────────── */
@@ -513,8 +465,7 @@ import Base from '../layouts/Base.astro';
 
 /* ── Responsive ──────────────────────────────── */
 @media (max-width:720px) {
-  .d-hero-inner      {grid-template-columns:1fr;padding:52px 20px 44px;gap:0;}
-  .d-hero-img-wrap   {display:none;}
+  .d-hero-inner      {padding:52px 20px 44px;}
   .d-hero-logo       {width:72px;}
   .d-proof-grid      {grid-template-columns:repeat(2,1fr);}
   .d-method-grid     {grid-template-columns:1fr;}
@@ -549,42 +500,18 @@ import Base from '../layouts/Base.astro';
           Próxima turma: <span class="green-dt" id="d-next-date">segunda-feira</span>
         </p>
         <h1 class="d-hero-h1">
-          Seu treino de academia está melhorando seu desempenho no gol…<br>
-          <span class="d-hero-h1-contrast">…ou só deixando você mais pesado dentro de campo?</span>
+          5 dias de treino físico<br>específico para goleiro.
         </h1>
-        <p class="d-hero-lead">A maioria dos goleiros treina errado.</p>
-        <ul class="d-hero-pains">
-          <li>Ganham massa.</li>
-          <li>Perdem explosão.</li>
-          <li>Ficam lentos nas quedas.</li>
-          <li>Chegam atrasados na bola.</li>
-        </ul>
-        <p class="d-hero-p">O Desafio Goleiro de Elite foi criado para desenvolver exatamente o que decide jogo:</p>
-        <ul class="d-hero-checks">
-          <li><span class="d-check">✔</span> Explosão <span class="d-check-ctx">— sai do ponto em menos de um passo</span></li>
-          <li><span class="d-check">✔</span> Impulsão <span class="d-check-ctx">— sai do chão mais rápido que o atacante</span></li>
-          <li><span class="d-check">✔</span> Potência lateral <span class="d-check-ctx">— chega no canto antes da bola</span></li>
-          <li><span class="d-check">✔</span> Velocidade de reação <span class="d-check-ctx">— o corpo decide antes da cabeça</span></li>
-          <li><span class="d-check">✔</span> Força aplicada ao gol <span class="d-check-ctx">— sustenta o jogo do início ao fim</span></li>
-        </ul>
-        <p class="d-hero-especifica">Tudo com preparação física <strong>ESPECÍFICA</strong> para goleiros.</p>
+        <p class="d-hero-p">
+          Explosão, impulsão e potência lateral que aparecem dentro de campo.
+        </p>
         <div>
-          <a href="https://pay.kiwify.com.br/KdBQQpk" class="d-cta d-cta-lg d-cta-full">
+          <a href="https://pay.kiwify.com.br/KdBQQpk" class="d-cta d-cta-lg">
             Quero participar do desafio
             <span class="d-cta-price">— R$ 35</span>
           </a>
           <p class="d-cta-hint">Pagamento único · Acesso imediato · 5 dias ao vivo</p>
         </div>
-      </div>
-      <div class="d-hero-img-wrap reveal" style="transition-delay:.2s">
-        <img
-          src="/images/hero-professor.webp"
-          srcset="/images/hero-professor-480.webp 480w, /images/hero-professor.webp 900w"
-          sizes="380px"
-          alt="Pedro Ferreira — Preparador físico Goleiro de Elite"
-          class="d-hero-img"
-          loading="eager" fetchpriority="high"
-        />
       </div>
     </div>
   </section>
