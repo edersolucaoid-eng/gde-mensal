@@ -201,35 +201,113 @@ hr {
 }
 .pivot-quote strong { color: var(--yellow); }
 
-/* ─── PROOF GRID ────────────────────────────────────────────── */
-.proof-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  margin-top: clamp(48px,7vw,80px);
+/* ─── PROOF CAROUSEL ─────────────────────────────────────────── */
+.proof-carousel-outer {
+  position: relative;
+  margin-top: clamp(40px,6vw,64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
 }
-.proof-item img {
+.proof-track {
+  position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+.proof-slide {
+  position: absolute;
+  width: 260px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform .5s ease, opacity .5s ease, filter .5s ease, box-shadow .5s ease, border-color .5s ease;
+  cursor: pointer;
+}
+.proof-slide img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(20%);
-  transition: filter .35s;
 }
-.proof-item:hover img { filter: grayscale(0%); }
-.proof-cap {
-  padding: 10px 4px 0;
-  border-top: 1px solid rgba(255,255,255,.07);
+.proof-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.2) 55%, transparent 100%);
 }
-.proof-name {
+.proof-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 18px 22px;
+  z-index: 2;
+}
+.proof-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 3px 10px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--white);
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 7px;
 }
-.proof-role { font-size: .68rem; color: rgba(255,255,255,.3); margin-top: 2px; }
+.proof-slide-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--white);
+  line-height: 1.1;
+}
+.proof-active-badge {
+  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: var(--yellow);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  padding: 4px 10px;
+}
+.proof-slide.is-active { border-color: rgba(244,180,0,.5); }
+.proof-slide.is-active .proof-active-badge { display: block; }
+/* nav buttons */
+.proof-nav {
+  position: absolute;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.proof-nav:hover { background: rgba(255,255,255,.08); }
+.proof-nav-prev { left: 0; }
+.proof-nav-next { right: 0; }
 
 /* ─── METHOD LIST ───────────────────────────────────────────── */
 .method-list { border-top: 1px solid rgba(0,0,0,.1); }
@@ -824,49 +902,69 @@ hr {
       <div class="label">Resultados reais</div>
       <h2 class="display">O que muda quando<br>o goleiro treina <span class="yl">certo</span></h2>
     </div>
-    <div class="proof-grid reveal" style="transition-delay:.1s">
-      <div class="proof-item">
-        <img src="/images/carrossel-1.webp" srcset="/images/carrossel-1-420.webp 420w,/images/carrossel-1.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-        <div class="proof-cap">
-          <div class="proof-name">Fabíola Stelzer</div>
-          <div class="proof-role">Goleira Amadora · ES</div>
+    <div class="proof-carousel-outer reveal" style="transition-delay:.1s">
+      <button class="proof-nav proof-nav-prev" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="proof-track">
+        <div class="proof-slide" data-index="0">
+          <img src="/images/carrossel-1.webp" alt="Fabíola Stelzer" loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destaque</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Goleira Amadora · ES</div>
+            <div class="proof-slide-name">Fabíola Stelzer</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="1">
+          <img src="/images/carrossel-2.webp" alt="Rafael S." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destaque</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Goleiro Profissional</div>
+            <div class="proof-slide-name">Rafael S.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="2">
+          <img src="/images/carrossel-3.webp" alt="Diego A." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destaque</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Goleiro de Base · MG</div>
+            <div class="proof-slide-name">Diego A.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="3">
+          <img src="/images/carrossel-4.webp" alt="Thiago R." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destaque</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Goleiro Amador · PR</div>
+            <div class="proof-slide-name">Thiago R.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="4">
+          <img src="/images/carrossel-5.webp" alt="Matheus F." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destaque</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Goleiro Aspirante · RS</div>
+            <div class="proof-slide-name">Matheus F.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="5">
+          <img src="/images/carrossel-6.webp" alt="Bruno C." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destaque</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Goleiro Universitário · BA</div>
+            <div class="proof-slide-name">Bruno C.</div>
+          </div>
         </div>
       </div>
-      <div class="proof-item">
-        <img src="/images/carrossel-2.webp" srcset="/images/carrossel-2-420.webp 420w,/images/carrossel-2.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-        <div class="proof-cap">
-          <div class="proof-name">Rafael S.</div>
-          <div class="proof-role">Goleiro Profissional</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="/images/carrossel-3.webp" srcset="/images/carrossel-3-420.webp 420w,/images/carrossel-3.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-        <div class="proof-cap">
-          <div class="proof-name">Diego A.</div>
-          <div class="proof-role">Goleiro de Base · MG</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="/images/carrossel-4.webp" srcset="/images/carrossel-4-420.webp 420w,/images/carrossel-4.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-        <div class="proof-cap">
-          <div class="proof-name">Thiago R.</div>
-          <div class="proof-role">Goleiro Amador · PR</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="/images/carrossel-5.webp" srcset="/images/carrossel-5-420.webp 420w,/images/carrossel-5.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-        <div class="proof-cap">
-          <div class="proof-name">Matheus F.</div>
-          <div class="proof-role">Goleiro Aspirante · RS</div>
-        </div>
-      </div>
-      <div class="proof-item">
-        <img src="/images/carrossel-6.webp" srcset="/images/carrossel-6-420.webp 420w,/images/carrossel-6.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-        <div class="proof-cap">
-          <div class="proof-name">Bruno C.</div>
-          <div class="proof-role">Goleiro Universitário · BA</div>
-        </div>
-      </div>
+      <button class="proof-nav proof-nav-next" aria-label="Próximo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -1339,6 +1437,56 @@ hr {
       }
     });
   });
+
+  // ── Proof carousel ──────────────────────────────────────────
+  (function() {
+    const slides = Array.from(document.querySelectorAll('.proof-slide'));
+    const total = slides.length;
+    let current = 2;
+
+    function update() {
+      slides.forEach((slide, i) => {
+        const rel = i - current;
+        slide.classList.remove('is-active');
+        let tx, scale, rotY, opacity, brightness, zIndex, shadow;
+
+        if (rel === 0) {
+          tx = 0; scale = 1; rotY = 0; opacity = 1; brightness = 1; zIndex = 10;
+          shadow = '0 20px 60px rgba(244,180,0,.22)';
+          slide.classList.add('is-active');
+        } else if (Math.abs(rel) === 1) {
+          tx = rel * 200; scale = 0.87; rotY = rel > 0 ? -15 : 15;
+          opacity = 0.55; brightness = 0.7; zIndex = 5; shadow = 'none';
+        } else if (Math.abs(rel) === 2) {
+          tx = rel * 360; scale = 0.76; rotY = rel > 0 ? -25 : 25;
+          opacity = 0.3; brightness = 0.5; zIndex = 2; shadow = 'none';
+        } else {
+          tx = rel * 180; scale = 0.68; rotY = rel > 0 ? -45 : 45;
+          opacity = 0; brightness = 0.4; zIndex = 1; shadow = 'none';
+        }
+
+        slide.style.transform = `translateX(${tx}px) scale(${scale}) rotateY(${rotY}deg)`;
+        slide.style.opacity = opacity;
+        slide.style.filter = `brightness(${brightness})`;
+        slide.style.zIndex = zIndex;
+        slide.style.boxShadow = shadow;
+      });
+    }
+
+    document.querySelector('.proof-nav-prev').addEventListener('click', () => {
+      current = (current - 1 + total) % total;
+      update();
+    });
+    document.querySelector('.proof-nav-next').addEventListener('click', () => {
+      current = (current + 1) % total;
+      update();
+    });
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', () => { current = i; update(); });
+    });
+
+    update();
+  })();
 
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => {
