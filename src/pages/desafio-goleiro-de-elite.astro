@@ -3,432 +3,724 @@ import Base from '../layouts/Base.astro';
 ---
 <Base title="Desafio Goleiro de Elite | 5 Dias de Treino Físico Específico para Goleiros">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@600;700&display=swap');
 
-/* ── Reset ────────────────────────────────────────── */
-.g *,.g *::before,.g *::after{box-sizing:border-box;margin:0;padding:0;}
-.g{font-family:'Barlow',sans-serif;background:#0B0B0B;color:#fff;overflow-x:hidden;}
+/* ─── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Keyframes ────────────────────────────────────── */
-@keyframes fadeSlideIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes glowPulse{0%,100%{opacity:.15}50%{opacity:.28}}
-
-/* ── Fixed background grid ────────────────────────── */
-.g-bg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
-  background-size:64px 64px;
+body {
+  font-family: 'Barlow', sans-serif;
+  background: #0B0B0B;
+  color: #fff;
+  overflow-x: hidden;
 }
 
-/* ── Layout ───────────────────────────────────────── */
-.z1{position:relative;z-index:1;}
-.wrap{max-width:1020px;margin:0 auto;padding:0 clamp(20px,5vw,48px);}
-.wrap-sm{max-width:640px;margin:0 auto;padding:0 clamp(20px,5vw,48px);}
-.sec{padding:clamp(80px,12vw,140px) 0;position:relative;z-index:1;}
-
-/* ── Glass Card ───────────────────────────────────── */
-.card{
-  background:linear-gradient(225deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.04) 50%,rgba(255,255,255,0) 100%);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:24px;
-  backdrop-filter:blur(12px);
-}
-.card-sm{border-radius:16px;}
-
-/* ── Badge / Pill ─────────────────────────────────── */
-.badge{
-  display:inline-flex;align-items:center;gap:8px;border-radius:9999px;
-  padding:6px 14px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-}
-.badge-y{background:rgba(244,180,0,.12);border:1px solid rgba(244,180,0,.28);color:#F4B400;}
-.badge-y .dot{width:6px;height:6px;border-radius:50%;background:#F4B400;flex-shrink:0;animation:glowPulse 2s ease-in-out infinite;}
-
-/* ── Section label row ────────────────────────────── */
-.sh-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.sh-label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F4B400;
-}
-.sh-num{font-size:.65rem;color:rgba(255,255,255,.2);letter-spacing:.05em;}
-
-/* ── Gradient separator ───────────────────────────── */
-.sep{
-  height:1px;
-  background:linear-gradient(to right,transparent,rgba(255,255,255,.14),transparent);
-  margin-bottom:clamp(36px,5vw,56px);
+/* ─── Tokens ────────────────────────────────────────────────── */
+:root {
+  --black:  #0B0B0B;
+  --white:  #ffffff;
+  --yellow: #F4B400;
+  --sec-v: clamp(100px, 14vw, 160px);
+  --wrap: 860px;
+  --wrap-wide: 1040px;
 }
 
-/* ── Headings ─────────────────────────────────────── */
-.h{font-family:'Bebas Neue',sans-serif;line-height:.9;letter-spacing:.01em;}
-.yl{color:#F4B400;}
-.hd-xl{font-size:clamp(3.5rem,9vw,7.5rem);}
-.hd-lg{font-size:clamp(2.8rem,7vw,5.5rem);}
-.hd-md{font-size:clamp(2.4rem,6vw,4.5rem);}
+/* ─── Layout ────────────────────────────────────────────────── */
+.wrap      { max-width: var(--wrap);      margin: 0 auto; padding: 0 clamp(24px,5vw,48px); }
+.wrap-wide { max-width: var(--wrap-wide); margin: 0 auto; padding: 0 clamp(24px,5vw,48px); }
 
-/* ── Ambient glow ─────────────────────────────────── */
-.glow{
-  position:absolute;pointer-events:none;border-radius:50%;
-  background:radial-gradient(circle,rgba(244,180,0,.22) 0%,transparent 70%);
-  filter:blur(48px);
+/* dark and light sections */
+.s-dark  { background: var(--black); color: var(--white); padding: var(--sec-v) 0; }
+.s-light { background: var(--white); color: var(--black); padding: var(--sec-v) 0; }
+.s-yellow{ background: var(--yellow);color: var(--black); padding: var(--sec-v) 0; }
+
+/* ─── Section label ─────────────────────────────────────────── */
+.label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+}
+.s-dark  .label { color: var(--yellow); }
+.s-dark  .label::before { background: var(--yellow); }
+.s-light .label { color: rgba(0,0,0,.4); }
+.s-light .label::before { background: rgba(0,0,0,.4); }
+.s-yellow .label { color: rgba(0,0,0,.55); }
+.s-yellow .label::before { background: rgba(0,0,0,.55); }
+
+/* ─── Headings ──────────────────────────────────────────────── */
+.display {
+  font-family: 'Bebas Neue', sans-serif;
+  line-height: .88;
+  letter-spacing: .01em;
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+.display .yl   { color: var(--yellow); }
+.display .faded{ color: rgba(255,255,255,.18); }
+
+/* ─── Horizontal rule ───────────────────────────────────────── */
+hr {
+  border: none;
+  height: 1px;
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+.s-dark  hr { background: rgba(255,255,255,.08); }
+.s-light hr { background: rgba(0,0,0,.1); }
+
+/* ─── HERO ──────────────────────────────────────────────────── */
+.hero {
+  background: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 100svh;
+  padding-top: clamp(40px,8vw,80px);
+}
+.hero img { width: 100%; max-width: 540px; height: auto; display: block; }
+
+/* ─── VAGAS ─────────────────────────────────────────────────── */
+.vagas-block { text-align: center; max-width: 440px; margin: 0 auto; }
+
+.vagas-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(9rem, 24vw, 14rem);
+  line-height: .8;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+.vagas-num b { color: var(--yellow); }
+
+.vagas-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+.vagas-bar {
+  height: 2px;
+  background: rgba(255,255,255,.08);
+  margin-bottom: 8px;
+}
+.vagas-fill {
+  height: 100%;
+  background: var(--yellow);
+  width: 74.3%;
+}
+.vagas-slots {
+  font-size: .72rem;
+  color: rgba(255,255,255,.25);
+  font-weight: 500;
+  margin-bottom: 48px;
+}
+.vagas-slots strong { color: var(--yellow); }
+
+.vagas-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255,255,255,.08);
+  margin: 0 auto 40px;
+}
+.vagas-cd-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  margin-bottom: 10px;
+}
+.vagas-cd {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 5.5rem);
+  letter-spacing: .06em;
+  color: var(--white);
+  line-height: 1;
+}
+.vagas-date {
+  font-size: .72rem;
+  color: rgba(255,255,255,.2);
+  margin-top: 10px;
+  font-weight: 500;
 }
 
-/* ── Hero ─────────────────────────────────────────── */
-.hero{
-  min-height:100svh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:clamp(48px,8vw,80px) 0 0;
-  position:relative;overflow:hidden;z-index:1;
+/* ─── PROBLEM LIST ──────────────────────────────────────────── */
+.pain-list {
+  list-style: none;
+  border-top: 1px solid rgba(0,0,0,.1);
 }
-.hero-badge{animation:fadeSlideIn .8s ease-out both;margin-bottom:28px;}
-.hero-img-wrap{
-  position:relative;width:100%;max-width:560px;
-  animation:fadeSlideIn .95s ease-out .18s both;
+.pain-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
-.hero img{width:100%;height:auto;display:block;position:relative;z-index:1;}
-.hero-glow{
-  width:560px;height:560px;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  opacity:.35;
+.pain-x {
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .62rem;
+  font-weight: 700;
+  color: var(--black);
+  flex-shrink: 0;
+}
+.pain-item span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.3;
+}
+.pivot-quote {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--black);
+  font-size: clamp(.95rem,2.2vw,1.08rem);
+  font-weight: 500;
+  color: rgba(255,255,255,.45);
+  line-height: 1.7;
+  border-left: 3px solid var(--yellow);
+}
+.pivot-quote strong { color: var(--yellow); }
+
+/* ─── PROOF GRID ────────────────────────────────────────────── */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-top: clamp(48px,7vw,80px);
+}
+.proof-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter .35s;
+}
+.proof-item:hover img { filter: grayscale(0%); }
+.proof-cap {
+  padding: 10px 4px 0;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.proof-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.proof-role { font-size: .68rem; color: rgba(255,255,255,.3); margin-top: 2px; }
+
+/* ─── METHOD LIST ───────────────────────────────────────────── */
+.method-list { border-top: 1px solid rgba(0,0,0,.1); }
+.method-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding: 36px 0;
+  gap: 0;
+}
+.method-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem,7vw,4.5rem);
+  color: var(--yellow);
+  line-height: 1;
+  padding-right: 24px;
+  border-right: 1px solid rgba(0,0,0,.1);
+  align-self: start;
+}
+.method-body { padding-left: 32px; padding-top: 4px; }
+.method-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 12px;
+}
+.method-ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.method-ul li {
+  font-size: .88rem;
+  color: rgba(0,0,0,.55);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.method-ul li::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--yellow);
+  flex-shrink: 0;
 }
 
-/* ── Vagas ────────────────────────────────────────── */
-.vagas{padding:clamp(60px,10vw,100px) 0;position:relative;z-index:1;}
-.vagas-card{
-  max-width:480px;margin:0 auto;
-  padding:clamp(40px,6vw,64px) clamp(32px,5vw,56px);
-  text-align:center;position:relative;overflow:hidden;
+/* ─── TRANSFORMATION ────────────────────────────────────────── */
+.trfm-list { border-top: 1px solid rgba(255,255,255,.06); }
+.trfm-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 36px 0;
 }
-.vagas-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(8rem,22vw,13rem);line-height:.82;color:#fff;letter-spacing:-.02em;}
-.vagas-num b{color:#F4B400;}
-.vagas-sub{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:6px;margin-bottom:28px;}
-.vagas-bar{height:2px;background:rgba(255,255,255,.07);margin-bottom:7px;border-radius:2px;}
-.vagas-fill{height:100%;background:#F4B400;width:74.3%;border-radius:2px;}
-.vagas-slots{font-size:.72rem;color:rgba(255,255,255,.3);font-weight:500;margin-bottom:40px;}
-.vagas-slots strong{color:#F4B400;}
-.vagas-div{width:1px;height:40px;background:rgba(255,255,255,.1);margin:0 auto 36px;}
-.vagas-cd-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:10px;}
-.vagas-cd{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,5.5rem);letter-spacing:.06em;color:#fff;line-height:1;}
-.vagas-cd-date{font-size:.72rem;color:rgba(255,255,255,.25);margin-top:8px;font-weight:500;}
-
-/* ── Pain section ─────────────────────────────────── */
-.pain-h{color:#fff;margin-top:14px;margin-bottom:clamp(32px,5vw,48px);}
-.pain-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.pain-li{display:flex;align-items:center;gap:16px;padding:20px 24px;}
-.pain-x{
-  width:28px;height:28px;border:1.5px solid rgba(244,180,0,.4);border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.65rem;font-weight:700;flex-shrink:0;color:#F4B400;
+.trfm-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem,7vw,4.5rem);
+  color: var(--yellow);
+  line-height: 1;
+  padding-right: 24px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  align-self: start;
 }
-.pain-li span{font-size:.95rem;font-weight:500;color:rgba(255,255,255,.72);line-height:1.35;}
-.pivot{
-  margin-top:20px;padding:26px 32px 26px 28px;
-  border-left:3px solid #F4B400;
-  font-size:clamp(.95rem,2.2vw,1.1rem);font-weight:500;
-  color:rgba(255,255,255,.5);line-height:1.7;
+.trfm-body { padding-left: 32px; padding-top: 4px; }
+.trfm-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
 }
-.pivot strong{color:#F4B400;}
-
-/* ── Proof grid ───────────────────────────────────── */
-.proof-h{color:#fff;margin-top:14px;}
-.proof-grid{margin-top:clamp(36px,5vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.proof-item{border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07);}
-.proof-item img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;filter:grayscale(30%);transition:filter .4s;}
-.proof-item:hover img{filter:grayscale(0%);}
-.proof-cap{padding:12px 16px 14px;background:rgba(255,255,255,.03);}
-.proof-name{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;}
-.proof-role{font-size:.68rem;color:rgba(255,255,255,.28);margin-top:3px;}
-
-/* ── Method ───────────────────────────────────────── */
-.method-h{color:#fff;margin-top:14px;}
-.method-grid{margin-top:clamp(36px,5vw,52px);display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.method-card{padding:clamp(28px,4vw,40px);display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;}
-.method-num{
-  font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,6rem);
-  color:#F4B400;line-height:1;opacity:.22;
-  position:absolute;top:16px;right:20px;user-select:none;
+.trfm-ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.trfm-ul li {
+  font-size: .88rem;
+  color: rgba(255,255,255,.38);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.55;
 }
-.method-title{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;}
-.method-ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.method-ul li{font-size:.88rem;color:rgba(255,255,255,.42);display:flex;gap:12px;align-items:center;}
-.method-ul li::before{content:'';width:16px;height:1px;background:#F4B400;flex-shrink:0;}
-
-/* ── Transformation ───────────────────────────────── */
-.trfm-h{color:#fff;margin-top:14px;}
-.trfm-grid{margin-top:clamp(36px,5vw,52px);display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.trfm-card{padding:clamp(28px,4vw,40px);display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;}
-.trfm-num-bg{
-  position:absolute;bottom:-16px;right:12px;
-  font-family:'Bebas Neue',sans-serif;font-size:8rem;color:#F4B400;line-height:1;
-  opacity:.055;pointer-events:none;user-select:none;
+.trfm-ul li::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: rgba(255,255,255,.25);
+  flex-shrink: 0;
+  margin-top: 9px;
 }
-.trfm-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;}
-.trfm-ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.trfm-ul li{font-size:.87rem;color:rgba(255,255,255,.42);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
-.trfm-ul li::before{content:'';width:14px;height:1px;background:#F4B400;flex-shrink:0;margin-top:9px;}
 
-/* ── Included ─────────────────────────────────────── */
-.inc-h{color:#fff;margin-top:14px;}
-.inc-card{margin-top:clamp(36px,5vw,52px);}
-.inc-row{display:flex;justify-content:space-between;align-items:flex-start;padding:22px 28px;border-bottom:1px solid rgba(255,255,255,.06);gap:24px;}
-.inc-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;margin-bottom:4px;}
-.inc-desc{font-size:.76rem;color:rgba(255,255,255,.28);}
-.inc-val{font-size:.8rem;color:rgba(255,255,255,.18);text-decoration:line-through;white-space:nowrap;flex-shrink:0;padding-top:2px;}
-.inc-total{display:flex;justify-content:space-between;align-items:center;padding:24px 28px;border-top:1px solid rgba(244,180,0,.28);}
-.inc-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.28);}
-.inc-was{font-size:.82rem;color:rgba(255,255,255,.18);text-decoration:line-through;margin-top:4px;}
-.inc-price{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:#F4B400;line-height:1;}
-.inc-price sup{font-size:1.6rem;vertical-align:super;margin-top:6px;display:inline-block;}
-
-/* ── Access steps ─────────────────────────────────── */
-.access-h{color:#fff;margin-top:14px;}
-.steps{margin-top:clamp(36px,5vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.step-card{padding:28px 28px 32px;display:flex;flex-direction:column;gap:14px;}
-.step-n{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:36px;height:36px;border-radius:9999px;
-  background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.3);
-  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#F4B400;
+/* ─── INCLUDED TABLE ────────────────────────────────────────── */
+.inc-table { border-top: 1px solid rgba(255,255,255,.06); }
+.inc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  gap: 24px;
 }
-.step-t{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;}
-.step-d{font-size:.84rem;color:rgba(255,255,255,.38);line-height:1.6;}
-
-/* ── Who / not who ────────────────────────────────── */
-.whom-outer{position:relative;z-index:1;padding:clamp(80px,12vw,140px) 0;}
-.whom-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:1020px;margin:0 auto;padding:0 clamp(20px,5vw,48px);}
-.whom-card{padding:clamp(40px,5vw,56px) clamp(32px,4vw,48px);}
-.whom-hd{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2rem,4vw,3rem);letter-spacing:.02em;
-  padding-bottom:14px;margin-bottom:6px;border-bottom:2px solid;
+.inc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 4px;
 }
-.whom-yes .whom-hd{border-color:#F4B400;color:#F4B400;}
-.whom-no .whom-hd{border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.25);}
-.whom-ul{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:14px;}
-.whom-ul li{display:flex;gap:14px;font-size:.88rem;line-height:1.45;align-items:flex-start;}
-.whom-yes .whom-ul li{color:rgba(255,255,255,.62);}
-.whom-no .whom-ul li{color:rgba(255,255,255,.22);}
-.ico-y{color:#F4B400;font-weight:700;flex-shrink:0;}
-.ico-n{color:rgba(255,255,255,.2);font-weight:700;flex-shrink:0;}
-
-/* ── FAQ ──────────────────────────────────────────── */
-.faq-h{color:#fff;margin-top:14px;}
-.faq-list{margin-top:clamp(36px,5vw,52px);display:flex;flex-direction:column;gap:8px;}
-.faq-item{overflow:hidden;}
-.faq-btn{
-  width:100%;display:flex;justify-content:space-between;align-items:center;
-  padding:20px 24px;background:none;border:none;cursor:pointer;
-  font-family:'Barlow',sans-serif;font-size:.95rem;font-weight:600;color:#fff;text-align:left;gap:20px;
+.inc-desc { font-size: .76rem; color: rgba(255,255,255,.3); }
+.inc-val {
+  font-size: .8rem;
+  color: rgba(255,255,255,.15);
+  text-decoration: line-through;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 2px;
 }
-.faq-ico{
-  width:26px;height:26px;border:1px solid rgba(255,255,255,.14);border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;font-weight:400;flex-shrink:0;
-  transition:background .2s,border-color .2s,color .2s;
+.inc-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0;
+  border-top: 1px solid var(--yellow);
 }
-.faq-btn[aria-expanded="true"] .faq-ico{background:#F4B400;border-color:#F4B400;color:#0B0B0B;}
-.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.faq-body p{font-size:.86rem;color:rgba(255,255,255,.38);line-height:1.8;padding:0 24px 20px;padding-right:66px;}
-
-/* ── CTA Final ────────────────────────────────────── */
-.cta-sec{padding:clamp(100px,14vw,160px) 0;text-align:center;position:relative;z-index:1;overflow:hidden;}
-.cta-tag{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:#F4B400;display:block;margin-bottom:20px;}
-.cta-hd{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,7rem);line-height:.88;color:#fff;margin-bottom:40px;}
-.cta-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,18vw,11rem);color:#F4B400;line-height:1;letter-spacing:-.02em;}
-.cta-price sup{font-size:2.5rem;vertical-align:super;}
-.cta-note{font-size:.7rem;color:rgba(255,255,255,.2);letter-spacing:.1em;text-transform:uppercase;margin-top:8px;margin-bottom:40px;font-weight:500;}
-.cta-ul{list-style:none;display:inline-flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:48px;}
-.cta-ul li{display:flex;gap:12px;font-size:.86rem;color:rgba(255,255,255,.42);align-items:center;}
-.cta-ul li::before{content:'';width:18px;height:1px;background:#F4B400;flex-shrink:0;}
-.cta-foot{margin-top:22px;font-size:.7rem;color:rgba(255,255,255,.2);line-height:1.8;max-width:340px;margin-left:auto;margin-right:auto;}
-
-/* ── Button ───────────────────────────────────────── */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  background:#F4B400;color:#0B0B0B;
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;
-  padding:18px 56px;border-radius:9999px;text-decoration:none;
-  transition:background .15s,transform .15s,box-shadow .15s;
-  box-shadow:0 8px 32px rgba(244,180,0,.28);
+.inc-total-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
 }
-.btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 14px 44px rgba(244,180,0,.38);}
-
-/* ── Footer ───────────────────────────────────────── */
-.foot{border-top:1px solid rgba(255,255,255,.05);padding:40px 24px;text-align:center;position:relative;z-index:1;}
-.foot-logo{width:34px;height:auto;opacity:.28;margin:0 auto 16px;display:block;}
-.foot-links{display:flex;gap:28px;justify-content:center;margin-bottom:12px;}
-.foot-links a{font-size:.66rem;color:rgba(255,255,255,.18);text-decoration:none;letter-spacing:.05em;}
-.foot-links a:hover{color:#F4B400;}
-.foot-copy{font-size:.63rem;color:rgba(255,255,255,.14);letter-spacing:.04em;}
-
-/* ── Reveal ───────────────────────────────────────── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
-.reveal.in{opacity:1;transform:none;}
-
-/* ── Responsive ───────────────────────────────────── */
-@media(max-width:768px){
-  .proof-grid{grid-template-columns:repeat(2,1fr);}
-  .method-grid,.trfm-grid{grid-template-columns:1fr;}
-  .steps{grid-template-columns:1fr;}
-  .whom-split{grid-template-columns:1fr;}
+.inc-total-was { font-size: .82rem; color: rgba(255,255,255,.18); text-decoration: line-through; margin-top: 4px; }
+.inc-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem;
+  color: var(--yellow);
+  line-height: 1;
 }
-@media(max-width:480px){
-  .inc-row{flex-wrap:wrap;}
-  .inc-val{align-self:flex-end;}
+.inc-price sup { font-size: 1.6rem; vertical-align: super; }
+.inc-price-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+  margin-bottom: 4px;
+  text-align: right;
+}
+
+/* ─── ACCESS STEPS ──────────────────────────────────────────── */
+.step-list { border-top: 1px solid rgba(0,0,0,.1); max-width: 640px; }
+.step-item {
+  display: flex;
+  gap: 28px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  align-items: flex-start;
+}
+.step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--yellow);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 32px;
+}
+.step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 6px;
+}
+.step-desc { font-size: .86rem; color: rgba(0,0,0,.5); line-height: 1.6; }
+
+/* ─── WHO IS / IS NOT ───────────────────────────────────────── */
+.whom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.whom-side {
+  padding: clamp(60px,10vw,100px) clamp(24px,6vw,64px);
+}
+.whom-yes { background: var(--black); }
+.whom-no  { background: #111; }
+.whom-hd {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem,4vw,3rem);
+  letter-spacing: .02em;
+  padding-bottom: 16px;
+  margin-bottom: 4px;
+  border-bottom: 2px solid;
+}
+.whom-yes .whom-hd { color: var(--yellow); border-color: var(--yellow); }
+.whom-no  .whom-hd { color: rgba(255,255,255,.22); border-color: rgba(255,255,255,.08); }
+.whom-ul { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+.whom-ul li { display: flex; gap: 14px; font-size: .9rem; line-height: 1.45; align-items: flex-start; }
+.whom-yes .whom-ul li { color: rgba(255,255,255,.58); }
+.whom-no  .whom-ul li { color: rgba(255,255,255,.22); }
+.ico-y { color: var(--yellow); font-weight: 700; flex-shrink: 0; }
+.ico-n { color: rgba(255,255,255,.2); font-weight: 700; flex-shrink: 0; }
+
+/* ─── FAQ ───────────────────────────────────────────────────── */
+.faq-list { border-top: 1px solid rgba(0,0,0,.1); }
+.faq-item { border-bottom: 1px solid rgba(0,0,0,.1); }
+.faq-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+  font-size: .98rem;
+  font-weight: 600;
+  color: var(--black);
+  text-align: left;
+  gap: 20px;
+}
+.faq-ico {
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid rgba(0,0,0,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 400;
+  flex-shrink: 0;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.faq-btn[aria-expanded="true"] .faq-ico {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--black);
+}
+.faq-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-body p { font-size: .88rem; color: rgba(0,0,0,.55); line-height: 1.8; padding-bottom: 22px; padding-right: 46px; }
+
+/* ─── CTA FINAL ─────────────────────────────────────────────── */
+.cta-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.5);
+  display: block;
+  margin-bottom: 20px;
+}
+.cta-hd {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: .88;
+  color: var(--black);
+  margin-bottom: 48px;
+}
+.cta-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(7rem, 20vw, 12rem);
+  color: var(--black);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.cta-price sup { font-size: 2.5rem; vertical-align: super; }
+.cta-note {
+  font-size: .7rem;
+  color: rgba(0,0,0,.4);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-top: 6px;
+  margin-bottom: 44px;
+  font-weight: 500;
+}
+.cta-ul {
+  list-style: none;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 52px;
+}
+.cta-ul li {
+  display: flex;
+  gap: 12px;
+  font-size: .88rem;
+  color: rgba(0,0,0,.55);
+  align-items: center;
+}
+.cta-ul li::before {
+  content: '';
+  width: 16px;
+  height: 1.5px;
+  background: var(--black);
+  flex-shrink: 0;
+}
+.cta-foot {
+  margin-top: 20px;
+  font-size: .7rem;
+  color: rgba(0,0,0,.38);
+  line-height: 1.8;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── BUTTON ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  color: var(--yellow);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: 20px 60px;
+  text-decoration: none;
+  transition: background .15s, transform .15s;
+}
+.btn:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.foot {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,.05);
+  padding: 48px 24px;
+  text-align: center;
+}
+.foot-logo { width: 34px; height: auto; opacity: .3; margin: 0 auto 16px; display: block; }
+.foot-links { display: flex; gap: 28px; justify-content: center; margin-bottom: 12px; }
+.foot-links a { font-size: .66rem; color: rgba(255,255,255,.2); text-decoration: none; letter-spacing: .05em; }
+.foot-links a:hover { color: var(--yellow); }
+.foot-copy { font-size: .63rem; color: rgba(255,255,255,.12); letter-spacing: .04em; }
+
+/* ─── REVEAL ─────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .proof-grid       { grid-template-columns: repeat(2, 1fr); }
+  .method-item      { grid-template-columns: 60px 1fr; }
+  .method-n         { font-size: 2.8rem; }
+  .method-body      { padding-left: 20px; }
+  .trfm-item        { grid-template-columns: 60px 1fr; }
+  .trfm-n           { font-size: 2.8rem; }
+  .trfm-body        { padding-left: 20px; }
+  .whom-grid        { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .method-item      { grid-template-columns: 1fr; }
+  .method-n         { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: 16px; }
+  .method-body      { padding-left: 0; }
+  .trfm-item        { grid-template-columns: 1fr; }
+  .trfm-n           { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 16px; }
+  .trfm-body        { padding-left: 0; }
+  .inc-row          { flex-wrap: wrap; }
+  .inc-val          { align-self: flex-end; }
 }
 </style>
 
-<!-- Fixed subtle grid background (Fluxora pattern) -->
-<div class="g-bg" aria-hidden="true"></div>
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <img src="/images/hero-desafio.png" alt="Desafio Goleiro de Elite" loading="eager" fetchpriority="high" />
+</section>
 
-<div class="g">
-
-  <!-- ── HERO ─────────────────────────────────────── -->
-  <section class="hero">
-    <div class="hero-badge">
-      <span class="badge badge-y"><span class="dot"></span>Próxima turma · segunda-feira</span>
+<!-- ── VAGAS + COUNTDOWN ─────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="vagas-block reveal">
+      <div class="label" style="justify-content:center">Vagas limitadas</div>
+      <div class="vagas-num"><b>18</b></div>
+      <div class="vagas-sub">vagas disponíveis nesta turma</div>
+      <div class="vagas-bar"><div class="vagas-fill"></div></div>
+      <div class="vagas-slots"><strong>52 de 70</strong> vagas preenchidas</div>
+      <div class="vagas-divider"></div>
+      <div class="vagas-cd-lbl">Próxima turma começa em</div>
+      <div class="vagas-cd" id="gde-cd">--:--:--</div>
+      <div class="vagas-date" id="gde-date">segunda-feira</div>
     </div>
-    <div class="hero-img-wrap">
-      <div class="glow hero-glow"></div>
-      <img src="/images/hero-desafio.png" alt="Desafio Goleiro de Elite" loading="eager" fetchpriority="high" />
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── VAGAS + COUNTDOWN ─────────────────────────── -->
-  <section class="vagas">
-    <div class="wrap">
-      <div class="card vagas-card reveal">
-        <div class="glow" style="width:280px;height:280px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.18;"></div>
-        <div style="margin-bottom:22px">
-          <span class="badge badge-y"><span class="dot"></span>Vagas limitadas</span>
-        </div>
-        <div class="vagas-num"><b>18</b></div>
-        <div class="vagas-sub">vagas disponíveis nesta turma</div>
-        <div class="vagas-bar"><div class="vagas-fill"></div></div>
-        <div class="vagas-slots"><strong>52 de 70</strong> vagas preenchidas</div>
-        <div class="vagas-div"></div>
-        <div class="vagas-cd-lbl">Próxima turma começa em</div>
-        <div class="vagas-cd" id="gde-cd">--:--:--</div>
-        <div class="vagas-cd-date" id="gde-date">segunda-feira</div>
-      </div>
+<!-- ── O PROBLEMA ─────────────────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">O problema</div>
+      <h2 class="display">Você treina.<br>Você se dedica.<br>Mas na hora do jogo…</h2>
     </div>
-  </section>
-
-  <!-- ── O PROBLEMA ────────────────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">O problema</span>
-          <span class="sh-num">(01)</span>
-        </div>
-        <div class="sep"></div>
-        <h2 class="h hd-lg pain-h">Você treina.<br>Você se dedica.<br>Mas na hora do jogo…</h2>
-      </div>
-      <ul class="pain-list reveal" style="transition-delay:.08s">
-        <li class="pain-li card card-sm">
-          <div class="pain-x">✗</div>
-          <span>Pernas que não respondem no momento decisivo</span>
-        </li>
-        <li class="pain-li card card-sm">
-          <div class="pain-x">✗</div>
-          <span>Cai e demora pra levantar pra próxima jogada</span>
-        </li>
-        <li class="pain-li card card-sm">
-          <div class="pain-x">✗</div>
-          <span>Perde a disputa aérea no segundo tempo</span>
-        </li>
-        <li class="pain-li card card-sm">
-          <div class="pain-x">✗</div>
-          <span>Treina na academia mas não melhora no gol</span>
-        </li>
-        <li class="pain-li card card-sm">
-          <div class="pain-x">✗</div>
-          <span>Leva gol que sabia que era pra pegar</span>
-        </li>
-      </ul>
-      <div class="pivot card card-sm reveal" style="transition-delay:.14s;border-left:3px solid #F4B400;padding:26px 32px;">
-        Não faltou treino. Não faltou esforço.<br>
-        <strong>Faltou o tipo certo de treino para goleiro.</strong>
-      </div>
+    <ul class="pain-list reveal" style="transition-delay:.08s">
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Pernas que não respondem no momento decisivo</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Cai e demora pra levantar pra próxima jogada</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Perde a disputa aérea no segundo tempo</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Treina na academia mas não melhora no gol</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Leva gol que sabia que era pra pegar</span>
+      </li>
+    </ul>
+    <div class="pivot-quote reveal" style="transition-delay:.14s">
+      Não faltou treino. Não faltou esforço.<br>
+      <strong>Faltou o tipo certo de treino para goleiro.</strong>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── PROVAS REAIS ───────────────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">Resultados reais</span>
-          <span class="sh-num">(02)</span>
+<!-- ── PROVAS REAIS ────────────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap-wide">
+    <div class="reveal">
+      <div class="label">Resultados reais</div>
+      <h2 class="display">O que muda quando<br>o goleiro treina <span class="yl">certo</span></h2>
+    </div>
+    <div class="proof-grid reveal" style="transition-delay:.1s">
+      <div class="proof-item">
+        <img src="/images/carrossel-1.webp" srcset="/images/carrossel-1-420.webp 420w,/images/carrossel-1.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
+        <div class="proof-cap">
+          <div class="proof-name">Fabíola Stelzer</div>
+          <div class="proof-role">Goleira Amadora · ES</div>
         </div>
-        <div class="sep"></div>
-        <h2 class="h hd-lg proof-h">O que muda quando<br>o goleiro treina <span class="yl">certo</span></h2>
       </div>
-      <div class="proof-grid reveal" style="transition-delay:.1s">
-        <div class="proof-item">
-          <img src="/images/carrossel-1.webp" srcset="/images/carrossel-1-420.webp 420w,/images/carrossel-1.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-          <div class="proof-cap">
-            <div class="proof-name">Fabíola Stelzer</div>
-            <div class="proof-role">Goleira Amadora · ES</div>
-          </div>
+      <div class="proof-item">
+        <img src="/images/carrossel-2.webp" srcset="/images/carrossel-2-420.webp 420w,/images/carrossel-2.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
+        <div class="proof-cap">
+          <div class="proof-name">Rafael S.</div>
+          <div class="proof-role">Goleiro Profissional</div>
         </div>
-        <div class="proof-item">
-          <img src="/images/carrossel-2.webp" srcset="/images/carrossel-2-420.webp 420w,/images/carrossel-2.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-          <div class="proof-cap">
-            <div class="proof-name">Rafael S.</div>
-            <div class="proof-role">Goleiro Profissional</div>
-          </div>
+      </div>
+      <div class="proof-item">
+        <img src="/images/carrossel-3.webp" srcset="/images/carrossel-3-420.webp 420w,/images/carrossel-3.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
+        <div class="proof-cap">
+          <div class="proof-name">Diego A.</div>
+          <div class="proof-role">Goleiro de Base · MG</div>
         </div>
-        <div class="proof-item">
-          <img src="/images/carrossel-3.webp" srcset="/images/carrossel-3-420.webp 420w,/images/carrossel-3.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-          <div class="proof-cap">
-            <div class="proof-name">Diego A.</div>
-            <div class="proof-role">Goleiro de Base · MG</div>
-          </div>
+      </div>
+      <div class="proof-item">
+        <img src="/images/carrossel-4.webp" srcset="/images/carrossel-4-420.webp 420w,/images/carrossel-4.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
+        <div class="proof-cap">
+          <div class="proof-name">Thiago R.</div>
+          <div class="proof-role">Goleiro Amador · PR</div>
         </div>
-        <div class="proof-item">
-          <img src="/images/carrossel-4.webp" srcset="/images/carrossel-4-420.webp 420w,/images/carrossel-4.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-          <div class="proof-cap">
-            <div class="proof-name">Thiago R.</div>
-            <div class="proof-role">Goleiro Amador · PR</div>
-          </div>
+      </div>
+      <div class="proof-item">
+        <img src="/images/carrossel-5.webp" srcset="/images/carrossel-5-420.webp 420w,/images/carrossel-5.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
+        <div class="proof-cap">
+          <div class="proof-name">Matheus F.</div>
+          <div class="proof-role">Goleiro Aspirante · RS</div>
         </div>
-        <div class="proof-item">
-          <img src="/images/carrossel-5.webp" srcset="/images/carrossel-5-420.webp 420w,/images/carrossel-5.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-          <div class="proof-cap">
-            <div class="proof-name">Matheus F.</div>
-            <div class="proof-role">Goleiro Aspirante · RS</div>
-          </div>
-        </div>
-        <div class="proof-item">
-          <img src="/images/carrossel-6.webp" srcset="/images/carrossel-6-420.webp 420w,/images/carrossel-6.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
-          <div class="proof-cap">
-            <div class="proof-name">Bruno C.</div>
-            <div class="proof-role">Goleiro Universitário · BA</div>
-          </div>
+      </div>
+      <div class="proof-item">
+        <img src="/images/carrossel-6.webp" srcset="/images/carrossel-6-420.webp 420w,/images/carrossel-6.webp 900w" sizes="(max-width:768px)50vw,33vw" alt="" loading="lazy" />
+        <div class="proof-cap">
+          <div class="proof-name">Bruno C.</div>
+          <div class="proof-role">Goleiro Universitário · BA</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── O MÉTODO ───────────────────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">O método</span>
-          <span class="sh-num">(03)</span>
-        </div>
-        <div class="sep"></div>
-        <h2 class="h hd-lg method-h">5 dias. Treino físico.<br><span class="yl">Específico para goleiro.</span></h2>
-      </div>
-      <div class="method-grid">
-        <div class="card method-card reveal" style="transition-delay:.06s">
-          <div class="method-num">01</div>
+<!-- ── O MÉTODO ───────────────────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">O método</div>
+      <h2 class="display" style="color:var(--black)">5 dias. Treino físico.<br><span style="color:var(--black);opacity:.3">Específico para goleiro.</span></h2>
+    </div>
+    <div class="method-list reveal" style="transition-delay:.08s">
+      <div class="method-item">
+        <div class="method-n">01</div>
+        <div class="method-body">
           <div class="method-title">Treino específico</div>
           <ul class="method-ul">
             <li>Explosão, força e velocidade</li>
@@ -436,8 +728,10 @@ import Base from '../layouts/Base.astro';
             <li>Só o que decide no jogo</li>
           </ul>
         </div>
-        <div class="card method-card reveal" style="transition-delay:.1s">
-          <div class="method-num">02</div>
+      </div>
+      <div class="method-item">
+        <div class="method-n">02</div>
+        <div class="method-body">
           <div class="method-title">Acompanhamento ao vivo</div>
           <ul class="method-ul">
             <li>Treinadores certificados</li>
@@ -445,8 +739,10 @@ import Base from '../layouts/Base.astro';
             <li>5 dias de suporte direto</li>
           </ul>
         </div>
-        <div class="card method-card reveal" style="transition-delay:.14s">
-          <div class="method-num">03</div>
+      </div>
+      <div class="method-item">
+        <div class="method-n">03</div>
+        <div class="method-body">
           <div class="method-title">Menu nutricional</div>
           <ul class="method-ul">
             <li>Plano alimentar específico</li>
@@ -454,8 +750,10 @@ import Base from '../layouts/Base.astro';
             <li>Otimizado para os 5 dias</li>
           </ul>
         </div>
-        <div class="card method-card reveal" style="transition-delay:.18s">
-          <div class="method-num">04</div>
+      </div>
+      <div class="method-item">
+        <div class="method-n">04</div>
+        <div class="method-body">
           <div class="method-title">Ciclo semanal</div>
           <ul class="method-ul">
             <li>Treino liberado na véspera</li>
@@ -465,22 +763,20 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── TRANSFORMAÇÃO ─────────────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">A transformação</span>
-          <span class="sh-num">(04)</span>
-        </div>
-        <div class="sep"></div>
-        <h2 class="h hd-lg trfm-h">Depois de 5 dias,<br>o que muda no seu jogo</h2>
-      </div>
-      <div class="trfm-grid">
-        <div class="card trfm-card reveal" style="transition-delay:.06s">
-          <div class="trfm-num-bg">01</div>
+<!-- ── TRANSFORMAÇÃO ──────────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">A transformação</div>
+      <h2 class="display">Depois de 5 dias,<br>o que muda no <span class="yl">seu jogo</span></h2>
+    </div>
+    <div class="trfm-list reveal" style="transition-delay:.08s">
+      <div class="trfm-item">
+        <div class="trfm-n">01</div>
+        <div class="trfm-body">
           <div class="trfm-title">Pernas que respondem quando você decide</div>
           <ul class="trfm-ul">
             <li>Levanta rápido e volta pra jogada</li>
@@ -488,24 +784,30 @@ import Base from '../layouts/Base.astro';
             <li>Disputa aérea forte até o fim do jogo</li>
           </ul>
         </div>
-        <div class="card trfm-card reveal" style="transition-delay:.1s">
-          <div class="trfm-num-bg">02</div>
+      </div>
+      <div class="trfm-item">
+        <div class="trfm-n">02</div>
+        <div class="trfm-body">
           <div class="trfm-title">Confiança real dentro de campo</div>
           <ul class="trfm-ul">
             <li>Entra sabendo que o corpo responde</li>
             <li>Para de duvidar na hora de decidir</li>
           </ul>
         </div>
-        <div class="card trfm-card reveal" style="transition-delay:.14s">
-          <div class="trfm-num-bg">03</div>
+      </div>
+      <div class="trfm-item">
+        <div class="trfm-n">03</div>
+        <div class="trfm-body">
           <div class="trfm-title">Você nunca mais treina no escuro</div>
           <ul class="trfm-ul">
             <li>Acesso vitalício ao material</li>
             <li>Sabe o que treinar, como e por quê</li>
           </ul>
         </div>
-        <div class="card trfm-card reveal" style="transition-delay:.18s">
-          <div class="trfm-num-bg">04</div>
+      </div>
+      <div class="trfm-item">
+        <div class="trfm-n">04</div>
+        <div class="trfm-body">
           <div class="trfm-title">Pertencimento ao ambiente certo</div>
           <ul class="trfm-ul">
             <li>5 dias com goleiros sérios e comprometidos</li>
@@ -514,217 +816,207 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── O QUE ESTÁ INCLUÍDO ───────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">O que você recebe</span>
-          <span class="sh-num">(05)</span>
-        </div>
-        <div class="sep"></div>
-        <h2 class="h hd-lg inc-h">Tudo por <span class="yl">R$ 35</span></h2>
-      </div>
-      <div class="wrap-sm" style="padding:0;margin:0 auto">
-        <div class="card inc-card reveal" style="transition-delay:.1s">
-          <div class="inc-row">
-            <div>
-              <div class="inc-name">Grupo ao vivo com treinadores certificados</div>
-              <div class="inc-desc">Acompanhamento + correção por vídeo + Q&A diário</div>
-            </div>
-            <div class="inc-val">R$ 197</div>
-          </div>
-          <div class="inc-row">
-            <div>
-              <div class="inc-name">5 treinos físicos completos</div>
-              <div class="inc-desc">Versão academia + versão casa · segunda a sexta</div>
-            </div>
-            <div class="inc-val">R$ 97</div>
-          </div>
-          <div class="inc-row">
-            <div>
-              <div class="inc-name">Menu nutricional da semana</div>
-              <div class="inc-desc">Plano alimentar específico para os 5 dias</div>
-            </div>
-            <div class="inc-val">R$ 47</div>
-          </div>
-          <div class="inc-row">
-            <div>
-              <div class="inc-name">Acesso vitalício à plataforma</div>
-              <div class="inc-desc">Refaça quantas vezes quiser · material pra sempre</div>
-            </div>
-            <div class="inc-val">R$ 197</div>
-          </div>
-          <div class="inc-total">
-            <div>
-              <div class="inc-lbl">Valor total</div>
-              <div class="inc-was">R$ 538</div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:4px">Você paga</div>
-              <div class="inc-price"><sup>R$</sup>35</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- ── O QUE ESTÁ INCLUÍDO ────────────────────────────────────── -->
+<section class="s-dark" style="border-top:1px solid rgba(255,255,255,.05)">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">O que você recebe</div>
+      <h2 class="display">Tudo por <span class="yl">R$ 35</span></h2>
     </div>
-  </section>
-
-  <!-- ── COMO RECEBO MEU ACESSO ─────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">Como funciona</span>
-          <span class="sh-num">(06)</span>
+    <div class="inc-table reveal" style="transition-delay:.1s">
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">Grupo ao vivo com treinadores certificados</div>
+          <div class="inc-desc">Acompanhamento + correção por vídeo + Q&A diário</div>
         </div>
-        <div class="sep"></div>
-        <h2 class="h hd-md access-h">Como recebo<br>meu acesso?</h2>
+        <div class="inc-val">R$ 197</div>
       </div>
-      <div class="steps reveal" style="transition-delay:.1s">
-        <div class="card step-card">
-          <div class="step-n">1</div>
-          <div class="step-t">Faça sua inscrição</div>
-          <div class="step-d">Pague R$ 35 · pagamento único · processado na hora</div>
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">5 treinos físicos completos</div>
+          <div class="inc-desc">Versão academia + versão casa · segunda a sexta</div>
         </div>
-        <div class="card step-card">
-          <div class="step-n">2</div>
-          <div class="step-t">Acesso imediato ao grupo</div>
-          <div class="step-d">Você entra no grupo de acompanhamento logo após a compra · sem espera</div>
-        </div>
-        <div class="card step-card">
-          <div class="step-n">3</div>
-          <div class="step-t">Começa na próxima segunda</div>
-          <div class="step-d">Treino liberado no domingo à noite · acesso vitalício ao material</div>
-        </div>
+        <div class="inc-val">R$ 97</div>
       </div>
-    </div>
-  </section>
-
-  <!-- ── PRA QUEM É / NÃO É ─────────────────────────── -->
-  <div class="whom-outer" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="whom-split">
-      <div class="card whom-card whom-yes reveal">
-        <div class="whom-hd">Pra quem é</div>
-        <ul class="whom-ul">
-          <li><span class="ico-y">✓</span> Goleiro amador, universitário, de base ou aspirante</li>
-          <li><span class="ico-y">✓</span> Treina mas não melhora dentro do campo</li>
-          <li><span class="ico-y">✓</span> Quer treino físico específico pro goleiro</li>
-          <li><span class="ico-y">✓</span> Pode separar tempo durante uma semana</li>
-        </ul>
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">Menu nutricional da semana</div>
+          <div class="inc-desc">Plano alimentar específico para os 5 dias</div>
+        </div>
+        <div class="inc-val">R$ 47</div>
       </div>
-      <div class="card whom-card whom-no reveal" style="transition-delay:.08s">
-        <div class="whom-hd">Pra quem não é</div>
-        <ul class="whom-ul">
-          <li><span class="ico-n">✗</span> Quem busca treino técnico com bola</li>
-          <li><span class="ico-n">✗</span> Quem quer acompanhamento individualizado</li>
-          <li><span class="ico-n">✗</span> Quem já tem preparador físico de goleiro</li>
-          <li><span class="ico-n">✗</span> Quem não pode treinar de segunda a sexta</li>
-        </ul>
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">Acesso vitalício à plataforma</div>
+          <div class="inc-desc">Refaça quantas vezes quiser · material pra sempre</div>
+        </div>
+        <div class="inc-val">R$ 197</div>
+      </div>
+      <div class="inc-total">
+        <div>
+          <div class="inc-total-lbl">Valor total</div>
+          <div class="inc-total-was">R$ 538</div>
+        </div>
+        <div>
+          <div class="inc-price-label">Você paga</div>
+          <div class="inc-price"><sup>R$</sup>35</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ── FAQ ───────────────────────────────────────── -->
-  <section class="sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="wrap-sm">
-      <div class="reveal">
-        <div class="sh-row">
-          <span class="sh-label">Dúvidas</span>
-          <span class="sh-num">(07)</span>
+<!-- ── COMO RECEBO MEU ACESSO ─────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">Como funciona</div>
+      <h2 class="display" style="color:var(--black)">Como recebo<br>meu acesso?</h2>
+    </div>
+    <div class="step-list reveal" style="transition-delay:.1s">
+      <div class="step-item">
+        <div class="step-n">1</div>
+        <div>
+          <div class="step-title">Faça sua inscrição</div>
+          <div class="step-desc">Pague R$ 35 · pagamento único · processado na hora</div>
         </div>
-        <div class="sep"></div>
-        <h2 class="h hd-md faq-h">Perguntas frequentes</h2>
       </div>
-      <div class="faq-list reveal" style="transition-delay:.1s">
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            Preciso ter academia pra fazer?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Não. Cada treino vem em duas versões: academia e casa. Você escolhe.</p></div>
+      <div class="step-item">
+        <div class="step-n">2</div>
+        <div>
+          <div class="step-title">Acesso imediato ao grupo</div>
+          <div class="step-desc">Você entra no grupo de acompanhamento logo após a compra · sem espera</div>
         </div>
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            Funciona pra goleiro amador?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Sim. O desafio foi criado especificamente para goleiros amadores, universitários, de base e aspirantes.</p></div>
-        </div>
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            E se eu perder um dia?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Sem problema. Os treinos são liberados na véspera e você faz no seu horário. Se perder, retoma no dia seguinte.</p></div>
-        </div>
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            Em que horário são os treinos?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Não há horário fixo. O treino é liberado na noite anterior e você executa quando puder.</p></div>
-        </div>
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            Quanto tempo por dia preciso separar?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Entre 40 e 60 minutos por treino.</p></div>
-        </div>
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            Posso refazer o desafio depois?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Sim. Acesso vitalício. Você pode refazer sozinho ou entrar em uma turma futura sem custo adicional.</p></div>
-        </div>
-        <div class="faq-item card card-sm">
-          <button class="faq-btn" aria-expanded="false">
-            Como recebo meu acesso?
-            <div class="faq-ico">+</div>
-          </button>
-          <div class="faq-body"><p>Imediatamente após o pagamento você é direcionado ao grupo de acompanhamento. Sem espera, sem e-mail pra chegar.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-n">3</div>
+        <div>
+          <div class="step-title">Começa na próxima segunda</div>
+          <div class="step-desc">Treino liberado no domingo à noite · acesso vitalício ao material</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── CTA FINAL ─────────────────────────────────── -->
-  <section class="cta-sec" style="border-top:1px solid rgba(255,255,255,.05)">
-    <div class="glow" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.22;"></div>
-    <div class="wrap">
-      <div class="reveal">
-        <span class="cta-tag">Próxima turma · <span id="gde-date-cta">segunda-feira</span></span>
-        <h2 class="cta-hd">Entre na próxima turma.<br>Comece na segunda.</h2>
-        <div class="cta-price"><sup>R$</sup>35</div>
-        <div class="cta-note">Pagamento único · acesso imediato</div>
-        <ul class="cta-ul">
-          <li>5 treinos físicos específicos para goleiro</li>
-          <li>Acompanhamento ao vivo com treinadores certificados</li>
-          <li>Versão academia + versão casa</li>
-          <li>Menu nutricional da semana</li>
-          <li>Acesso vitalício à plataforma</li>
-        </ul>
-        <a href="https://pay.kiwify.com.br/KdBQQpk" class="btn">Garantir minha vaga agora</a>
-        <p class="cta-foot">O preço é intencional. Esse desafio é a porta de entrada — queremos que você experimente o método antes de qualquer decisão maior.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ─────────────────────────────────────── -->
-  <footer class="foot">
-    <img src="/images/logo-gde.png" alt="Goleiro de Elite" class="foot-logo" />
-    <div class="foot-links">
-      <a href="#">Termos de uso</a>
-      <a href="#">Política de privacidade</a>
-    </div>
-    <p class="foot-copy">© 2026 Goleiro de Elite. Todos os direitos reservados.</p>
-  </footer>
-
+<!-- ── PRA QUEM É / NÃO É ─────────────────────────────────────── -->
+<div class="whom-grid">
+  <div class="whom-side whom-yes reveal">
+    <div class="label">Pra quem é</div>
+    <div class="whom-hd">Este desafio é seu</div>
+    <ul class="whom-ul">
+      <li><span class="ico-y">✓</span> Goleiro amador, universitário, de base ou aspirante</li>
+      <li><span class="ico-y">✓</span> Treina mas não melhora dentro do campo</li>
+      <li><span class="ico-y">✓</span> Quer treino físico específico pro goleiro</li>
+      <li><span class="ico-y">✓</span> Pode separar tempo durante uma semana</li>
+    </ul>
+  </div>
+  <div class="whom-side whom-no reveal" style="transition-delay:.08s">
+    <div class="label" style="color:rgba(255,255,255,.2)">Pra quem não é</div>
+    <div class="whom-hd">Não é pra você</div>
+    <ul class="whom-ul">
+      <li><span class="ico-n">✗</span> Quem busca treino técnico com bola</li>
+      <li><span class="ico-n">✗</span> Quem quer acompanhamento individualizado</li>
+      <li><span class="ico-n">✗</span> Quem já tem preparador físico de goleiro</li>
+      <li><span class="ico-n">✗</span> Quem não pode treinar de segunda a sexta</li>
+    </ul>
+  </div>
 </div>
+
+<!-- ── FAQ ────────────────────────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">Dúvidas</div>
+      <h2 class="display" style="color:var(--black)">Perguntas<br>frequentes</h2>
+    </div>
+    <div class="faq-list reveal" style="transition-delay:.1s">
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Preciso ter academia pra fazer?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Não. Cada treino vem em duas versões: academia e casa. Você escolhe.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Funciona pra goleiro amador?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Sim. O desafio foi criado especificamente para goleiros amadores, universitários, de base e aspirantes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          E se eu perder um dia?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Sem problema. Os treinos são liberados na véspera e você faz no seu horário. Se perder, retoma no dia seguinte.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Em que horário são os treinos?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Não há horário fixo. O treino é liberado na noite anterior e você executa quando puder.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Quanto tempo por dia preciso separar?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Entre 40 e 60 minutos por treino.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Posso refazer o desafio depois?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Sim. Acesso vitalício. Você pode refazer sozinho ou entrar em uma turma futura sem custo adicional.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Como recebo meu acesso?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Imediatamente após o pagamento você é direcionado ao grupo de acompanhamento. Sem espera, sem e-mail pra chegar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ──────────────────────────────────────────────── -->
+<section class="s-yellow" style="text-align:center">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="cta-tag">Próxima turma · <span id="gde-date-cta">segunda-feira</span></span>
+      <h2 class="cta-hd">Entre na próxima turma.<br>Comece na segunda.</h2>
+      <div class="cta-price"><sup>R$</sup>35</div>
+      <div class="cta-note">Pagamento único · acesso imediato</div>
+      <ul class="cta-ul">
+        <li>5 treinos físicos específicos para goleiro</li>
+        <li>Acompanhamento ao vivo com treinadores certificados</li>
+        <li>Versão academia + versão casa</li>
+        <li>Menu nutricional da semana</li>
+        <li>Acesso vitalício à plataforma</li>
+      </ul>
+      <a href="https://pay.kiwify.com.br/KdBQQpk" class="btn">Garantir minha vaga agora</a>
+      <p class="cta-foot">O preço é intencional. Esse desafio é a porta de entrada — queremos que você experimente o método antes de qualquer decisão maior.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="foot">
+  <img src="/images/logo-gde.png" alt="Goleiro de Elite" class="foot-logo" />
+  <div class="foot-links">
+    <a href="#">Termos de uso</a>
+    <a href="#">Política de privacidade</a>
+  </div>
+  <p class="foot-copy">© 2026 Goleiro de Elite. Todos os direitos reservados.</p>
+</footer>
 
 <script>
   function nextMonday() {
@@ -783,4 +1075,3 @@ import Base from '../layouts/Base.astro';
   }, { threshold: 0.06 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 </script>
-</Base>
