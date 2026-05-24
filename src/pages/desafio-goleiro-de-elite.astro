@@ -202,9 +202,13 @@ hr {
 .pivot-quote strong { color: var(--yellow); }
 
 /* ─── PROOF CAROUSEL ─────────────────────────────────────────── */
+.proof-clip {
+  overflow: hidden;   /* clips side cards — must be separate from perspective element */
+  width: 100%;
+  margin-top: clamp(40px,6vw,64px);
+}
 .proof-carousel-outer {
   position: relative;
-  margin-top: clamp(40px,6vw,64px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -902,7 +906,8 @@ hr {
       <div class="label">Resultados reais</div>
       <h2 class="display">O que muda quando<br>o goleiro treina <span class="yl">certo</span></h2>
     </div>
-    <div class="proof-carousel-outer reveal" style="transition-delay:.1s">
+    <div class="proof-clip reveal" style="transition-delay:.1s">
+    <div class="proof-carousel-outer">
       <button class="proof-nav proof-nav-prev" aria-label="Anterior">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
       </button>
@@ -965,6 +970,7 @@ hr {
       <button class="proof-nav proof-nav-next" aria-label="Próximo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </button>
+    </div>
     </div>
   </div>
 </section>
@@ -1475,7 +1481,7 @@ hr {
 
     // Auto-play
     let timer = setInterval(next, INTERVAL);
-    const outer = document.querySelector('.proof-carousel-outer');
+    const outer = document.querySelector('.proof-clip');
     outer.addEventListener('mouseenter', () => clearInterval(timer));
     outer.addEventListener('mouseleave', () => { timer = setInterval(next, INTERVAL); });
 
