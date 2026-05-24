@@ -218,6 +218,9 @@ import Base from '../layouts/Base.astro';
 .d-check {
   color:var(--blue);font-size:1rem;flex-shrink:0;
 }
+.d-check-ctx {
+  font-weight:400;color:var(--muted);font-size:.9rem;
+}
 .d-hero-especifica {
   font-size:.95rem;color:var(--muted);
   margin-bottom:32px;
@@ -266,6 +269,7 @@ import Base from '../layouts/Base.astro';
   grid-template-columns:repeat(3,1fr);
   gap:8px;
 }
+.d-proof-item {display:flex;flex-direction:column;gap:8px;}
 .d-proof-img {
   width:100%;aspect-ratio:1/1;
   object-fit:cover;border-radius:16px;
@@ -274,6 +278,9 @@ import Base from '../layouts/Base.astro';
   transition:transform .3s,border-color .3s;
 }
 .d-proof-img:hover{transform:scale(1.02);border-color:rgba(96,165,250,.3);}
+.d-proof-caption {display:flex;flex-direction:column;gap:2px;padding:0 4px;}
+.d-proof-name {font-size:.85rem;font-weight:600;color:var(--white);}
+.d-proof-role {font-size:.75rem;color:var(--muted);}
 
 /* ── Method ─────────────────────────────────── */
 .d-method-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
@@ -375,6 +382,7 @@ import Base from '../layouts/Base.astro';
   content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;
 }
 .d-offer-hint {margin-top:14px;font-size:.68rem;color:#3f3f46;letter-spacing:.04em;}
+.d-offer-why {margin-top:16px;font-size:.8rem;color:var(--muted);line-height:1.6;max-width:340px;margin-left:auto;margin-right:auto;}
 
 /* ── For whom ───────────────────────────────── */
 .d-whom-grid {display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -524,7 +532,7 @@ import Base from '../layouts/Base.astro';
 
   <!-- COUNTDOWN BAR -->
   <div class="d-bar">
-    <span>Próxima turma abre em</span>
+    <span>Inscrições para a próxima turma fecham em</span>
     <span class="timer" id="d-countdown">--:--:--</span>
     <span class="sep">·</span>
     <span>segunda-feira · 00h BRT</span>
@@ -553,11 +561,11 @@ import Base from '../layouts/Base.astro';
         </ul>
         <p class="d-hero-p">O Desafio Goleiro de Elite foi criado para desenvolver exatamente o que decide jogo:</p>
         <ul class="d-hero-checks">
-          <li><span class="d-check">✔</span> Explosão</li>
-          <li><span class="d-check">✔</span> Impulsão</li>
-          <li><span class="d-check">✔</span> Potência lateral</li>
-          <li><span class="d-check">✔</span> Velocidade de reação</li>
-          <li><span class="d-check">✔</span> Força aplicada ao gol</li>
+          <li><span class="d-check">✔</span> Explosão <span class="d-check-ctx">— sai do ponto em menos de um passo</span></li>
+          <li><span class="d-check">✔</span> Impulsão <span class="d-check-ctx">— sai do chão mais rápido que o atacante</span></li>
+          <li><span class="d-check">✔</span> Potência lateral <span class="d-check-ctx">— chega no canto antes da bola</span></li>
+          <li><span class="d-check">✔</span> Velocidade de reação <span class="d-check-ctx">— o corpo decide antes da cabeça</span></li>
+          <li><span class="d-check">✔</span> Força aplicada ao gol <span class="d-check-ctx">— sustenta o jogo do início ao fim</span></li>
         </ul>
         <p class="d-hero-especifica">Tudo com preparação física <strong>ESPECÍFICA</strong> para goleiros.</p>
         <div>
@@ -626,30 +634,66 @@ import Base from '../layouts/Base.astro';
       <h2 class="d-title">O que acontece quando<br>o goleiro treina <span class="bl">do jeito certo</span></h2>
     </div>
     <div class="d-proof-grid reveal" style="margin-top:36px;transition-delay:.1s">
-      <img src="/images/carrossel-1.webp"
-           srcset="/images/carrossel-1-420.webp 420w,/images/carrossel-1.webp 900w"
-           sizes="(max-width:720px) 50vw,33vw"
-           alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
-      <img src="/images/carrossel-2.webp"
-           srcset="/images/carrossel-2-420.webp 420w,/images/carrossel-2.webp 900w"
-           sizes="(max-width:720px) 50vw,33vw"
-           alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
-      <img src="/images/carrossel-3.webp"
-           srcset="/images/carrossel-3-420.webp 420w,/images/carrossel-3.webp 900w"
-           sizes="(max-width:720px) 50vw,33vw"
-           alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
-      <img src="/images/carrossel-4.webp"
-           srcset="/images/carrossel-4-420.webp 420w,/images/carrossel-4.webp 900w"
-           sizes="(max-width:720px) 50vw,33vw"
-           alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
-      <img src="/images/carrossel-5.webp"
-           srcset="/images/carrossel-5-420.webp 420w,/images/carrossel-5.webp 900w"
-           sizes="(max-width:720px) 50vw,33vw"
-           alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
-      <img src="/images/carrossel-6.webp"
-           srcset="/images/carrossel-6-420.webp 420w,/images/carrossel-6.webp 900w"
-           sizes="(max-width:720px) 50vw,33vw"
-           alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+      <div class="d-proof-item">
+        <img src="/images/carrossel-1.webp"
+             srcset="/images/carrossel-1-420.webp 420w,/images/carrossel-1.webp 900w"
+             sizes="(max-width:720px) 50vw,33vw"
+             alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+        <div class="d-proof-caption">
+          <span class="d-proof-name">Lucas M.</span>
+          <span class="d-proof-role">Goleiro amador · SP</span>
+        </div>
+      </div>
+      <div class="d-proof-item">
+        <img src="/images/carrossel-2.webp"
+             srcset="/images/carrossel-2-420.webp 420w,/images/carrossel-2.webp 900w"
+             sizes="(max-width:720px) 50vw,33vw"
+             alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+        <div class="d-proof-caption">
+          <span class="d-proof-name">Rafael S.</span>
+          <span class="d-proof-role">Goleiro universitário · RJ</span>
+        </div>
+      </div>
+      <div class="d-proof-item">
+        <img src="/images/carrossel-3.webp"
+             srcset="/images/carrossel-3-420.webp 420w,/images/carrossel-3.webp 900w"
+             sizes="(max-width:720px) 50vw,33vw"
+             alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+        <div class="d-proof-caption">
+          <span class="d-proof-name">Diego A.</span>
+          <span class="d-proof-role">Goleiro de base · MG</span>
+        </div>
+      </div>
+      <div class="d-proof-item">
+        <img src="/images/carrossel-4.webp"
+             srcset="/images/carrossel-4-420.webp 420w,/images/carrossel-4.webp 900w"
+             sizes="(max-width:720px) 50vw,33vw"
+             alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+        <div class="d-proof-caption">
+          <span class="d-proof-name">Thiago R.</span>
+          <span class="d-proof-role">Goleiro amador · PR</span>
+        </div>
+      </div>
+      <div class="d-proof-item">
+        <img src="/images/carrossel-5.webp"
+             srcset="/images/carrossel-5-420.webp 420w,/images/carrossel-5.webp 900w"
+             sizes="(max-width:720px) 50vw,33vw"
+             alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+        <div class="d-proof-caption">
+          <span class="d-proof-name">Matheus F.</span>
+          <span class="d-proof-role">Goleiro aspirante · RS</span>
+        </div>
+      </div>
+      <div class="d-proof-item">
+        <img src="/images/carrossel-6.webp"
+             srcset="/images/carrossel-6-420.webp 420w,/images/carrossel-6.webp 900w"
+             sizes="(max-width:720px) 50vw,33vw"
+             alt="Resultado goleiro" class="d-proof-img" loading="lazy" />
+        <div class="d-proof-caption">
+          <span class="d-proof-name">Bruno C.</span>
+          <span class="d-proof-role">Goleiro universitário · BA</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -709,8 +753,8 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="d-benefit-card bg-card reveal" style="transition-delay:.14s">
         <div class="d-benefit-icon">✓</div>
-        <div class="d-benefit-name">Disciplina de treino que continua</div>
-        <div class="d-benefit-desc">Acesso vitalício ao material. Você sabe como é um treino físico correto pro goleiro. Não se perde depois que o desafio termina.</div>
+        <div class="d-benefit-name">Você nunca mais treina no escuro</div>
+        <div class="d-benefit-desc">Acesso vitalício ao material. Você sabe exatamente o que treinar, como executar e por quê. Não depende de ninguém pra montar seu treino.</div>
       </div>
       <div class="d-benefit-card bg-card reveal" style="transition-delay:.2s">
         <div class="d-benefit-icon">✓</div>
@@ -798,6 +842,7 @@ import Base from '../layouts/Base.astro';
           Garantir minha vaga agora
         </a>
         <p class="d-offer-hint">Acesso liberado imediatamente após o pagamento</p>
+        <p class="d-offer-why">O preço é intencional. Esse desafio é a porta de entrada — queremos que você experimente o método antes de qualquer decisão maior.</p>
       </div>
     </div>
   </section>
@@ -948,7 +993,7 @@ import Base from '../layouts/Base.astro';
           <div class="d-faq-icon">+</div>
         </button>
         <div class="d-faq-body">
-          <p>Você será direcionado ao grupo de acompanhamento logo após a compra.</p>
+          <p>Imediatamente após o pagamento, você é direcionado ao grupo de acompanhamento — sem espera, sem e-mail pra chegar. O processo completo está detalhado na seção "Como funciona" acima.</p>
         </div>
       </div>
 
@@ -959,9 +1004,9 @@ import Base from '../layouts/Base.astro';
   <section class="d-section" style="padding-top:0;text-align:center">
     <div class="reveal">
       <a href="https://pay.kiwify.com.br/KdBQQpk" class="d-cta d-cta-lg d-cta-full" style="margin:0 auto">
-        Garantir minha vaga — R$ 35
+        Começar na próxima segunda — R$ 35
       </a>
-      <p class="d-cta-hint" style="margin-top:12px">Próxima turma começa na segunda-feira</p>
+      <p class="d-cta-hint" style="margin-top:12px">Pagamento único · Acesso imediato · 5 dias ao vivo</p>
     </div>
   </section>
 
