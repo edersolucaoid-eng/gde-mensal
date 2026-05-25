@@ -1,0 +1,1386 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Desafío Portero de Élite | 5 Días de Entrenamiento Físico Específico para Porteros">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@600;700&display=swap');
+
+/* ─── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: #0B0B0B;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ─── Tokens ────────────────────────────────────────────────── */
+:root {
+  --black:  #0B0B0B;
+  --white:  #ffffff;
+  --yellow: #F4B400;
+  --sec-v: clamp(60px, 8vw, 100px);
+  --wrap: 860px;
+  --wrap-wide: 1040px;
+}
+
+/* ─── Layout ────────────────────────────────────────────────── */
+.wrap      { max-width: var(--wrap);      margin: 0 auto; padding: 0 clamp(24px,5vw,48px); }
+.wrap-wide { max-width: var(--wrap-wide); margin: 0 auto; padding: 0 clamp(24px,5vw,48px); }
+
+.s-dark  { background: var(--black); color: var(--white); padding: var(--sec-v) 0; }
+.s-light { background: var(--white); color: var(--black); padding: var(--sec-v) 0; }
+.s-yellow{ background: var(--yellow);color: var(--black); padding: var(--sec-v) 0; }
+
+/* ─── Section label ─────────────────────────────────────────── */
+.label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+}
+.s-dark  .label { color: var(--yellow); }
+.s-dark  .label::before { background: var(--yellow); }
+.s-light .label { color: rgba(0,0,0,.4); }
+.s-light .label::before { background: rgba(0,0,0,.4); }
+.s-yellow .label { color: rgba(0,0,0,.55); }
+.s-yellow .label::before { background: rgba(0,0,0,.55); }
+
+/* ─── Headings ──────────────────────────────────────────────── */
+.display {
+  font-family: 'Bebas Neue', sans-serif;
+  line-height: .88;
+  letter-spacing: .01em;
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+.display .yl   { color: var(--yellow); }
+.display .faded{ color: rgba(255,255,255,.18); }
+
+/* ─── Horizontal rule ───────────────────────────────────────── */
+hr {
+  border: none;
+  height: 1px;
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+.s-dark  hr { background: rgba(255,255,255,.08); }
+.s-light hr { background: rgba(0,0,0,.1); }
+
+/* ─── HERO ──────────────────────────────────────────────────── */
+.hero {
+  background: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 100svh;
+  padding-top: clamp(40px,8vw,80px);
+}
+@media (max-width: 600px) {
+  .hero { padding-top: 0; }
+}
+.hero img { width: 100%; max-width: 540px; height: auto; display: block; }
+
+/* ─── VAGAS ─────────────────────────────────────────────────── */
+.vagas-block { text-align: center; max-width: 440px; margin: 0 auto; }
+
+.vagas-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(9rem, 24vw, 14rem);
+  line-height: .8;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+.vagas-num b { color: var(--yellow); }
+
+.vagas-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+.vagas-bar {
+  height: 2px;
+  background: rgba(255,255,255,.08);
+  margin-bottom: 8px;
+}
+.vagas-fill {
+  height: 100%;
+  background: var(--yellow);
+  width: 74.3%;
+}
+.vagas-slots {
+  font-size: .72rem;
+  color: rgba(255,255,255,.25);
+  font-weight: 500;
+  margin-bottom: 48px;
+}
+.vagas-slots strong { color: var(--yellow); }
+
+.vagas-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255,255,255,.08);
+  margin: 0 auto 40px;
+}
+.vagas-cd-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  margin-bottom: 10px;
+}
+.vagas-cd {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 5.5rem);
+  letter-spacing: .06em;
+  color: var(--white);
+  line-height: 1;
+}
+.vagas-date {
+  font-size: .72rem;
+  color: rgba(255,255,255,.2);
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* ─── PROBLEM LIST ──────────────────────────────────────────── */
+.pain-list {
+  list-style: none;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+.pain-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.pain-x {
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .62rem;
+  font-weight: 700;
+  color: var(--black);
+  flex-shrink: 0;
+}
+.pain-item span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.3;
+}
+.pivot-quote {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--black);
+  font-size: clamp(.95rem,2.2vw,1.08rem);
+  font-weight: 500;
+  color: rgba(255,255,255,.45);
+  line-height: 1.7;
+  border-left: 3px solid var(--yellow);
+}
+.pivot-quote strong { color: var(--yellow); }
+
+/* ─── PROOF CAROUSEL ─────────────────────────────────────────── */
+.proof-clip {
+  overflow: hidden;
+  width: 100%;
+  margin-top: clamp(40px,6vw,64px);
+}
+.proof-carousel-outer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.proof-track {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+.proof-slide {
+  position: absolute;
+  width: 260px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform .5s ease, opacity .5s ease, filter .5s ease, box-shadow .5s ease, border-color .5s ease;
+  cursor: pointer;
+}
+.proof-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.proof-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.2) 55%, transparent 100%);
+}
+.proof-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 18px 22px;
+  z-index: 2;
+}
+.proof-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 3px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 7px;
+}
+.proof-slide-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--white);
+  line-height: 1.1;
+}
+.proof-active-badge {
+  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: var(--yellow);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  padding: 4px 10px;
+}
+.proof-slide.is-active { border-color: rgba(244,180,0,.5); }
+.proof-slide.is-active .proof-active-badge { display: block; }
+.proof-nav {
+  position: absolute;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.proof-nav:hover { background: rgba(255,255,255,.08); }
+.proof-nav-prev { left: 0; }
+.proof-nav-next { right: 0; }
+
+/* ─── METHOD LIST ───────────────────────────────────────────── */
+.method-list { border-top: 1px solid rgba(0,0,0,.1); }
+.method-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding: 36px 0;
+  gap: 0;
+}
+.method-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem,7vw,4.5rem);
+  color: var(--yellow);
+  line-height: 1;
+  padding-right: 24px;
+  border-right: 1px solid rgba(0,0,0,.1);
+  align-self: start;
+}
+.method-body { padding-left: 32px; padding-top: 4px; }
+.method-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 12px;
+}
+.method-ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.method-ul li {
+  font-size: .88rem;
+  color: rgba(0,0,0,.55);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.method-ul li::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--yellow);
+  flex-shrink: 0;
+}
+
+/* ─── TRANSFORMATION ────────────────────────────────────────── */
+.trfm-list { border-top: 1px solid rgba(255,255,255,.06); }
+.trfm-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 36px 0;
+}
+.trfm-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem,7vw,4.5rem);
+  color: var(--yellow);
+  line-height: 1;
+  padding-right: 24px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  align-self: start;
+}
+.trfm-body { padding-left: 32px; padding-top: 4px; }
+.trfm-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.trfm-ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.trfm-ul li {
+  font-size: .88rem;
+  color: rgba(255,255,255,.38);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+.trfm-ul li::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: rgba(255,255,255,.25);
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+
+/* ─── INCLUDED TABLE ────────────────────────────────────────── */
+.inc-table { border-top: 1px solid rgba(255,255,255,.06); }
+.inc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  gap: 24px;
+}
+.inc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.inc-desc { font-size: .76rem; color: rgba(255,255,255,.3); }
+.inc-val {
+  font-size: .8rem;
+  color: rgba(255,255,255,.15);
+  text-decoration: line-through;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.inc-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0;
+  border-top: 1px solid var(--yellow);
+}
+.inc-total-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+}
+.inc-total-was { font-size: .82rem; color: rgba(255,255,255,.18); text-decoration: line-through; margin-top: 4px; }
+.inc-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem;
+  color: var(--yellow);
+  line-height: 1;
+}
+.inc-price sup { font-size: 1.6rem; vertical-align: super; }
+.inc-price-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .58rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+  margin-bottom: 4px;
+  text-align: right;
+}
+
+/* ─── ACCESS STEPS ──────────────────────────────────────────── */
+.step-list { border-top: 1px solid rgba(0,0,0,.1); max-width: 640px; }
+.step-item {
+  display: flex;
+  gap: 28px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  align-items: flex-start;
+}
+.step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--yellow);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 32px;
+}
+.step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 6px;
+}
+.step-desc { font-size: .86rem; color: rgba(0,0,0,.5); line-height: 1.6; }
+
+/* ─── WHO IS ────────────────────────────────────────────────── */
+.whom-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.whom-side { padding: clamp(60px,10vw,100px) clamp(24px,6vw,64px); }
+.whom-yes { background: var(--black); }
+.whom-hd {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem,4vw,3rem);
+  letter-spacing: .02em;
+  padding-bottom: 16px;
+  margin-bottom: 4px;
+  border-bottom: 2px solid;
+}
+.whom-yes .whom-hd { color: var(--yellow); border-color: var(--yellow); }
+.whom-ul { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+.whom-ul li { display: flex; gap: 14px; font-size: .9rem; line-height: 1.45; align-items: flex-start; }
+.whom-yes .whom-ul li { color: rgba(255,255,255,.58); }
+.ico-y { color: var(--yellow); font-weight: 700; flex-shrink: 0; }
+
+/* ─── FAQ ───────────────────────────────────────────────────── */
+.faq-list { border-top: 1px solid rgba(0,0,0,.1); }
+.faq-item { border-bottom: 1px solid rgba(0,0,0,.1); }
+.faq-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+  font-size: .98rem;
+  font-weight: 600;
+  color: var(--black);
+  text-align: left;
+  gap: 20px;
+}
+.faq-ico {
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid rgba(0,0,0,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 400;
+  flex-shrink: 0;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.faq-btn[aria-expanded="true"] .faq-ico {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--black);
+}
+.faq-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-body p { font-size: .88rem; color: rgba(0,0,0,.55); line-height: 1.8; padding-bottom: 22px; padding-right: 46px; }
+
+/* ─── PLAN CARD CTA ──────────────────────────────────────────── */
+.plan-sec {
+  background: var(--black);
+  padding: clamp(60px,8vw,100px) 0;
+  border-top: 1px solid rgba(255,255,255,.05);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.plan-wrap { max-width: 480px; margin: 0 auto; padding: 0 clamp(24px,5vw,48px); }
+.plan-card {
+  border: 1px solid rgba(255,255,255,.1);
+  outline: 1px solid rgba(244,180,0,.15);
+  border-radius: 28px;
+  padding: 6px;
+}
+.plan-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(255,255,255,.06) 0%, transparent 60%);
+}
+.plan-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 70% 0%, rgba(244,180,0,.2), transparent 70%);
+  pointer-events: none;
+}
+.plan-body { padding: 28px; position: relative; }
+.plan-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.plan-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 9999px;
+  background: rgba(244,180,0,.15);
+  border: 1px solid rgba(244,180,0,.25);
+  padding: 4px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.plan-badge svg { flex-shrink: 0; }
+.plan-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem,12vw,5.5rem);
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -.01em;
+  margin-top: 4px;
+}
+.plan-price sup { font-size: 1.8rem; vertical-align: super; color: var(--yellow); }
+.plan-period {
+  font-size: .76rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 2px;
+  margin-bottom: 24px;
+}
+.plan-was { text-decoration: line-through; color: rgba(255,255,255,.18); }
+.plan-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 10px 32px rgba(244,180,0,.22);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .15s;
+  margin-bottom: 28px;
+}
+.plan-btn:hover { opacity: .9; transform: translateY(-1px); }
+.plan-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 24px; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .9rem;
+  color: rgba(255,255,255,.72);
+  line-height: 1.4;
+}
+.plan-check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(244,180,0,.12);
+  border: 1px solid rgba(244,180,0,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.plan-check svg { display: block; }
+.plan-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.plan-footnote {
+  font-size: .7rem;
+  color: rgba(255,255,255,.2);
+  line-height: 1.8;
+  text-align: center;
+  margin-top: 20px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.foot {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,.05);
+  padding: 48px 24px;
+  text-align: center;
+}
+.foot-logo { width: 34px; height: auto; opacity: .3; margin: 0 auto 16px; display: block; }
+.foot-links { display: flex; gap: 28px; justify-content: center; margin-bottom: 12px; }
+.foot-links a { font-size: .66rem; color: rgba(255,255,255,.2); text-decoration: none; letter-spacing: .05em; }
+.foot-links a:hover { color: var(--yellow); }
+.foot-copy { font-size: .63rem; color: rgba(255,255,255,.12); letter-spacing: .04em; }
+
+/* ─── REVEAL ─────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .method-item  { grid-template-columns: 60px 1fr; }
+  .method-n     { font-size: 2.8rem; }
+  .method-body  { padding-left: 20px; }
+  .trfm-item    { grid-template-columns: 60px 1fr; }
+  .trfm-n       { font-size: 2.8rem; }
+  .trfm-body    { padding-left: 20px; }
+  .whom-grid    { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .method-item  { grid-template-columns: 1fr; }
+  .method-n     { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: 16px; }
+  .method-body  { padding-left: 0; }
+  .trfm-item    { grid-template-columns: 1fr; }
+  .trfm-n       { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 16px; }
+  .trfm-body    { padding-left: 0; }
+  .inc-row      { flex-wrap: wrap; }
+  .inc-val      { align-self: flex-end; }
+}
+</style>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <img src="/images/hero-desafio.webp" alt="Desafío Portero de Élite" loading="eager" fetchpriority="high" />
+</section>
+
+<!-- ── CUPOS + COUNTDOWN ─────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="vagas-block reveal">
+      <div class="label" style="justify-content:center">Cupos limitados</div>
+      <div class="vagas-num"><b>18</b></div>
+      <div class="vagas-sub">cupos disponibles en esta clase</div>
+      <div class="vagas-bar"><div class="vagas-fill"></div></div>
+      <div class="vagas-slots"><strong>52 de 70</strong> cupos ocupados</div>
+      <div class="vagas-divider"></div>
+      <div class="vagas-cd-lbl">La próxima clase comienza en</div>
+      <div class="vagas-cd" id="gde-cd">--:--:--</div>
+      <div class="vagas-date" id="gde-date">lunes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EL PROBLEMA ────────────────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">El problema</div>
+      <h2 class="display">Entrenas.<br>Te dedicas.<br>Pero en el momento del partido…</h2>
+    </div>
+    <ul class="pain-list reveal" style="transition-delay:.08s">
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Piernas que no responden en el momento decisivo</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Caes y tardas en levantarte para la siguiente jugada</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Pierdes el duelo aéreo en el segundo tiempo</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Entrenas en el gimnasio pero no mejoras bajo los palos</span>
+      </li>
+      <li class="pain-item">
+        <div class="pain-x">✗</div>
+        <span>Recibes un gol que sabías que debías parar</span>
+      </li>
+    </ul>
+    <div class="pivot-quote reveal" style="transition-delay:.14s">
+      No faltó entrenamiento. No faltó esfuerzo.<br>
+      <strong>Faltó el tipo correcto de entrenamiento para portero.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRUEBAS REALES ──────────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap-wide">
+    <div class="reveal">
+      <div class="label">Resultados reales</div>
+      <h2 class="display">Qué cambia cuando<br>el portero entrena <span class="yl">bien</span></h2>
+    </div>
+    <div class="proof-clip reveal" style="transition-delay:.1s">
+    <div class="proof-carousel-outer">
+      <button class="proof-nav proof-nav-prev" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="proof-track">
+        <div class="proof-slide" data-index="0">
+          <img src="/images/carrossel-1.webp" alt="Fabíola Stelzer" loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destacado</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Portera Amateur · ES</div>
+            <div class="proof-slide-name">Fabíola Stelzer</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="1">
+          <img src="/images/carrossel-2.webp" alt="Rafael S." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destacado</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Portero Profesional</div>
+            <div class="proof-slide-name">Rafael S.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="2">
+          <img src="/images/carrossel-3.webp" alt="Diego A." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destacado</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Portero Formativo · MG</div>
+            <div class="proof-slide-name">Diego A.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="3">
+          <img src="/images/carrossel-4.webp" alt="Thiago R." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destacado</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Portero Amateur · PR</div>
+            <div class="proof-slide-name">Thiago R.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="4">
+          <img src="/images/carrossel-5.webp" alt="Matheus F." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destacado</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Portero Aspirante · RS</div>
+            <div class="proof-slide-name">Matheus F.</div>
+          </div>
+        </div>
+        <div class="proof-slide" data-index="5">
+          <img src="/images/carrossel-6.webp" alt="Bruno C." loading="lazy" />
+          <div class="proof-slide-overlay"></div>
+          <div class="proof-active-badge">Destacado</div>
+          <div class="proof-caption">
+            <div class="proof-role-pill">Portero Universitario · BA</div>
+            <div class="proof-slide-name">Bruno C.</div>
+          </div>
+        </div>
+      </div>
+      <button class="proof-nav proof-nav-next" aria-label="Siguiente">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EL MÉTODO ──────────────────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">El método</div>
+      <h2 class="display" style="color:var(--black)">5 días. Entrenamiento físico.<br><span style="color:var(--black);opacity:.3">Específico para portero.</span></h2>
+    </div>
+    <div class="method-list reveal" style="transition-delay:.08s">
+      <div class="method-item">
+        <div class="method-n">01</div>
+        <div class="method-body">
+          <div class="method-title">Entrenamiento específico</div>
+          <ul class="method-ul">
+            <li>Explosión, fuerza y velocidad</li>
+            <li>Sin balón, sin técnica</li>
+            <li>Solo lo que decide en el partido</li>
+          </ul>
+        </div>
+      </div>
+      <div class="method-item">
+        <div class="method-n">02</div>
+        <div class="method-body">
+          <div class="method-title">Seguimiento en vivo</div>
+          <ul class="method-ul">
+            <li>Entrenadores certificados</li>
+            <li>Corrección por video</li>
+            <li>5 días de soporte directo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="method-item">
+        <div class="method-n">03</div>
+        <div class="method-body">
+          <div class="method-title">Menú nutricional</div>
+          <ul class="method-ul">
+            <li>Plan alimentario específico</li>
+            <li>Simple y práctico</li>
+            <li>Optimizado para los 5 días</li>
+          </ul>
+        </div>
+      </div>
+      <div class="method-item">
+        <div class="method-n">04</div>
+        <div class="method-body">
+          <div class="method-title">Ciclo semanal</div>
+          <ul class="method-ul">
+            <li>Entrenamiento liberado la víspera</li>
+            <li>Gimnasio o en casa</li>
+            <li>Nueva clase cada lunes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LA TRANSFORMACIÓN ──────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">La transformación</div>
+      <h2 class="display">Después de 5 días,<br>qué cambia en <span class="yl">tu juego</span></h2>
+    </div>
+    <div class="trfm-list reveal" style="transition-delay:.08s">
+      <div class="trfm-item">
+        <div class="trfm-n">01</div>
+        <div class="trfm-body">
+          <div class="trfm-title">Piernas que responden cuando decides</div>
+          <ul class="trfm-ul">
+            <li>Te levantas rápido y vuelves a la jugada</li>
+            <li>Explosionas hacia el palo sin arrastrar</li>
+            <li>Ganas el duelo aéreo hasta el final del partido</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trfm-item">
+        <div class="trfm-n">02</div>
+        <div class="trfm-body">
+          <div class="trfm-title">Confianza real dentro del campo</div>
+          <ul class="trfm-ul">
+            <li>Entras sabiendo que el cuerpo responde</li>
+            <li>Dejas de dudar en el momento de decidir</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trfm-item">
+        <div class="trfm-n">03</div>
+        <div class="trfm-body">
+          <div class="trfm-title">Nunca más entrenas a ciegas</div>
+          <ul class="trfm-ul">
+            <li>Material disponible para siempre</li>
+            <li>Sabes qué entrenar, cómo y por qué</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trfm-item">
+        <div class="trfm-n">04</div>
+        <div class="trfm-body">
+          <div class="trfm-title">El ambiente correcto para crecer</div>
+          <ul class="trfm-ul">
+            <li>5 días con porteros serios y comprometidos</li>
+            <li>Un entorno que cambia cómo entrenas solo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LO QUE INCLUYE ─────────────────────────────────────────── -->
+<section class="s-dark" style="border-top:1px solid rgba(255,255,255,.05)">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">Lo que recibes</div>
+      <h2 class="display">Todo por <span class="yl">R$ 35</span></h2>
+    </div>
+    <div class="inc-table reveal" style="transition-delay:.1s">
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">Grupo en vivo con entrenadores certificados</div>
+          <div class="inc-desc">Seguimiento + corrección por video + Q&A diario</div>
+        </div>
+        <div class="inc-val">R$ 197</div>
+      </div>
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">5 entrenamientos físicos completos</div>
+          <div class="inc-desc">Versión gimnasio + versión casa · lunes a viernes</div>
+        </div>
+        <div class="inc-val">R$ 97</div>
+      </div>
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">Menú nutricional de la semana</div>
+          <div class="inc-desc">Plan alimentario específico para los 5 días</div>
+        </div>
+        <div class="inc-val">R$ 47</div>
+      </div>
+      <div class="inc-row">
+        <div>
+          <div class="inc-name">Material disponible para siempre</div>
+          <div class="inc-desc">Repite los entrenamientos cuando quieras · acceso permanente</div>
+        </div>
+        <div class="inc-val">R$ 197</div>
+      </div>
+      <div class="inc-total">
+        <div>
+          <div class="inc-total-lbl">Valor total</div>
+          <div class="inc-total-was">R$ 538</div>
+        </div>
+        <div>
+          <div class="inc-price-label">Pagas</div>
+          <div class="inc-price"><sup>R$</sup>35</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLAN CARD CTA ───────────────────────────────────────────── -->
+<section class="plan-sec">
+  <div class="plan-wrap">
+    <div class="plan-card reveal">
+      <div class="plan-inner">
+        <div class="plan-body">
+
+          <div class="plan-header">
+            <div class="plan-label">Plan único</div>
+            <div class="plan-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Más popular
+            </div>
+          </div>
+
+          <div class="plan-price"><sup>R$</sup>35</div>
+          <div class="plan-period">
+            pago único &nbsp;·&nbsp; <span class="plan-was">R$ 538</span> en valor
+          </div>
+
+          <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn">
+            Asegurar mi cupo ahora
+          </a>
+
+          <div class="plan-divider"></div>
+
+          <ul class="plan-features">
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              5 entrenamientos físicos específicos para portero (gimnasio + casa)
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Grupo en vivo con entrenadores certificados
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Corrección por video + Q&amp;A diario durante los 5 días
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Menú nutricional específico para los 5 días
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Material disponible para siempre — repite cuando quieras
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CÓMO RECIBO MI ACCESO ──────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">Cómo funciona</div>
+      <h2 class="display" style="color:var(--black)">¿Cómo recibo<br>mi acceso?</h2>
+    </div>
+    <div class="step-list reveal" style="transition-delay:.1s">
+      <div class="step-item">
+        <div class="step-n">1</div>
+        <div>
+          <div class="step-title">Haz tu inscripción</div>
+          <div class="step-desc">Paga R$ 35 · pago único · procesado al instante</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-n">2</div>
+        <div>
+          <div class="step-title">Acceso inmediato al grupo</div>
+          <div class="step-desc">Entras al grupo de seguimiento justo después de la compra · sin espera</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-n">3</div>
+        <div>
+          <div class="step-title">Empieza el próximo lunes</div>
+          <div class="step-desc">Entrenamiento liberado el domingo por la noche · acceso permanente al material</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARA QUIÉN ES ───────────────────────────────────────────── -->
+<div class="whom-grid">
+  <div class="whom-side whom-yes reveal" style="max-width:var(--wrap-wide);margin:0 auto;width:100%">
+    <div class="label">Para quién es</div>
+    <div class="whom-hd">Este desafío es tuyo</div>
+    <ul class="whom-ul">
+      <li><span class="ico-y">✓</span> Portero amateur, universitario, formativo o aspirante</li>
+      <li><span class="ico-y">✓</span> Entrenas pero no mejoras dentro del campo</li>
+      <li><span class="ico-y">✓</span> Quieres entrenamiento físico específico para portero</li>
+      <li><span class="ico-y">✓</span> Puedes dedicar tiempo durante una semana</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── FAQ ────────────────────────────────────────────────────── -->
+<section class="s-light">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="label">Dudas</div>
+      <h2 class="display" style="color:var(--black)">Preguntas<br>frecuentes</h2>
+    </div>
+    <div class="faq-list reveal" style="transition-delay:.1s">
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿Necesito tener gimnasio para hacerlo?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>No. Cada entrenamiento viene en dos versiones: gimnasio y casa. Tú eliges.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿Funciona para portero amateur?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Sí. El desafío fue creado específicamente para porteros amateurs, universitarios, formativos y aspirantes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿Qué pasa si pierdo un día?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Sin problema. Los entrenamientos se liberan la víspera y los haces a tu hora. Si pierdes uno, retomas al día siguiente.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿A qué hora son los entrenamientos?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>No hay horario fijo. El entrenamiento se libera la noche anterior y lo ejecutas cuando puedas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿Cuánto tiempo por día necesito?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Entre 40 y 60 minutos por entrenamiento.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿Puedo repetir el desafío después?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Sí. El material queda disponible para siempre. Puedes repetir los entrenamientos cuando quieras, a tu propio ritmo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          ¿Cómo recibo mi acceso?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Inmediatamente después del pago eres dirigido al grupo de seguimiento. Sin espera, sin correo que esperar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ──────────────────────────────────────────────── -->
+<section class="plan-sec" style="border-bottom:none">
+  <div class="plan-wrap">
+    <p class="plan-eyebrow reveal">Próxima clase · <span id="gde-date-cta">lunes</span></p>
+    <div class="plan-card reveal" style="transition-delay:.06s">
+      <div class="plan-inner">
+        <div class="plan-body">
+
+          <div class="plan-header">
+            <div class="plan-label">Plan único</div>
+            <div class="plan-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Más popular
+            </div>
+          </div>
+
+          <div class="plan-price"><sup>R$</sup>35</div>
+          <div class="plan-period">
+            pago único &nbsp;·&nbsp; <span class="plan-was">R$ 538</span> en valor
+          </div>
+
+          <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn">
+            Asegurar mi cupo ahora
+          </a>
+
+          <div class="plan-divider"></div>
+
+          <ul class="plan-features">
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              5 entrenamientos físicos específicos para portero (gimnasio + casa)
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Grupo en vivo con entrenadores certificados
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Corrección por video + Q&amp;A diario durante los 5 días
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Menú nutricional específico para los 5 días
+            </li>
+            <li>
+              <span class="plan-check">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              Material disponible para siempre — repite cuando quieras
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    <p class="plan-footnote reveal" style="transition-delay:.1s">El precio es intencional. Este desafío es la puerta de entrada — queremos que experimentes el método antes de cualquier decisión mayor.</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="foot">
+  <img src="/images/logo-gde.png" alt="Goleiro de Elite" class="foot-logo" />
+  <div class="foot-links">
+    <a href="#">Términos de uso</a>
+    <a href="#">Política de privacidad</a>
+  </div>
+  <p class="foot-copy">© 2026 Goleiro de Elite. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  function nextMonday() {
+    const fixed = new Date('2026-06-01T03:00:00Z');
+    if (Date.now() < fixed.getTime()) return fixed;
+    const brt = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+    const d = brt.getDay();
+    const days = (8 - d) % 7 || 7;
+    const m = new Date(brt);
+    m.setDate(brt.getDate() + days);
+    m.setHours(0, 0, 0, 0);
+    return m;
+  }
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+    const target = nextMonday();
+    const diff = target - now;
+    if (diff <= 0) { tick(); return; }
+    const dd = Math.floor(diff / 86400000);
+    const h  = Math.floor((diff % 86400000) / 3600000);
+    const m  = Math.floor((diff % 3600000)  / 60000);
+    const s  = Math.floor((diff % 60000)    / 1000);
+    const str = dd > 0 ? `${dd}d · ${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(h)}:${pad(m)}:${pad(s)}`;
+    const el = document.getElementById('gde-cd');
+    if (el) el.textContent = str;
+    const dateStr = target.toLocaleDateString('es-ES', {
+      weekday: 'long', day: 'numeric', month: 'long', timeZone: 'America/Sao_Paulo'
+    });
+    ['gde-date', 'gde-date-cta'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = dateStr;
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-btn').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        b.nextElementSibling.style.maxHeight = null;
+        b.querySelector('.faq-ico').textContent = '+';
+      });
+      if (!open) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.nextElementSibling.style.maxHeight = btn.nextElementSibling.scrollHeight + 'px';
+        btn.querySelector('.faq-ico').textContent = '−';
+      }
+    });
+  });
+
+  // ── Proof carousel ──────────────────────────────────────────
+  (function() {
+    const slides = Array.from(document.querySelectorAll('.proof-slide'));
+    const total = slides.length;
+    let current = 2;
+    const INTERVAL = 3500;
+
+    function update() {
+      slides.forEach((slide, i) => {
+        let rel = i - current;
+        if (rel > total / 2)  rel -= total;
+        if (rel < -total / 2) rel += total;
+
+        slide.classList.remove('is-active');
+        let tx, scale, rotY, opacity, brightness, zIndex, shadow;
+
+        if (rel === 0) {
+          tx = 0; scale = 1; rotY = 0; opacity = 1; brightness = 1; zIndex = 10;
+          shadow = '0 20px 60px rgba(244,180,0,.22)';
+          slide.classList.add('is-active');
+        } else if (Math.abs(rel) === 1) {
+          tx = rel * 200; scale = 0.87; rotY = rel > 0 ? -15 : 15;
+          opacity = 0.55; brightness = 0.7; zIndex = 5; shadow = 'none';
+        } else if (Math.abs(rel) === 2) {
+          tx = rel * 340; scale = 0.76; rotY = rel > 0 ? -25 : 25;
+          opacity = 0.3; brightness = 0.5; zIndex = 2; shadow = 'none';
+        } else {
+          tx = 0; scale = 0.65; rotY = 0;
+          opacity = 0; brightness = 0.4; zIndex = 1; shadow = 'none';
+        }
+
+        slide.style.transform = `translateX(${tx}px) scale(${scale}) rotateY(${rotY}deg)`;
+        slide.style.opacity = opacity;
+        slide.style.filter = `brightness(${brightness})`;
+        slide.style.zIndex = zIndex;
+        slide.style.boxShadow = shadow;
+      });
+    }
+
+    function next() { current = (current + 1) % total; update(); }
+    function prev() { current = (current - 1 + total) % total; update(); }
+
+    let timer = setInterval(next, INTERVAL);
+    const outer = document.querySelector('.proof-clip');
+    outer.addEventListener('mouseenter', () => clearInterval(timer));
+    outer.addEventListener('mouseleave', () => { timer = setInterval(next, INTERVAL); });
+
+    document.querySelector('.proof-nav-prev').addEventListener('click', () => { prev(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    document.querySelector('.proof-nav-next').addEventListener('click', () => { next(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', () => { current = i; update(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    });
+
+    update();
+  })();
+
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
