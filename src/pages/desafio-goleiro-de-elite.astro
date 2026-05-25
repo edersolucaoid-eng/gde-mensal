@@ -93,74 +93,136 @@ hr {
 }
 .hero img { width: 100%; max-width: 540px; height: auto; display: block; }
 
-/* ─── VAGAS ─────────────────────────────────────────────────── */
-.vagas-block { text-align: center; max-width: 440px; margin: 0 auto; }
-
-.vagas-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(9rem, 24vw, 14rem);
-  line-height: .8;
-  color: var(--white);
-  letter-spacing: -.02em;
+/* ─── CRONOGRAMA DA SEMANA ─────────────────────────────────── */
+.schedule-sec {
+  background: var(--black);
+  padding: clamp(40px,6vw,72px) 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
 }
-.vagas-num b { color: var(--yellow); }
-
-.vagas-sub {
+.schedule-intro {
+  text-align: center;
+  max-width: 540px;
+  margin: 0 auto clamp(28px,4vw,40px);
+  padding: 0 clamp(24px,5vw,48px);
+}
+.schedule-intro .label { justify-content: center; margin-bottom: 14px; }
+.schedule-intro h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem,3vw,2.2rem);
+  letter-spacing: .02em;
+  color: var(--white);
+  line-height: 1.05;
+}
+.schedule-grid {
+  max-width: var(--wrap-wide);
+  margin: 0 auto;
+  padding: 0 clamp(24px,5vw,48px);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.schedule-card {
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 22px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .2s, background .2s;
+}
+.schedule-card:hover {
+  border-color: rgba(244,180,0,.25);
+  background: rgba(255,255,255,.04);
+}
+.schedule-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--yellow);
+  line-height: 1;
+  letter-spacing: .04em;
+  margin-bottom: 14px;
+}
+.schedule-day {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .68rem;
   font-weight: 700;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.2);
-  margin-top: 8px;
-  margin-bottom: 28px;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 6px;
 }
-.vagas-bar {
+.schedule-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.schedule-desc {
+  font-size: .78rem;
+  color: rgba(255,255,255,.42);
+  line-height: 1.5;
+}
+@media (max-width: 900px) {
+  .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .schedule-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── COUNTDOWN ─────────────────────────────────────────────── */
+.cd-block {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.cd-block .label { justify-content: center; margin-bottom: 4px; }
+.cd-time {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 9vw, 5rem);
+  letter-spacing: .04em;
+  color: var(--white);
+  line-height: 1;
+  margin: 12px 0 10px;
+}
+.cd-labels {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 18px;
+}
+.cd-date {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+.cd-date span { color: var(--white); }
+.cd-bar {
   height: 2px;
   background: rgba(255,255,255,.08);
-  margin-bottom: 8px;
+  border-radius: 1px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
-.vagas-fill {
+.cd-fill {
   height: 100%;
   background: var(--yellow);
   width: 74.3%;
 }
-.vagas-slots {
-  font-size: .72rem;
-  color: rgba(255,255,255,.25);
-  font-weight: 500;
-  margin-bottom: 48px;
-}
-.vagas-slots strong { color: var(--yellow); }
-
-.vagas-divider {
-  width: 1px;
-  height: 48px;
-  background: rgba(255,255,255,.08);
-  margin: 0 auto 40px;
-}
-.vagas-cd-lbl {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .62rem;
-  font-weight: 700;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.2);
-  margin-bottom: 10px;
-}
-.vagas-cd {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 10vw, 5.5rem);
-  letter-spacing: .06em;
-  color: var(--white);
-  line-height: 1;
-}
-.vagas-date {
-  font-size: .72rem;
-  color: rgba(255,255,255,.2);
-  margin-top: 10px;
+.cd-slots {
+  font-size: .74rem;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .03em;
   font-weight: 500;
 }
+.cd-slots strong { color: var(--yellow); font-weight: 700; }
 
 /* ─── PROBLEM LIST ──────────────────────────────────────────── */
 .pain-list {
@@ -849,19 +911,56 @@ hr {
   <img src="/images/hero-desafio.webp" alt="Desafio Goleiro de Elite" loading="eager" fetchpriority="high" />
 </section>
 
-<!-- ── VAGAS + COUNTDOWN ─────────────────────────────────────── -->
+<!-- ── CRONOGRAMA DA SEMANA ──────────────────────────────────── -->
+<section class="schedule-sec">
+  <div class="schedule-intro reveal">
+    <div class="label">Cronograma da semana</div>
+    <h3>5 dias. 5 treinos.<br>Tudo o que decide no gol.</h3>
+  </div>
+  <div class="schedule-grid reveal" style="transition-delay:.08s">
+    <div class="schedule-card">
+      <div class="schedule-n">01</div>
+      <div class="schedule-day">Segunda</div>
+      <div class="schedule-title">Força estrutural</div>
+      <div class="schedule-desc">Posterior, glúteo, core. A base que sustenta tudo o que vem.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">02</div>
+      <div class="schedule-day">Terça</div>
+      <div class="schedule-title">Empurradas e complementos</div>
+      <div class="schedule-desc">Peito, ombro, tríceps. Disputa aérea e potência de soco.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">03</div>
+      <div class="schedule-day">Quarta</div>
+      <div class="schedule-title">Potência</div>
+      <div class="schedule-desc">Explosão pura: pliometria, saltos, arrancadas curtas.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">04</div>
+      <div class="schedule-day">Quinta</div>
+      <div class="schedule-title">Puxadas e complementos</div>
+      <div class="schedule-desc">Costas e bíceps. Estabilidade no salto e disputa de bola alta.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">05</div>
+      <div class="schedule-day">Sexta</div>
+      <div class="schedule-title">Preventivos e aceleração</div>
+      <div class="schedule-desc">Prevenção de lesão + velocidade de reação. Fecha pronto pro jogo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COUNTDOWN ─────────────────────────────────────────────── -->
 <section class="s-dark">
   <div class="wrap">
-    <div class="vagas-block reveal">
-      <div class="label" style="justify-content:center">Vagas limitadas</div>
-      <div class="vagas-num"><b>18</b></div>
-      <div class="vagas-sub">vagas disponíveis nesta turma</div>
-      <div class="vagas-bar"><div class="vagas-fill"></div></div>
-      <div class="vagas-slots"><strong>52 de 70</strong> vagas preenchidas</div>
-      <div class="vagas-divider"></div>
-      <div class="vagas-cd-lbl">Próxima turma começa em</div>
-      <div class="vagas-cd" id="gde-cd">--:--:--</div>
-      <div class="vagas-date" id="gde-date">segunda-feira</div>
+    <div class="cd-block reveal">
+      <div class="label">Próxima turma</div>
+      <div class="cd-time" id="gde-cd">--&nbsp;·&nbsp;--&nbsp;·&nbsp;--&nbsp;·&nbsp;--</div>
+      <div class="cd-labels">Dias · Horas · Min · Seg</div>
+      <div class="cd-date">começa <span id="gde-date">segunda-feira</span></div>
+      <div class="cd-bar"><div class="cd-fill"></div></div>
+      <div class="cd-slots"><strong>18 vagas</strong> restantes de 70</div>
     </div>
   </div>
 </section>
@@ -1000,11 +1099,11 @@ hr {
       <div class="method-item">
         <div class="method-n">02</div>
         <div class="method-body">
-          <div class="method-title">Acompanhamento ao vivo</div>
+          <div class="method-title">Acompanhamento durante a semana</div>
           <ul class="method-ul">
-            <li>Treinadores certificados</li>
-            <li>Correção por vídeo</li>
-            <li>5 dias de suporte direto</li>
+            <li>Treinadores certificados ativos no grupo</li>
+            <li>Você manda vídeo do treino, eles corrigem</li>
+            <li>Sem horário marcado — no seu ritmo</li>
           </ul>
         </div>
       </div>
@@ -1097,8 +1196,8 @@ hr {
     <div class="inc-table reveal" style="transition-delay:.1s">
       <div class="inc-row">
         <div>
-          <div class="inc-name">Grupo ao vivo com treinadores certificados</div>
-          <div class="inc-desc">Acompanhamento + correção por vídeo + Q&A diário</div>
+          <div class="inc-name">Acompanhamento ativo no grupo durante a semana</div>
+          <div class="inc-desc">Treinadores certificados corrigem seu vídeo · Q&A diário · sem horário fixo</div>
         </div>
         <div class="inc-val">R$ 197</div>
       </div>
@@ -1174,7 +1273,7 @@ hr {
               <span class="plan-check">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               </span>
-              Grupo ao vivo com treinadores certificados
+              Acompanhamento dos treinadores durante toda a semana
             </li>
             <li>
               <span class="plan-check">
@@ -1220,8 +1319,8 @@ hr {
       <div class="step-item">
         <div class="step-n">2</div>
         <div>
-          <div class="step-title">Acesso imediato ao grupo</div>
-          <div class="step-desc">Você entra no grupo de acompanhamento logo após a compra · sem espera</div>
+          <div class="step-title">Entra no grupo de acompanhamento</div>
+          <div class="step-desc">Treinadores já estão lá · você treina no seu horário · suporte direto por vídeo</div>
         </div>
       </div>
       <div class="step-item">
@@ -1348,7 +1447,7 @@ hr {
               <span class="plan-check">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               </span>
-              Grupo ao vivo com treinadores certificados
+              Acompanhamento dos treinadores durante toda a semana
             </li>
             <li>
               <span class="plan-check">
@@ -1410,7 +1509,7 @@ hr {
     const h  = Math.floor((diff % 86400000) / 3600000);
     const m  = Math.floor((diff % 3600000)  / 60000);
     const s  = Math.floor((diff % 60000)    / 1000);
-    const str = dd > 0 ? `${dd}d · ${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(h)}:${pad(m)}:${pad(s)}`;
+    const str = `${pad(dd)} · ${pad(h)} · ${pad(m)} · ${pad(s)}`;
     const el = document.getElementById('gde-cd');
     if (el) el.textContent = str;
     const dateStr = target.toLocaleDateString('pt-BR', {
