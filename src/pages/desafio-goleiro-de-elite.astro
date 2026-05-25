@@ -81,7 +81,7 @@ hr {
 
 /* ─── HERO HÍBRIDO ─────────────────────────────────────────── */
 .hero {
-  background: var(--black);
+  background: var(--white);
   min-height: 100svh;
   display: flex;
   align-items: center;
@@ -109,18 +109,20 @@ hr {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2.8rem, 7vw, 5.5rem);
   line-height: .92;
-  color: var(--white);
+  color: var(--black);
   letter-spacing: .01em;
   margin: -4px 0;
 }
 .hero-headline .yl { color: var(--yellow); }
 .hero-sub {
   font-size: clamp(.98rem, 1.4vw, 1.12rem);
-  color: rgba(255,255,255,.65);
+  color: rgba(0,0,0,.6);
   line-height: 1.55;
   max-width: 480px;
 }
 .hero-cta {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -138,9 +140,15 @@ hr {
   text-transform: uppercase;
   color: var(--black);
   text-decoration: none;
-  transition: opacity .15s, transform .15s;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+  animation: ctaPulse 2.6s ease-in-out infinite;
 }
-.hero-cta:hover { opacity: .9; transform: translateY(-1px); }
+.hero-cta:hover {
+  opacity: .95;
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(244,180,0,.5);
+  animation-play-state: paused;
+}
 .hero-foot {
   font-size: .72rem;
   color: rgba(255,255,255,.4);
@@ -155,10 +163,18 @@ hr {
   margin-left: auto;
 }
 @media (max-width: 900px) {
-  .hero { padding: clamp(24px,6vw,48px) 16px clamp(40px,8vw,60px); }
-  .hero-inner { grid-template-columns: 1fr; gap: 28px; }
+  .hero { padding: 0; min-height: auto; }
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
   .hero-media { order: -1; }
-  .hero-media img { max-width: 320px; margin: 0 auto; }
+  .hero-media img {
+    max-width: 100%;
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+  }
+  .hero-text {
+    padding: 32px 24px clamp(40px,8vw,60px);
+  }
 }
 
 /* ─── CRONOGRAMA DA SEMANA ─────────────────────────────────── */
@@ -190,17 +206,21 @@ hr {
   gap: 12px;
 }
 .schedule-card {
-  background: rgba(255,255,255,.025);
-  border: 1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px;
   padding: 22px 18px 24px;
   display: flex;
   flex-direction: column;
-  transition: border-color .2s, background .2s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .35s ease, border-color .3s, background .3s, box-shadow .3s;
 }
 .schedule-card:hover {
-  border-color: rgba(244,180,0,.25);
-  background: rgba(255,255,255,.04);
+  transform: translateY(-4px);
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+  box-shadow: 0 18px 44px rgba(244,180,0,.22);
 }
 .schedule-n {
   font-family: 'Bebas Neue', sans-serif;
@@ -291,6 +311,20 @@ hr {
   font-weight: 500;
 }
 .cd-slots strong { color: var(--yellow); font-weight: 700; }
+.cd-cta {
+  margin-top: 28px;
+  font-size: 1.05rem;
+  padding: 18px 36px;
+  border-radius: 14px;
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+.cd-cta:hover { animation-play-state: paused; }
+.cd-foot {
+  margin-top: 14px;
+  font-size: .72rem;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.4);
+}
 
 /* ─── PROBLEM LIST ──────────────────────────────────────────── */
 .pain-list {
@@ -522,6 +556,8 @@ hr {
 /* ─── BOTÃO CTA INLINE ─────────────────────────────────────── */
 .btn-inline-wrap { text-align: center; margin-top: 36px; }
 .btn-inline {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -537,9 +573,13 @@ hr {
   text-transform: uppercase;
   color: var(--black);
   text-decoration: none;
-  transition: opacity .15s, transform .15s;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
 }
-.btn-inline:hover { opacity: .9; transform: translateY(-1px); }
+.btn-inline:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(244,180,0,.4);
+}
 
 /* ─── INCLUDED TABLE ────────────────────────────────────────── */
 .inc-table { border-top: 1px solid rgba(255,255,255,.06); }
@@ -765,19 +805,22 @@ hr {
   margin: 0 auto;
   padding: 0 clamp(24px,5vw,48px);
 }
-/* outer card — thin border + faint amber ring */
+/* outer card — thin border + amber ring (animated) */
 .plan-card {
   border: 1px solid rgba(255,255,255,.1);
-  outline: 1px solid rgba(244,180,0,.15);
+  outline: 1px solid rgba(244,180,0,.18);
   border-radius: 28px;
   padding: 6px;
+  animation: planCardPulse 3.5s ease-in-out infinite;
 }
-/* inner card — gradient bg */
+/* inner card — glass real */
 .plan-inner {
   position: relative;
   overflow: hidden;
   border-radius: 22px;
-  background: linear-gradient(160deg, rgba(255,255,255,.06) 0%, transparent 60%);
+  background: linear-gradient(160deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 /* decorative top glow */
 .plan-inner::before {
@@ -842,6 +885,8 @@ hr {
 }
 /* CTA button */
 .plan-btn {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -857,10 +902,14 @@ hr {
   text-transform: uppercase;
   color: var(--black);
   text-decoration: none;
-  transition: opacity .15s, transform .15s;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
   margin-bottom: 28px;
 }
-.plan-btn:hover { opacity: .9; transform: translateY(-1px); }
+.plan-btn:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(244,180,0,.4);
+}
 /* divider */
 .plan-divider {
   height: 1px;
@@ -945,6 +994,32 @@ hr {
 .foot-links a:hover { color: var(--yellow); }
 .foot-copy { font-size: .63rem; color: rgba(255,255,255,.12); letter-spacing: .04em; }
 
+/* ─── GLASS EFFECTS (shimmer + keyframes) ──────────────────── */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 16px 40px rgba(244,180,0,.28); }
+  50%      { box-shadow: 0 20px 56px rgba(244,180,0,.45); }
+}
+@keyframes planCardPulse {
+  0%, 100% { outline-color: rgba(244,180,0,.18); box-shadow: 0 0 0 rgba(244,180,0,0); }
+  50%      { outline-color: rgba(244,180,0,.4);  box-shadow: 0 0 80px rgba(244,180,0,.1); }
+}
+.hero-cta::after,
+.plan-btn::after,
+.btn-inline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.hero-cta:hover::after,
+.plan-btn:hover::after,
+.btn-inline:hover::after {
+  transform: translateX(100%);
+}
+
 /* ─── REVEAL ─────────────────────────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: none; }
@@ -978,10 +1053,6 @@ hr {
         Treino físico específico pra goleiro, feito por treinadores que entendem
         a posição. Próxima turma começa segunda-feira — vagas limitadas.
       </p>
-      <a href="https://pay.kiwify.com.br/KdBQQpk" class="hero-cta">
-        Garantir minha vaga · R$ 35 →
-      </a>
-      <p class="hero-foot">Pagamento único · acesso imediato</p>
     </div>
     <div class="hero-media">
       <img
@@ -1043,6 +1114,10 @@ hr {
       <div class="cd-date">começa <span id="gde-date">segunda-feira</span></div>
       <div class="cd-bar"><div class="cd-fill"></div></div>
       <div class="cd-slots"><strong>18 vagas</strong> restantes de 70</div>
+      <a href="https://pay.kiwify.com.br/KdBQQpk" class="btn-inline cd-cta">
+        Garantir minha vaga · R$ 35 →
+      </a>
+      <p class="cd-foot">Pagamento único · acesso imediato</p>
     </div>
   </div>
 </section>
