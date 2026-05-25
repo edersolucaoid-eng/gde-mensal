@@ -1389,9 +1389,12 @@ hr {
 
 <script>
   function nextMonday() {
+    // Turma fixada: 01/06/2026 — após essa data volta ao cálculo dinâmico
+    const fixed = new Date('2026-06-01T03:00:00Z'); // meia-noite BRT = 03:00 UTC
+    if (Date.now() < fixed.getTime()) return fixed;
     const brt = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
     const d = brt.getDay();
-    const days = d === 0 ? 1 : (8 - d) % 7 || 7;
+    const days = (8 - d) % 7 || 7;
     const m = new Date(brt);
     m.setDate(brt.getDate() + days);
     m.setHours(0, 0, 0, 0);
