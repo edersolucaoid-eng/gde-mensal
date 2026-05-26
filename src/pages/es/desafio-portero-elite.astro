@@ -1,10 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="Desafío Portero de Élite | 5 Días de Entrenamiento Físico Específico para Porteros">
+<Base title="Desafío Portero de Elite | 5 Días de Entrenamiento Físico Específico para Porteros">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@600;700&display=swap');
-
 /* ─── Reset & base ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -69,7 +67,6 @@ body {
 .display .yl   { color: var(--yellow); }
 .display .faded{ color: rgba(255,255,255,.18); }
 
-/* ─── Horizontal rule ───────────────────────────────────────── */
 hr {
   border: none;
   height: 1px;
@@ -78,87 +75,215 @@ hr {
 .s-dark  hr { background: rgba(255,255,255,.08); }
 .s-light hr { background: rgba(0,0,0,.1); }
 
-/* ─── HERO ──────────────────────────────────────────────────── */
+/* ─── HERO HÍBRIDO ─────────────────────────────────────────── */
 .hero {
-  background: var(--black);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  background: var(--white);
   min-height: 100svh;
-  padding-top: clamp(40px,8vw,80px);
+  display: flex;
+  align-items: center;
+  padding: clamp(40px,8vw,80px) clamp(24px,5vw,48px);
 }
-@media (max-width: 600px) {
-  .hero { padding-top: 0; }
+.hero-inner {
+  width: 100%;
+  max-width: var(--wrap-wide);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(40px,6vw,80px);
+  align-items: center;
 }
-.hero img { width: 100%; max-width: 540px; height: auto; display: block; }
-
-/* ─── VAGAS ─────────────────────────────────────────────────── */
-.vagas-block { text-align: center; max-width: 440px; margin: 0 auto; }
-
-.vagas-num {
+.hero-text { display: flex; flex-direction: column; gap: 22px; }
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.hero-headline {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(9rem, 24vw, 14rem);
-  line-height: .8;
-  color: var(--white);
-  letter-spacing: -.02em;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: .92;
+  color: var(--black);
+  letter-spacing: .01em;
+  margin: -4px 0;
 }
-.vagas-num b { color: var(--yellow); }
+.hero-headline .yl { color: var(--yellow); }
+.hero-sub {
+  font-size: clamp(.98rem, 1.4vw, 1.12rem);
+  color: rgba(0,0,0,.6);
+  line-height: 1.55;
+  max-width: 480px;
+}
+.hero-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  max-width: 520px;
+  margin-left: auto;
+}
+@media (max-width: 900px) {
+  .hero { padding: 0; min-height: auto; }
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .hero-media { order: -1; }
+  .hero-media img {
+    max-width: 100%;
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+  }
+  .hero-text {
+    padding: 32px 24px clamp(40px,8vw,60px);
+  }
+}
 
-.vagas-sub {
+/* ─── CRONOGRAMA DA SEMANA ─────────────────────────────────── */
+.schedule-sec {
+  background: var(--black);
+  padding: clamp(40px,6vw,72px) 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+.schedule-intro {
+  text-align: center;
+  max-width: 540px;
+  margin: 0 auto clamp(28px,4vw,40px);
+  padding: 0 clamp(24px,5vw,48px);
+}
+.schedule-intro .label { justify-content: center; margin-bottom: 14px; }
+.schedule-intro h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem,3vw,2.2rem);
+  letter-spacing: .02em;
+  color: var(--white);
+  line-height: 1.05;
+}
+.schedule-grid {
+  max-width: var(--wrap-wide);
+  margin: 0 auto;
+  padding: 0 clamp(24px,5vw,48px);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.schedule-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 22px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .35s ease, border-color .3s, background .3s, box-shadow .3s;
+}
+.schedule-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+  box-shadow: 0 18px 44px rgba(244,180,0,.22);
+}
+.schedule-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--yellow);
+  line-height: 1;
+  letter-spacing: .04em;
+  margin-bottom: 14px;
+}
+.schedule-day {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .68rem;
   font-weight: 700;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.2);
-  margin-top: 8px;
-  margin-bottom: 28px;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 6px;
 }
-.vagas-bar {
+.schedule-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.schedule-desc {
+  font-size: .78rem;
+  color: rgba(255,255,255,.42);
+  line-height: 1.5;
+}
+@media (max-width: 900px) {
+  .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .schedule-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── COUNTDOWN ─────────────────────────────────────────────── */
+.cd-block {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.cd-block .label { justify-content: center; margin-bottom: 4px; }
+.cd-time {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 9vw, 5rem);
+  letter-spacing: .04em;
+  color: var(--white);
+  line-height: 1;
+  margin: 12px 0 10px;
+}
+.cd-labels {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 18px;
+}
+.cd-date {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+.cd-date span { color: var(--white); }
+.cd-bar {
   height: 2px;
   background: rgba(255,255,255,.08);
-  margin-bottom: 8px;
+  border-radius: 1px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
-.vagas-fill {
+.cd-fill {
   height: 100%;
   background: var(--yellow);
   width: 74.3%;
 }
-.vagas-slots {
-  font-size: .72rem;
-  color: rgba(255,255,255,.25);
+.cd-slots {
+  font-size: .74rem;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .03em;
   font-weight: 500;
-  margin-bottom: 48px;
 }
-.vagas-slots strong { color: var(--yellow); }
-
-.vagas-divider {
-  width: 1px;
-  height: 48px;
-  background: rgba(255,255,255,.08);
-  margin: 0 auto 40px;
+.cd-slots strong { color: var(--yellow); font-weight: 700; }
+.cd-cta {
+  margin-top: 28px;
+  font-size: 1.05rem;
+  padding: 18px 36px;
+  border-radius: 14px;
+  animation: ctaPulse 2.6s ease-in-out infinite;
 }
-.vagas-cd-lbl {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .62rem;
-  font-weight: 700;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.2);
-  margin-bottom: 10px;
-}
-.vagas-cd {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 10vw, 5.5rem);
-  letter-spacing: .06em;
-  color: var(--white);
-  line-height: 1;
-}
-.vagas-date {
+.cd-cta:hover { animation-play-state: paused; }
+.cd-foot {
+  margin-top: 14px;
   font-size: .72rem;
-  color: rgba(255,255,255,.2);
-  margin-top: 10px;
-  font-weight: 500;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.4);
 }
 
 /* ─── PROBLEM LIST ──────────────────────────────────────────── */
@@ -358,49 +483,61 @@ hr {
   flex-shrink: 0;
 }
 
-/* ─── TRANSFORMATION ────────────────────────────────────────── */
-.trfm-list { border-top: 1px solid rgba(255,255,255,.06); }
-.trfm-item {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  padding: 36px 0;
-}
-.trfm-n {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem,7vw,4.5rem);
-  color: var(--yellow);
-  line-height: 1;
-  padding-right: 24px;
-  border-right: 1px solid rgba(255,255,255,.06);
-  align-self: start;
-}
-.trfm-body { padding-left: 32px; padding-top: 4px; }
-.trfm-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 12px;
-}
-.trfm-ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.trfm-ul li {
-  font-size: .88rem;
-  color: rgba(255,255,255,.38);
+/* ─── METHOD RESULT ────────────────────────────────────────── */
+.method-result {
   display: flex;
   gap: 10px;
-  align-items: flex-start;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(244,180,0,.22);
+  font-size: .92rem;
+  color: var(--black);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.method-result::before {
+  content: '→';
+  color: var(--yellow);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.method-bonus {
+  margin-top: 28px;
+  padding: 18px 22px;
+  background: rgba(244,180,0,.08);
+  border-left: 3px solid var(--yellow);
+  font-size: .9rem;
+  color: rgba(0,0,0,.72);
   line-height: 1.55;
 }
-.trfm-ul li::before {
-  content: '';
-  width: 14px;
-  height: 1px;
-  background: rgba(255,255,255,.25);
-  flex-shrink: 0;
-  margin-top: 9px;
+.method-bonus strong { color: var(--black); }
+
+/* ─── BOTÃO CTA INLINE ─────────────────────────────────────── */
+.btn-inline-wrap { text-align: center; margin-top: 36px; }
+.btn-inline {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 36px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 10px 32px rgba(244,180,0,.22);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+}
+.btn-inline:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(244,180,0,.4);
 }
 
 /* ─── INCLUDED TABLE ────────────────────────────────────────── */
@@ -423,29 +560,13 @@ hr {
   margin-bottom: 4px;
 }
 .inc-desc { font-size: .76rem; color: rgba(255,255,255,.3); }
-.inc-val {
-  font-size: .8rem;
-  color: rgba(255,255,255,.15);
-  text-decoration: line-through;
-  white-space: nowrap;
-  flex-shrink: 0;
-  padding-top: 2px;
-}
 .inc-total {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 28px 0;
   border-top: 1px solid var(--yellow);
 }
-.inc-total-lbl {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .6rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.3);
-}
-.inc-total-was { font-size: .82rem; color: rgba(255,255,255,.18); text-decoration: line-through; margin-top: 4px; }
 .inc-price {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 4.5rem;
@@ -491,22 +612,23 @@ hr {
 }
 .step-desc { font-size: .86rem; color: rgba(0,0,0,.5); line-height: 1.6; }
 
-/* ─── WHO IS ────────────────────────────────────────────────── */
-.whom-grid { display: grid; grid-template-columns: 1fr 1fr; }
-.whom-side { padding: clamp(60px,10vw,100px) clamp(24px,6vw,64px); }
-.whom-yes { background: var(--black); }
-.whom-hd {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2rem,4vw,3rem);
-  letter-spacing: .02em;
-  padding-bottom: 16px;
-  margin-bottom: 4px;
-  border-bottom: 2px solid;
+/* ─── PARA QUIÉN ES ─────────────────────────────────────────── */
+.whom-ul {
+  list-style: none;
+  margin-top: 28px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
 }
-.whom-yes .whom-hd { color: var(--yellow); border-color: var(--yellow); }
-.whom-ul { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
-.whom-ul li { display: flex; gap: 14px; font-size: .9rem; line-height: 1.45; align-items: flex-start; }
-.whom-yes .whom-ul li { color: rgba(255,255,255,.58); }
+.whom-ul li {
+  display: flex;
+  gap: 14px;
+  font-size: .95rem;
+  line-height: 1.45;
+  align-items: flex-start;
+  color: rgba(255,255,255,.7);
+}
 .ico-y { color: var(--yellow); font-weight: 700; flex-shrink: 0; }
 
 /* ─── FAQ ───────────────────────────────────────────────────── */
@@ -555,18 +677,25 @@ hr {
   border-top: 1px solid rgba(255,255,255,.05);
   border-bottom: 1px solid rgba(255,255,255,.05);
 }
-.plan-wrap { max-width: 480px; margin: 0 auto; padding: 0 clamp(24px,5vw,48px); }
+.plan-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 clamp(24px,5vw,48px);
+}
 .plan-card {
   border: 1px solid rgba(255,255,255,.1);
-  outline: 1px solid rgba(244,180,0,.15);
+  outline: 1px solid rgba(244,180,0,.18);
   border-radius: 28px;
   padding: 6px;
+  animation: planCardPulse 3.5s ease-in-out infinite;
 }
 .plan-inner {
   position: relative;
   overflow: hidden;
   border-radius: 22px;
-  background: linear-gradient(160deg, rgba(255,255,255,.06) 0%, transparent 60%);
+  background: linear-gradient(160deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 .plan-inner::before {
   content: '';
@@ -622,8 +751,9 @@ hr {
   margin-top: 2px;
   margin-bottom: 24px;
 }
-.plan-was { text-decoration: line-through; color: rgba(255,255,255,.18); }
 .plan-btn {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -639,11 +769,19 @@ hr {
   text-transform: uppercase;
   color: var(--black);
   text-decoration: none;
-  transition: opacity .15s, transform .15s;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
   margin-bottom: 28px;
 }
-.plan-btn:hover { opacity: .9; transform: translateY(-1px); }
-.plan-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 24px; }
+.plan-btn:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(244,180,0,.4);
+}
+.plan-divider {
+  height: 1px;
+  background: rgba(255,255,255,.07);
+  margin-bottom: 24px;
+}
 .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .plan-features li {
   display: flex;
@@ -666,6 +804,7 @@ hr {
   margin-top: 1px;
 }
 .plan-check svg { display: block; }
+
 .plan-eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .65rem;
@@ -700,60 +839,136 @@ hr {
 .foot-links a:hover { color: var(--yellow); }
 .foot-copy { font-size: .63rem; color: rgba(255,255,255,.12); letter-spacing: .04em; }
 
-/* ─── REVEAL ─────────────────────────────────────────────────── */
+/* ─── GLASS EFFECTS ────────────────────────────────────────── */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 16px 40px rgba(244,180,0,.28); }
+  50%      { box-shadow: 0 20px 56px rgba(244,180,0,.45); }
+}
+@keyframes planCardPulse {
+  0%, 100% { outline-color: rgba(244,180,0,.18); box-shadow: 0 0 0 rgba(244,180,0,0); }
+  50%      { outline-color: rgba(244,180,0,.4);  box-shadow: 0 0 80px rgba(244,180,0,.1); }
+}
+.plan-btn::after,
+.btn-inline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.plan-btn:hover::after,
+.btn-inline:hover::after {
+  transform: translateX(100%);
+}
+
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: none; }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .method-item  { grid-template-columns: 60px 1fr; }
-  .method-n     { font-size: 2.8rem; }
-  .method-body  { padding-left: 20px; }
-  .trfm-item    { grid-template-columns: 60px 1fr; }
-  .trfm-n       { font-size: 2.8rem; }
-  .trfm-body    { padding-left: 20px; }
-  .whom-grid    { grid-template-columns: 1fr; }
+  .proof-grid       { grid-template-columns: repeat(2, 1fr); }
+  .method-item      { grid-template-columns: 60px 1fr; }
+  .method-n         { font-size: 2.8rem; }
+  .method-body      { padding-left: 20px; }
 }
 @media (max-width: 480px) {
-  .method-item  { grid-template-columns: 1fr; }
-  .method-n     { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: 16px; }
-  .method-body  { padding-left: 0; }
-  .trfm-item    { grid-template-columns: 1fr; }
-  .trfm-n       { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 16px; }
-  .trfm-body    { padding-left: 0; }
-  .inc-row      { flex-wrap: wrap; }
-  .inc-val      { align-self: flex-end; }
+  .method-item      { grid-template-columns: 1fr; }
+  .method-n         { font-size: 2.2rem; padding-right: 0; border-right: none; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,.1); margin-bottom: 16px; }
+  .method-body      { padding-left: 0; }
 }
 </style>
 
-<!-- ── HERO ──────────────────────────────────────────────────── -->
+<!-- ── HERO HÍBRIDO ──────────────────────────────────────────── -->
 <section class="hero">
-  <img src="/images/hero-desafio.webp" alt="Desafío Portero de Élite" loading="eager" fetchpriority="high" />
-</section>
-
-<!-- ── CUPOS + COUNTDOWN ─────────────────────────────────────── -->
-<section class="s-dark">
-  <div class="wrap">
-    <div class="vagas-block reveal">
-      <div class="label" style="justify-content:center">Cupos limitados</div>
-      <div class="vagas-num"><b>18</b></div>
-      <div class="vagas-sub">cupos disponibles en esta clase</div>
-      <div class="vagas-bar"><div class="vagas-fill"></div></div>
-      <div class="vagas-slots"><strong>52 de 70</strong> cupos ocupados</div>
-      <div class="vagas-divider"></div>
-      <div class="vagas-cd-lbl">La próxima clase comienza en</div>
-      <div class="vagas-cd" id="gde-cd">--:--:--</div>
-      <div class="vagas-date" id="gde-date">lunes</div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Desafío Portero de Elite · 5 días</div>
+      <h1 class="hero-headline">
+        En 5 días,<br>
+        tu juego dentro del arco <span class="yl">cambia</span>.
+      </h1>
+      <p class="hero-sub">
+        Entrenamiento físico específico para portero, hecho por entrenadores que entienden
+        la posición. Próxima clase comienza el lunes — cupos limitados.
+      </p>
+    </div>
+    <div class="hero-media">
+      <img
+        src="/images/desafio_goleiro_elite_hero.webp"
+        alt="Desafío Portero de Elite"
+        width="1306"
+        height="1205"
+        loading="eager"
+        fetchpriority="high" />
     </div>
   </div>
 </section>
 
-<!-- ── EL PROBLEMA ────────────────────────────────────────────── -->
+<!-- ── CRONOGRAMA DE LA SEMANA ───────────────────────────────── -->
+<section class="schedule-sec">
+  <div class="schedule-intro reveal">
+    <div class="label">Cronograma de la semana</div>
+    <h3>5 días. 5 entrenamientos.<br>Todo lo que decide en el arco.</h3>
+  </div>
+  <div class="schedule-grid reveal" style="transition-delay:.08s">
+    <div class="schedule-card">
+      <div class="schedule-n">01</div>
+      <div class="schedule-day">Lunes</div>
+      <div class="schedule-title">Fuerza estructural</div>
+      <div class="schedule-desc">Base de fuerza para todo el cuerpo: cuádriceps, posterior, glúteo, core. Sostén para todo lo que viene.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">02</div>
+      <div class="schedule-day">Martes</div>
+      <div class="schedule-title">Empujes y complementos</div>
+      <div class="schedule-desc">Empujar vertical y horizontal. Movimiento de golpe y disputa de pelota alta. Lanzamientos, potencia y explosión.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">03</div>
+      <div class="schedule-day">Miércoles</div>
+      <div class="schedule-title">Potencia</div>
+      <div class="schedule-desc">Explosión pura: pliometría, saltos, arranques cortos.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">04</div>
+      <div class="schedule-day">Jueves</div>
+      <div class="schedule-title">Tirones y complementos</div>
+      <div class="schedule-desc">Tirar vertical y horizontal. Disputa aérea, estabilidad en el salto, coordinación entre brazo y pierna. Postural.</div>
+    </div>
+    <div class="schedule-card">
+      <div class="schedule-n">05</div>
+      <div class="schedule-day">Viernes</div>
+      <div class="schedule-title">Preventivos y aceleración</div>
+      <div class="schedule-desc">Cero lesiones + velocidad de movimiento, fuerza coordinativa. Cierra la semana listo para el partido.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COUNTDOWN ─────────────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="cd-block reveal">
+      <div class="label">Próxima clase</div>
+      <div class="cd-time" id="gde-cd">--&nbsp;·&nbsp;--&nbsp;·&nbsp;--&nbsp;·&nbsp;--</div>
+      <div class="cd-labels">Días · Horas · Min · Seg</div>
+      <div class="cd-date">comienza <span id="gde-date">lunes</span></div>
+      <div class="cd-bar"><div class="cd-fill"></div></div>
+      <div class="cd-slots"><strong>18 cupos</strong> restantes de 70</div>
+      <a href="https://pay.kiwify.com/OOgnV0V" class="btn-inline cd-cta">
+        Asegurar mi cupo · $10 USD →
+      </a>
+      <p class="cd-foot">Pago único · acceso inmediato</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── EL PROBLEMA ─────────────────────────────────────────────── -->
 <section class="s-light">
   <div class="wrap">
     <div class="reveal">
       <div class="label">El problema</div>
-      <h2 class="display">Entrenas.<br>Te dedicas.<br>Pero en el momento del partido…</h2>
+      <h2 class="display">Entrenas.<br>Te dedicas.<br>Pero a la hora del partido…</h2>
     </div>
     <ul class="pain-list reveal" style="transition-delay:.08s">
       <li class="pain-item">
@@ -762,19 +977,19 @@ hr {
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Caes y tardas en levantarte para la siguiente jugada</span>
+        <span>Te caes y tardas en levantarte para la próxima jugada</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Pierdes el duelo aéreo en el segundo tiempo</span>
+        <span>Pierdes la disputa aérea en el segundo tiempo</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Entrenas en el gimnasio pero no mejoras bajo los palos</span>
+        <span>Entrenas en el gimnasio pero no mejoras en el arco</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Recibes un gol que sabías que debías parar</span>
+        <span>Te meten gol que sabías que era para atajar</span>
       </li>
     </ul>
     <div class="pivot-quote reveal" style="transition-delay:.14s">
@@ -784,12 +999,28 @@ hr {
   </div>
 </section>
 
-<!-- ── PRUEBAS REALES ──────────────────────────────────────────── -->
+<!-- ── PARA QUIÉN ES ──────────────────────────────────────────── -->
+<section class="s-dark">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto">
+      <div class="label" style="justify-content:center">Para quién es</div>
+      <h2 class="display" style="margin-bottom:32px">Este desafío es <span class="yl">tuyo</span> si…</h2>
+      <ul class="whom-ul">
+        <li><span class="ico-y">✓</span> Eres portero amateur, universitario, de base o aspirante</li>
+        <li><span class="ico-y">✓</span> Entrenas pero no ves mejora dentro del campo</li>
+        <li><span class="ico-y">✓</span> Quieres entrenamiento físico específico para portero — no genérico</li>
+        <li><span class="ico-y">✓</span> Puedes separar 40–60 min al día durante 5 días</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESULTADOS REALES ─────────────────────────────────────── -->
 <section class="s-dark">
   <div class="wrap-wide">
     <div class="reveal">
       <div class="label">Resultados reales</div>
-      <h2 class="display">Qué cambia cuando<br>el portero entrena <span class="yl">bien</span></h2>
+      <h2 class="display">Lo que cambia cuando<br>el portero entrena <span class="yl">bien</span></h2>
     </div>
     <div class="proof-clip reveal" style="transition-delay:.1s">
     <div class="proof-carousel-outer">
@@ -798,16 +1029,16 @@ hr {
       </button>
       <div class="proof-track">
         <div class="proof-slide" data-index="0">
-          <img src="/images/carrossel-1.webp" alt="Fabíola Stelzer" loading="lazy" />
+          <img src="/images/carrossel-1.webp" alt="Fabíola Stelzer" width="3600" height="3600" loading="lazy" decoding="async" />
           <div class="proof-slide-overlay"></div>
           <div class="proof-active-badge">Destacado</div>
           <div class="proof-caption">
-            <div class="proof-role-pill">Portera Amateur · ES</div>
+            <div class="proof-role-pill">Portera Amateur</div>
             <div class="proof-slide-name">Fabíola Stelzer</div>
           </div>
         </div>
         <div class="proof-slide" data-index="1">
-          <img src="/images/carrossel-2.webp" alt="Rafael S." loading="lazy" />
+          <img src="/images/carrossel-2.webp" alt="Rafael S." width="3600" height="3600" loading="lazy" decoding="async" />
           <div class="proof-slide-overlay"></div>
           <div class="proof-active-badge">Destacado</div>
           <div class="proof-caption">
@@ -816,38 +1047,38 @@ hr {
           </div>
         </div>
         <div class="proof-slide" data-index="2">
-          <img src="/images/carrossel-3.webp" alt="Diego A." loading="lazy" />
+          <img src="/images/carrossel-3.webp" alt="Diego A." width="1600" height="1600" loading="lazy" decoding="async" />
           <div class="proof-slide-overlay"></div>
           <div class="proof-active-badge">Destacado</div>
           <div class="proof-caption">
-            <div class="proof-role-pill">Portero Formativo · MG</div>
+            <div class="proof-role-pill">Portero de Base</div>
             <div class="proof-slide-name">Diego A.</div>
           </div>
         </div>
         <div class="proof-slide" data-index="3">
-          <img src="/images/carrossel-4.webp" alt="Thiago R." loading="lazy" />
+          <img src="/images/carrossel-4.webp" alt="Thiago R." width="739" height="1600" loading="lazy" decoding="async" />
           <div class="proof-slide-overlay"></div>
           <div class="proof-active-badge">Destacado</div>
           <div class="proof-caption">
-            <div class="proof-role-pill">Portero Amateur · PR</div>
+            <div class="proof-role-pill">Portero Amateur</div>
             <div class="proof-slide-name">Thiago R.</div>
           </div>
         </div>
         <div class="proof-slide" data-index="4">
-          <img src="/images/carrossel-5.webp" alt="Matheus F." loading="lazy" />
+          <img src="/images/carrossel-5.webp" alt="Matheus F." width="739" height="1600" loading="lazy" decoding="async" />
           <div class="proof-slide-overlay"></div>
           <div class="proof-active-badge">Destacado</div>
           <div class="proof-caption">
-            <div class="proof-role-pill">Portero Aspirante · RS</div>
+            <div class="proof-role-pill">Portero Aspirante</div>
             <div class="proof-slide-name">Matheus F.</div>
           </div>
         </div>
         <div class="proof-slide" data-index="5">
-          <img src="/images/carrossel-6.webp" alt="Bruno C." loading="lazy" />
+          <img src="/images/carrossel-6.webp" alt="Bruno C." width="720" height="1600" loading="lazy" decoding="async" />
           <div class="proof-slide-overlay"></div>
           <div class="proof-active-badge">Destacado</div>
           <div class="proof-caption">
-            <div class="proof-role-pill">Portero Universitario · BA</div>
+            <div class="proof-role-pill">Portero Universitario</div>
             <div class="proof-slide-name">Bruno C.</div>
           </div>
         </div>
@@ -865,7 +1096,7 @@ hr {
   <div class="wrap">
     <div class="reveal">
       <div class="label">El método</div>
-      <h2 class="display" style="color:var(--black)">5 días. Entrenamiento físico.<br><span style="color:var(--black);opacity:.3">Específico para portero.</span></h2>
+      <h2 class="display" style="color:var(--black)">4 entregas.<br><span style="color:var(--black);opacity:.3">4 cambios en tu juego.</span></h2>
     </div>
     <div class="method-list reveal" style="transition-delay:.08s">
       <div class="method-item">
@@ -874,211 +1105,93 @@ hr {
           <div class="method-title">Entrenamiento específico</div>
           <ul class="method-ul">
             <li>Explosión, fuerza y velocidad</li>
-            <li>Sin balón, sin técnica</li>
-            <li>Solo lo que decide en el partido</li>
+            <li>Sin pelota, sin técnica — solo lo que decide en el partido</li>
           </ul>
+          <div class="method-result">Piernas que responden en el momento justo. Te levantas rápido, explotas al ángulo, disputa aérea fuerte hasta el final del partido.</div>
         </div>
       </div>
       <div class="method-item">
         <div class="method-n">02</div>
         <div class="method-body">
-          <div class="method-title">Seguimiento en vivo</div>
+          <div class="method-title">Acompañamiento durante la semana</div>
           <ul class="method-ul">
-            <li>Entrenadores certificados</li>
-            <li>Corrección por video</li>
-            <li>5 días de soporte directo</li>
+            <li>Entrenadores certificados activos en el grupo</li>
+            <li>Mandas video, ellos corrigen — sin horario fijo</li>
           </ul>
+          <div class="method-result">Confianza real: entras a la cancha sabiendo que el cuerpo responde. Dejas de dudar en el momento de decidir.</div>
         </div>
       </div>
       <div class="method-item">
         <div class="method-n">03</div>
         <div class="method-body">
-          <div class="method-title">Menú nutricional</div>
+          <div class="method-title">Menú nutricional de la semana</div>
           <ul class="method-ul">
-            <li>Plan alimentario específico</li>
-            <li>Simple y práctico</li>
-            <li>Optimizado para los 5 días</li>
+            <li>Plan alimenticio simple y práctico</li>
+            <li>Optimizado para los 5 días de entrenamiento</li>
           </ul>
+          <div class="method-result">Energía para entrenar al ritmo correcto, sin llegar agotado al final de la semana.</div>
         </div>
       </div>
       <div class="method-item">
         <div class="method-n">04</div>
         <div class="method-body">
-          <div class="method-title">Ciclo semanal</div>
+          <div class="method-title">Ciclo + material permanente</div>
           <ul class="method-ul">
-            <li>Entrenamiento liberado la víspera</li>
-            <li>Gimnasio o en casa</li>
-            <li>Nueva clase cada lunes</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── LA TRANSFORMACIÓN ──────────────────────────────────────── -->
-<section class="s-dark">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="label">La transformación</div>
-      <h2 class="display">Después de 5 días,<br>qué cambia en <span class="yl">tu juego</span></h2>
-    </div>
-    <div class="trfm-list reveal" style="transition-delay:.08s">
-      <div class="trfm-item">
-        <div class="trfm-n">01</div>
-        <div class="trfm-body">
-          <div class="trfm-title">Piernas que responden cuando decides</div>
-          <ul class="trfm-ul">
-            <li>Te levantas rápido y vuelves a la jugada</li>
-            <li>Explosionas hacia el palo sin arrastrar</li>
-            <li>Ganas el duelo aéreo hasta el final del partido</li>
-          </ul>
-        </div>
-      </div>
-      <div class="trfm-item">
-        <div class="trfm-n">02</div>
-        <div class="trfm-body">
-          <div class="trfm-title">Confianza real dentro del campo</div>
-          <ul class="trfm-ul">
-            <li>Entras sabiendo que el cuerpo responde</li>
-            <li>Dejas de dudar en el momento de decidir</li>
-          </ul>
-        </div>
-      </div>
-      <div class="trfm-item">
-        <div class="trfm-n">03</div>
-        <div class="trfm-body">
-          <div class="trfm-title">Nunca más entrenas a ciegas</div>
-          <ul class="trfm-ul">
+            <li>Entrenamiento liberado en la víspera, gimnasio o casa</li>
             <li>Material disponible para siempre</li>
-            <li>Sabes qué entrenar, cómo y por qué</li>
           </ul>
+          <div class="method-result">Nunca más entrenas a ciegas. Sabes qué hacer, cómo y por qué — para siempre.</div>
         </div>
       </div>
-      <div class="trfm-item">
-        <div class="trfm-n">04</div>
-        <div class="trfm-body">
-          <div class="trfm-title">El ambiente correcto para crecer</div>
-          <ul class="trfm-ul">
-            <li>5 días con porteros serios y comprometidos</li>
-            <li>Un entorno que cambia cómo entrenas solo</li>
-          </ul>
-        </div>
-      </div>
+    </div>
+    <div class="method-bonus reveal" style="transition-delay:.16s">
+      <strong>+ Bono:</strong> 5 días con porteros serios y comprometidos. El ambiente cambia cómo entrenas solo.
     </div>
   </div>
 </section>
 
-<!-- ── LO QUE INCLUYE ─────────────────────────────────────────── -->
+<!-- ── LO QUE RECIBES ────────────────────────────────────────── -->
 <section class="s-dark" style="border-top:1px solid rgba(255,255,255,.05)">
   <div class="wrap">
     <div class="reveal">
       <div class="label">Lo que recibes</div>
-      <h2 class="display">Todo por <span class="yl">R$ 35</span></h2>
+      <h2 class="display">Todo por <span class="yl">$10 USD</span></h2>
     </div>
     <div class="inc-table reveal" style="transition-delay:.1s">
       <div class="inc-row">
         <div>
-          <div class="inc-name">Grupo en vivo con entrenadores certificados</div>
-          <div class="inc-desc">Seguimiento + corrección por video + Q&A diario</div>
+          <div class="inc-name">Acompañamiento activo en el grupo durante la semana</div>
+          <div class="inc-desc">Entrenadores certificados corrigen tu video · Q&A diario · sin horario fijo</div>
         </div>
-        <div class="inc-val">R$ 197</div>
       </div>
       <div class="inc-row">
         <div>
           <div class="inc-name">5 entrenamientos físicos completos</div>
-          <div class="inc-desc">Versión gimnasio + versión casa · lunes a viernes</div>
+          <div class="inc-desc">Versión gimnasio + versión casa · de lunes a viernes</div>
         </div>
-        <div class="inc-val">R$ 97</div>
       </div>
       <div class="inc-row">
         <div>
           <div class="inc-name">Menú nutricional de la semana</div>
-          <div class="inc-desc">Plan alimentario específico para los 5 días</div>
+          <div class="inc-desc">Plan alimenticio específico para los 5 días</div>
         </div>
-        <div class="inc-val">R$ 47</div>
       </div>
       <div class="inc-row">
         <div>
           <div class="inc-name">Material disponible para siempre</div>
-          <div class="inc-desc">Repite los entrenamientos cuando quieras · acceso permanente</div>
+          <div class="inc-desc">Rehaz los entrenamientos cuando quieras · acceso permanente al contenido</div>
         </div>
-        <div class="inc-val">R$ 197</div>
       </div>
       <div class="inc-total">
         <div>
-          <div class="inc-total-lbl">Valor total</div>
-          <div class="inc-total-was">R$ 538</div>
-        </div>
-        <div>
-          <div class="inc-price-label">Pagas</div>
-          <div class="inc-price"><sup>R$</sup>35</div>
+          <div class="inc-price-label">Pagas (USD)</div>
+          <div class="inc-price"><sup>$</sup>10</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PLAN CARD CTA ───────────────────────────────────────────── -->
-<section class="plan-sec">
-  <div class="plan-wrap">
-    <div class="plan-card reveal">
-      <div class="plan-inner">
-        <div class="plan-body">
-
-          <div class="plan-header">
-            <div class="plan-label">Plan único</div>
-            <div class="plan-badge">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              Más popular
-            </div>
-          </div>
-
-          <div class="plan-price"><sup>R$</sup>35</div>
-          <div class="plan-period">
-            pago único &nbsp;·&nbsp; <span class="plan-was">R$ 538</span> en valor
-          </div>
-
-          <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn">
-            Asegurar mi cupo ahora
-          </a>
-
-          <div class="plan-divider"></div>
-
-          <ul class="plan-features">
-            <li>
-              <span class="plan-check">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              5 entrenamientos físicos específicos para portero (gimnasio + casa)
-            </li>
-            <li>
-              <span class="plan-check">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              Grupo en vivo con entrenadores certificados
-            </li>
-            <li>
-              <span class="plan-check">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              Corrección por video + Q&amp;A diario durante los 5 días
-            </li>
-            <li>
-              <span class="plan-check">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              Menú nutricional específico para los 5 días
-            </li>
-            <li>
-              <span class="plan-check">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              Material disponible para siempre — repite cuando quieras
-            </li>
-          </ul>
-
-        </div>
+      <div class="btn-inline-wrap reveal" style="transition-delay:.12s">
+        <a href="https://pay.kiwify.com/OOgnV0V" class="btn-inline">
+          Asegurar mi cupo ahora →
+        </a>
       </div>
     </div>
   </div>
@@ -1096,40 +1209,26 @@ hr {
         <div class="step-n">1</div>
         <div>
           <div class="step-title">Haz tu inscripción</div>
-          <div class="step-desc">Paga R$ 35 · pago único · procesado al instante</div>
+          <div class="step-desc">Paga $10 USD · pago único · procesado al instante</div>
         </div>
       </div>
       <div class="step-item">
         <div class="step-n">2</div>
         <div>
-          <div class="step-title">Acceso inmediato al grupo</div>
-          <div class="step-desc">Entras al grupo de seguimiento justo después de la compra · sin espera</div>
+          <div class="step-title">Entras al grupo de acompañamiento</div>
+          <div class="step-desc">Los entrenadores ya están ahí · entrenas en tu horario · soporte directo por video</div>
         </div>
       </div>
       <div class="step-item">
         <div class="step-n">3</div>
         <div>
-          <div class="step-title">Empieza el próximo lunes</div>
+          <div class="step-title">Comienza el próximo lunes</div>
           <div class="step-desc">Entrenamiento liberado el domingo por la noche · acceso permanente al material</div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ── PARA QUIÉN ES ───────────────────────────────────────────── -->
-<div class="whom-grid">
-  <div class="whom-side whom-yes reveal" style="max-width:var(--wrap-wide);margin:0 auto;width:100%">
-    <div class="label">Para quién es</div>
-    <div class="whom-hd">Este desafío es tuyo</div>
-    <ul class="whom-ul">
-      <li><span class="ico-y">✓</span> Portero amateur, universitario, formativo o aspirante</li>
-      <li><span class="ico-y">✓</span> Entrenas pero no mejoras dentro del campo</li>
-      <li><span class="ico-y">✓</span> Quieres entrenamiento físico específico para portero</li>
-      <li><span class="ico-y">✓</span> Puedes dedicar tiempo durante una semana</li>
-    </ul>
-  </div>
-</div>
 
 <!-- ── FAQ ────────────────────────────────────────────────────── -->
 <section class="s-light">
@@ -1151,42 +1250,28 @@ hr {
           ¿Funciona para portero amateur?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Sí. El desafío fue creado específicamente para porteros amateurs, universitarios, formativos y aspirantes.</p></div>
+        <div class="faq-body"><p>Sí. El desafío fue creado específicamente para porteros amateurs, universitarios, de base y aspirantes.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          ¿Qué pasa si pierdo un día?
+          ¿Hay horario fijo? ¿Cuánto tiempo necesito separar al día?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Sin problema. Los entrenamientos se liberan la víspera y los haces a tu hora. Si pierdes uno, retomas al día siguiente.</p></div>
+        <div class="faq-body"><p>No hay horario fijo. El entrenamiento se libera la noche anterior y lo haces cuando puedas, a tu ritmo. Cada entrenamiento dura entre 40 y 60 minutos.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          ¿A qué hora son los entrenamientos?
+          ¿Y si pierdo un día o quiero rehacerlo después?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>No hay horario fijo. El entrenamiento se libera la noche anterior y lo ejecutas cuando puedas.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">
-          ¿Cuánto tiempo por día necesito?
-          <div class="faq-ico">+</div>
-        </button>
-        <div class="faq-body"><p>Entre 40 y 60 minutos por entrenamiento.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-btn" aria-expanded="false">
-          ¿Puedo repetir el desafío después?
-          <div class="faq-ico">+</div>
-        </button>
-        <div class="faq-body"><p>Sí. El material queda disponible para siempre. Puedes repetir los entrenamientos cuando quieras, a tu propio ritmo.</p></div>
+        <div class="faq-body"><p>Sin problema. El material queda disponible para siempre — retomas al día siguiente, o rehaces todo el desafío cuando quieras, a tu propio ritmo.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
           ¿Cómo recibo mi acceso?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Inmediatamente después del pago eres dirigido al grupo de seguimiento. Sin espera, sin correo que esperar.</p></div>
+        <div class="faq-body"><p>Inmediatamente después del pago serás dirigido al grupo de acompañamiento. Sin espera, sin email por llegar.</p></div>
       </div>
     </div>
   </div>
@@ -1208,12 +1293,12 @@ hr {
             </div>
           </div>
 
-          <div class="plan-price"><sup>R$</sup>35</div>
+          <div class="plan-price"><sup>$</sup>10</div>
           <div class="plan-period">
-            pago único &nbsp;·&nbsp; <span class="plan-was">R$ 538</span> en valor
+            pago único &nbsp;·&nbsp; USD
           </div>
 
-          <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn">
+          <a href="https://pay.kiwify.com/OOgnV0V" class="plan-btn">
             Asegurar mi cupo ahora
           </a>
 
@@ -1230,7 +1315,7 @@ hr {
               <span class="plan-check">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               </span>
-              Grupo en vivo con entrenadores certificados
+              Acompañamiento de los entrenadores durante toda la semana
             </li>
             <li>
               <span class="plan-check">
@@ -1248,14 +1333,14 @@ hr {
               <span class="plan-check">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               </span>
-              Material disponible para siempre — repite cuando quieras
+              Material disponible para siempre — rehaz cuando quieras
             </li>
           </ul>
 
         </div>
       </div>
     </div>
-    <p class="plan-footnote reveal" style="transition-delay:.1s">El precio es intencional. Este desafío es la puerta de entrada — queremos que experimentes el método antes de cualquier decisión mayor.</p>
+    <p class="plan-footnote reveal" style="transition-delay:.1s">El precio es intencional. Este desafío es la puerta de entrada — queremos que pruebes el método antes de cualquier decisión mayor.</p>
   </div>
 </section>
 
@@ -1291,10 +1376,10 @@ hr {
     const h  = Math.floor((diff % 86400000) / 3600000);
     const m  = Math.floor((diff % 3600000)  / 60000);
     const s  = Math.floor((diff % 60000)    / 1000);
-    const str = dd > 0 ? `${dd}d · ${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(h)}:${pad(m)}:${pad(s)}`;
+    const str = `${pad(dd)} · ${pad(h)} · ${pad(m)} · ${pad(s)}`;
     const el = document.getElementById('gde-cd');
     if (el) el.textContent = str;
-    const dateStr = target.toLocaleDateString('es-ES', {
+    const dateStr = target.toLocaleDateString('es', {
       weekday: 'long', day: 'numeric', month: 'long', timeZone: 'America/Sao_Paulo'
     });
     ['gde-date', 'gde-date-cta'].forEach(id => {
@@ -1384,3 +1469,4 @@ hr {
   }, { threshold: 0.06 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 </script>
+</Base>
