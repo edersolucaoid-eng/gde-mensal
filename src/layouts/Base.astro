@@ -3,7 +3,7 @@ interface Props {
   title?: string;
   heroImage?: string;
 }
-const { title = "Método Goleiro 2.0 | Preparação Física para Goleiros", heroImage = "/images/hero-antes-depois.webp" } = Astro.props;
+const { title = "Método Goleiro 2.0 | Preparação Física para Goleiros", heroImage = "/images/desafio_goleiro_elite_hero.webp" } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -20,7 +20,7 @@ const { title = "Método Goleiro 2.0 | Preparação Física para Goleiros", hero
   <meta name="twitter:card" content="summary_large_image" />
   <!-- Preload imagem hero (LCP) -->
   <link rel="preload" as="image"
-    href="/images/desafio_goleiro_elite_hero.webp"
+    href={heroImage}
     fetchpriority="high" />
   <!-- Preconnect terceiros críticos -->
   <link rel="preconnect" href="https://capi-automation.s3.us-east-2.amazonaws.com" crossorigin />
