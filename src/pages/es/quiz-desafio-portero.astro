@@ -1,0 +1,1210 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Evaluación para el Desafío Portero de Elite" heroImage="/images/desafio_portero_elite_hero.webp">
+<style>
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--black);
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+:root {
+  --black:  #0B0B0B;
+  --white:  #ffffff;
+  --yellow: #F4B400;
+}
+
+/* ─── Layout principal ─────────────────────────────────────── */
+.qz-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(12px,3vw,28px) clamp(16px,4vw,32px) clamp(32px,6vw,60px);
+}
+
+/* ─── Header com progress ──────────────────────────────────── */
+.qz-head {
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: clamp(18px,3vw,32px);
+}
+.qz-prog {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.qz-prog-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.qz-prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F4C400, #E0A800);
+  width: 12.5%;
+  transition: width .4s ease;
+}
+.qz-prog-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  white-space: nowrap;
+  min-width: 110px;
+  text-align: right;
+}
+
+/* ─── Hero intro (step-intro) ──────────────────────────────── */
+.qz-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px,3vw,28px);
+}
+.qz-hero-media {
+  width: 100%;
+  max-width: 320px;
+  max-height: 32vh;
+  display: flex;
+  justify-content: center;
+}
+.qz-hero-media img {
+  width: 100%;
+  max-height: 32vh;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  object-fit: contain;
+}
+.qz-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+.qz-hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.qz-hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  line-height: 1.0;
+  color: var(--white);
+  letter-spacing: .01em;
+  margin: -2px 0;
+}
+.qz-hero-headline .yl { color: var(--yellow); }
+.qz-hero-sub {
+  font-size: clamp(.85rem, 1.3vw, 1rem);
+  color: rgba(255,255,255,.55);
+  line-height: 1.45;
+  max-width: 480px;
+}
+.qz-hero-cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 36px;
+  margin-top: 4px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 16px 40px rgba(244,180,0,.28);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+.qz-hero-cta:hover {
+  opacity: .95;
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(244,180,0,.5);
+  animation-play-state: paused;
+}
+.qz-hero-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.qz-hero-cta:hover::after { transform: translateX(100%); }
+@media (max-width: 540px) {
+  .qz-hero-media { max-width: 100%; }
+  .qz-hero-media img { border-radius: 12px; }
+}
+
+/* ─── Stage e steps ────────────────────────────────────────── */
+.qz-stage {
+  width: 100%;
+  max-width: 720px;
+  position: relative;
+}
+.step {
+  display: none;
+  animation: stepIn .4s ease both;
+}
+.step.active { display: block; }
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ─── Pregunta ─────────────────────────────────────────────── */
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 10px;
+}
+.q-num::before { content: '// '; }
+.q-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 4.2vw, 2.8rem);
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: .01em;
+  margin-bottom: clamp(28px,4vw,40px);
+}
+.q-text .yl { color: var(--yellow); }
+
+/* ─── Opciones ─────────────────────────────────────────────── */
+.opts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.opt {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-family: 'Barlow', sans-serif;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform .25s ease, border-color .25s, background .25s, box-shadow .25s;
+}
+.opt:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+  box-shadow: 0 16px 36px rgba(244,180,0,.18);
+}
+.opt:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+.opt-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.opt-desc {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.4;
+}
+
+/* ─── Botão volver ─────────────────────────────────────────── */
+.qz-back {
+  margin-top: 22px;
+  background: none;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  cursor: pointer;
+  padding: 6px 10px 6px 0;
+  transition: color .2s;
+}
+.qz-back:hover { color: var(--yellow); }
+
+/* ─── VSL ──────────────────────────────────────────────────── */
+.vsl-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.vsl-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
+  line-height: 1.05;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.vsl-frame {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .8rem;
+  margin-bottom: 28px;
+}
+.vsl-continue {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 30px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 16px 40px rgba(244,180,0,.3);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+}
+.vsl-continue:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(244,180,0,.45);
+}
+.vsl-continue::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.vsl-continue:hover::after { transform: translateX(100%); }
+.vsl-continue.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.vsl-continue {
+  transition: opacity .6s ease, transform .2s, box-shadow .3s;
+}
+
+/* ─── Resultado ────────────────────────────────────────────── */
+.result-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.result-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.02;
+  text-align: center;
+  color: var(--white);
+  letter-spacing: .01em;
+  margin-bottom: 18px;
+}
+.result-headline .yl { color: var(--yellow); }
+.result-diag {
+  font-size: .98rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.55;
+  text-align: center;
+  margin-bottom: 32px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.result-diag strong { color: var(--white); }
+
+/* ─── Bloco de cupos (resultado) ──────────────────────────── */
+.result-vagas {
+  max-width: 480px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+.result-vagas-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 12px;
+}
+.result-vagas-label span { color: var(--yellow); }
+.result-vagas-bar {
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.result-vagas-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F4C400, #E0A800);
+  width: 74.3%;
+}
+.result-vagas-text {
+  font-size: .76rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .03em;
+}
+.result-vagas-text strong { color: var(--yellow); font-weight: 700; }
+
+/* ─── Plan card (copia da landing) ─────────────────────────── */
+.plan-card {
+  border: 1px solid rgba(255,255,255,.1);
+  outline: 1px solid rgba(244,180,0,.18);
+  border-radius: 24px;
+  padding: 6px;
+  max-width: 480px;
+  margin: 0 auto;
+  animation: planPulse 3.5s ease-in-out infinite;
+}
+@keyframes planPulse {
+  0%, 100% { outline-color: rgba(244,180,0,.18); box-shadow: 0 0 0 rgba(244,180,0,0); }
+  50%      { outline-color: rgba(244,180,0,.4);  box-shadow: 0 0 80px rgba(244,180,0,.1); }
+}
+.plan-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.plan-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 70% 0%, rgba(244,180,0,.2), transparent 70%);
+  pointer-events: none;
+}
+.plan-body { padding: 28px; position: relative; }
+.plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.plan-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 9999px;
+  background: rgba(244,180,0,.15);
+  border: 1px solid rgba(244,180,0,.25);
+  padding: 4px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.plan-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem,10vw,5rem);
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -.01em;
+  margin-top: 4px;
+}
+.plan-price sup { font-size: 1.7rem; vertical-align: super; color: var(--yellow); }
+.plan-period {
+  font-size: .76rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 2px;
+  margin-bottom: 24px;
+}
+.plan-btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 12px 36px rgba(244,180,0,.32);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+  margin-bottom: 28px;
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 12px 36px rgba(244,180,0,.32); }
+  50%      { box-shadow: 0 18px 52px rgba(244,180,0,.5); }
+}
+.plan-btn:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(244,180,0,.5);
+  animation-play-state: paused;
+}
+.plan-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.plan-btn:hover::after { transform: translateX(100%); }
+.plan-divider {
+  height: 1px;
+  background: rgba(255,255,255,.07);
+  margin-bottom: 22px;
+}
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .88rem;
+  color: rgba(255,255,255,.72);
+  line-height: 1.4;
+}
+.plan-check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(244,180,0,.12);
+  border: 1px solid rgba(244,180,0,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ─── PROOF CAROUSEL (copia da landing) ────────────────────── */
+.proof-clip {
+  overflow: hidden;
+  width: 100%;
+  margin: clamp(28px,4vw,40px) 0;
+}
+.proof-carousel-outer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.proof-track {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+.proof-slide {
+  position: absolute;
+  width: 260px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform .5s ease, opacity .5s ease, filter .5s ease, box-shadow .5s ease, border-color .5s ease;
+  cursor: pointer;
+}
+.proof-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.proof-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.2) 55%, transparent 100%);
+}
+.proof-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 18px 22px;
+  z-index: 2;
+}
+.proof-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 3px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 7px;
+}
+.proof-slide-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--white);
+  line-height: 1.1;
+}
+.proof-active-badge {
+  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: var(--yellow);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  padding: 4px 10px;
+}
+.proof-slide.is-active { border-color: rgba(244,180,0,.5); }
+.proof-slide.is-active .proof-active-badge { display: block; }
+.proof-nav {
+  position: absolute;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.proof-nav:hover { background: rgba(255,255,255,.08); }
+.proof-nav-prev { left: 0; }
+.proof-nav-next { right: 0; }
+
+/* ─── Mobile tweaks ────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .opt { padding: 16px 18px; }
+  .opt-label { font-size: 1rem; }
+  .opt-desc { font-size: .78rem; }
+  .plan-body { padding: 22px; }
+}
+</style>
+
+<main class="qz-wrap">
+
+  <header class="qz-head">
+    <div class="qz-prog">
+      <div class="qz-prog-track"><div class="qz-prog-fill" id="prog-fill"></div></div>
+      <div class="qz-prog-label" id="prog-label">¿Listo?</div>
+    </div>
+  </header>
+
+  <div class="qz-stage">
+
+    <!-- ── Intro ────────────────────────────────────────────── -->
+    <section class="step active" id="step-intro">
+      <div class="qz-hero">
+        <div class="qz-hero-media">
+          <img
+            src="/images/desafio_portero_elite_hero.webp"
+            alt="Desafío Portero de Elite"
+            width="1461"
+            height="1076"
+            loading="eager"
+            fetchpriority="high" />
+        </div>
+        <div class="qz-hero-text">
+          <h1 class="qz-hero-headline">
+            Un plan práctico de entrenamientos para ser un portero con más
+            <span class="yl">explosión, fuerza y velocidad</span>
+            y empezar a cerrar el arco para tu equipo.
+          </h1>
+          <p class="qz-hero-sub">
+            Entrenamientos físicos simples que puedes hacer en el gimnasio de tu barrio o en casa.
+          </p>
+          <button class="qz-hero-cta" id="intro-start">Quiero el desafío</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Q1 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-1">
+      <div class="q-num">01 / Perfil</div>
+      <h2 class="q-text">¿Cuál es tu perfil hoy?</h2>
+      <div class="opts">
+        <button class="opt" data-step="1" data-value="amador">
+          <span class="opt-label">Portero amateur</span>
+          <span class="opt-desc">Juego entre amigos, picaditos, fútbol de fin de semana</span>
+        </button>
+        <button class="opt" data-step="1" data-value="profissional">
+          <span class="opt-label">Portero profesional</span>
+          <span class="opt-desc">Juego en club o compito profesionalmente</span>
+        </button>
+        <button class="opt" data-step="1" data-value="base">
+          <span class="opt-label">Portero de base</span>
+          <span class="opt-desc">Categorías formadoras — quiero llegar al profesional</span>
+        </button>
+        <button class="opt" data-step="1" data-value="responsavel">
+          <span class="opt-label">Padre, madre o responsable</span>
+          <span class="opt-desc">Quiero ayudar a mi hijo a evolucionar</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Q2 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-2">
+      <div class="q-num">02 / Trayectoria</div>
+      <h2 class="q-text" id="q2-text">¿Hace cuánto tiempo eres portero?</h2>
+      <div class="opts">
+        <button class="opt" data-step="2" data-value="lt1"><span class="opt-label">Menos de 1 año</span></button>
+        <button class="opt" data-step="2" data-value="1to3"><span class="opt-label">1 a 3 años</span></button>
+        <button class="opt" data-step="2" data-value="3to7"><span class="opt-label">3 a 7 años</span></button>
+        <button class="opt" data-step="2" data-value="gt7"><span class="opt-label">Más de 7 años</span></button>
+      </div>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── Q3 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-3">
+      <div class="q-num">03 / Dificultad</div>
+      <h2 class="q-text">¿Cuál es tu <span class="yl">mayor dificultad</span> dentro del partido?</h2>
+      <div class="opts">
+        <button class="opt" data-step="3" data-value="explosao">
+          <span class="opt-label">Falta explosión en las piernas</span>
+          <span class="opt-desc">No llego al ángulo, no me levanto rápido</span>
+        </button>
+        <button class="opt" data-step="3" data-value="aerea">
+          <span class="opt-label">Disputa aérea débil</span>
+          <span class="opt-desc">Pierdo balón alto, no confío en el salto</span>
+        </button>
+        <button class="opt" data-step="3" data-value="levantar">
+          <span class="opt-label">Tardo en levantarme tras caer</span>
+          <span class="opt-desc">Pierdo la próxima jugada</span>
+        </button>
+        <button class="opt" data-step="3" data-value="cansaco">
+          <span class="opt-label">Cansancio en el segundo tiempo</span>
+          <span class="opt-desc">Al final del partido el cuerpo ya no responde</span>
+        </button>
+      </div>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── Q4 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-4">
+      <div class="q-num">04 / Intentos</div>
+      <h2 class="q-text">¿Qué has intentado para mejorar tu <span class="yl">físico</span>?</h2>
+      <div class="opts">
+        <button class="opt" data-step="4" data-value="academia">
+          <span class="opt-label">Entrené en el gimnasio</span>
+          <span class="opt-desc">Pero solo entrenamiento genérico, igual para todos</span>
+        </button>
+        <button class="opt" data-step="4" data-value="equipe">
+          <span class="opt-label">Entrené con el equipo</span>
+          <span class="opt-desc">Pero es colectivo, no específico para portero</span>
+        </button>
+        <button class="opt" data-step="4" data-value="online">
+          <span class="opt-label">Busqué videos para hacerlo solo</span>
+          <span class="opt-desc">Intenté seguir lo que encontraba online</span>
+        </button>
+        <button class="opt" data-step="4" data-value="nada">
+          <span class="opt-label">Aún no he intentado nada estructurado</span>
+          <span class="opt-desc">Solo juego, sin entrenamiento físico</span>
+        </button>
+      </div>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── Q5 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-5">
+      <div class="q-num">05 / Obstáculo</div>
+      <h2 class="q-text">¿Qué es lo que más obstaculiza tu <span class="yl">evolución</span>?</h2>
+      <div class="opts">
+        <button class="opt" data-step="5" data-value="onde_comecar">
+          <span class="opt-label">No sé qué entrenar</span>
+          <span class="opt-desc">Falta dirección específica para portero</span>
+        </button>
+        <button class="opt" data-step="5" data-value="tempo">
+          <span class="opt-label">No tengo tiempo</span>
+          <span class="opt-desc">Rutina apretada, difícil de encajar</span>
+        </button>
+        <button class="opt" data-step="5" data-value="sem_resultado">
+          <span class="opt-label">Entrené pero no vi resultados</span>
+          <span class="opt-desc">Ya intenté cosas, no evolucioné en el juego</span>
+        </button>
+        <button class="opt" data-step="5" data-value="lugar">
+          <span class="opt-label">No tengo dónde entrenar</span>
+          <span class="opt-desc">Sin gimnasio o estructura cerca</span>
+        </button>
+      </div>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── Q6 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-6">
+      <div class="q-num">06 / Disponibilidad</div>
+      <h2 class="q-text">¿Cuánto tiempo puedes <span class="yl">separar al día</span>?</h2>
+      <div class="opts">
+        <button class="opt" data-step="6" data-value="20-30"><span class="opt-label">20 a 30 minutos</span></button>
+        <button class="opt" data-step="6" data-value="30-45"><span class="opt-label">30 a 45 minutos</span></button>
+        <button class="opt" data-step="6" data-value="45-60"><span class="opt-label">45 a 60 minutos</span></button>
+        <button class="opt" data-step="6" data-value="60plus"><span class="opt-label">Más de 1 hora</span></button>
+      </div>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── Q7 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-7">
+      <div class="q-num">07 / Compromiso</div>
+      <h2 class="q-text">¿Aceptarías recibir un planeamiento de entrenamientos, acompañamiento de preparadores físicos específicos de porteros y tener los mismos resultados que <span class="yl">estos alumnos</span>?</h2>
+
+      <div class="proof-clip">
+        <div class="proof-carousel-outer">
+          <button class="proof-nav proof-nav-prev" aria-label="Anterior">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="proof-track">
+            <div class="proof-slide" data-index="0">
+              <img src="/images/carrossel-1.webp" alt="Fabíola Stelzer" width="3600" height="3600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destacado</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Portera Amateur</div>
+                <div class="proof-slide-name">Fabíola Stelzer</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="1">
+              <img src="/images/carrossel-2.webp" alt="Rafael S." width="3600" height="3600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destacado</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Portero Profesional</div>
+                <div class="proof-slide-name">Rafael S.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="2">
+              <img src="/images/carrossel-3.webp" alt="Diego A." width="1600" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destacado</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Portero de Base</div>
+                <div class="proof-slide-name">Diego A.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="3">
+              <img src="/images/carrossel-4.webp" alt="Thiago R." width="739" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destacado</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Portero Amateur</div>
+                <div class="proof-slide-name">Thiago R.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="4">
+              <img src="/images/carrossel-5.webp" alt="Matheus F." width="739" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destacado</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Portero Aspirante</div>
+                <div class="proof-slide-name">Matheus F.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="5">
+              <img src="/images/carrossel-6.webp" alt="Bruno C." width="720" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destacado</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Portero Universitario</div>
+                <div class="proof-slide-name">Bruno C.</div>
+              </div>
+            </div>
+          </div>
+          <button class="proof-nav proof-nav-next" aria-label="Siguiente">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="vsl-continue" id="q7-continue">Seguir →</button>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── VSL placeholder (aguardando contenido en español) ── -->
+    <section class="step" id="step-vsl">
+      <div class="vsl-eyebrow">// Tu mensaje personalizado</div>
+      <h2 class="vsl-title">Mira este video hasta el final</h2>
+      <div class="vsl-frame">[ VSL · próximamente ]</div>
+      <button class="vsl-continue is-hidden" id="vsl-continue">Ver mi resultado →</button>
+      <button class="qz-back">← volver</button>
+    </section>
+
+    <!-- ── Resultado ────────────────────────────────────────── -->
+    <section class="step" id="step-result">
+      <div class="result-eyebrow" id="result-eyebrow">// Tu diagnóstico</div>
+      <h2 class="result-headline" id="result-headline">…</h2>
+      <p class="result-diag" id="result-diag">…</p>
+
+      <div class="result-vagas">
+        <div class="result-vagas-label">Próxima clase · <span id="result-date">lunes</span></div>
+        <div class="result-vagas-bar"><div class="result-vagas-fill"></div></div>
+        <div class="result-vagas-text"><strong>18 cupos</strong> restantes de 70</div>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-inner">
+          <div class="plan-body">
+
+            <div class="plan-header">
+              <div class="plan-label">Plan único</div>
+              <div class="plan-badge">Próxima clase</div>
+            </div>
+
+            <div class="plan-price"><sup>$</sup>10</div>
+            <div class="plan-period">pago único · USD · acceso inmediato</div>
+
+            <a href="https://pay.kiwify.com/OOgnV0V" class="plan-btn" id="result-cta">
+              Asegurar mi cupo ahora
+            </a>
+
+            <div class="plan-divider"></div>
+
+            <ul class="plan-features">
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                5 entrenamientos físicos específicos para portero (gimnasio + casa)
+              </li>
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Acompañamiento de los entrenadores durante toda la semana
+              </li>
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Corrección por video + Q&amp;A diario durante los 5 días
+              </li>
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Material disponible para siempre — rehaz cuando quieras
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // ── Estado ──────────────────────────────────────────────────
+  const stepOrder = [
+    'step-intro',
+    'step-1', 'step-2', 'step-3', 'step-4', 'step-5',
+    'step-6', 'step-7', 'step-vsl', 'step-result'
+  ];
+  const answers = {};
+  let currentIdx = 0;
+
+  // ── VSL: carrega script só na primeira visita ao step ──────
+  let vslLoaded = false;
+  let vslButtonTimerStarted = false;
+  function loadVSL() {
+    if (vslLoaded) return;
+    vslLoaded = true;
+    // Quando o usuário fornecer a VSL em espanhol, injetar o script aqui
+  }
+  function startVslButtonTimer() {
+    if (vslButtonTimerStarted) return;
+    vslButtonTimerStarted = true;
+    setTimeout(() => {
+      const btn = document.getElementById('vsl-continue');
+      if (btn) btn.classList.remove('is-hidden');
+    }, 60000); // 60 segundos
+  }
+
+  // ── Navegación ──────────────────────────────────────────────
+  function showStep(idx) {
+    if (idx < 0 || idx >= stepOrder.length) return;
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(stepOrder[idx]).classList.add('active');
+    currentIdx = idx;
+    updateProgress(idx);
+    if (stepOrder[idx] === 'step-2') adaptQ2();
+    if (stepOrder[idx] === 'step-vsl') { loadVSL(); startVslButtonTimer(); }
+    if (stepOrder[idx] === 'step-result') renderResult();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress(idx) {
+    let label, pct;
+    if (idx === 0) {
+      label = '¿Listo?';
+      pct = 0;
+    } else if (idx >= 1 && idx <= 7) {
+      label = `Pregunta ${idx}/7`;
+      pct = (idx / 9) * 100;
+    } else if (idx === 8) {
+      label = 'Video';
+      pct = 90;
+    } else {
+      label = 'Resultado';
+      pct = 100;
+    }
+    document.getElementById('prog-label').textContent = label;
+    document.getElementById('prog-fill').style.width = pct + '%';
+  }
+
+  // ── Q2 adapta texto pra "tu hijo" si Q1 = responsável ──────
+  function adaptQ2() {
+    const q2 = document.getElementById('q2-text');
+    if (answers.q1 === 'responsavel') {
+      q2.textContent = '¿Hace cuánto tiempo tu hijo es portero?';
+    } else {
+      q2.textContent = '¿Hace cuánto tiempo eres portero?';
+    }
+  }
+
+  // ── Resultado personalizado ─────────────────────────────────
+  const templates = {
+    amador: {
+      eyebrow: '// Tu diagnóstico · Portero amateur',
+      headline: 'Estás listo para <span class="yl">subir de nivel</span>.',
+      diag: 'Por tus respuestas, el problema principal es <strong>[DOR]</strong>. El entrenamiento físico genérico no resuelve — necesitas preparación específica para portero. El Desafío entrega eso en 5 días.',
+      cta: 'Asegurar mi cupo ahora'
+    },
+    profissional: {
+      eyebrow: '// Tu diagnóstico · Portero profesional',
+      headline: 'Es hora del <span class="yl">diferencial físico</span>.',
+      diag: 'El equipo entrena para la técnica y lo colectivo. El Desafío entrega el físico específico — <strong>[DOR]</strong> — que te separa de los otros porteros del plantel.',
+      cta: 'Asegurar mi cupo ahora'
+    },
+    base: {
+      eyebrow: '// Tu diagnóstico · Portero de base',
+      headline: 'Las categorías de base <span class="yl">premian el físico</span>.',
+      diag: 'Para subir, el cuerpo tiene que responder. Tu mayor dolor — <strong>[DOR]</strong> — es exactamente lo que el Desafío ataca. 5 días de preparación específica que marca la diferencia en la evaluación.',
+      cta: 'Asegurar mi cupo ahora'
+    },
+    responsavel: {
+      eyebrow: '// Tu diagnóstico · Responsable de portero',
+      headline: 'Quieres darle lo que <span class="yl">le falta</span>.',
+      diag: 'Él se dedica, pero falta estructura física específica — <strong>[DOR]</strong>. El Desafío entrega 5 días de entrenamiento hecho por entrenadores que entienden la posición. El material queda para siempre.',
+      cta: 'Asegurar cupo para mi portero'
+    }
+  };
+
+  const dorTexts = {
+    explosao: 'falta de explosión en las piernas',
+    aerea: 'disputa aérea débil',
+    levantar: 'tardanza para levantarse después de caer',
+    cansaco: 'cansancio en el segundo tiempo'
+  };
+
+  function renderResult() {
+    const perfil = answers.q1 || 'amador';
+    const dor = answers.q3 ? dorTexts[answers.q3] : 'preparación física específica';
+    const t = templates[perfil] || templates.amador;
+    document.getElementById('result-eyebrow').textContent = t.eyebrow;
+    document.getElementById('result-headline').innerHTML = t.headline;
+    document.getElementById('result-diag').innerHTML = t.diag.replace('[DOR]', dor);
+    document.getElementById('result-cta').textContent = t.cta;
+  }
+
+  // ── Listeners das opções ───────────────────────────────────
+  document.querySelectorAll('.opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const step = opt.dataset.step;
+      const value = opt.dataset.value;
+      answers[`q${step}`] = value;
+      showStep(currentIdx + 1);
+    });
+  });
+
+  // ── Botão voltar ───────────────────────────────────────────
+  document.querySelectorAll('.qz-back').forEach(btn => {
+    btn.addEventListener('click', () => showStep(currentIdx - 1));
+  });
+
+  // ── Botão "Quiero el desafío" del intro ────────────────────
+  document.getElementById('intro-start').addEventListener('click', () => {
+    showStep(currentIdx + 1);
+  });
+
+  // ── Botão "Seguir" de la Q7 ────────────────────────────────
+  document.getElementById('q7-continue').addEventListener('click', () => {
+    answers.q7 = 'sim_implicito';
+    showStep(currentIdx + 1);
+  });
+
+  // ── Botão "Ver mi resultado" del VSL ───────────────────────
+  document.getElementById('vsl-continue').addEventListener('click', () => {
+    showStep(currentIdx + 1);
+  });
+
+  // ── Carrossel de provas ─────────────────────────────────────
+  (function() {
+    const slides = Array.from(document.querySelectorAll('.proof-slide'));
+    if (!slides.length) return;
+    const total = slides.length;
+    let current = 2;
+    const INTERVAL = 3500;
+
+    function update() {
+      slides.forEach((slide, i) => {
+        let rel = i - current;
+        if (rel > total / 2)  rel -= total;
+        if (rel < -total / 2) rel += total;
+
+        slide.classList.remove('is-active');
+        let tx, scale, rotY, opacity, brightness, zIndex, shadow;
+
+        if (rel === 0) {
+          tx = 0; scale = 1; rotY = 0; opacity = 1; brightness = 1; zIndex = 10;
+          shadow = '0 20px 60px rgba(244,180,0,.22)';
+          slide.classList.add('is-active');
+        } else if (Math.abs(rel) === 1) {
+          tx = rel * 200; scale = 0.87; rotY = rel > 0 ? -15 : 15;
+          opacity = 0.55; brightness = 0.7; zIndex = 5; shadow = 'none';
+        } else if (Math.abs(rel) === 2) {
+          tx = rel * 340; scale = 0.76; rotY = rel > 0 ? -25 : 25;
+          opacity = 0.3; brightness = 0.5; zIndex = 2; shadow = 'none';
+        } else {
+          tx = 0; scale = 0.65; rotY = 0;
+          opacity = 0; brightness = 0.4; zIndex = 1; shadow = 'none';
+        }
+
+        slide.style.transform = `translateX(${tx}px) scale(${scale}) rotateY(${rotY}deg)`;
+        slide.style.opacity = opacity;
+        slide.style.filter = `brightness(${brightness})`;
+        slide.style.zIndex = zIndex;
+        slide.style.boxShadow = shadow;
+      });
+    }
+
+    function next() { current = (current + 1) % total; update(); }
+    function prev() { current = (current - 1 + total) % total; update(); }
+
+    let timer = setInterval(next, INTERVAL);
+    const outer = document.querySelector('.proof-clip');
+    outer.addEventListener('mouseenter', () => clearInterval(timer));
+    outer.addEventListener('mouseleave', () => { timer = setInterval(next, INTERVAL); });
+
+    document.querySelector('.proof-nav-prev').addEventListener('click', () => { prev(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    document.querySelector('.proof-nav-next').addEventListener('click', () => { next(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', () => { current = i; update(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    });
+
+    update();
+  })();
+
+  // ── Countdown / data próxima clase ─────────────────────────
+  function nextMonday() {
+    const fixed = new Date('2026-06-01T03:00:00Z');
+    if (Date.now() < fixed.getTime()) return fixed;
+    const brt = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+    const d = brt.getDay();
+    const days = (8 - d) % 7 || 7;
+    const m = new Date(brt);
+    m.setDate(brt.getDate() + days);
+    m.setHours(0, 0, 0, 0);
+    return m;
+  }
+  function setNextClassDate() {
+    const dateStr = nextMonday().toLocaleDateString('es', {
+      weekday: 'long', day: 'numeric', month: 'long', timeZone: 'America/Sao_Paulo'
+    });
+    const el = document.getElementById('result-date');
+    if (el) el.textContent = dateStr;
+  }
+  setNextClassDate();
+
+  // ── Init ───────────────────────────────────────────────────
+  showStep(0);
+</script>
+</Base>
