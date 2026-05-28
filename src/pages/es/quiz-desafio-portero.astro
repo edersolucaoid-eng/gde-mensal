@@ -2,6 +2,15 @@
 import Base from '../../layouts/Base.astro';
 ---
 <Base title="Evaluación para el Desafío Portero de Elite" heroImage="/images/desafio_portero_elite_hero.webp">
+<Fragment slot="head">
+  <script is:inline>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="preload" href="https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a18a8b89450495a8b528dfa/v4/player.js" as="script" />
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script" />
+  <link rel="dns-prefetch" href="https://cdn.converteai.net" />
+  <link rel="dns-prefetch" href="https://scripts.converteai.net" />
+  <link rel="dns-prefetch" href="https://images.converteai.net" />
+  <link rel="dns-prefetch" href="https://license.vturb.com" />
+</Fragment>
 <style>
 /* ─── Reset ─────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -911,7 +920,7 @@ body {
     <section class="step" id="step-vsl">
       <div class="vsl-eyebrow">// Tu mensaje personalizado</div>
       <h2 class="vsl-title">Mira este video hasta el final</h2>
-      <div class="vsl-frame" style="margin-bottom: 56px">[ VSL · próximamente ]</div>
+      <vturb-smartplayer id="vid-6a18a8b89450495a8b528dfa" style="display: block; margin: 0 auto 56px; width: 100%; max-width: 400px;"></vturb-smartplayer>
       <button class="vsl-continue is-hidden" id="vsl-continue">Acceder al Desafío →</button>
       <button class="qz-back">← volver</button>
     </section>
@@ -997,7 +1006,10 @@ body {
   function loadVSL() {
     if (vslLoaded) return;
     vslLoaded = true;
-    // Quando o usuário fornecer a VSL em espanhol, injetar o script aqui
+    const s = document.createElement('script');
+    s.src = 'https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a18a8b89450495a8b528dfa/v4/player.js';
+    s.async = true;
+    document.head.appendChild(s);
   }
   function startVslButtonTimer() {
     if (vslButtonTimerStarted) return;
