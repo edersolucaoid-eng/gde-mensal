@@ -1,0 +1,1208 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Avaliação para o Desafio Goleiro de Elite | 8 perguntas" heroImage="/images/logo-gde.webp">
+<Fragment slot="head">
+  <script is:inline>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="preload" href="https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a189d70b7169516c91e6866/v4/player.js" as="script" />
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script" />
+  <link rel="preload" href="https://cdn.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/6a189ceb9cc3b2039d5bb488/main.m3u8" as="fetch" />
+  <link rel="dns-prefetch" href="https://cdn.converteai.net" />
+  <link rel="dns-prefetch" href="https://scripts.converteai.net" />
+  <link rel="dns-prefetch" href="https://images.converteai.net" />
+  <link rel="dns-prefetch" href="https://license.vturb.com" />
+</Fragment>
+<style>
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--black);
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+:root {
+  --black:  #0B0B0B;
+  --white:  #ffffff;
+  --yellow: #F4B400;
+}
+
+/* ─── Layout principal ─────────────────────────────────────── */
+.qz-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(20px,4vw,40px) clamp(16px,4vw,32px) clamp(40px,8vw,80px);
+}
+
+/* ─── Header com progress ──────────────────────────────────── */
+.qz-head {
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: clamp(32px,5vw,56px);
+}
+.qz-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  text-align: center;
+  margin-bottom: 18px;
+}
+.qz-brand::before { content: '// '; color: rgba(255,255,255,.25); }
+.qz-prog {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.qz-prog-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.qz-prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F4C400, #E0A800);
+  width: 12.5%;
+  transition: width .4s ease;
+}
+.qz-prog-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  white-space: nowrap;
+  min-width: 110px;
+  text-align: right;
+}
+
+/* ─── Hero intro (step-intro) ──────────────────────────────── */
+.qz-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px,4vw,36px);
+}
+.qz-hero-media {
+  width: 100%;
+  max-width: 380px;
+}
+.qz-hero-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+.qz-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+.qz-hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.qz-hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: .94;
+  color: var(--white);
+  letter-spacing: .01em;
+  margin: -4px 0;
+}
+.qz-hero-headline .yl { color: var(--yellow); }
+.qz-hero-sub {
+  font-size: clamp(.96rem, 1.4vw, 1.08rem);
+  color: rgba(255,255,255,.55);
+  line-height: 1.55;
+  max-width: 480px;
+}
+.qz-hero-cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 36px;
+  margin-top: 4px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 16px 40px rgba(244,180,0,.28);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+.qz-hero-cta:hover {
+  opacity: .95;
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(244,180,0,.5);
+  animation-play-state: paused;
+}
+.qz-hero-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.qz-hero-cta:hover::after { transform: translateX(100%); }
+@media (max-width: 540px) {
+  .qz-hero-media { max-width: 100%; }
+  .qz-hero-media img { border-radius: 12px; }
+}
+
+/* ─── Stage e steps ────────────────────────────────────────── */
+.qz-stage {
+  width: 100%;
+  max-width: 720px;
+  position: relative;
+}
+.step {
+  display: none;
+  animation: stepIn .4s ease both;
+}
+.step.active { display: block; }
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ─── Pergunta ─────────────────────────────────────────────── */
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 10px;
+}
+.q-num::before { content: '// '; }
+.q-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 4.2vw, 2.8rem);
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: .01em;
+  margin-bottom: clamp(28px,4vw,40px);
+}
+.q-text .yl { color: var(--yellow); }
+
+/* ─── Opções ───────────────────────────────────────────────── */
+.opts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.opt {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-family: 'Barlow', sans-serif;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform .25s ease, border-color .25s, background .25s, box-shadow .25s;
+}
+.opt:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+  box-shadow: 0 16px 36px rgba(244,180,0,.18);
+}
+.opt:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+.opt-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.opt-desc {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.4;
+}
+
+/* ─── Botão voltar ─────────────────────────────────────────── */
+.qz-back {
+  margin-top: 22px;
+  background: none;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  cursor: pointer;
+  padding: 6px 10px 6px 0;
+  transition: color .2s;
+}
+.qz-back:hover { color: var(--yellow); }
+
+/* ─── VSL placeholder ──────────────────────────────────────── */
+.vsl-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.vsl-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+.vsl-frame {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .8rem;
+  margin-bottom: 28px;
+}
+.vsl-continue {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 30px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 16px 40px rgba(244,180,0,.3);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+}
+.vsl-continue:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(244,180,0,.45);
+}
+.vsl-continue::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.vsl-continue:hover::after { transform: translateX(100%); }
+
+/* ─── Resultado ────────────────────────────────────────────── */
+.result-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.result-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.02;
+  text-align: center;
+  color: var(--white);
+  letter-spacing: .01em;
+  margin-bottom: 18px;
+}
+.result-headline .yl { color: var(--yellow); }
+.result-diag {
+  font-size: .98rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.55;
+  text-align: center;
+  margin-bottom: 32px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.result-diag strong { color: var(--white); }
+
+.result-date-line {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  text-align: center;
+  margin-top: 22px;
+}
+.result-date-line span { color: var(--yellow); }
+
+/* ─── Plan card (copia da landing) ─────────────────────────── */
+.plan-card {
+  border: 1px solid rgba(255,255,255,.1);
+  outline: 1px solid rgba(244,180,0,.18);
+  border-radius: 24px;
+  padding: 6px;
+  max-width: 480px;
+  margin: 0 auto;
+  animation: planPulse 3.5s ease-in-out infinite;
+}
+@keyframes planPulse {
+  0%, 100% { outline-color: rgba(244,180,0,.18); box-shadow: 0 0 0 rgba(244,180,0,0); }
+  50%      { outline-color: rgba(244,180,0,.4);  box-shadow: 0 0 80px rgba(244,180,0,.1); }
+}
+.plan-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.plan-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 70% 0%, rgba(244,180,0,.2), transparent 70%);
+  pointer-events: none;
+}
+.plan-body { padding: 28px; position: relative; }
+.plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.plan-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 9999px;
+  background: rgba(244,180,0,.15);
+  border: 1px solid rgba(244,180,0,.25);
+  padding: 4px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.plan-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem,10vw,5rem);
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -.01em;
+  margin-top: 4px;
+}
+.plan-price sup { font-size: 1.7rem; vertical-align: super; color: var(--yellow); }
+.plan-period {
+  font-size: .76rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 2px;
+  margin-bottom: 24px;
+}
+.plan-btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 12px 36px rgba(244,180,0,.32);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+  margin-bottom: 28px;
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 12px 36px rgba(244,180,0,.32); }
+  50%      { box-shadow: 0 18px 52px rgba(244,180,0,.5); }
+}
+.plan-btn:hover {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(244,180,0,.5);
+  animation-play-state: paused;
+}
+.plan-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform .7s ease;
+  pointer-events: none;
+}
+.plan-btn:hover::after { transform: translateX(100%); }
+.plan-divider {
+  height: 1px;
+  background: rgba(255,255,255,.07);
+  margin-bottom: 22px;
+}
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .88rem;
+  color: rgba(255,255,255,.72);
+  line-height: 1.4;
+}
+.plan-check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(244,180,0,.12);
+  border: 1px solid rgba(244,180,0,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ─── PROOF CAROUSEL (copia da landing) ────────────────────── */
+.proof-clip {
+  overflow: hidden;
+  width: 100%;
+  margin: clamp(28px,4vw,40px) 0;
+}
+.proof-carousel-outer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.proof-track {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+.proof-slide {
+  position: absolute;
+  width: 260px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform .5s ease, opacity .5s ease, filter .5s ease, box-shadow .5s ease, border-color .5s ease;
+  cursor: pointer;
+}
+.proof-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.proof-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.2) 55%, transparent 100%);
+}
+.proof-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 18px 22px;
+  z-index: 2;
+}
+.proof-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 3px 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 7px;
+}
+.proof-slide-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--white);
+  line-height: 1.1;
+}
+.proof-active-badge {
+  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  background: var(--yellow);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  padding: 4px 10px;
+}
+.proof-slide.is-active { border-color: rgba(244,180,0,.5); }
+.proof-slide.is-active .proof-active-badge { display: block; }
+.proof-nav {
+  position: absolute;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.proof-nav:hover { background: rgba(255,255,255,.08); }
+.proof-nav-prev { left: 0; }
+.proof-nav-next { right: 0; }
+
+/* ─── Mobile tweaks ────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .opt { padding: 16px 18px; }
+  .opt-label { font-size: 1rem; }
+  .opt-desc { font-size: .78rem; }
+  .plan-body { padding: 22px; }
+}
+</style>
+
+<main class="qz-wrap">
+
+  <header class="qz-head">
+    <div class="qz-brand">Avaliação · Desafio Goleiro de Elite</div>
+    <div class="qz-prog">
+      <div class="qz-prog-track"><div class="qz-prog-fill" id="prog-fill"></div></div>
+      <div class="qz-prog-label" id="prog-label">Pergunta 1/8</div>
+    </div>
+  </header>
+
+  <div class="qz-stage">
+
+    <!-- ── Intro ────────────────────────────────────────────── -->
+    <section class="step active" id="step-intro">
+      <div class="qz-hero">
+        <div class="qz-hero-media">
+          <img
+            src="/images/desafio_goleiro_elite_hero.webp"
+            alt="Desafio Goleiro de Elite"
+            width="1306"
+            height="1205"
+            loading="eager"
+            fetchpriority="high" />
+        </div>
+        <div class="qz-hero-text">
+          <h1 class="qz-hero-headline">
+            Um plano prático de treinos para ser um goleiro com mais
+            <span class="yl">explosão, força e velocidade</span>
+            e começar a fechar o gol para o seu time.
+          </h1>
+          <p class="qz-hero-sub">
+            Treinos físicos simples que você poderá fazer na academia do seu bairro ou em casa.
+          </p>
+          <button class="qz-hero-cta" id="intro-start">Quero o desafio</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Q1 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-1">
+      <div class="q-num">01 / Perfil</div>
+      <h2 class="q-text">Qual seu perfil hoje?</h2>
+      <div class="opts">
+        <button class="opt" data-step="1" data-value="amador">
+          <span class="opt-label">Goleiro amador</span>
+          <span class="opt-desc">Jogo entre amigos, peladas, futebol de fim de semana</span>
+        </button>
+        <button class="opt" data-step="1" data-value="profissional">
+          <span class="opt-label">Goleiro profissional</span>
+          <span class="opt-desc">Jogo em clube ou compito profissionalmente</span>
+        </button>
+        <button class="opt" data-step="1" data-value="base">
+          <span class="opt-label">Goleiro de base</span>
+          <span class="opt-desc">Categorias formadoras — quero chegar ao profissional</span>
+        </button>
+        <button class="opt" data-step="1" data-value="responsavel">
+          <span class="opt-label">Pai, mãe ou responsável</span>
+          <span class="opt-desc">Quero ajudar meu filho a evoluir</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Q2 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-2">
+      <div class="q-num">02 / Trajetória</div>
+      <h2 class="q-text" id="q2-text">Há quanto tempo você é goleiro?</h2>
+      <div class="opts">
+        <button class="opt" data-step="2" data-value="lt1"><span class="opt-label">Menos de 1 ano</span></button>
+        <button class="opt" data-step="2" data-value="1to3"><span class="opt-label">1 a 3 anos</span></button>
+        <button class="opt" data-step="2" data-value="3to7"><span class="opt-label">3 a 7 anos</span></button>
+        <button class="opt" data-step="2" data-value="gt7"><span class="opt-label">Mais de 7 anos</span></button>
+      </div>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Q3 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-3">
+      <div class="q-num">03 / Dificuldade</div>
+      <h2 class="q-text">Qual sua <span class="yl">maior dificuldade</span> dentro do jogo?</h2>
+      <div class="opts">
+        <button class="opt" data-step="3" data-value="explosao">
+          <span class="opt-label">Falta explosão nas pernas</span>
+          <span class="opt-desc">Não chego no canto, não levanto rápido</span>
+        </button>
+        <button class="opt" data-step="3" data-value="aerea">
+          <span class="opt-label">Disputa aérea fraca</span>
+          <span class="opt-desc">Perco bola alta, não confio no salto</span>
+        </button>
+        <button class="opt" data-step="3" data-value="levantar">
+          <span class="opt-label">Demoro a levantar após cair</span>
+          <span class="opt-desc">Perco a próxima jogada</span>
+        </button>
+        <button class="opt" data-step="3" data-value="cansaco">
+          <span class="opt-label">Cansaço no segundo tempo</span>
+          <span class="opt-desc">No fim do jogo o corpo já era</span>
+        </button>
+      </div>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Q4 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-4">
+      <div class="q-num">04 / Tentativas</div>
+      <h2 class="q-text">O que você já tentou fazer para melhorar o seu <span class="yl">físico</span>?</h2>
+      <div class="opts">
+        <button class="opt" data-step="4" data-value="academia">
+          <span class="opt-label">Treinei na academia</span>
+          <span class="opt-desc">Mas só treino genérico, igual pra todo mundo</span>
+        </button>
+        <button class="opt" data-step="4" data-value="equipe">
+          <span class="opt-label">Treinei junto com a equipe</span>
+          <span class="opt-desc">Mas é coletivo, não específico pra goleiro</span>
+        </button>
+        <button class="opt" data-step="4" data-value="online">
+          <span class="opt-label">Procurei vídeos pra fazer sozinho</span>
+          <span class="opt-desc">Tentei seguir o que achava online</span>
+        </button>
+        <button class="opt" data-step="4" data-value="nada">
+          <span class="opt-label">Ainda não tentei nada estruturado</span>
+          <span class="opt-desc">Só jogo, sem treino físico</span>
+        </button>
+      </div>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Q5 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-5">
+      <div class="q-num">05 / Obstáculo</div>
+      <h2 class="q-text">O que mais atrapalha sua <span class="yl">evolução</span>?</h2>
+      <div class="opts">
+        <button class="opt" data-step="5" data-value="onde_comecar">
+          <span class="opt-label">Não sei o que treinar</span>
+          <span class="opt-desc">Falta direção específica pra goleiro</span>
+        </button>
+        <button class="opt" data-step="5" data-value="tempo">
+          <span class="opt-label">Não tenho tempo</span>
+          <span class="opt-desc">Rotina apertada, difícil encaixar</span>
+        </button>
+        <button class="opt" data-step="5" data-value="sem_resultado">
+          <span class="opt-label">Treinei mas não vi resultado</span>
+          <span class="opt-desc">Já tentei coisas, não evoluiu no jogo</span>
+        </button>
+        <button class="opt" data-step="5" data-value="lugar">
+          <span class="opt-label">Não tenho onde treinar</span>
+          <span class="opt-desc">Sem academia ou estrutura por perto</span>
+        </button>
+      </div>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Q6 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-6">
+      <div class="q-num">06 / Disponibilidade</div>
+      <h2 class="q-text">Quanto tempo você consegue <span class="yl">separar por dia</span>?</h2>
+      <div class="opts">
+        <button class="opt" data-step="6" data-value="20-30"><span class="opt-label">20 a 30 minutos</span></button>
+        <button class="opt" data-step="6" data-value="30-45"><span class="opt-label">30 a 45 minutos</span></button>
+        <button class="opt" data-step="6" data-value="45-60"><span class="opt-label">45 a 60 minutos</span></button>
+        <button class="opt" data-step="6" data-value="60plus"><span class="opt-label">Mais de 1 hora</span></button>
+      </div>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Q7 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-7">
+      <div class="q-num">07 / Comprometimento</div>
+      <h2 class="q-text">Você toparia receber um planejamento de treinos, acompanhamento de preparadores físicos específicos de goleiros e ter os mesmos resultados que <span class="yl">esses alunos</span>?</h2>
+
+      <div class="proof-clip">
+        <div class="proof-carousel-outer">
+          <button class="proof-nav proof-nav-prev" aria-label="Anterior">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="proof-track">
+            <div class="proof-slide" data-index="0">
+              <img src="/images/carrossel-1.webp" alt="Fabíola Stelzer" width="3600" height="3600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destaque</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Goleira Amadora · ES</div>
+                <div class="proof-slide-name">Fabíola Stelzer</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="1">
+              <img src="/images/carrossel-2.webp" alt="Rafael S." width="3600" height="3600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destaque</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Goleiro Profissional</div>
+                <div class="proof-slide-name">Rafael S.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="2">
+              <img src="/images/carrossel-3.webp" alt="Diego A." width="1600" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destaque</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Goleiro de Base · MG</div>
+                <div class="proof-slide-name">Diego A.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="3">
+              <img src="/images/carrossel-4.webp" alt="Thiago R." width="739" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destaque</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Goleiro Amador · PR</div>
+                <div class="proof-slide-name">Thiago R.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="4">
+              <img src="/images/carrossel-5.webp" alt="Matheus F." width="739" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destaque</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Goleiro Aspirante · RS</div>
+                <div class="proof-slide-name">Matheus F.</div>
+              </div>
+            </div>
+            <div class="proof-slide" data-index="5">
+              <img src="/images/carrossel-6.webp" alt="Bruno C." width="720" height="1600" loading="lazy" decoding="async" />
+              <div class="proof-slide-overlay"></div>
+              <div class="proof-active-badge">Destaque</div>
+              <div class="proof-caption">
+                <div class="proof-role-pill">Goleiro Universitário · BA</div>
+                <div class="proof-slide-name">Bruno C.</div>
+              </div>
+            </div>
+          </div>
+          <button class="proof-nav proof-nav-next" aria-label="Próximo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="vsl-continue" id="q7-continue">Seguir →</button>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── VSL ──────────────────────────────────────────────── -->
+    <section class="step" id="step-vsl">
+      <div class="vsl-eyebrow">// Antes da última pergunta</div>
+      <h2 class="vsl-title">Assista a essa mensagem rápida</h2>
+      <vturb-smartplayer id="vid-6a189d70b7169516c91e6866" style="display: block; margin: 0 auto 28px; width: 100%; max-width: 400px;"></vturb-smartplayer>
+      <script type="text/javascript" is:inline>
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a189d70b7169516c91e6866/v4/player.js";
+        s.async=!0;
+        document.head.appendChild(s);
+      </script>
+      <button class="vsl-continue" id="vsl-continue">Continuar para a última pergunta →</button>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Q8 ───────────────────────────────────────────────── -->
+    <section class="step" id="step-8">
+      <div class="q-num">08 / Decisão</div>
+      <h2 class="q-text"><span class="yl">R$ 35</span> em um desafio específico de 5 dias pra goleiro — faz sentido pra você?</h2>
+      <div class="opts">
+        <button class="opt" data-step="8" data-value="sim_total">
+          <span class="opt-label">Sim, sem dúvida</span>
+          <span class="opt-desc">Pelo que vi, vale o investimento</span>
+        </button>
+        <button class="opt" data-step="8" data-value="sim">
+          <span class="opt-label">Sim, faz sentido</span>
+          <span class="opt-desc">Quero conhecer o conteúdo</span>
+        </button>
+        <button class="opt" data-step="8" data-value="detalhes">
+          <span class="opt-label">Quero ver mais detalhes antes</span>
+          <span class="opt-desc">Preciso de mais informações</span>
+        </button>
+        <button class="opt" data-step="8" data-value="nao">
+          <span class="opt-label">Não pretendo investir agora</span>
+          <span class="opt-desc">Não é prioridade no momento</span>
+        </button>
+      </div>
+      <button class="qz-back">← voltar</button>
+    </section>
+
+    <!-- ── Resultado ────────────────────────────────────────── -->
+    <section class="step" id="step-result">
+      <div class="result-eyebrow" id="result-eyebrow">// Seu diagnóstico</div>
+      <h2 class="result-headline" id="result-headline">…</h2>
+      <p class="result-diag" id="result-diag">…</p>
+
+      <div class="plan-card">
+        <div class="plan-inner">
+          <div class="plan-body">
+
+            <div class="plan-header">
+              <div class="plan-label">Plano único</div>
+              <div class="plan-badge">Próxima turma</div>
+            </div>
+
+            <div class="plan-price"><sup>R$</sup>35</div>
+            <div class="plan-period">pagamento único · acesso imediato</div>
+
+            <a href="https://pay.kiwify.com.br/KdBQQpk" class="plan-btn" id="result-cta">
+              Garantir minha vaga agora
+            </a>
+
+            <div class="plan-divider"></div>
+
+            <ul class="plan-features">
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                5 treinos físicos específicos para goleiro (academia + casa)
+              </li>
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Acompanhamento dos treinadores durante toda a semana
+              </li>
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Correção por vídeo + Q&amp;A diário durante os 5 dias
+              </li>
+              <li>
+                <span class="plan-check">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Material disponível para sempre — refaça quando quiser
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      <p class="result-date-line">Próxima turma começa <span id="result-date">segunda-feira</span></p>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // ── Estado ──────────────────────────────────────────────────
+  const stepOrder = [
+    'step-intro',
+    'step-1', 'step-2', 'step-3', 'step-4', 'step-5',
+    'step-6', 'step-7', 'step-vsl', 'step-8', 'step-result'
+  ];
+  const answers = {};
+  let currentIdx = 0;
+
+  // ── Navegação ───────────────────────────────────────────────
+  function showStep(idx) {
+    if (idx < 0 || idx >= stepOrder.length) return;
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(stepOrder[idx]).classList.add('active');
+    currentIdx = idx;
+    updateProgress(idx);
+    if (stepOrder[idx] === 'step-2') adaptQ2();
+    if (stepOrder[idx] === 'step-result') renderResult();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress(idx) {
+    let label, pct;
+    // idx 0 = intro · 1-7 = Q1-Q7 · 8 = VSL · 9 = Q8 · 10 = resultado
+    if (idx === 0) {
+      label = 'Pronto?';
+      pct = 0;
+    } else if (idx >= 1 && idx <= 7) {
+      label = `Pergunta ${idx}/8`;
+      pct = (idx / 10) * 100;
+    } else if (idx === 8) {
+      label = 'Vídeo';
+      pct = 80;
+    } else if (idx === 9) {
+      label = 'Pergunta 8/8';
+      pct = 90;
+    } else {
+      label = 'Resultado';
+      pct = 100;
+    }
+    document.getElementById('prog-label').textContent = label;
+    document.getElementById('prog-fill').style.width = pct + '%';
+  }
+
+  // ── Q2 adapta texto pra "seu filho" se Q1 = responsável ────
+  function adaptQ2() {
+    const q2 = document.getElementById('q2-text');
+    if (answers.q1 === 'responsavel') {
+      q2.textContent = 'Há quanto tempo seu filho é goleiro?';
+    } else {
+      q2.textContent = 'Há quanto tempo você é goleiro?';
+    }
+  }
+
+  // ── Resultado personalizado ─────────────────────────────────
+  const templates = {
+    amador: {
+      eyebrow: '// Seu diagnóstico · Goleiro amador',
+      headline: 'Você está pronto pra <span class="yl">subir de nível</span>.',
+      diag: 'Pelas suas respostas, o gargalo principal é <strong>[DOR]</strong>. Treino físico genérico não resolve — você precisa de preparação específica pra goleiro. O Desafio entrega isso em 5 dias.',
+      cta: 'Garantir minha vaga agora'
+    },
+    profissional: {
+      eyebrow: '// Seu diagnóstico · Goleiro profissional',
+      headline: 'Está na hora do <span class="yl">diferencial físico</span>.',
+      diag: 'O time treina pra técnica e coletivo. O Desafio entrega o físico específico — <strong>[DOR]</strong> — que separa você dos outros goleiros do plantel.',
+      cta: 'Garantir minha vaga agora'
+    },
+    base: {
+      eyebrow: '// Seu diagnóstico · Goleiro de base',
+      headline: 'Categorias de base <span class="yl">premiam o físico</span>.',
+      diag: 'Pra subir, o corpo precisa responder. Sua maior dor — <strong>[DOR]</strong> — é exatamente o que o Desafio ataca. 5 dias de preparação específica que faz diferença na avaliação.',
+      cta: 'Garantir minha vaga agora'
+    },
+    responsavel: {
+      eyebrow: '// Seu diagnóstico · Responsável por goleiro',
+      headline: 'Você quer dar a ele o que <span class="yl">falta</span>.',
+      diag: 'Ele se dedica, mas falta estrutura física específica — <strong>[DOR]</strong>. O Desafio entrega 5 dias de treino feito por treinadores que entendem a posição. Material fica pra sempre.',
+      cta: 'Garantir vaga pro meu goleiro'
+    }
+  };
+
+  const dorTexts = {
+    explosao: 'falta de explosão nas pernas',
+    aerea: 'disputa aérea fraca',
+    levantar: 'demora pra levantar após cair',
+    cansaco: 'cansaço no segundo tempo'
+  };
+
+  function renderResult() {
+    const perfil = answers.q1 || 'amador';
+    const dor = answers.q3 ? dorTexts[answers.q3] : 'preparação física específica';
+    const t = templates[perfil] || templates.amador;
+    document.getElementById('result-eyebrow').textContent = t.eyebrow.replace('// ', '// ');
+    document.getElementById('result-headline').innerHTML = t.headline;
+    document.getElementById('result-diag').innerHTML = t.diag.replace('[DOR]', dor);
+    document.getElementById('result-cta').textContent = t.cta;
+  }
+
+  // ── Listeners das opções ───────────────────────────────────
+  document.querySelectorAll('.opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const step = opt.dataset.step;
+      const value = opt.dataset.value;
+      answers[`q${step}`] = value;
+      showStep(currentIdx + 1);
+    });
+  });
+
+  // ── Botão voltar ───────────────────────────────────────────
+  document.querySelectorAll('.qz-back').forEach(btn => {
+    btn.addEventListener('click', () => showStep(currentIdx - 1));
+  });
+
+  // ── Botão continuar VSL ────────────────────────────────────
+  document.getElementById('vsl-continue').addEventListener('click', () => {
+    showStep(currentIdx + 1);
+  });
+
+  // ── Botão "Começar avaliação" do intro ─────────────────────
+  document.getElementById('intro-start').addEventListener('click', () => {
+    showStep(currentIdx + 1);
+  });
+
+  // ── Botão "Seguir" da Q7 ───────────────────────────────────
+  document.getElementById('q7-continue').addEventListener('click', () => {
+    answers.q7 = 'sim_implicito';
+    showStep(currentIdx + 1);
+  });
+
+  // ── Carrossel de provas (copia da landing) ─────────────────
+  (function() {
+    const slides = Array.from(document.querySelectorAll('.proof-slide'));
+    if (!slides.length) return;
+    const total = slides.length;
+    let current = 2;
+    const INTERVAL = 3500;
+
+    function update() {
+      slides.forEach((slide, i) => {
+        let rel = i - current;
+        if (rel > total / 2)  rel -= total;
+        if (rel < -total / 2) rel += total;
+
+        slide.classList.remove('is-active');
+        let tx, scale, rotY, opacity, brightness, zIndex, shadow;
+
+        if (rel === 0) {
+          tx = 0; scale = 1; rotY = 0; opacity = 1; brightness = 1; zIndex = 10;
+          shadow = '0 20px 60px rgba(244,180,0,.22)';
+          slide.classList.add('is-active');
+        } else if (Math.abs(rel) === 1) {
+          tx = rel * 200; scale = 0.87; rotY = rel > 0 ? -15 : 15;
+          opacity = 0.55; brightness = 0.7; zIndex = 5; shadow = 'none';
+        } else if (Math.abs(rel) === 2) {
+          tx = rel * 340; scale = 0.76; rotY = rel > 0 ? -25 : 25;
+          opacity = 0.3; brightness = 0.5; zIndex = 2; shadow = 'none';
+        } else {
+          tx = 0; scale = 0.65; rotY = 0;
+          opacity = 0; brightness = 0.4; zIndex = 1; shadow = 'none';
+        }
+
+        slide.style.transform = `translateX(${tx}px) scale(${scale}) rotateY(${rotY}deg)`;
+        slide.style.opacity = opacity;
+        slide.style.filter = `brightness(${brightness})`;
+        slide.style.zIndex = zIndex;
+        slide.style.boxShadow = shadow;
+      });
+    }
+
+    function next() { current = (current + 1) % total; update(); }
+    function prev() { current = (current - 1 + total) % total; update(); }
+
+    let timer = setInterval(next, INTERVAL);
+    const outer = document.querySelector('.proof-clip');
+    outer.addEventListener('mouseenter', () => clearInterval(timer));
+    outer.addEventListener('mouseleave', () => { timer = setInterval(next, INTERVAL); });
+
+    document.querySelector('.proof-nav-prev').addEventListener('click', () => { prev(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    document.querySelector('.proof-nav-next').addEventListener('click', () => { next(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', () => { current = i; update(); clearInterval(timer); timer = setInterval(next, INTERVAL); });
+    });
+
+    update();
+  })();
+
+  // ── Countdown / data próxima turma ─────────────────────────
+  function nextMonday() {
+    const fixed = new Date('2026-06-01T03:00:00Z');
+    if (Date.now() < fixed.getTime()) return fixed;
+    const brt = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+    const d = brt.getDay();
+    const days = (8 - d) % 7 || 7;
+    const m = new Date(brt);
+    m.setDate(brt.getDate() + days);
+    m.setHours(0, 0, 0, 0);
+    return m;
+  }
+  function setNextClassDate() {
+    const dateStr = nextMonday().toLocaleDateString('pt-BR', {
+      weekday: 'long', day: 'numeric', month: 'long', timeZone: 'America/Sao_Paulo'
+    });
+    const el = document.getElementById('result-date');
+    if (el) el.textContent = dateStr;
+  }
+  setNextClassDate();
+
+  // ── Init ───────────────────────────────────────────────────
+  showStep(0);
+</script>
+</Base>
