@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Avaliação para o Desafio Goleiro de Elite | 8 perguntas" heroImage="/images/logo-gde.webp">
+<Base title="Avaliação para o Desafio Goleiro de Elite" heroImage="/images/logo-gde.webp">
 <Fragment slot="head">
   <script is:inline>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
   <link rel="preload" href="https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a189d70b7169516c91e6866/v4/player.js" as="script" />
@@ -36,26 +36,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(20px,4vw,40px) clamp(16px,4vw,32px) clamp(40px,8vw,80px);
+  padding: clamp(12px,3vw,28px) clamp(16px,4vw,32px) clamp(32px,6vw,60px);
 }
 
 /* ─── Header com progress ──────────────────────────────────── */
 .qz-head {
   width: 100%;
   max-width: 720px;
-  margin-bottom: clamp(32px,5vw,56px);
+  margin-bottom: clamp(18px,3vw,32px);
 }
-.qz-brand {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: var(--yellow);
-  text-align: center;
-  margin-bottom: 18px;
-}
-.qz-brand::before { content: '// '; color: rgba(255,255,255,.25); }
 .qz-prog {
   display: flex;
   align-items: center;
@@ -91,17 +80,22 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(24px,4vw,36px);
+  gap: clamp(16px,3vw,28px);
 }
 .qz-hero-media {
   width: 100%;
-  max-width: 380px;
+  max-width: 320px;
+  max-height: 32vh;
+  display: flex;
+  justify-content: center;
 }
 .qz-hero-media img {
   width: 100%;
+  max-height: 32vh;
   height: auto;
   display: block;
   border-radius: 16px;
+  object-fit: contain;
 }
 .qz-hero-text {
   display: flex;
@@ -120,17 +114,17 @@ body {
 }
 .qz-hero-headline {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.4rem, 6vw, 4rem);
-  line-height: .94;
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  line-height: 1.0;
   color: var(--white);
   letter-spacing: .01em;
-  margin: -4px 0;
+  margin: -2px 0;
 }
 .qz-hero-headline .yl { color: var(--yellow); }
 .qz-hero-sub {
-  font-size: clamp(.96rem, 1.4vw, 1.08rem);
+  font-size: clamp(.85rem, 1.3vw, 1rem);
   color: rgba(255,255,255,.55);
-  line-height: 1.55;
+  line-height: 1.45;
   max-width: 480px;
 }
 .qz-hero-cta {
@@ -279,18 +273,20 @@ body {
 /* ─── VSL placeholder ──────────────────────────────────────── */
 .vsl-eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: .68rem;
+  font-size: .62rem;
   font-weight: 700;
   letter-spacing: .24em;
   text-transform: uppercase;
   color: var(--yellow);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
+  text-align: center;
 }
 .vsl-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
   line-height: 1.05;
-  margin-bottom: 22px;
+  margin-bottom: 16px;
+  text-align: center;
 }
 .vsl-frame {
   background: #161616;
@@ -377,17 +373,49 @@ body {
 }
 .result-diag strong { color: var(--white); }
 
-.result-date-line {
+/* ─── Bloco de vagas (resultado) ───────────────────────────── */
+.result-vagas {
+  max-width: 480px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+.result-vagas-label {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .68rem;
   font-weight: 700;
   letter-spacing: .22em;
   text-transform: uppercase;
   color: rgba(255,255,255,.4);
-  text-align: center;
-  margin-top: 22px;
+  margin-bottom: 12px;
 }
-.result-date-line span { color: var(--yellow); }
+.result-vagas-label span { color: var(--yellow); }
+.result-vagas-bar {
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.result-vagas-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F4C400, #E0A800);
+  width: 74.3%;
+}
+.result-vagas-text {
+  font-size: .76rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .03em;
+}
+.result-vagas-text strong { color: var(--yellow); font-weight: 700; }
+
+/* ─── VSL botão oculto ─────────────────────────────────────── */
+.vsl-continue.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.vsl-continue {
+  transition: opacity .6s ease, transform .2s, box-shadow .3s;
+}
 
 /* ─── Plan card (copia da landing) ─────────────────────────── */
 .plan-card {
@@ -656,10 +684,9 @@ body {
 <main class="qz-wrap">
 
   <header class="qz-head">
-    <div class="qz-brand">Avaliação · Desafio Goleiro de Elite</div>
     <div class="qz-prog">
       <div class="qz-prog-track"><div class="qz-prog-fill" id="prog-fill"></div></div>
-      <div class="qz-prog-label" id="prog-label">Pergunta 1/8</div>
+      <div class="qz-prog-label" id="prog-label">Pronto?</div>
     </div>
   </header>
 
@@ -894,41 +921,10 @@ body {
 
     <!-- ── VSL ──────────────────────────────────────────────── -->
     <section class="step" id="step-vsl">
-      <div class="vsl-eyebrow">// Antes da última pergunta</div>
-      <h2 class="vsl-title">Assista a essa mensagem rápida</h2>
+      <div class="vsl-eyebrow">// Sua mensagem personalizada</div>
+      <h2 class="vsl-title">Assista esse vídeo até o final</h2>
       <vturb-smartplayer id="vid-6a189d70b7169516c91e6866" style="display: block; margin: 0 auto 28px; width: 100%; max-width: 400px;"></vturb-smartplayer>
-      <script type="text/javascript" is:inline>
-        var s=document.createElement("script");
-        s.src="https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a189d70b7169516c91e6866/v4/player.js";
-        s.async=!0;
-        document.head.appendChild(s);
-      </script>
-      <button class="vsl-continue" id="vsl-continue">Continuar para a última pergunta →</button>
-      <button class="qz-back">← voltar</button>
-    </section>
-
-    <!-- ── Q8 ───────────────────────────────────────────────── -->
-    <section class="step" id="step-8">
-      <div class="q-num">08 / Decisão</div>
-      <h2 class="q-text"><span class="yl">R$ 35</span> em um desafio específico de 5 dias pra goleiro — faz sentido pra você?</h2>
-      <div class="opts">
-        <button class="opt" data-step="8" data-value="sim_total">
-          <span class="opt-label">Sim, sem dúvida</span>
-          <span class="opt-desc">Pelo que vi, vale o investimento</span>
-        </button>
-        <button class="opt" data-step="8" data-value="sim">
-          <span class="opt-label">Sim, faz sentido</span>
-          <span class="opt-desc">Quero conhecer o conteúdo</span>
-        </button>
-        <button class="opt" data-step="8" data-value="detalhes">
-          <span class="opt-label">Quero ver mais detalhes antes</span>
-          <span class="opt-desc">Preciso de mais informações</span>
-        </button>
-        <button class="opt" data-step="8" data-value="nao">
-          <span class="opt-label">Não pretendo investir agora</span>
-          <span class="opt-desc">Não é prioridade no momento</span>
-        </button>
-      </div>
+      <button class="vsl-continue is-hidden" id="vsl-continue">Ver meu resultado →</button>
       <button class="qz-back">← voltar</button>
     </section>
 
@@ -937,6 +933,12 @@ body {
       <div class="result-eyebrow" id="result-eyebrow">// Seu diagnóstico</div>
       <h2 class="result-headline" id="result-headline">…</h2>
       <p class="result-diag" id="result-diag">…</p>
+
+      <div class="result-vagas">
+        <div class="result-vagas-label">Próxima turma · <span id="result-date">segunda-feira</span></div>
+        <div class="result-vagas-bar"><div class="result-vagas-fill"></div></div>
+        <div class="result-vagas-text"><strong>18 vagas</strong> restantes de 70</div>
+      </div>
 
       <div class="plan-card">
         <div class="plan-inner">
@@ -987,7 +989,6 @@ body {
         </div>
       </div>
 
-      <p class="result-date-line">Próxima turma começa <span id="result-date">segunda-feira</span></p>
     </section>
 
   </div>
@@ -998,10 +999,30 @@ body {
   const stepOrder = [
     'step-intro',
     'step-1', 'step-2', 'step-3', 'step-4', 'step-5',
-    'step-6', 'step-7', 'step-vsl', 'step-8', 'step-result'
+    'step-6', 'step-7', 'step-vsl', 'step-result'
   ];
   const answers = {};
   let currentIdx = 0;
+
+  // ── VSL: carrega script só na primeira visita ao step ──────
+  let vslLoaded = false;
+  let vslButtonTimerStarted = false;
+  function loadVSL() {
+    if (vslLoaded) return;
+    vslLoaded = true;
+    const s = document.createElement('script');
+    s.src = 'https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a189d70b7169516c91e6866/v4/player.js';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+  function startVslButtonTimer() {
+    if (vslButtonTimerStarted) return;
+    vslButtonTimerStarted = true;
+    setTimeout(() => {
+      const btn = document.getElementById('vsl-continue');
+      if (btn) btn.classList.remove('is-hidden');
+    }, 60000); // 60 segundos
+  }
 
   // ── Navegação ───────────────────────────────────────────────
   function showStep(idx) {
@@ -1011,24 +1032,22 @@ body {
     currentIdx = idx;
     updateProgress(idx);
     if (stepOrder[idx] === 'step-2') adaptQ2();
+    if (stepOrder[idx] === 'step-vsl') { loadVSL(); startVslButtonTimer(); }
     if (stepOrder[idx] === 'step-result') renderResult();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function updateProgress(idx) {
     let label, pct;
-    // idx 0 = intro · 1-7 = Q1-Q7 · 8 = VSL · 9 = Q8 · 10 = resultado
+    // idx 0 = intro · 1-7 = Q1-Q7 · 8 = VSL · 9 = resultado
     if (idx === 0) {
       label = 'Pronto?';
       pct = 0;
     } else if (idx >= 1 && idx <= 7) {
-      label = `Pergunta ${idx}/8`;
-      pct = (idx / 10) * 100;
+      label = `Pergunta ${idx}/7`;
+      pct = (idx / 9) * 100;
     } else if (idx === 8) {
       label = 'Vídeo';
-      pct = 80;
-    } else if (idx === 9) {
-      label = 'Pergunta 8/8';
       pct = 90;
     } else {
       label = 'Resultado';
