@@ -99,8 +99,33 @@ body.is-locked .foot { display: none !important; }
   margin: clamp(8px,2vw,18px) auto 0;
 }
 .hero-cta {
-  align-self: center !important;
+  position: relative;
+  overflow: hidden;
+  align-self: center;
   margin-top: clamp(20px,3vw,32px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 44px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 16px 40px rgba(244,180,0,.32);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+  animation: ctaPulse 2.6s ease-in-out infinite;
+}
+.hero-cta:hover {
+  opacity: .95;
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px rgba(244,180,0,.55);
+  animation-play-state: paused;
 }
 
 /* ─── HERO CENTRALIZADO ────────────────────────────────────── */
