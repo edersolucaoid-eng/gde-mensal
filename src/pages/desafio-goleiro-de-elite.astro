@@ -1537,7 +1537,7 @@ body.is-locked .foot { display: none !important; }
 </footer>
 
 <script>
-  // ── Locked state: pagina fica fechada ate 3:10 do VSL ──────
+  // ── Locked state: pagina fica fechada ate 2:40 do VSL ──────
   document.body.classList.add('is-locked');
   (function loadVSL() {
     const s = document.createElement('script');
@@ -1545,11 +1545,76 @@ body.is-locked .foot { display: none !important; }
     s.async = true;
     document.head.appendChild(s);
   })();
-  setTimeout(() => {
-    document.body.classList.remove('is-locked');
-    const cta = document.getElementById('hero-cta');
-    if (cta) cta.classList.remove('is-hidden');
-  }, 160000); // 2:40 (160 segundos)
+
+  // ── VSL gate persistente: desconta tempo ja assistido ──────
+  function initVslGate({ storageKey, targetSeconds, playerId, onUnlock }) {
+    const EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
+    let unlocked = false;
+
+    function readState() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return 0;
+        const s = JSON.parse(raw);
+        if (s.playerId !== playerId) return 0;
+        if (Date.now() - s.savedAt > EXPIRY_MS) return 0;
+        return Number(s.watched) || 0;
+      } catch { return 0; }
+    }
+
+    function saveState(watched) {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          watched, savedAt: Date.now(), playerId
+        }));
+      } catch {}
+    }
+
+    let maxWatched = readState();
+
+    function tryUnlock() {
+      if (unlocked) return;
+      unlocked = true;
+      saveState(targetSeconds);
+      onUnlock();
+    }
+
+    if (maxWatched >= targetSeconds) { tryUnlock(); return; }
+
+    const remainingMs = (targetSeconds - maxWatched) * 1000;
+    const fallbackTimer = setTimeout(tryUnlock, remainingMs);
+
+    const pollInterval = setInterval(() => {
+      if (unlocked) { clearInterval(pollInterval); return; }
+      const el = document.getElementById(playerId);
+      if (!el) return;
+      let t = Number(el.currentTime);
+      if (!isFinite(t) || t < 0) {
+        const innerVideo = el.querySelector && el.querySelector('video');
+        if (innerVideo) t = innerVideo.currentTime;
+      }
+      if (!isFinite(t) || t < 0) return;
+      if (t > maxWatched) {
+        maxWatched = Math.floor(t);
+        saveState(maxWatched);
+        if (maxWatched >= targetSeconds) {
+          clearTimeout(fallbackTimer);
+          tryUnlock();
+        }
+      }
+    }, 1000);
+  }
+
+  initVslGate({
+    storageKey: 'vsl_landing_pt',
+    targetSeconds: 160,
+    playerId: 'vid-6a19b604dbdb1fd296650d4b',
+    onUnlock: () => {
+      document.body.classList.remove('is-locked');
+      const cta = document.getElementById('hero-cta');
+      if (cta) cta.classList.remove('is-hidden');
+    }
+  });
 
   function nextMonday() {
     // Turma fixada: 01/06/2026 — após essa data volta ao cálculo dinâmico

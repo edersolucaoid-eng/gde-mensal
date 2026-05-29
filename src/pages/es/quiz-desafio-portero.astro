@@ -1014,10 +1014,74 @@ body {
   function startVslButtonTimer() {
     if (vslButtonTimerStarted) return;
     vslButtonTimerStarted = true;
-    setTimeout(() => {
-      const btn = document.getElementById('vsl-continue');
-      if (btn) btn.classList.remove('is-hidden');
-    }, 90000); // 90 segundos
+    initVslGate({
+      storageKey: 'vsl_quiz_es',
+      targetSeconds: 90,
+      playerId: 'vid-6a18a8b89450495a8b528dfa',
+      onUnlock: () => {
+        const btn = document.getElementById('vsl-continue');
+        if (btn) btn.classList.remove('is-hidden');
+      }
+    });
+  }
+
+  // ── VSL gate persistente: desconta tiempo ya visto ─────────
+  function initVslGate({ storageKey, targetSeconds, playerId, onUnlock }) {
+    const EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
+    let unlocked = false;
+
+    function readState() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return 0;
+        const s = JSON.parse(raw);
+        if (s.playerId !== playerId) return 0;
+        if (Date.now() - s.savedAt > EXPIRY_MS) return 0;
+        return Number(s.watched) || 0;
+      } catch { return 0; }
+    }
+
+    function saveState(watched) {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          watched, savedAt: Date.now(), playerId
+        }));
+      } catch {}
+    }
+
+    let maxWatched = readState();
+
+    function tryUnlock() {
+      if (unlocked) return;
+      unlocked = true;
+      saveState(targetSeconds);
+      onUnlock();
+    }
+
+    if (maxWatched >= targetSeconds) { tryUnlock(); return; }
+
+    const remainingMs = (targetSeconds - maxWatched) * 1000;
+    const fallbackTimer = setTimeout(tryUnlock, remainingMs);
+
+    const pollInterval = setInterval(() => {
+      if (unlocked) { clearInterval(pollInterval); return; }
+      const el = document.getElementById(playerId);
+      if (!el) return;
+      let t = Number(el.currentTime);
+      if (!isFinite(t) || t < 0) {
+        const innerVideo = el.querySelector && el.querySelector('video');
+        if (innerVideo) t = innerVideo.currentTime;
+      }
+      if (!isFinite(t) || t < 0) return;
+      if (t > maxWatched) {
+        maxWatched = Math.floor(t);
+        saveState(maxWatched);
+        if (maxWatched >= targetSeconds) {
+          clearTimeout(fallbackTimer);
+          tryUnlock();
+        }
+      }
+    }, 1000);
   }
 
   // ── Navegación ──────────────────────────────────────────────
