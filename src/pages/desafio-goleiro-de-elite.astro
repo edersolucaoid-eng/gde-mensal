@@ -105,13 +105,13 @@ body.is-locked .foot { display: none !important; }
 
 /* ─── HERO CENTRALIZADO ────────────────────────────────────── */
 .hero {
-  background: var(--white);
+  background: var(--black);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(32px,6vw,64px) clamp(24px,5vw,48px);
+  padding: clamp(20px,4vw,48px) clamp(16px,4vw,32px);
 }
 .hero-inner {
   width: 100%;
@@ -139,19 +139,14 @@ body.is-locked .foot { display: none !important; }
 }
 .hero-headline {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.6rem, 6.5vw, 5rem);
-  line-height: .94;
-  color: var(--black);
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  line-height: 1.05;
+  color: var(--white);
   letter-spacing: .01em;
-  margin: -4px 0;
+  margin: 0;
+  max-width: 620px;
 }
 .hero-headline .yl { color: var(--yellow); }
-.hero-sub {
-  font-size: clamp(.98rem, 1.4vw, 1.12rem);
-  color: rgba(0,0,0,.6);
-  line-height: 1.55;
-  max-width: 540px;
-}
 .hero-media {
   order: -1;
   width: 100%;
@@ -1045,13 +1040,10 @@ body.is-locked .foot { display: none !important; }
   <div class="hero-inner">
     <div class="hero-text">
       <h1 class="hero-headline">
-        Um plano prático de treinos para ser um goleiro com mais
-        <span class="yl">explosão, força e velocidade</span>
-        e começar a fechar o gol para o seu time.
+        Um plano prático de treinos para goleiros com foco em
+        <span class="yl">explosão, força e velocidade</span>,
+        que podem ser feitos em casa ou na academia do seu bairro.
       </h1>
-      <p class="hero-sub">
-        Treinos físicos simples que você poderá fazer na academia do seu bairro ou em casa.
-      </p>
       <div class="hero-vsl">
         <vturb-smartplayer id="vid-6a19b604dbdb1fd296650d4b" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
       </div>
@@ -1532,7 +1524,7 @@ body.is-locked .foot { display: none !important; }
     document.body.classList.remove('is-locked');
     const cta = document.getElementById('hero-cta');
     if (cta) cta.classList.remove('is-hidden');
-  }, 190000); // 3:10 (190 segundos)
+  }, 160000); // 2:40 (160 segundos)
 
   function nextMonday() {
     // Turma fixada: 01/06/2026 — após essa data volta ao cálculo dinâmico
