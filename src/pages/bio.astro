@@ -1,0 +1,228 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Goleiro de Elite — Links" heroImage="/images/logo-gde.webp">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:  #0B0B0B;
+  --white:  #ffffff;
+  --yellow: #F4B400;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bio-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(32px,6vw,56px) clamp(20px,5vw,32px) 32px;
+}
+
+/* ─── Header ───────────────────────────────────────────────── */
+.bio-head {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(32px,5vw,44px);
+}
+.bio-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: rgba(244,180,0,.08);
+  border: 1px solid rgba(244,180,0,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 16px;
+}
+.bio-avatar img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(1.2);
+}
+.bio-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem,5vw,2.4rem);
+  letter-spacing: .04em;
+  line-height: 1;
+  color: var(--white);
+}
+.bio-sub {
+  font-size: .88rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.4;
+  max-width: 320px;
+}
+.bio-handle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-top: 2px;
+}
+
+/* ─── Cards (banner vertical) ──────────────────────────────── */
+.bio-cards {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.bio-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  overflow: hidden;
+  color: var(--white);
+  text-decoration: none;
+  transition: transform .25s ease, border-color .25s, background .25s, box-shadow .25s;
+}
+.bio-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+  box-shadow: 0 18px 44px rgba(244,180,0,.22);
+}
+.bio-card:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
+}
+.bio-banner {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #161616;
+  overflow: hidden;
+}
+.bio-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.bio-card:hover .bio-banner img {
+  transform: scale(1.03);
+}
+.bio-body {
+  position: relative;
+  padding: 16px 56px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.bio-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.bio-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.1;
+}
+.bio-card-sub {
+  font-size: .78rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.4;
+}
+.bio-arrow {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--yellow);
+  transition: transform .25s ease;
+}
+.bio-card:hover .bio-arrow {
+  transform: translateY(-50%) translateX(4px);
+}
+
+/* ─── Footer ───────────────────────────────────────────────── */
+.bio-foot {
+  margin-top: auto;
+  padding-top: 36px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  text-align: center;
+}
+</style>
+
+<main class="bio-wrap">
+
+  <header class="bio-head">
+    <div class="bio-avatar">
+      <img src="/images/logo-gde.webp" alt="Goleiro de Elite" width="34" height="34" loading="eager" />
+    </div>
+    <h1 class="bio-title">Goleiro de Elite</h1>
+    <p class="bio-sub">Treino físico específico para goleiros — explosão, força e velocidade.</p>
+    <div class="bio-handle">@goleirodeelite</div>
+  </header>
+
+  <div class="bio-cards">
+
+    <a class="bio-card" href="https://wa.me/5565981351676?text=Ol%C3%A1%2C%20estou%20vindo%20do%20instagram%20e%20quero%20conhecer%20o%20Programa%20Goleiro%20de%20Elite" target="_blank" rel="noopener">
+      <div class="bio-banner">
+        <img src="/images/cardconsultoria.png" alt="Consultoria personalizada" width="1672" height="941" loading="lazy" decoding="async" />
+      </div>
+      <div class="bio-body">
+        <div class="bio-kicker">// 1-a-1 · WhatsApp</div>
+        <div class="bio-card-title">Consultoria personalizada</div>
+        <div class="bio-card-sub">Falar direto com a equipe sobre seu treino físico</div>
+        <div class="bio-arrow">→</div>
+      </div>
+    </a>
+
+    <a class="bio-card" href="/quiz-desafio">
+      <div class="bio-banner">
+        <img src="/images/carddesafio.png" alt="Desafio Goleiro de Elite" width="1672" height="941" loading="lazy" decoding="async" />
+      </div>
+      <div class="bio-body">
+        <div class="bio-kicker">// 5 dias · R$ 35</div>
+        <div class="bio-card-title">Desafio Goleiro de Elite</div>
+        <div class="bio-card-sub">Faça a avaliação e descubra seu perfil</div>
+        <div class="bio-arrow">→</div>
+      </div>
+    </a>
+
+  </div>
+
+  <footer class="bio-foot">
+    © 2026 Goleiro de Elite
+  </footer>
+
+</main>
+</Base>
