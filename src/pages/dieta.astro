@@ -1,0 +1,1470 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Dieta do Jogador | Goleiro de Elite" heroImage="/images/logo-gde.webp">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:  #0B0B0B;
+  --white:  #ffffff;
+  --yellow: #F4B400;
+  --card:   rgba(255,255,255,.04);
+  --border: rgba(255,255,255,.08);
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── i18n via class toggle ─────────────────────────────── */
+html[data-lang="pt"] .lang-es { display: none !important; }
+html[data-lang="es"] .lang-pt { display: none !important; }
+
+/* ─── Top header sticky ────────────────────────────────────── */
+.dt-top {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11,11,11,.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.dt-top-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+}
+.dt-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(244,180,0,.08);
+  border: 1px solid rgba(244,180,0,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  flex-shrink: 0;
+}
+.dt-logo img { width: 100%; height: auto; filter: brightness(1.2); }
+.dt-brand {
+  flex: 1;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+}
+.dt-brand span { color: var(--yellow); }
+
+/* ─── Lang switch ──────────────────────────────────────────── */
+.dt-lang {
+  display: flex;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 3px;
+}
+.dt-lang button {
+  background: none;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.5);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.dt-lang button:hover { color: var(--white); }
+html[data-lang="pt"] .dt-lang button[data-set-lang="pt"],
+html[data-lang="es"] .dt-lang button[data-set-lang="es"] {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+/* ─── Hero ─────────────────────────────────────────────────── */
+.dt-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+.dt-hero {
+  text-align: center;
+  padding: clamp(36px,6vw,60px) 0 clamp(28px,4vw,40px);
+}
+.dt-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.dt-eyebrow::before { content: '// '; color: rgba(255,255,255,.25); }
+.dt-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.6rem,7vw,4rem);
+  line-height: .92;
+  letter-spacing: .02em;
+  margin-bottom: 16px;
+}
+.dt-h1 .yl { color: var(--yellow); }
+.dt-h-sub {
+  font-size: .95rem;
+  color: rgba(255,255,255,.6);
+  line-height: 1.5;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+/* ─── Disclaimer card ──────────────────────────────────────── */
+.dt-disclaimer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--yellow);
+  border-radius: 12px;
+  padding: 18px 22px;
+  font-size: .82rem;
+  color: rgba(255,255,255,.6);
+  line-height: 1.6;
+  margin-bottom: clamp(40px,5vw,56px);
+}
+.dt-disclaimer strong { color: var(--white); }
+
+/* ─── Section ──────────────────────────────────────────────── */
+.dt-sec {
+  margin-bottom: clamp(40px,6vw,64px);
+  scroll-margin-top: 80px;
+}
+.dt-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 10px;
+}
+.dt-label::before { content: '// '; color: rgba(255,255,255,.25); }
+.dt-h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem,5vw,2.6rem);
+  line-height: 1;
+  letter-spacing: .02em;
+  margin-bottom: 8px;
+}
+.dt-h2 .yl { color: var(--yellow); }
+.dt-h2-sub {
+  font-size: .9rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* ─── Calculadora ──────────────────────────────────────────── */
+.dt-calc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+}
+.dt-calc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.dt-calc-row label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+.dt-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.dt-input:focus {
+  border-color: var(--yellow);
+  background: rgba(244,180,0,.04);
+}
+.dt-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dt-radio-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.dt-radio-opt:hover { border-color: rgba(244,180,0,.3); }
+.dt-radio-opt input[type="radio"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.25);
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color .2s;
+}
+.dt-radio-opt input[type="radio"]:checked {
+  border-color: var(--yellow);
+  background: radial-gradient(circle, var(--yellow) 40%, transparent 50%);
+}
+.dt-radio-opt:has(input:checked) {
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+}
+.dt-radio-opt span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .88rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--white);
+}
+.dt-radio-opt em {
+  font-style: normal;
+  color: rgba(255,255,255,.4);
+  font-size: .78rem;
+  margin-left: auto;
+}
+.dt-result {
+  margin-top: 22px;
+  padding: 22px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(244,180,0,.12), rgba(244,180,0,.04));
+  border: 1px solid rgba(244,180,0,.25);
+}
+.dt-result-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 6px;
+}
+.dt-result-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem,7vw,3.4rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.dt-result-value span {
+  font-size: 1rem;
+  color: rgba(255,255,255,.5);
+  font-family: 'Barlow Condensed', sans-serif;
+  margin-left: 6px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.dt-result-hint {
+  font-size: .78rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.5;
+  margin-top: 14px;
+}
+
+/* ─── Goal hint cards ──────────────────────────────────────── */
+.dt-goals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+.dt-goal {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.dt-goal-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+.dt-goal-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--yellow);
+  line-height: 1;
+  margin-top: 4px;
+}
+.dt-goal-hint {
+  font-size: .68rem;
+  color: rgba(255,255,255,.4);
+  margin-top: 2px;
+}
+
+/* ─── Tabs cardápios ──────────────────────────────────────── */
+.dt-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+.dt-tab {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,.6);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.dt-tab:hover { border-color: rgba(244,180,0,.3); color: var(--white); }
+.dt-tab.is-active {
+  background: rgba(244,180,0,.12);
+  border-color: rgba(244,180,0,.45);
+  color: var(--yellow);
+}
+
+.dt-menu { display: none; }
+.dt-menu.is-active { display: block; }
+
+.dt-meal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+}
+.dt-meal-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(255,255,255,.06);
+}
+.dt-meal-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: .04em;
+}
+.dt-meal-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.dt-meal ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dt-meal li {
+  font-size: .86rem;
+  color: rgba(255,255,255,.7);
+  line-height: 1.4;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.dt-meal li::before {
+  content: '·';
+  color: var(--yellow);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.dt-meal li strong { color: var(--white); font-weight: 600; }
+
+/* ─── Substituições ────────────────────────────────────────── */
+.dt-sub-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+}
+.dt-sub-original {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(255,255,255,.06);
+}
+.dt-sub-original .yl { color: var(--yellow); }
+.dt-sub-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dt-sub-list li {
+  font-size: .86rem;
+  color: rgba(255,255,255,.65);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.dt-sub-list li::before {
+  content: '→';
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+/* ─── Dicas ────────────────────────────────────────────────── */
+.dt-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dt-tip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--yellow);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: .88rem;
+  color: rgba(255,255,255,.7);
+  line-height: 1.5;
+}
+
+/* ─── Suplementos (accordion) ──────────────────────────────── */
+.dt-supp { display: flex; flex-direction: column; gap: 8px; }
+.dt-supp-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.dt-supp-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  color: var(--white);
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: background .2s;
+  gap: 12px;
+}
+.dt-supp-head:hover { background: rgba(244,180,0,.04); }
+.dt-supp-head .dt-supp-name { flex: 1; }
+.dt-supp-head .dt-supp-ico {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(244,180,0,.12);
+  border: 1px solid rgba(244,180,0,.3);
+  color: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 400;
+  transition: transform .25s ease;
+  flex-shrink: 0;
+}
+.dt-supp-item.is-open .dt-supp-ico {
+  transform: rotate(45deg);
+}
+.dt-supp-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+.dt-supp-body-inner {
+  padding: 0 20px 18px;
+  font-size: .85rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.55;
+}
+.dt-supp-body-inner ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dt-supp-body-inner li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.dt-supp-body-inner li::before {
+  content: '·';
+  color: var(--yellow);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.dt-supp-body-inner strong { color: var(--white); }
+
+/* ─── Calculadora de proteína ──────────────────────────────── */
+.dt-prot {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.dt-prot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  gap: 12px;
+}
+.dt-prot-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.dt-prot-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: var(--yellow);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+/* ─── Footer ───────────────────────────────────────────────── */
+.dt-foot {
+  margin-top: 60px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.dt-foot-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 12px;
+}
+.dt-foot-team {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.dt-foot-person {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.4;
+}
+.dt-foot-person strong { color: var(--white); display: block; font-weight: 600; }
+.dt-foot-person a {
+  color: var(--yellow);
+  text-decoration: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.dt-foot-copy {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+}
+
+@media (max-width: 480px) {
+  .dt-goals { gap: 6px; }
+  .dt-goal { padding: 10px 8px; }
+}
+</style>
+
+<header class="dt-top">
+  <div class="dt-top-inner">
+    <div class="dt-logo">
+      <img src="/images/logo-gde.webp" alt="Goleiro de Elite" width="34" height="34" loading="eager" />
+    </div>
+    <div class="dt-brand">
+      <span class="lang-pt">Goleiro de Elite <span>· Dieta do Jogador</span></span>
+      <span class="lang-es">Goleiro de Elite <span>· Dieta del Jugador</span></span>
+    </div>
+    <div class="dt-lang" role="group">
+      <button type="button" data-set-lang="pt">PT</button>
+      <button type="button" data-set-lang="es">ES</button>
+    </div>
+  </div>
+</header>
+
+<main class="dt-wrap">
+
+  <section class="dt-hero">
+    <div class="dt-eyebrow">
+      <span class="lang-pt">Guia nutricional</span>
+      <span class="lang-es">Guía nutricional</span>
+    </div>
+    <h1 class="dt-h1">
+      <span class="lang-pt">Dieta do<br><span class="yl">Jogador</span></span>
+      <span class="lang-es">Dieta del<br><span class="yl">Jugador</span></span>
+    </h1>
+    <p class="dt-h-sub">
+      <span class="lang-pt">Cardápios práticos pra otimizar seu desempenho — feitos pela nossa nutricionista em parceria com a equipe técnica.</span>
+      <span class="lang-es">Menús prácticos para optimizar tu rendimiento — hechos por nuestra nutricionista en colaboración con el equipo técnico.</span>
+    </p>
+  </section>
+
+  <div class="dt-disclaimer">
+    <span class="lang-pt"><strong>Orientações gerais.</strong> Os cardápios e dicas a seguir são baseados em indivíduos saudáveis. Caso tenha alguma patologia ou condição especial de saúde, procure orientação individualizada. As orientações aqui não substituem uma consulta personalizada com nutricionista.</span>
+    <span class="lang-es"><strong>Orientaciones generales.</strong> Los menús y consejos a continuación están basados en individuos saludables. En caso de tener alguna patología o condición especial de salud, busca orientación individualizada. Las orientaciones aquí no sustituyen una consulta personalizada con nutricionista.</span>
+  </div>
+
+  <!-- ── Calculadora TMB ────────────────────────────────────── -->
+  <section class="dt-sec" id="calc">
+    <div class="dt-label">
+      <span class="lang-pt">Cálculo de calorias</span>
+      <span class="lang-es">Cálculo de calorías</span>
+    </div>
+    <h2 class="dt-h2">
+      <span class="lang-pt">Quantas calorias você <span class="yl">gasta por dia?</span></span>
+      <span class="lang-es">¿Cuántas calorías <span class="yl">quemas por día?</span></span>
+    </h2>
+    <p class="dt-h2-sub">
+      <span class="lang-pt">Coloque seu peso e seu nível de atividade física. A calculadora usa a fórmula da Taxa Metabólica Basal (TMB).</span>
+      <span class="lang-es">Pon tu peso y tu nivel de actividad física. La calculadora usa la fórmula de la Tasa Metabólica Basal (TMB).</span>
+    </p>
+
+    <div class="dt-calc">
+      <div class="dt-calc-row">
+        <label for="dt-peso">
+          <span class="lang-pt">Peso atual</span>
+          <span class="lang-es">Peso actual</span>
+        </label>
+        <input type="number" id="dt-peso" class="dt-input" placeholder="Ex: 75" min="30" max="200" step="0.1" inputmode="decimal" />
+      </div>
+
+      <div class="dt-calc-row">
+        <label>
+          <span class="lang-pt">Nível de atividade física</span>
+          <span class="lang-es">Nivel de actividad física</span>
+        </label>
+        <div class="dt-radio">
+          <label class="dt-radio-opt">
+            <input type="radio" name="dt-atv" value="1" />
+            <span><span class="lang-pt">Sedentário</span><span class="lang-es">Sedentario</span></span>
+            <em><span class="lang-pt">sem treino</span><span class="lang-es">sin entreno</span></em>
+          </label>
+          <label class="dt-radio-opt">
+            <input type="radio" name="dt-atv" value="1.5" checked />
+            <span><span class="lang-pt">Leve</span><span class="lang-es">Ligera</span></span>
+            <em><span class="lang-pt">treina 2-3×/sem</span><span class="lang-es">entrena 2-3×/sem</span></em>
+          </label>
+          <label class="dt-radio-opt">
+            <input type="radio" name="dt-atv" value="1.8" />
+            <span><span class="lang-pt">Moderada</span><span class="lang-es">Moderada</span></span>
+            <em><span class="lang-pt">treina 4-5×/sem</span><span class="lang-es">entrena 4-5×/sem</span></em>
+          </label>
+          <label class="dt-radio-opt">
+            <input type="radio" name="dt-atv" value="2.1" />
+            <span><span class="lang-pt">Intensa</span><span class="lang-es">Intensa</span></span>
+            <em><span class="lang-pt">treina diário + jogo</span><span class="lang-es">diario + partido</span></em>
+          </label>
+        </div>
+      </div>
+
+      <div class="dt-result">
+        <div class="dt-result-label">
+          <span class="lang-pt">Seu gasto diário</span>
+          <span class="lang-es">Tu gasto diario</span>
+        </div>
+        <div class="dt-result-value"><span id="dt-tmb">—</span>kcal <span></span></div>
+        <div class="dt-goals">
+          <div class="dt-goal">
+            <div class="dt-goal-label">
+              <span class="lang-pt">Emagrecer</span>
+              <span class="lang-es">Adelgazar</span>
+            </div>
+            <div class="dt-goal-value" id="dt-cut">—</div>
+            <div class="dt-goal-hint">
+              <span class="lang-pt">déficit</span>
+              <span class="lang-es">déficit</span>
+            </div>
+          </div>
+          <div class="dt-goal">
+            <div class="dt-goal-label">
+              <span class="lang-pt">Manter</span>
+              <span class="lang-es">Mantener</span>
+            </div>
+            <div class="dt-goal-value" id="dt-maint">—</div>
+            <div class="dt-goal-hint">
+              <span class="lang-pt">igual ao gasto</span>
+              <span class="lang-es">igual al gasto</span>
+            </div>
+          </div>
+          <div class="dt-goal">
+            <div class="dt-goal-label">
+              <span class="lang-pt">Ganhar</span>
+              <span class="lang-es">Ganar</span>
+            </div>
+            <div class="dt-goal-value" id="dt-bulk">—</div>
+            <div class="dt-goal-hint">
+              <span class="lang-pt">hipercalórica</span>
+              <span class="lang-es">hipercalórica</span>
+            </div>
+          </div>
+        </div>
+        <p class="dt-result-hint">
+          <span class="lang-pt">Pra emagrecer, coma <strong>menos do que gasta</strong>. Pra manter, coma <strong>o mesmo</strong>. Pra ganhar massa, coma <strong>mais</strong> — mas só funciona com treino de força.</span>
+          <span class="lang-es">Para adelgazar, come <strong>menos de lo que gastas</strong>. Para mantener, come <strong>lo mismo</strong>. Para ganar masa, come <strong>más</strong> — pero solo funciona con entrenamiento de fuerza.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Cardápios ──────────────────────────────────────────── -->
+  <section class="dt-sec" id="cardapios">
+    <div class="dt-label">
+      <span class="lang-pt">Cardápios prontos</span>
+      <span class="lang-es">Menús listos</span>
+    </div>
+    <h2 class="dt-h2">
+      <span class="lang-pt">Escolha sua <span class="yl">faixa calórica</span></span>
+      <span class="lang-es">Elige tu <span class="yl">rango calórico</span></span>
+    </h2>
+    <p class="dt-h2-sub">
+      <span class="lang-pt">4 cardápios completos, cada um com café, lanches, almoço, jantar e ceia. Escolha o que mais combina com o seu gasto diário.</span>
+      <span class="lang-es">4 menús completos, cada uno con desayuno, meriendas, almuerzo, cena y antes de dormir. Elige el que mejor coincida con tu gasto diario.</span>
+    </p>
+
+    <div class="dt-tabs" role="tablist">
+      <button class="dt-tab is-active" data-menu="1700">1700 kcal</button>
+      <button class="dt-tab" data-menu="2200">2200 kcal</button>
+      <button class="dt-tab" data-menu="2900">2900 kcal</button>
+      <button class="dt-tab" data-menu="4200">4200 kcal</button>
+    </div>
+
+    <!-- 1700 kcal -->
+    <div class="dt-menu is-active" data-menu="1700">
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">07:30</div>
+          <div class="dt-meal-name"><span class="lang-pt">Café da manhã</span><span class="lang-es">Desayuno</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Ovo mexido</span><span class="lang-es">Huevos revueltos</span></strong> — 2 <span class="lang-pt">unidades</span><span class="lang-es">unidades</span> (90g)</li>
+          <li><strong><span class="lang-pt">Requeijão</span><span class="lang-es">Requesón</span></strong> — 1 <span class="lang-pt">colher de sopa cheia</span><span class="lang-es">cucharada sopera colmada</span> (30g)</li>
+          <li><strong><span class="lang-pt">Pão de forma integral</span><span class="lang-es">Pan integral de molde</span></strong> — 2 <span class="lang-pt">fatias</span><span class="lang-es">rebanadas</span> (50g)</li>
+          <li><strong><span class="lang-pt">Mamão papaia</span><span class="lang-es">Papaya</span></strong> — <span class="lang-pt">meio mamão</span><span class="lang-es">media papaya</span> (135g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">12:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Almoço</span><span class="lang-es">Almuerzo</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 3 <span class="lang-pt">bifes pequenos</span><span class="lang-es">bistecs pequeños</span> (150g)</li>
+          <li><strong><span class="lang-pt">Arroz branco cozido</span><span class="lang-es">Arroz blanco cocido</span></strong> — 4 <span class="lang-pt">colheres de arroz cheias</span><span class="lang-es">cucharadas colmadas</span> (180g)</li>
+          <li><strong><span class="lang-pt">Feijão cozido</span><span class="lang-es">Frijoles cocidos</span></strong> — 2 <span class="lang-pt">colheres de servir cheias</span><span class="lang-es">cucharones colmados</span> (70g)</li>
+          <li><strong><span class="lang-pt">Tomate</span><span class="lang-es">Tomate</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+          <li><strong><span class="lang-pt">Alface</span><span class="lang-es">Lechuga</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+          <li><strong><span class="lang-pt">Legumes cozidos</span><span class="lang-es">Verduras cocidas</span></strong> — 5 <span class="lang-pt">colheres de sopa cheias</span><span class="lang-es">cucharadas soperas colmadas</span> (150g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">15:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Lanche da tarde</span><span class="lang-es">Merienda</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Banana</span><span class="lang-es">Banana</span></strong> — 1 <span class="lang-pt">unidade grande</span><span class="lang-es">unidad grande</span> (55g)</li>
+          <li><strong><span class="lang-pt">Farelo de aveia</span><span class="lang-es">Salvado de avena</span></strong> — 2 <span class="lang-pt">colheres de sopa</span><span class="lang-es">cucharadas soperas</span> (20g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">19:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Jantar</span><span class="lang-es">Cena</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 2 <span class="lang-pt">bifes pequenos</span><span class="lang-es">bistecs pequeños</span> (100g)</li>
+          <li><strong><span class="lang-pt">Arroz integral cozido</span><span class="lang-es">Arroz integral cocido</span></strong> — 3 <span class="lang-pt">colheres de servir cheias</span><span class="lang-es">cucharones colmados</span> (165g)</li>
+          <li><strong><span class="lang-pt">Feijão preto cozido</span><span class="lang-es">Frijoles negros cocidos</span></strong> — 2 <span class="lang-pt">colheres de servir cheias</span><span class="lang-es">cucharones colmados</span> (70g)</li>
+          <li><strong><span class="lang-pt">Cenoura cozida</span><span class="lang-es">Zanahoria cocida</span></strong> — 3 <span class="lang-pt">colheres de sopa cheias</span><span class="lang-es">cucharadas soperas colmadas</span> (75g)</li>
+          <li><strong><span class="lang-pt">Beterraba cozida</span><span class="lang-es">Remolacha cocida</span></strong> — 3 <span class="lang-pt">colheres de sopa cheias</span><span class="lang-es">cucharadas soperas colmadas</span> (60g)</li>
+          <li><strong><span class="lang-pt">Alface americana</span><span class="lang-es">Lechuga americana</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">22:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Ceia</span><span class="lang-es">Antes de dormir</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Iogurte integral</span><span class="lang-es">Yogur entero</span></strong> — 100g</li>
+          <li><strong><span class="lang-pt">Granola</span><span class="lang-es">Granola</span></strong> — 2 <span class="lang-pt">colheres de sopa</span><span class="lang-es">cucharadas soperas</span> (26g)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2200 kcal -->
+    <div class="dt-menu" data-menu="2200">
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">07:30</div>
+          <div class="dt-meal-name"><span class="lang-pt">Café da manhã</span><span class="lang-es">Desayuno</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Ovo mexido</span><span class="lang-es">Huevos revueltos</span></strong> — 3 <span class="lang-pt">unidades</span><span class="lang-es">unidades</span> (135g)</li>
+          <li><strong><span class="lang-pt">Requeijão</span><span class="lang-es">Requesón</span></strong> — 1 <span class="lang-pt">colher de sopa cheia</span><span class="lang-es">cucharada sopera colmada</span> (30g)</li>
+          <li><strong><span class="lang-pt">Pão de forma integral</span><span class="lang-es">Pan integral de molde</span></strong> — 3 <span class="lang-pt">fatias</span><span class="lang-es">rebanadas</span> (75g)</li>
+          <li><strong><span class="lang-pt">Mamão papaia</span><span class="lang-es">Papaya</span></strong> — <span class="lang-pt">meio mamão</span><span class="lang-es">media papaya</span> (135g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">12:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Almoço</span><span class="lang-es">Almuerzo</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 3 (150g)</li>
+          <li><strong><span class="lang-pt">Arroz branco cozido</span><span class="lang-es">Arroz blanco cocido</span></strong> — 4 (180g)</li>
+          <li><strong><span class="lang-pt">Feijão cozido</span><span class="lang-es">Frijoles cocidos</span></strong> — 3 (100g)</li>
+          <li><strong><span class="lang-pt">Tomate / Alface</span><span class="lang-es">Tomate / Lechuga</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+          <li><strong><span class="lang-pt">Legumes cozidos</span><span class="lang-es">Verduras cocidas</span></strong> — 5 (150g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">15:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Lanche da tarde</span><span class="lang-es">Merienda</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Banana</span><span class="lang-es">Banana</span></strong> — 1 (55g)</li>
+          <li><strong><span class="lang-pt">Farelo de aveia</span><span class="lang-es">Salvado de avena</span></strong> — 2 (20g)</li>
+          <li><strong><span class="lang-pt">Pasta de amendoim</span><span class="lang-es">Mantequilla de maní</span></strong> — 1 (20g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">19:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Jantar</span><span class="lang-es">Cena</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 3 (150g)</li>
+          <li><strong><span class="lang-pt">Arroz integral cozido</span><span class="lang-es">Arroz integral cocido</span></strong> — 4 (180g)</li>
+          <li><strong><span class="lang-pt">Feijão preto cozido</span><span class="lang-es">Frijoles negros cocidos</span></strong> — 2 (80g)</li>
+          <li><strong><span class="lang-pt">Cenoura cozida</span><span class="lang-es">Zanahoria cocida</span></strong> — 3 (75g)</li>
+          <li><strong><span class="lang-pt">Beterraba cozida</span><span class="lang-es">Remolacha cocida</span></strong> — 3 (60g)</li>
+          <li><strong><span class="lang-pt">Alface americana</span><span class="lang-es">Lechuga americana</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">22:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Ceia</span><span class="lang-es">Antes de dormir</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Iogurte integral</span><span class="lang-es">Yogur entero</span></strong> — 100g</li>
+          <li><strong><span class="lang-pt">Granola</span><span class="lang-es">Granola</span></strong> — 2 (26g)</li>
+          <li><strong><span class="lang-pt">Aveia em flocos</span><span class="lang-es">Avena en hojuelas</span></strong> — 2 (30g)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2900 kcal -->
+    <div class="dt-menu" data-menu="2900">
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">07:30</div>
+          <div class="dt-meal-name"><span class="lang-pt">Café da manhã</span><span class="lang-es">Desayuno</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Ovo mexido</span><span class="lang-es">Huevos revueltos</span></strong> — 3 (135g)</li>
+          <li><strong><span class="lang-pt">Requeijão</span><span class="lang-es">Requesón</span></strong> — 2 (60g)</li>
+          <li><strong><span class="lang-pt">Pão de forma integral</span><span class="lang-es">Pan integral de molde</span></strong> — 3 (75g)</li>
+          <li><strong><span class="lang-pt">Mamão papaia</span><span class="lang-es">Papaya</span></strong> — <span class="lang-pt">meio mamão</span><span class="lang-es">media papaya</span> (135g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">09:30</div>
+          <div class="dt-meal-name"><span class="lang-pt">Lanche da manhã</span><span class="lang-es">Merienda de la mañana</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Pão francês</span><span class="lang-es">Pan francés</span></strong> — 1 (50g)</li>
+          <li><strong><span class="lang-pt">Frango desfiado</span><span class="lang-es">Pollo desmenuzado</span></strong> — 4 (80g)</li>
+          <li><strong><span class="lang-pt">Maionese</span><span class="lang-es">Mayonesa</span></strong> — 1 (30g)</li>
+          <li><strong><span class="lang-pt">Queijo muçarela</span><span class="lang-es">Queso muzzarella</span></strong> — 1 <span class="lang-pt">fatia</span><span class="lang-es">rebanada</span> (20g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">12:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Almoço</span><span class="lang-es">Almuerzo</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 3 (150g)</li>
+          <li><strong><span class="lang-pt">Arroz branco cozido</span><span class="lang-es">Arroz blanco cocido</span></strong> — 4 (180g)</li>
+          <li><strong><span class="lang-pt">Feijão cozido</span><span class="lang-es">Frijoles cocidos</span></strong> — 2 (70g)</li>
+          <li><strong><span class="lang-pt">Tomate / Alface</span><span class="lang-es">Tomate / Lechuga</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+          <li><strong><span class="lang-pt">Legumes cozidos</span><span class="lang-es">Verduras cocidas</span></strong> — 5 (150g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">15:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Lanche da tarde</span><span class="lang-es">Merienda</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Banana</span><span class="lang-es">Banana</span></strong> — 1 (55g)</li>
+          <li><strong><span class="lang-pt">Farelo de aveia</span><span class="lang-es">Salvado de avena</span></strong> — 2 (20g)</li>
+          <li><strong><span class="lang-pt">Pasta de amendoim</span><span class="lang-es">Mantequilla de maní</span></strong> — 1 (20g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">19:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Jantar</span><span class="lang-es">Cena</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 3 (150g)</li>
+          <li><strong><span class="lang-pt">Arroz integral cozido</span><span class="lang-es">Arroz integral cocido</span></strong> — 5 (220g)</li>
+          <li><strong><span class="lang-pt">Feijão preto cozido</span><span class="lang-es">Frijoles negros cocidos</span></strong> — 5 (175g)</li>
+          <li><strong><span class="lang-pt">Cenoura cozida</span><span class="lang-es">Zanahoria cocida</span></strong> — 3 (75g)</li>
+          <li><strong><span class="lang-pt">Beterraba cozida</span><span class="lang-es">Remolacha cocida</span></strong> — 3 (60g)</li>
+          <li><strong><span class="lang-pt">Alface americana</span><span class="lang-es">Lechuga americana</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">22:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Ceia</span><span class="lang-es">Antes de dormir</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Iogurte integral</span><span class="lang-es">Yogur entero</span></strong> — 100g</li>
+          <li><strong><span class="lang-pt">Granola</span><span class="lang-es">Granola</span></strong> — 4 (60g)</li>
+          <li><strong><span class="lang-pt">Aveia em flocos</span><span class="lang-es">Avena en hojuelas</span></strong> — 2 (30g)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4200 kcal -->
+    <div class="dt-menu" data-menu="4200">
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">07:30</div>
+          <div class="dt-meal-name"><span class="lang-pt">Café da manhã</span><span class="lang-es">Desayuno</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Ovo mexido</span><span class="lang-es">Huevos revueltos</span></strong> — 3 (135g)</li>
+          <li><strong><span class="lang-pt">Requeijão</span><span class="lang-es">Requesón</span></strong> — 3 (90g)</li>
+          <li><strong><span class="lang-pt">Pão de forma integral</span><span class="lang-es">Pan integral de molde</span></strong> — 3 (75g)</li>
+          <li><strong><span class="lang-pt">Mamão papaia</span><span class="lang-es">Papaya</span></strong> — <span class="lang-pt">meio mamão</span><span class="lang-es">media papaya</span> (135g)</li>
+          <li><strong><span class="lang-pt">Suco de uva concentrado</span><span class="lang-es">Jugo de uva concentrado</span></strong> — 1 <span class="lang-pt">copo cheio</span><span class="lang-es">vaso lleno</span> (200ml)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">09:30</div>
+          <div class="dt-meal-name"><span class="lang-pt">Lanche da manhã</span><span class="lang-es">Merienda de la mañana</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Pão francês</span><span class="lang-es">Pan francés</span></strong> — 1 (50g)</li>
+          <li><strong><span class="lang-pt">Frango desfiado</span><span class="lang-es">Pollo desmenuzado</span></strong> — 4 (80g)</li>
+          <li><strong><span class="lang-pt">Maionese</span><span class="lang-es">Mayonesa</span></strong> — 4 (54g)</li>
+          <li><strong><span class="lang-pt">Queijo muçarela</span><span class="lang-es">Queso muzzarella</span></strong> — 2 (40g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">12:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Almoço</span><span class="lang-es">Almuerzo</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 4 (200g)</li>
+          <li><strong><span class="lang-pt">Arroz branco cozido</span><span class="lang-es">Arroz blanco cocido</span></strong> — 5 (225g)</li>
+          <li><strong><span class="lang-pt">Feijão cozido</span><span class="lang-es">Frijoles cocidos</span></strong> — 5 (175g)</li>
+          <li><strong><span class="lang-pt">Tomate / Alface</span><span class="lang-es">Tomate / Lechuga</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+          <li><strong><span class="lang-pt">Legumes cozidos</span><span class="lang-es">Verduras cocidas</span></strong> — 7 (210g)</li>
+          <li><strong><span class="lang-pt">Suco de laranja natural</span><span class="lang-es">Jugo de naranja natural</span></strong> — 1 <span class="lang-pt">copo cheio</span><span class="lang-es">vaso lleno</span> (200ml)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">15:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Lanche da tarde</span><span class="lang-es">Merienda</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Banana</span><span class="lang-es">Banana</span></strong> — 1 (55g)</li>
+          <li><strong><span class="lang-pt">Farelo de aveia</span><span class="lang-es">Salvado de avena</span></strong> — 4 (40g)</li>
+          <li><strong><span class="lang-pt">Pasta de amendoim</span><span class="lang-es">Mantequilla de maní</span></strong> — 3 (50g)</li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">19:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Jantar</span><span class="lang-es">Cena</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Filé de frango grelhado</span><span class="lang-es">Filete de pollo a la plancha</span></strong> — 4 (200g)</li>
+          <li><strong><span class="lang-pt">Arroz integral cozido</span><span class="lang-es">Arroz integral cocido</span></strong> — 4 (220g)</li>
+          <li><strong><span class="lang-pt">Feijão preto cozido</span><span class="lang-es">Frijoles negros cocidos</span></strong> — 5 (175g)</li>
+          <li><strong><span class="lang-pt">Cenoura cozida</span><span class="lang-es">Zanahoria cocida</span></strong> — 4 (100g)</li>
+          <li><strong><span class="lang-pt">Beterraba cozida</span><span class="lang-es">Remolacha cocida</span></strong> — 4 (100g)</li>
+          <li><strong><span class="lang-pt">Alface americana</span><span class="lang-es">Lechuga americana</span></strong> — <span class="lang-pt">à vontade</span><span class="lang-es">a voluntad</span></li>
+        </ul>
+      </div>
+      <div class="dt-meal">
+        <div class="dt-meal-head">
+          <div class="dt-meal-time">22:00</div>
+          <div class="dt-meal-name"><span class="lang-pt">Ceia</span><span class="lang-es">Antes de dormir</span></div>
+        </div>
+        <ul>
+          <li><strong><span class="lang-pt">Iogurte integral</span><span class="lang-es">Yogur entero</span></strong> — 200g</li>
+          <li><strong><span class="lang-pt">Granola</span><span class="lang-es">Granola</span></strong> — 5 (75g)</li>
+          <li><strong><span class="lang-pt">Aveia em flocos</span><span class="lang-es">Avena en hojuelas</span></strong> — 5 (75g)</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── Substituições ──────────────────────────────────────── -->
+  <section class="dt-sec" id="substituicoes">
+    <div class="dt-label">
+      <span class="lang-pt">Tabela de substituições</span>
+      <span class="lang-es">Tabla de sustituciones</span>
+    </div>
+    <h2 class="dt-h2">
+      <span class="lang-pt">Não tem? <span class="yl">Troque por isso</span></span>
+      <span class="lang-es">¿No tienes? <span class="yl">Cámbialo por esto</span></span>
+    </h2>
+    <p class="dt-h2-sub">
+      <span class="lang-pt">Mantém a mesma quantidade calórica e proteica equivalente.</span>
+      <span class="lang-es">Mantiene la misma cantidad calórica y proteica equivalente.</span>
+    </p>
+
+    <div class="dt-sub-card">
+      <div class="dt-sub-original">
+        <span class="lang-pt"><span class="yl">150g de filé de frango</span> pode virar:</span>
+        <span class="lang-es"><span class="yl">150g de filete de pollo</span> puede ser:</span>
+      </div>
+      <ul class="dt-sub-list">
+        <li><span class="lang-pt">180g de frango desfiado</span><span class="lang-es">180g de pollo desmenuzado</span></li>
+        <li><span class="lang-pt">95g de carne moída refogada</span><span class="lang-es">95g de carne molida salteada</span></li>
+        <li><span class="lang-pt">150g de bife grelhado</span><span class="lang-es">150g de bistec a la plancha</span></li>
+      </ul>
+    </div>
+    <div class="dt-sub-card">
+      <div class="dt-sub-original">
+        <span class="lang-pt"><span class="yl">100g de arroz branco</span> pode virar:</span>
+        <span class="lang-es"><span class="yl">100g de arroz blanco</span> puede ser:</span>
+      </div>
+      <ul class="dt-sub-list">
+        <li><span class="lang-pt">120g de arroz integral</span><span class="lang-es">120g de arroz integral</span></li>
+        <li><span class="lang-pt">100g de macarrão cozido</span><span class="lang-es">100g de pasta cocida</span></li>
+        <li><span class="lang-pt">140g de batata doce cozida</span><span class="lang-es">140g de batata cocida</span></li>
+        <li><span class="lang-pt">190g de batata inglesa cozida</span><span class="lang-es">190g de papa cocida</span></li>
+      </ul>
+    </div>
+    <div class="dt-sub-card">
+      <div class="dt-sub-original">
+        <span class="lang-pt"><span class="yl">70g de feijão</span> pode virar:</span>
+        <span class="lang-es"><span class="yl">70g de frijoles</span> puede ser:</span>
+      </div>
+      <ul class="dt-sub-list">
+        <li><span class="lang-pt">60g de lentilha cozida</span><span class="lang-es">60g de lenteja cocida</span></li>
+        <li><span class="lang-pt">60g de grão de bico cozido</span><span class="lang-es">60g de garbanzo cocido</span></li>
+      </ul>
+    </div>
+    <div class="dt-sub-card">
+      <div class="dt-sub-original">
+        <span class="lang-pt"><span class="yl">135g de mamão</span> pode virar:</span>
+        <span class="lang-es"><span class="yl">135g de papaya</span> puede ser:</span>
+      </div>
+      <ul class="dt-sub-list">
+        <li><span class="lang-pt">1 maçã</span><span class="lang-es">1 manzana</span></li>
+        <li><span class="lang-pt">2 kiwis</span><span class="lang-es">2 kiwis</span></li>
+        <li><span class="lang-pt">2 goiabas</span><span class="lang-es">2 guayabas</span></li>
+        <li><span class="lang-pt">140g de abacaxi</span><span class="lang-es">140g de piña</span></li>
+        <li><span class="lang-pt">25 morangos</span><span class="lang-es">25 fresas</span></li>
+        <li><span class="lang-pt">4 ameixas</span><span class="lang-es">4 ciruelas</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Dicas ──────────────────────────────────────────────── -->
+  <section class="dt-sec" id="dicas">
+    <div class="dt-label">
+      <span class="lang-pt">Dicas práticas</span>
+      <span class="lang-es">Tips prácticos</span>
+    </div>
+    <h2 class="dt-h2">
+      <span class="lang-pt">Pra <span class="yl">ganhar tempo</span> na rotina</span>
+      <span class="lang-es">Para <span class="yl">ahorrar tiempo</span> en tu rutina</span>
+    </h2>
+    <div class="dt-tips">
+      <div class="dt-tip">
+        <span class="lang-pt">Comprar saladas já lavadas pode ser mais prático pra rotina corrida — economiza tempo no preparo.</span>
+        <span class="lang-es">Comprar ensaladas ya lavadas puede ser más práctico para una rutina apurada — ahorra tiempo en la preparación.</span>
+      </div>
+      <div class="dt-tip">
+        <span class="lang-pt">Se você almoça em casa, faça feijão e lentilha em maior quantidade e congele em porções individuais. O mesmo vale pra frango desfiado e carne moída.</span>
+        <span class="lang-es">Si almuerzas en casa, haz frijoles y lentejas en mayor cantidad y congélalos en porciones individuales. Lo mismo vale para pollo desmenuzado y carne molida.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Suplementos ────────────────────────────────────────── -->
+  <section class="dt-sec" id="suplementos">
+    <div class="dt-label">
+      <span class="lang-pt">Suplementação</span>
+      <span class="lang-es">Suplementación</span>
+    </div>
+    <h2 class="dt-h2">
+      <span class="lang-pt">Os <span class="yl">essenciais</span> pra performance</span>
+      <span class="lang-es">Los <span class="yl">esenciales</span> para el rendimiento</span>
+    </h2>
+    <p class="dt-h2-sub">
+      <span class="lang-pt">Toque pra abrir cada suplemento e ver pra que serve e como tomar.</span>
+      <span class="lang-es">Toca para abrir cada suplemento y ver para qué sirve y cómo tomarlo.</span>
+    </p>
+
+    <div class="dt-supp">
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name"><span class="lang-pt">Creatina monohidratada</span><span class="lang-es">Creatina monohidratada</span></span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Dar preferência pra que tem o selo <strong>Creapure</strong></span><span class="lang-es">Dar preferencia a la que tiene el sello <strong>Creapure</strong></span></li>
+          <li><span class="lang-pt">Se comprar sem selo, escolher marcas confiáveis</span><span class="lang-es">Si compras sin sello, elige marcas confiables</span></li>
+          <li><span class="lang-pt">Consumir sempre com algum alimento</span><span class="lang-es">Consumir siempre con algún alimento</span></li>
+          <li><span class="lang-pt">Tomar <strong>TODOS os dias</strong>, independente se treinou ou não</span><span class="lang-es">Tomar <strong>TODOS los días</strong>, independiente si entrenó o no</span></li>
+          <li><span class="lang-pt">Não precisa ser sempre no mesmo horário</span><span class="lang-es">No tiene que ser siempre en el mismo horario</span></li>
+          <li><span class="lang-pt">Evita fadiga muscular</span><span class="lang-es">Evita la fatiga muscular</span></li>
+          <li><span class="lang-pt">Excelente para hipertrofia, força, disposição, cognição e potência muscular</span><span class="lang-es">Excelente para hipertrofia, fuerza, disposición, cognición y potencia muscular</span></li>
+        </ul></div></div>
+      </div>
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name"><span class="lang-pt">Whey Protein isolado</span><span class="lang-es">Whey Protein aislado</span></span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Proteína do soro do leite isolada</span><span class="lang-es">Proteína de suero de leche aislada</span></li>
+          <li><span class="lang-pt">Sem gordura e sem carboidrato — ideal pra quem está em dieta restritiva ou emagrecimento</span><span class="lang-es">Sin grasa y sin carbohidrato — ideal para quien está en dieta restrictiva o adelgazamiento</span></li>
+          <li><span class="lang-pt">Sem lactose e sem caseína — ideal pra intolerantes ou alérgicos</span><span class="lang-es">Sin lactosa y sin caseína — ideal para intolerantes o alérgicos</span></li>
+        </ul></div></div>
+      </div>
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name"><span class="lang-pt">Whey Protein concentrado</span><span class="lang-es">Whey Protein concentrado</span></span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Mais barato</span><span class="lang-es">Más barato</span></li>
+          <li><span class="lang-pt">Ideal pra quem está em processo de hipertrofia</span><span class="lang-es">Ideal para quien está en proceso de hipertrofia</span></li>
+          <li><span class="lang-pt">Tem lactose e caseína</span><span class="lang-es">Tiene lactosa y caseína</span></li>
+        </ul></div></div>
+      </div>
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name"><span class="lang-pt">Whey Protein (uso geral)</span><span class="lang-es">Whey Protein (uso general)</span></span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Após o treino, ajuda na construção de massa muscular</span><span class="lang-es">Después del entrenamiento, ayuda en la construcción de masa muscular</span></li>
+          <li><span class="lang-pt">Excelente pra atingir a quantidade ideal de proteína diária</span><span class="lang-es">Excelente para alcanzar la cantidad ideal de proteína diaria</span></li>
+          <li><span class="lang-pt">Pode esquentar e usar em receitas</span><span class="lang-es">Puede calentarse y usarse en recetas</span></li>
+          <li><span class="lang-pt">Máximo <strong>30g por vez</strong> (geralmente 2 scoops)</span><span class="lang-es">Máximo <strong>30g por vez</strong> (generalmente 2 scoops)</span></li>
+          <li><span class="lang-pt">Não tomar imediatamente antes do treino — diminui o desempenho</span><span class="lang-es">No tomar inmediatamente antes del entrenamiento — disminuye el rendimiento</span></li>
+        </ul></div></div>
+      </div>
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name">BCAA</span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Auxilia síntese e concentração de proteínas no organismo</span><span class="lang-es">Ayuda síntesis y concentración de proteínas en el organismo</span></li>
+          <li><span class="lang-pt">Pode auxiliar o sistema imunológico</span><span class="lang-es">Puede ayudar al sistema inmunológico</span></li>
+          <li><span class="lang-pt">Evita fadiga muscular</span><span class="lang-es">Evita la fatiga muscular</span></li>
+          <li><span class="lang-pt">Aumenta o desempenho físico em altas temperaturas</span><span class="lang-es">Aumenta el rendimiento físico en altas temperaturas</span></li>
+          <li><span class="lang-pt"><strong>Atenção:</strong> 2 ovos contêm 1 dose de BCAA. Não gaste dinheiro com esse suplemento a não ser que coma MUITO mal.</span><span class="lang-es"><strong>Atención:</strong> 2 huevos contienen 1 dosis de BCAA. No gastes dinero en este suplemento a no ser que comas MUY mal.</span></li>
+        </ul></div></div>
+      </div>
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name">L-Carnitina</span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Provoca oxidação de gordura durante o exercício e poupa glicogênio muscular</span><span class="lang-es">Provoca oxidación de grasa durante el ejercicio y ahorra glucógeno muscular</span></li>
+          <li><span class="lang-pt">Reduz fadiga</span><span class="lang-es">Reduce fatiga</span></li>
+          <li><span class="lang-pt">Auxilia recuperação celular após o treino</span><span class="lang-es">Ayuda recuperación celular después del entrenamiento</span></li>
+          <li><span class="lang-pt">Ajuda na queima de gordura</span><span class="lang-es">Ayuda en la quema de grasa</span></li>
+          <li><span class="lang-pt">Consumir <strong>antes do treino</strong></span><span class="lang-es">Consumir <strong>antes del entrenamiento</strong></span></li>
+          <li><span class="lang-pt">Reduz dano tecidual e evita lesões musculares</span><span class="lang-es">Reduce daño tisular y evita lesiones musculares</span></li>
+        </ul></div></div>
+      </div>
+
+      <div class="dt-supp-item">
+        <button class="dt-supp-head">
+          <span class="dt-supp-name">Glutamina</span>
+          <span class="dt-supp-ico">+</span>
+        </button>
+        <div class="dt-supp-body"><div class="dt-supp-body-inner"><ul>
+          <li><span class="lang-pt">Manutenção da imunidade</span><span class="lang-es">Mantenimiento de la inmunidad</span></li>
+          <li><span class="lang-pt">Melhora regulação e microbiota intestinal</span><span class="lang-es">Mejora regulación y microbiota intestinal</span></li>
+          <li><span class="lang-pt">Auxilia recuperação muscular</span><span class="lang-es">Ayuda recuperación muscular</span></li>
+        </ul></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Proteína por dia ───────────────────────────────────── -->
+  <section class="dt-sec" id="proteina">
+    <div class="dt-label">
+      <span class="lang-pt">Proteína por dia</span>
+      <span class="lang-es">Proteína por día</span>
+    </div>
+    <h2 class="dt-h2">
+      <span class="lang-pt">Quanta proteína <span class="yl">você precisa?</span></span>
+      <span class="lang-es">¿Cuánta proteína <span class="yl">necesitas?</span></span>
+    </h2>
+    <p class="dt-h2-sub">
+      <span class="lang-pt">Coloque seu peso pra ver a faixa por perfil. É uma estimativa geral — cada pessoa é única.</span>
+      <span class="lang-es">Pon tu peso para ver el rango por perfil. Es una estimación general — cada persona es única.</span>
+    </p>
+
+    <div class="dt-calc">
+      <div class="dt-calc-row">
+        <label for="dt-peso2">
+          <span class="lang-pt">Peso atual</span>
+          <span class="lang-es">Peso actual</span>
+        </label>
+        <input type="number" id="dt-peso2" class="dt-input" placeholder="Ex: 75" min="30" max="200" step="0.1" inputmode="decimal" />
+      </div>
+    </div>
+
+    <div class="dt-prot" style="margin-top:14px">
+      <div class="dt-prot-row">
+        <div class="dt-prot-label">
+          <span class="lang-pt">Sedentário ou pouco ativo</span>
+          <span class="lang-es">Sedentario o poco activo</span>
+        </div>
+        <div class="dt-prot-value" id="dt-prot-low">— g/<span class="lang-pt">dia</span><span class="lang-es">día</span></div>
+      </div>
+      <div class="dt-prot-row">
+        <div class="dt-prot-label">
+          <span class="lang-pt">Atividade moderada</span>
+          <span class="lang-es">Actividad moderada</span>
+        </div>
+        <div class="dt-prot-value" id="dt-prot-mid">— g/<span class="lang-pt">dia</span><span class="lang-es">día</span></div>
+      </div>
+      <div class="dt-prot-row">
+        <div class="dt-prot-label">
+          <span class="lang-pt">Atividade intensa</span>
+          <span class="lang-es">Actividad intensa</span>
+        </div>
+        <div class="dt-prot-value" id="dt-prot-high">— g/<span class="lang-pt">dia</span><span class="lang-es">día</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="dt-foot">
+    <div class="dt-foot-title">
+      <span class="lang-pt">Guia em parceria com a NCS Saúde</span>
+      <span class="lang-es">Guía en colaboración con NCS Saúde</span>
+    </div>
+    <div class="dt-foot-team">
+      <div class="dt-foot-person">
+        <strong>Pedro Ferreira</strong>
+        <span class="lang-pt">Personal Trainer</span><span class="lang-es">Entrenador Personal</span><br>
+        <a href="https://instagram.com/pt.pedroferreira" target="_blank" rel="noopener">@pt.pedroferreira</a>
+      </div>
+      <div class="dt-foot-person">
+        <strong>Larissa Welc</strong>
+        <span class="lang-pt">Nutricionista</span><span class="lang-es">Nutricionista</span><br>
+        <a href="https://instagram.com/lariwelc" target="_blank" rel="noopener">@lariwelc</a>
+      </div>
+    </div>
+    <p class="dt-foot-copy">
+      <span class="lang-pt">© 2026 Goleiro de Elite · Todos os direitos reservados</span>
+      <span class="lang-es">© 2026 Goleiro de Elite · Todos los derechos reservados</span>
+    </p>
+  </footer>
+
+</main>
+
+<script is:inline>
+  // Aplica idioma salvo ANTES do paint para evitar flash
+  (function() {
+    const saved = localStorage.getItem('dieta-lang');
+    const lang = saved === 'es' ? 'es' : 'pt';
+    document.documentElement.setAttribute('data-lang', lang);
+  })();
+</script>
+<script>
+  // ── Lang switch ────────────────────────────────────────────
+  document.querySelectorAll('[data-set-lang]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.setLang;
+      document.documentElement.setAttribute('data-lang', lang);
+      try { localStorage.setItem('dieta-lang', lang); } catch {}
+    });
+  });
+
+  // ── Calculadora TMB ────────────────────────────────────────
+  const peso = document.getElementById('dt-peso');
+  const radios = document.querySelectorAll('input[name="dt-atv"]');
+  const tmbEl = document.getElementById('dt-tmb');
+  const cutEl = document.getElementById('dt-cut');
+  const maintEl = document.getElementById('dt-maint');
+  const bulkEl = document.getElementById('dt-bulk');
+
+  function fmt(n) {
+    const lang = document.documentElement.getAttribute('data-lang') || 'pt';
+    return n.toLocaleString(lang === 'es' ? 'es' : 'pt-BR');
+  }
+  function calcTMB() {
+    const p = parseFloat(peso.value);
+    if (!isFinite(p) || p <= 0) {
+      tmbEl.textContent = '—';
+      cutEl.textContent = maintEl.textContent = bulkEl.textContent = '—';
+      return;
+    }
+    let mult = 1;
+    radios.forEach(r => { if (r.checked) mult = parseFloat(r.value); });
+    const tmbBasal = (0.063 * p + 2.896) * 239;
+    const total = Math.round(tmbBasal * mult);
+    tmbEl.textContent = fmt(total);
+    cutEl.textContent = fmt(Math.round(total * 0.85));
+    maintEl.textContent = fmt(total);
+    bulkEl.textContent = fmt(Math.round(total * 1.15));
+  }
+  peso.addEventListener('input', calcTMB);
+  radios.forEach(r => r.addEventListener('change', calcTMB));
+
+  // ── Tabs ───────────────────────────────────────────────────
+  document.querySelectorAll('.dt-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.menu;
+      document.querySelectorAll('.dt-tab').forEach(t => t.classList.toggle('is-active', t === tab));
+      document.querySelectorAll('.dt-menu').forEach(m => {
+        m.classList.toggle('is-active', m.dataset.menu === target);
+      });
+    });
+  });
+
+  // ── Accordion ──────────────────────────────────────────────
+  document.querySelectorAll('.dt-supp-head').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const body = btn.nextElementSibling;
+      const isOpen = item.classList.contains('is-open');
+      document.querySelectorAll('.dt-supp-item.is-open').forEach(it => {
+        if (it !== item) {
+          it.classList.remove('is-open');
+          it.querySelector('.dt-supp-body').style.maxHeight = null;
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('is-open');
+        body.style.maxHeight = null;
+      } else {
+        item.classList.add('is-open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Calculadora de proteína ────────────────────────────────
+  const peso2 = document.getElementById('dt-peso2');
+  const protLow = document.getElementById('dt-prot-low');
+  const protMid = document.getElementById('dt-prot-mid');
+  const protHigh = document.getElementById('dt-prot-high');
+
+  function calcProt() {
+    const p = parseFloat(peso2.value);
+    const lang = document.documentElement.getAttribute('data-lang') || 'pt';
+    const day = lang === 'es' ? 'día' : 'dia';
+    if (!isFinite(p) || p <= 0) {
+      protLow.innerHTML = `— g/<span>${day}</span>`;
+      protMid.innerHTML = `— g/<span>${day}</span>`;
+      protHigh.innerHTML = `— g/<span>${day}</span>`;
+      return;
+    }
+    protLow.innerHTML = `${Math.round(p * 0.8)} g/<span>${day}</span>`;
+    protMid.innerHTML = `${Math.round(p * 1.2)} – ${Math.round(p * 1.4)} g/<span>${day}</span>`;
+    protHigh.innerHTML = `${Math.round(p * 1.2)} – ${Math.round(p * 1.7)} g/<span>${day}</span>`;
+  }
+  peso2.addEventListener('input', calcProt);
+</script>
+</Base>
