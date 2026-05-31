@@ -183,11 +183,86 @@ html[data-lang="es"] .dt-lang button[data-set-lang="es"] {
   border-radius: 18px;
   padding: 24px;
 }
+.dt-calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+  margin-bottom: 18px;
+}
 .dt-calc-row {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 18px;
+}
+.dt-calc-grid .dt-calc-row { margin-bottom: 0; }
+.dt-sex {
+  display: flex;
+  gap: 6px;
+}
+.dt-sex label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+.dt-sex label:has(input:checked) {
+  border-color: rgba(244,180,0,.45);
+  background: rgba(244,180,0,.06);
+  color: var(--yellow);
+}
+.dt-sex input { display: none; }
+.dt-btn-recommend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  box-shadow: 0 12px 32px rgba(244,180,0,.28);
+  border: none;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: opacity .15s, transform .2s, box-shadow .3s;
+}
+.dt-btn-recommend:hover:not(:disabled) {
+  opacity: .95;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(244,180,0,.45);
+}
+.dt-btn-recommend:disabled {
+  opacity: .25;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.dt-tab.is-recommend {
+  animation: tabPulse 1.6s ease-out 2;
+}
+@keyframes tabPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244,180,0,.5); }
+  50% { box-shadow: 0 0 0 8px rgba(244,180,0,0); }
 }
 .dt-calc-row label {
   font-family: 'Barlow Condensed', sans-serif;
@@ -682,21 +757,48 @@ html[data-lang="es"] .dt-lang button[data-set-lang="es"] {
       <span class="lang-es">Cálculo de calorías</span>
     </div>
     <h2 class="dt-h2">
-      <span class="lang-pt">Quantas calorias você <span class="yl">gasta por dia?</span></span>
-      <span class="lang-es">¿Cuántas calorías <span class="yl">quemas por día?</span></span>
+      <span class="lang-pt">Descubra seu <span class="yl">gasto diário</span></span>
+      <span class="lang-es">Descubre tu <span class="yl">gasto diario</span></span>
     </h2>
     <p class="dt-h2-sub">
-      <span class="lang-pt">Coloque seu peso e seu nível de atividade física. A calculadora usa a fórmula da Taxa Metabólica Basal (TMB).</span>
-      <span class="lang-es">Pon tu peso y tu nivel de actividad física. La calculadora usa la fórmula de la Tasa Metabólica Basal (TMB).</span>
+      <span class="lang-pt">Preencha os dados abaixo. Usamos a fórmula Mifflin-St Jeor (a mais precisa para adultos saudáveis) e indicamos o cardápio ideal pra você.</span>
+      <span class="lang-es">Completa los datos abajo. Usamos la fórmula Mifflin-St Jeor (la más precisa para adultos saludables) e indicamos el menú ideal para ti.</span>
     </p>
 
     <div class="dt-calc">
-      <div class="dt-calc-row">
-        <label for="dt-peso">
-          <span class="lang-pt">Peso atual</span>
-          <span class="lang-es">Peso actual</span>
-        </label>
-        <input type="number" id="dt-peso" class="dt-input" placeholder="Ex: 75" min="30" max="200" step="0.1" inputmode="decimal" />
+
+      <div class="dt-calc-grid">
+        <div class="dt-calc-row">
+          <label for="dt-peso">
+            <span class="lang-pt">Peso (kg)</span>
+            <span class="lang-es">Peso (kg)</span>
+          </label>
+          <input type="number" id="dt-peso" class="dt-input" placeholder="75" min="30" max="200" step="0.1" inputmode="decimal" />
+        </div>
+        <div class="dt-calc-row">
+          <label for="dt-altura">
+            <span class="lang-pt">Altura (cm)</span>
+            <span class="lang-es">Altura (cm)</span>
+          </label>
+          <input type="number" id="dt-altura" class="dt-input" placeholder="178" min="120" max="220" step="1" inputmode="numeric" />
+        </div>
+        <div class="dt-calc-row">
+          <label for="dt-idade">
+            <span class="lang-pt">Idade</span>
+            <span class="lang-es">Edad</span>
+          </label>
+          <input type="number" id="dt-idade" class="dt-input" placeholder="22" min="12" max="80" step="1" inputmode="numeric" />
+        </div>
+        <div class="dt-calc-row">
+          <label>
+            <span class="lang-pt">Sexo</span>
+            <span class="lang-es">Sexo</span>
+          </label>
+          <div class="dt-sex">
+            <label><input type="radio" name="dt-sexo" value="h" checked /><span class="lang-pt">Homem</span><span class="lang-es">Hombre</span></label>
+            <label><input type="radio" name="dt-sexo" value="m" /><span class="lang-pt">Mulher</span><span class="lang-es">Mujer</span></label>
+          </div>
+        </div>
       </div>
 
       <div class="dt-calc-row">
@@ -706,24 +808,29 @@ html[data-lang="es"] .dt-lang button[data-set-lang="es"] {
         </label>
         <div class="dt-radio">
           <label class="dt-radio-opt">
-            <input type="radio" name="dt-atv" value="1" />
+            <input type="radio" name="dt-atv" value="1.2" />
             <span><span class="lang-pt">Sedentário</span><span class="lang-es">Sedentario</span></span>
             <em><span class="lang-pt">sem treino</span><span class="lang-es">sin entreno</span></em>
           </label>
           <label class="dt-radio-opt">
-            <input type="radio" name="dt-atv" value="1.5" checked />
+            <input type="radio" name="dt-atv" value="1.375" checked />
             <span><span class="lang-pt">Leve</span><span class="lang-es">Ligera</span></span>
             <em><span class="lang-pt">treina 2-3×/sem</span><span class="lang-es">entrena 2-3×/sem</span></em>
           </label>
           <label class="dt-radio-opt">
-            <input type="radio" name="dt-atv" value="1.8" />
+            <input type="radio" name="dt-atv" value="1.55" />
             <span><span class="lang-pt">Moderada</span><span class="lang-es">Moderada</span></span>
             <em><span class="lang-pt">treina 4-5×/sem</span><span class="lang-es">entrena 4-5×/sem</span></em>
           </label>
           <label class="dt-radio-opt">
-            <input type="radio" name="dt-atv" value="2.1" />
+            <input type="radio" name="dt-atv" value="1.725" />
             <span><span class="lang-pt">Intensa</span><span class="lang-es">Intensa</span></span>
             <em><span class="lang-pt">treina diário + jogo</span><span class="lang-es">diario + partido</span></em>
+          </label>
+          <label class="dt-radio-opt">
+            <input type="radio" name="dt-atv" value="1.9" />
+            <span><span class="lang-pt">Muito intensa</span><span class="lang-es">Muy intensa</span></span>
+            <em><span class="lang-pt">2× por dia / atleta</span><span class="lang-es">2× al día / atleta</span></em>
           </label>
         </div>
       </div>
@@ -773,6 +880,10 @@ html[data-lang="es"] .dt-lang button[data-set-lang="es"] {
           <span class="lang-pt">Pra emagrecer, coma <strong>menos do que gasta</strong>. Pra manter, coma <strong>o mesmo</strong>. Pra ganhar massa, coma <strong>mais</strong> — mas só funciona com treino de força.</span>
           <span class="lang-es">Para adelgazar, come <strong>menos de lo que gastas</strong>. Para mantener, come <strong>lo mismo</strong>. Para ganar masa, come <strong>más</strong> — pero solo funciona con entrenamiento de fuerza.</span>
         </p>
+        <button type="button" id="dt-go-menu" class="dt-btn-recommend" disabled>
+          <span class="lang-pt">Ver meu cardápio recomendado →</span>
+          <span class="lang-es">Ver mi menú recomendado →</span>
+        </button>
       </div>
     </div>
   </section>
@@ -1381,36 +1492,80 @@ html[data-lang="es"] .dt-lang button[data-set-lang="es"] {
     });
   });
 
-  // ── Calculadora TMB ────────────────────────────────────────
+  // ── Calculadora Mifflin-St Jeor ─────────────────────────────
   const peso = document.getElementById('dt-peso');
-  const radios = document.querySelectorAll('input[name="dt-atv"]');
+  const altura = document.getElementById('dt-altura');
+  const idade = document.getElementById('dt-idade');
+  const sexoRadios = document.querySelectorAll('input[name="dt-sexo"]');
+  const atvRadios = document.querySelectorAll('input[name="dt-atv"]');
   const tmbEl = document.getElementById('dt-tmb');
   const cutEl = document.getElementById('dt-cut');
   const maintEl = document.getElementById('dt-maint');
   const bulkEl = document.getElementById('dt-bulk');
+  const goMenuBtn = document.getElementById('dt-go-menu');
+
+  let lastTotal = 0;
 
   function fmt(n) {
     const lang = document.documentElement.getAttribute('data-lang') || 'pt';
     return n.toLocaleString(lang === 'es' ? 'es' : 'pt-BR');
   }
+  function pickMenuKcal(total) {
+    // Cardápios disponíveis: 1700 / 2200 / 2900 / 4200
+    if (total < 1950) return 1700;
+    if (total < 2550) return 2200;
+    if (total < 3550) return 2900;
+    return 4200;
+  }
   function calcTMB() {
     const p = parseFloat(peso.value);
-    if (!isFinite(p) || p <= 0) {
+    const h = parseFloat(altura.value);
+    const a = parseFloat(idade.value);
+    let sexo = 'h';
+    sexoRadios.forEach(r => { if (r.checked) sexo = r.value; });
+    let mult = 1.375;
+    atvRadios.forEach(r => { if (r.checked) mult = parseFloat(r.value); });
+
+    if (!isFinite(p) || p <= 0 || !isFinite(h) || h <= 0 || !isFinite(a) || a <= 0) {
       tmbEl.textContent = '—';
       cutEl.textContent = maintEl.textContent = bulkEl.textContent = '—';
+      lastTotal = 0;
+      goMenuBtn.disabled = true;
       return;
     }
-    let mult = 1;
-    radios.forEach(r => { if (r.checked) mult = parseFloat(r.value); });
-    const tmbBasal = (0.063 * p + 2.896) * 239;
+    // Mifflin-St Jeor: 10*peso + 6.25*altura - 5*idade + (5 H | -161 M)
+    const tmbBasal = 10 * p + 6.25 * h - 5 * a + (sexo === 'h' ? 5 : -161);
     const total = Math.round(tmbBasal * mult);
+    lastTotal = total;
     tmbEl.textContent = fmt(total);
     cutEl.textContent = fmt(Math.round(total * 0.85));
     maintEl.textContent = fmt(total);
     bulkEl.textContent = fmt(Math.round(total * 1.15));
+    goMenuBtn.disabled = false;
   }
-  peso.addEventListener('input', calcTMB);
-  radios.forEach(r => r.addEventListener('change', calcTMB));
+  [peso, altura, idade].forEach(el => el.addEventListener('input', calcTMB));
+  [...sexoRadios, ...atvRadios].forEach(r => r.addEventListener('change', calcTMB));
+
+  // ── Botão "Ver meu cardápio" ──────────────────────────────
+  goMenuBtn.addEventListener('click', () => {
+    if (!lastTotal) return;
+    const target = String(pickMenuKcal(lastTotal));
+    // Ativa a tab
+    document.querySelectorAll('.dt-tab').forEach(t => {
+      const isMatch = t.dataset.menu === target;
+      t.classList.toggle('is-active', isMatch);
+      t.classList.toggle('is-recommend', isMatch);
+    });
+    document.querySelectorAll('.dt-menu').forEach(m => {
+      m.classList.toggle('is-active', m.dataset.menu === target);
+    });
+    // Scrolla pra seção
+    document.getElementById('cardapios').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Remove animação após
+    setTimeout(() => {
+      document.querySelectorAll('.dt-tab.is-recommend').forEach(t => t.classList.remove('is-recommend'));
+    }, 3500);
+  });
 
   // ── Tabs ───────────────────────────────────────────────────
   document.querySelectorAll('.dt-tab').forEach(tab => {
