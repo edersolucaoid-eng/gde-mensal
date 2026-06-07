@@ -28,13 +28,13 @@ const depoimentos = [
 
 // Provas sociais (prints) — carrossel abaixo dos depoimentos
 const provas = [
-  { src: '/images/prova-compra.jpeg',        w: 942,  h: 1580, alt: 'Print de aluno: "foi a minha melhor compra"' },
-  { src: '/images/prova-antesdepois-1.jpeg', w: 3556, h: 3556, alt: 'Antes e depois de aluno do Sistema Goleiro de Elite' },
-  { src: '/images/prova-wagner.jpeg',        w: 730,  h: 1580, alt: 'Depoimento do aluno Wagner' },
-  { src: '/images/prova-antesdepois-2.jpeg', w: 1164, h: 1238, alt: 'Evolução física de aluno' },
-  { src: '/images/prova-crianca.jpeg',       w: 730,  h: 1580, alt: 'Depoimento de aluno da categoria de base' },
-  { src: '/images/prova-antesdepois-3.jpeg', w: 711,  h: 1580, alt: 'Antes e depois de aluno' },
-  { src: '/images/prova-msg.jpeg',           w: 711,  h: 1580, alt: 'Mensagem de aluno satisfeito' },
+  { src: '/images/prova-compra.webp',        w: 942,  h: 1580, alt: 'Print de aluno: "foi a minha melhor compra"' },
+  { src: '/images/prova-antesdepois-1.webp', w: 1080, h: 1080, alt: 'Antes e depois de aluno do Sistema Goleiro de Elite' },
+  { src: '/images/prova-wagner.webp',        w: 730,  h: 1580, alt: 'Depoimento do aluno Wagner' },
+  { src: '/images/prova-antesdepois-2.webp', w: 1080, h: 1149, alt: 'Evolução física de aluno' },
+  { src: '/images/prova-crianca.webp',       w: 730,  h: 1580, alt: 'Depoimento de aluno da categoria de base' },
+  { src: '/images/prova-antesdepois-3.webp', w: 711,  h: 1580, alt: 'Antes e depois de aluno' },
+  { src: '/images/prova-msg.webp',           w: 711,  h: 1580, alt: 'Mensagem de aluno satisfeito' },
 ];
 
 // O que você recebe
@@ -662,26 +662,27 @@ const faq = [
   /* carrossel de prints */
   .sge-carousel-wrap { position: relative; }
   .sge-carousel {
-    display: flex; gap: 14px;
+    display: flex; gap: 16px;
+    align-items: center;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 4px 2px 14px;
+    padding: 4px 2px 16px;
     scrollbar-width: none;
   }
   .sge-carousel::-webkit-scrollbar { display: none; }
+  /* largura fixa, altura livre → imagem inteira, sem cortes */
   .sge-slide {
     flex: 0 0 auto;
     scroll-snap-align: center;
-    height: 360px;
+    width: min(84vw, 360px);
     margin: 0;
     border: 1px solid var(--border);
     border-radius: 14px;
     background: var(--bg2);
     overflow: hidden;
-    display: grid; place-items: center;
   }
-  .sge-slide img { height: 100%; width: auto; max-width: none; display: block; }
+  .sge-slide img { width: 100%; height: auto; display: block; }
   /* setas (desktop) */
   .sge-car-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
@@ -699,7 +700,7 @@ const faq = [
   .sge-proof-note { font-size: .82rem; color: var(--muted); text-align: center; margin-top: 12px; }
 
   @media (min-width: 720px) {
-    .sge-slide { height: 440px; }
+    .sge-slide { width: 400px; }
     .sge-car-arrow { display: flex; }
   }
 
