@@ -26,6 +26,17 @@ const depoimentos = [
   { nome: 'Aluno da Consultoria', txt: 'Foi a melhor compra em termos de assistência ao cliente que eu já fiz.' },
 ];
 
+// Provas sociais (prints) — carrossel abaixo dos depoimentos
+const provas = [
+  { src: '/images/prova-compra.jpeg',        w: 942,  h: 1580, alt: 'Print de aluno: "foi a minha melhor compra"' },
+  { src: '/images/prova-antesdepois-1.jpeg', w: 3556, h: 3556, alt: 'Antes e depois de aluno do Sistema Goleiro de Elite' },
+  { src: '/images/prova-wagner.jpeg',        w: 730,  h: 1580, alt: 'Depoimento do aluno Wagner' },
+  { src: '/images/prova-antesdepois-2.jpeg', w: 1164, h: 1238, alt: 'Evolução física de aluno' },
+  { src: '/images/prova-crianca.jpeg',       w: 730,  h: 1580, alt: 'Depoimento de aluno da categoria de base' },
+  { src: '/images/prova-antesdepois-3.jpeg', w: 711,  h: 1580, alt: 'Antes e depois de aluno' },
+  { src: '/images/prova-msg.jpeg',           w: 711,  h: 1580, alt: 'Mensagem de aluno satisfeito' },
+];
+
 // O que você recebe
 const entregaveis = [
   { i: '📋', t: 'Plano de Treino Personalizado', d: 'Construído para a sua realidade.' },
@@ -239,13 +250,19 @@ const faq = [
         ))}
       </div>
 
-      <!-- Área para prints / imagens de resultados -->
-      <div class="sge-proof-gallery">
-        <div class="sge-proof-ph"><span>📸</span>Print de resultado</div>
-        <div class="sge-proof-ph"><span>📸</span>Print de resultado</div>
-        <div class="sge-proof-ph"><span>📸</span>Print de resultado</div>
+      <!-- Carrossel de prints reais (conversas + evolução) -->
+      <div class="sge-carousel-wrap">
+        <button class="sge-car-arrow sge-car-arrow--prev" data-dir="-1" aria-label="Ver anterior">‹</button>
+        <div class="sge-carousel" id="sge-provas">
+          {provas.map((p) => (
+            <figure class="sge-slide">
+              <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
+        <button class="sge-car-arrow sge-car-arrow--next" data-dir="1" aria-label="Ver próximo">›</button>
       </div>
-      <p class="sge-proof-note">Espaço reservado para prints de conversas e fotos de evolução dos alunos.</p>
+      <p class="sge-proof-note">Prints reais de conversas e evolução de alunos · arraste para ver mais →</p>
     </section>
 
     <!-- ============================================================
@@ -642,23 +659,49 @@ const faq = [
     color: #1a1303; font-weight: 800;
   }
 
-  /* placeholder de prints */
-  .sge-proof-gallery {
-    display: grid; gap: 12px;
-    grid-template-columns: repeat(3, 1fr);
+  /* carrossel de prints */
+  .sge-carousel-wrap { position: relative; }
+  .sge-carousel {
+    display: flex; gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 2px 14px;
+    scrollbar-width: none;
   }
-  .sge-proof-ph {
-    aspect-ratio: 3/4;
-    border: 1px dashed var(--border);
-    border-radius: 12px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-    color: var(--muted);
-    font-size: .78rem; text-transform: uppercase; letter-spacing: .05em;
+  .sge-carousel::-webkit-scrollbar { display: none; }
+  .sge-slide {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    height: 360px;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
     background: var(--bg2);
-    text-align: center; padding: 8px;
+    overflow: hidden;
+    display: grid; place-items: center;
   }
-  .sge-proof-ph span { font-size: 1.6rem; }
+  .sge-slide img { height: 100%; width: auto; max-width: none; display: block; }
+  /* setas (desktop) */
+  .sge-car-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 3;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(13,15,18,.92); border: 1px solid var(--border);
+    color: var(--gold); font-size: 1.7rem; line-height: 1;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    transition: border-color .15s, background .15s;
+  }
+  .sge-car-arrow:hover { border-color: var(--gold); background: var(--card2); }
+  .sge-car-arrow--prev { left: -8px; }
+  .sge-car-arrow--next { right: -8px; }
   .sge-proof-note { font-size: .82rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+  @media (min-width: 720px) {
+    .sge-slide { height: 440px; }
+    .sge-car-arrow { display: flex; }
+  }
 
   /* ── ENTREGÁVEIS ── */
   .sge-deliv {
@@ -835,6 +878,15 @@ const faq = [
     }, { threshold: 0 });
     floatObs.observe(finalCta);
   }
+
+  // Carrossel de provas — setas (desktop)
+  document.querySelectorAll<HTMLButtonElement>('.sge-car-arrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const track = btn.closest('.sge-carousel-wrap')?.querySelector<HTMLElement>('.sge-carousel');
+      if (!track) return;
+      track.scrollBy({ left: Number(btn.dataset.dir) * Math.round(track.clientWidth * 0.8), behavior: 'smooth' });
+    });
+  });
 
   // FAQ acordeão (abre um, fecha os outros)
   document.querySelectorAll<HTMLButtonElement>('.sge-faq-q').forEach((btn) => {
