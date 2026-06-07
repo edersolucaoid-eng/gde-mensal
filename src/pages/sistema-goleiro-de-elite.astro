@@ -49,7 +49,7 @@ const faq = [
 
 <Base
   title="Sistema Goleiro de Elite™ | Preparação Física Específica para Goleiros"
-  heroImage="/images/hero-bg.webp"
+  heroImage="/images/goleiro_de_elite_hero.webp"
 >
   <main class="sge">
 
@@ -57,10 +57,18 @@ const faq = [
          1 — HERO
     ============================================================ -->
     <section class="sge-hero">
-      <div class="sge-hero-bg"></div>
-      <div class="sge-hero-grid"></div>
+      <!-- Banner do programa (substitui o texto eyebrow) -->
+      <div class="sge-hero-media">
+        <img
+          src="/images/goleiro_de_elite_hero.webp"
+          alt="Sistema Goleiro de Elite — preparação física específica para goleiros"
+          width="1536" height="1024"
+          fetchpriority="high" decoding="async"
+          class="sge-hero-img"
+        />
+        <div class="sge-hero-fade"></div>
+      </div>
       <div class="sge-hero-inner">
-        <span class="sge-eyebrow">Sistema Goleiro de Elite™</span>
         <h1 class="sge-hero-h1">
           Volte a confiar no seu corpo dentro do gol <span class="sge-hl">antes que mais uma temporada termine</span> com a sensação de que você poderia ter feito mais.
         </h1>
@@ -356,47 +364,38 @@ const faq = [
   /* ── HERO ── */
   .sge-hero {
     position: relative;
-    min-height: 92vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
-    padding: 80px 20px 60px;
+    padding: 0 20px 56px;
     overflow: hidden;
   }
-  .sge-hero-bg {
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg, rgba(8,9,11,.55) 0%, rgba(8,9,11,.82) 55%, var(--bg) 100%),
-      url('/images/hero-bg.webp') center/cover no-repeat;
-    transform: scale(1.05);
-    z-index: 0;
+  /* banner do programa no topo */
+  .sge-hero-media {
+    position: relative;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    max-width: 920px;
   }
-  /* linhas de campo / grade tática */
-  .sge-hero-grid {
-    position: absolute; inset: 0; z-index: 1;
-    background-image:
-      linear-gradient(rgba(232,185,90,.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232,185,90,.05) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+  .sge-hero-img {
+    width: 100%; height: auto; display: block;
+    animation: sgeUp .8s ease both;
+  }
+  /* degradê na base da imagem para fundir com o fundo */
+  .sge-hero-fade {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    height: 38%;
+    background: linear-gradient(180deg, transparent 0%, rgba(8,9,11,.55) 55%, var(--bg) 100%);
     pointer-events: none;
   }
   .sge-hero-inner {
     position: relative; z-index: 2;
     max-width: 760px;
+    /* headline sobrepõe levemente a base da imagem */
+    margin-top: -42px;
     display: flex; flex-direction: column; align-items: center;
-    animation: sgeUp .8s ease both;
-  }
-  .sge-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
-    color: var(--gold);
-    padding: 7px 16px;
-    border: 1px solid rgba(232,185,90,.35);
-    border-radius: 100px;
-    background: rgba(232,185,90,.06);
-    margin-bottom: 26px;
+    animation: sgeUp .8s .1s ease both;
   }
   .sge-hero-h1 {
     font-family: 'Barlow Condensed', sans-serif;
@@ -807,6 +806,8 @@ const faq = [
 
   /* ── RESPONSIVO (desktop) ── */
   @media (min-width: 720px) {
+    .sge-hero { padding-bottom: 64px; }
+    .sge-hero-inner { margin-top: -64px; }
     .sge-pillars { grid-template-columns: repeat(2, 1fr); }
     .sge-pillars .sge-pillar:nth-child(5) { grid-column: 1 / -1; }
     .sge-testis { grid-template-columns: repeat(3, 1fr); }
