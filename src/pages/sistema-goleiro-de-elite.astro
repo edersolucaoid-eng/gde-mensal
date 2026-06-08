@@ -112,34 +112,37 @@ const faq = [
          2 — A DOR
     ============================================================ -->
     <section class="sge-sec sge-pain reveal">
-      <span class="sge-tag">A bola</span>
-      <h2 class="sge-h2">Você sabe exatamente qual foi a bola.</h2>
-      <p class="sge-lead">
-        Não foi a impossível.<br />
-        Não foi a que entrou no ângulo.<br />
-        Foi aquela que você <em>quase</em> chegou.
-      </p>
-      <p class="sge-lead">
-        Aquela que raspou na ponta dos dedos.<br />
-        Aquela que ficou voltando na sua cabeça durante o caminho para casa.
-      </p>
+      <span class="sge-bignum sge-bignum--pain" aria-hidden="true">0,5<small>s</small></span>
+      <div class="sge-pain-body">
+        <span class="sge-tag">A bola</span>
+        <h2 class="sge-h2">Você sabe exatamente qual foi a bola.</h2>
+        <p class="sge-lead">
+          Não foi a impossível.<br />
+          Não foi a que entrou no ângulo.<br />
+          Foi aquela que você <em>quase</em> chegou.
+        </p>
+        <p class="sge-lead">
+          Aquela que raspou na ponta dos dedos.<br />
+          Aquela que ficou voltando na sua cabeça durante o caminho para casa.
+        </p>
 
-      <div class="sge-quote">“Dava para ter pego.”</div>
+        <div class="sge-quote">“Dava para ter pego.”</div>
 
-      <p class="sge-body">
-        Não porque faltou vontade.<br />
-        Não porque faltou comprometimento.<br />
-        Mas porque seu corpo não respondeu como deveria.
-      </p>
+        <p class="sge-body">
+          Não porque faltou vontade.<br />
+          Não porque faltou comprometimento.<br />
+          Mas porque seu corpo não respondeu como deveria.
+        </p>
 
-      <div class="sge-faltou">
-        <span>Faltou explosão.</span>
-        <span>Faltou velocidade.</span>
-        <span>Faltou reação.</span>
-        <span>Faltou confiança.</span>
+        <div class="sge-faltou">
+          <span>Faltou explosão.</span>
+          <span>Faltou velocidade.</span>
+          <span>Faltou reação.</span>
+          <span>Faltou confiança.</span>
+        </div>
+
+        <p class="sge-body sge-strong sge-pain-final">E para um goleiro, <span class="sge-gold-text">meio segundo muda tudo.</span></p>
       </div>
-
-      <p class="sge-body sge-strong">E para um goleiro, meio segundo muda tudo.</p>
     </section>
 
     <!-- ============================================================
@@ -183,12 +186,15 @@ const faq = [
     <!-- ============================================================
          5 — BIG IDEA
     ============================================================ -->
-    <section class="sge-sec sge-bigidea reveal">
-      <h2 class="sge-bigidea-h">
-        Treino bom não é o que te deixa <span class="sge-strike">cansado</span>.
-      </h2>
-      <p class="sge-bigidea-sub">Treino bom é o que te deixa <span class="sge-gold-text">melhor dentro do gol.</span></p>
-      <p class="sge-body">Essa é a diferença entre treinar por treinar e treinar para performar.</p>
+    <section class="sge-bigidea reveal">
+      <div class="sge-bigidea-inner">
+        <span class="sge-tag">A virada de chave</span>
+        <h2 class="sge-bigidea-h">
+          Treino bom não é o que te deixa <span class="sge-strike">cansado</span>.
+        </h2>
+        <p class="sge-bigidea-sub">Treino bom é o que te deixa <span class="sge-gold-text">melhor dentro do gol.</span></p>
+        <p class="sge-body">Essa é a diferença entre treinar por treinar e treinar para performar.</p>
+      </div>
     </section>
 
     <!-- ============================================================
@@ -218,9 +224,11 @@ const faq = [
       <div class="sge-pillars">
         {pilares.map((p) => (
           <article class="sge-pillar">
-            <div class="sge-pillar-n">{p.n}</div>
-            <h3 class="sge-pillar-t">{p.t}</h3>
-            <p class="sge-pillar-d">{p.d}</p>
+            <span class="sge-pillar-n" aria-hidden="true">{p.n}</span>
+            <div class="sge-pillar-body">
+              <h3 class="sge-pillar-t">{p.t}</h3>
+              <p class="sge-pillar-d">{p.d}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -563,15 +571,39 @@ const faq = [
   .sge-lead em { color: var(--gold); font-style: italic; font-weight: 600; }
   .sge-gold-text { color: var(--gold); font-weight: 600; }
 
-  /* ── DOR ── */
+  /* ── NÚMERO GIGANTE EM OUTLINE (acento assimétrico) ── */
+  .sge-bignum {
+    font-family: 'Bebas Neue', sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(232,185,90,.22);
+    line-height: .8;
+    pointer-events: none;
+    user-select: none;
+  }
+  .sge-bignum small { font-size: .5em; -webkit-text-stroke-width: 1.5px; }
+
+  /* ── DOR (layout assimétrico) ── */
+  .sge-pain { position: relative; overflow: hidden; }
+  .sge-pain-body { position: relative; z-index: 1; }
+  .sge-bignum--pain {
+    position: absolute; z-index: 0;
+    right: -12px; bottom: 40px;
+    font-size: clamp(7rem, 32vw, 15rem);
+    -webkit-text-stroke-width: 2.5px;
+    transform: rotate(-7deg);
+  }
+  .sge-pain-final { font-size: 1.16rem; }
   .sge-quote {
     position: relative;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.2rem, 9vw, 4rem);
+    font-size: clamp(2.4rem, 11vw, 4.6rem);
     color: var(--gold);
-    text-align: center;
+    text-align: left;
+    line-height: .95;
     letter-spacing: .01em;
-    margin: 38px 0;
+    margin: 36px 0;
+    padding-left: 18px;
+    border-left: 4px solid var(--gold);
     text-shadow: 0 0 36px rgba(232,185,90,.28);
   }
   /* glow dourado por trás da frase de impacto */
@@ -612,8 +644,19 @@ const faq = [
     color: var(--red); font-weight: 700;
   }
 
-  /* ── BIG IDEA — atmosfera de rede de gol + glow ── */
-  .sge-bigidea { position: relative; text-align: center; overflow: hidden; }
+  /* ── BIG IDEA — faixa full-bleed assimétrica + rede de gol + glow ── */
+  .sge-bigidea {
+    position: relative;
+    width: 100%;
+    padding: 88px 20px;
+    text-align: left;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #050505, #0b0b0b);
+  }
+  .sge-bigidea-inner { max-width: 720px; margin: 0 auto; }
+  .sge-bigidea .sge-tag { margin-bottom: 18px; }
   /* malha da rede do gol, concentrada e desbotando nas bordas */
   .sge-bigidea::before {
     content: '';
@@ -639,16 +682,24 @@ const faq = [
   .sge-bigidea-h {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800; text-transform: uppercase;
-    font-size: clamp(1.9rem, 6.5vw, 3.2rem);
-    line-height: 1.05;
-    margin-bottom: 14px;
+    font-size: clamp(2.1rem, 7.2vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -.01em;
+    margin-bottom: 16px;
+    max-width: 16ch;            /* corta a linha cedo: cria respiro à direita */
   }
-  .sge-strike { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--red); }
+  .sge-strike {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 3px;
+  }
   .sge-bigidea-sub {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: clamp(1.3rem, 4.5vw, 2rem);
+    font-size: clamp(1.35rem, 4.6vw, 2.1rem);
     margin-bottom: 18px;
+    max-width: 20ch;
   }
 
   /* ── MECANISMO ── */
@@ -683,7 +734,7 @@ const faq = [
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 24px 22px 22px;
+    padding: 26px 22px 24px;
     overflow: hidden;
     transition: transform .2s ease, border-color .2s ease, background .2s ease;
   }
@@ -693,16 +744,24 @@ const faq = [
     opacity: .55;
   }
   .sge-pillar:hover { transform: translateY(-4px); border-color: rgba(232,185,90,.45); background: var(--card2); }
+  .sge-pillar:hover .sge-pillar-n { color: rgba(232,185,90,.22); -webkit-text-stroke-color: rgba(232,185,90,.5); }
+  /* número gigante em outline, vazando pelo canto */
   .sge-pillar-n {
+    position: absolute;
+    top: -14px; right: -6px;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.4rem; line-height: 1;
-    color: var(--gold); opacity: .8;
-    margin-bottom: 8px;
+    font-size: 7rem; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(232,185,90,.28);
+    pointer-events: none;
+    transition: color .2s ease, -webkit-text-stroke-color .2s ease;
   }
+  .sge-pillar-body { position: relative; z-index: 1; }
   .sge-pillar-t {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700; text-transform: uppercase;
     font-size: 1.3rem; margin-bottom: 8px;
+    max-width: 78%;
   }
   .sge-pillar-d { font-size: 1rem; line-height: 1.55; color: var(--gray); }
 
