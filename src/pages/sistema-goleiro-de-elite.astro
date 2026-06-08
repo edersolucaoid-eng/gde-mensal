@@ -256,18 +256,6 @@ const faq = [
     <section class="sge-sec reveal">
       <span class="sge-tag">Prova social</span>
       <h2 class="sge-h2">Mais de 2.000 goleiros já passaram pelo Sistema Goleiro de Elite™</h2>
-      <div class="sge-testis">
-        {depoimentos.map((d) => (
-          <figure class="sge-testi">
-            <div class="sge-stars">★★★★★</div>
-            <blockquote>“{d.txt}”</blockquote>
-            <figcaption>
-              <span class="sge-avatar">{d.nome.charAt(0)}</span>
-              {d.nome}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
 
       <!-- Carrossel de prints reais (conversas + evolução) -->
       <div class="sge-carousel-wrap">
@@ -282,6 +270,20 @@ const faq = [
         <button class="sge-car-arrow sge-car-arrow--next" data-dir="1" aria-label="Ver próximo">›</button>
       </div>
       <p class="sge-proof-note">Prints reais de conversas e evolução de alunos · arraste para ver mais →</p>
+
+      <!-- Depoimentos em texto, abaixo do carrossel -->
+      <div class="sge-testis">
+        {depoimentos.map((d) => (
+          <figure class="sge-testi">
+            <div class="sge-stars">★★★★★</div>
+            <blockquote>“{d.txt}”</blockquote>
+            <figcaption>
+              <span class="sge-avatar">{d.nome.charAt(0)}</span>
+              {d.nome}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
     </section>
 
     <!-- ============================================================
@@ -374,8 +376,8 @@ const faq = [
          RODAPÉ
     ============================================================ -->
     <footer class="sge-footer">
+      <div class="sge-foot-rule" aria-hidden="true"></div>
       <div class="sge-foot-brand">Programa Goleiro de Elite</div>
-      <div class="sge-foot-cnpj">CNPJ: 52.877.418/0001-85</div>
       <div class="sge-foot-social">
         <a href={WHATSAPP} target="_blank" rel="noopener" class="sge-soc sge-soc--wa" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
@@ -386,6 +388,7 @@ const faq = [
           <span>@goleirodeeliteof</span>
         </a>
       </div>
+      <div class="sge-foot-meta">CNPJ 52.877.418/0001-85 · © 2026 · Todos os direitos reservados</div>
     </footer>
 
     <!-- Botão flutuante de WhatsApp (mobile + desktop), aparece após o hero -->
@@ -785,7 +788,7 @@ const faq = [
   .sge-testis {
     display: grid; gap: 14px;
     grid-template-columns: 1fr;
-    margin: 10px 0 28px;
+    margin: 32px 0 0;
   }
   .sge-testi {
     background: var(--card);
@@ -931,7 +934,7 @@ const faq = [
   }
 
   /* ── FECHAMENTO ── */
-  .sge-close { text-align: center; }
+  .sge-close { text-align: center; padding-bottom: 28px; }
   .sge-paths {
     display: grid; gap: 14px;
     grid-template-columns: 1fr;
@@ -1009,7 +1012,7 @@ const faq = [
   .sge-whoweare {
     max-width: 760px;
     margin: 0 auto;
-    padding: 72px 0 0;          /* respiro maior separa do bloco anterior */
+    padding: 52px 0 0;          /* respiro que separa do bloco anterior */
     text-align: center;
     background: #000;            /* mesmo preto da imagem */
   }
@@ -1044,17 +1047,22 @@ const faq = [
   /* ── RODAPÉ ── */
   .sge-footer {
     text-align: center;
-    padding: 50px 20px 120px;
+    padding: 50px 20px 104px;
     background: #000;
+  }
+  .sge-foot-rule {
+    width: 56px; height: 3px; border-radius: 3px;
+    margin: 0 auto 24px;
+    background: linear-gradient(90deg, var(--gold-d), var(--gold));
   }
   .sge-foot-brand {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
-    color: var(--gold); font-size: 1.2rem; margin-bottom: 6px;
+    font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--gold); font-size: 1.4rem; line-height: 1; margin-bottom: 22px;
   }
-  .sge-foot-cnpj { color: var(--muted); font-size: .82rem; margin-bottom: 22px; }
   .sge-foot-social {
     display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 26px;
   }
   .sge-soc {
     display: inline-flex; align-items: center; gap: 8px;
@@ -1073,6 +1081,11 @@ const faq = [
   .sge-soc--wa:hover { border-color: var(--green); background: rgba(37,211,102,.08); }
   .sge-soc--ig svg { fill: #e1306c; }
   .sge-soc--ig:hover { border-color: #e1306c; background: rgba(225,48,108,.08); }
+  .sge-foot-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; letter-spacing: .06em;
+    color: var(--muted); line-height: 1.6;
+  }
 
   /* ── BOTÃO FLUTUANTE WHATSAPP ── */
   .sge-float {
