@@ -99,11 +99,11 @@ const faq = [
           Um planejamento criado para quem quer jogar com mais confiança, explosão e desempenho.
         </p>
         <div class="sge-hero-stats">
-          <div><strong>+2.000</strong><span>goleiros</span></div>
+          <div><strong class="sge-count" data-to="2000" data-prefix="+">+2.000</strong><span>goleiros</span></div>
           <i></i>
-          <div><strong>+3 anos</strong><span>de método</span></div>
+          <div><strong class="sge-count" data-to="3" data-prefix="+" data-suffix=" anos">+3 anos</strong><span>de método</span></div>
           <i></i>
-          <div><strong>100%</strong><span>online</span></div>
+          <div><strong class="sge-count" data-to="100" data-suffix="%">100%</strong><span>online</span></div>
         </div>
       </div>
     </section>
@@ -456,8 +456,11 @@ const faq = [
     /* headline sobrepõe levemente a base da imagem */
     margin-top: -42px;
     display: flex; flex-direction: column; align-items: center;
-    animation: sgeUp .8s .1s ease both;
   }
+  /* page-load orquestrado: entrada em cascata */
+  .sge-hero-h1   { animation: sgeUp .7s .15s ease both; }
+  .sge-hero-sub  { animation: sgeUp .7s .32s ease both; }
+  .sge-hero-stats{ animation: sgeUp .7s .48s ease both; }
   .sge-hero-h1 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
@@ -680,13 +683,13 @@ const faq = [
   }
   .sge-bigidea > * { position: relative; z-index: 1; }
   .sge-bigidea-h {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; text-transform: uppercase;
-    font-size: clamp(2.1rem, 7.2vw, 4rem);
-    line-height: 1.02;
-    letter-spacing: -.01em;
+    font-family: 'Bebas Neue', sans-serif;   /* fonte de clímax */
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(2.6rem, 9vw, 5rem);
+    line-height: .92;
+    letter-spacing: .01em;
     margin-bottom: 16px;
-    max-width: 16ch;            /* corta a linha cedo: cria respiro à direita */
+    max-width: 15ch;            /* corta a linha cedo: cria respiro à direita */
   }
   .sge-strike {
     color: var(--muted);
@@ -991,10 +994,11 @@ const faq = [
     margin-bottom: 16px;
   }
   .sge-final-q {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; text-transform: uppercase;
-    font-size: clamp(1.4rem, 5vw, 2.1rem);
-    line-height: 1.1;
+    font-family: 'Bebas Neue', sans-serif;   /* fonte de clímax */
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(1.9rem, 6.5vw, 2.9rem);
+    line-height: .98;
+    letter-spacing: .01em;
     color: var(--white);
     margin: 0 auto 24px;
     max-width: 540px;
@@ -1105,6 +1109,7 @@ const faq = [
   @media (prefers-reduced-motion: reduce) {
     .sge-cta, .sge-cta::before { animation: none; }
     .sge-cta::before { display: none; }
+    .sge-hero-img, .sge-hero-h1, .sge-hero-sub, .sge-hero-stats { animation: none; }
     .reveal { transition: none; opacity: 1; transform: none; }
   }
 </style>
@@ -1115,6 +1120,35 @@ const faq = [
     entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
+
+  // Count-up nas estatísticas do hero
+  const fmtNum = (n: number) => n.toLocaleString('pt-BR');
+  const finalText = (el: HTMLElement) =>
+    (el.dataset.prefix || '') + fmtNum(Number(el.dataset.to)) + (el.dataset.suffix || '');
+  const counters = document.querySelectorAll<HTMLElement>('.sge-count');
+  const statsEl = document.querySelector('.sge-hero-stats');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (counters.length && statsEl && !reduceMotion) {
+    const runCount = (el: HTMLElement) => {
+      const to = Number(el.dataset.to);
+      const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      const dur = 1300, start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = pre + fmtNum(Math.round(to * eased)) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = finalText(el);
+      };
+      el.textContent = pre + '0' + suf;
+      requestAnimationFrame(tick);
+    };
+    new IntersectionObserver((entries, ob) => {
+      if (entries[0].isIntersecting) { counters.forEach(runCount); ob.disconnect(); }
+    }, { threshold: 0.4 }).observe(statsEl);
+  } else {
+    counters.forEach((el) => { el.textContent = finalText(el); });
+  }
 
   // Botão flutuante só ativa quando o lead chega no CTA final (e fica ativo dali em diante)
   const float = document.getElementById('sge-float');
