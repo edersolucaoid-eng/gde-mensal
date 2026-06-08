@@ -331,6 +331,21 @@ const faq = [
     </section>
 
     <!-- ============================================================
+         QUEM SOMOS (título + imagem com todas as informações)
+    ============================================================ -->
+    <section class="sge-sec sge-whoweare reveal">
+      <span class="sge-tag">Quem somos</span>
+      <h2 class="sge-h2">Quem está por trás do Sistema Goleiro de Elite™</h2>
+      <img
+        src="/images/quem-somos-sge.webp"
+        alt="Equipe Goleiro de Elite — Eder, ex-goleiro profissional, e Pedro Ferreira, preparador físico. Somos goleiros, treinadores e especialistas em desempenho dentro do gol."
+        width="1536" height="1024"
+        loading="lazy" decoding="async"
+        class="sge-whoweare-img"
+      />
+    </section>
+
+    <!-- ============================================================
          RODAPÉ
     ============================================================ -->
     <footer class="sge-footer">
@@ -702,6 +717,10 @@ const faq = [
   @media (min-width: 720px) {
     .sge-slide { width: 400px; }
     .sge-car-arrow { display: flex; }
+    .sge-whoweare-img {
+      width: 100%; margin: 18px 0 0;
+      border-radius: 16px; border: 1px solid var(--border);
+    }
   }
 
   /* ── ENTREGÁVEIS ── */
@@ -805,6 +824,17 @@ const faq = [
     margin: 30px 0 28px;
   }
   .sge-micro { font-size: .9rem; color: var(--muted); margin-top: 16px; }
+
+  /* ── QUEM SOMOS ── */
+  .sge-whoweare { text-align: center; }
+  .sge-whoweare-img {
+    width: calc(100% + 40px);
+    margin: 18px -20px 0;
+    max-width: none;
+    height: auto;
+    display: block;
+    border-radius: 0;
+  }
 
   /* ── RODAPÉ ── */
   .sge-footer {
