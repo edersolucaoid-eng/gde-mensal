@@ -1,0 +1,1204 @@
+---
+/* ============================================================
+   SISTEMA GOLEIRO DE ELITE™ — Landing de conversão p/ WhatsApp
+   Consultoria online de preparação física específica p/ goleiros.
+   Objetivo único da página: clique no botão de WhatsApp.
+============================================================ */
+import Base from '../layouts/Base.astro';
+
+// ⚽ Link do WhatsApp — VARIAÇÃO LUCAS (troque pelo link de rastreio do Lucas).
+const WHATSAPP = 'https://tintim.link/whatsapp/41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8/5437cb1a-b948-4a6c-b6bb-baf7de8a6547';
+const CTA = 'FALE COM NOSSA EQUIPE AGORA';
+
+// 5 Pilares
+const pilares = [
+  { n: '01', t: 'Especificidade Aplicada™',         d: 'Seu treino é construído para as exigências reais da posição.' },
+  { n: '02', t: 'Individualização Estratégica™',     d: 'Sua idade, rotina, histórico, corpo e objetivos são levados em consideração.' },
+  { n: '03', t: 'Transferência Para o Jogo™',        d: 'Cada exercício precisa gerar resultado dentro do gol.' },
+  { n: '04', t: 'Progressão de Performance™',        d: 'Força. Mobilidade. Potência. Explosão. Velocidade. Cada etapa prepara a próxima.' },
+  { n: '05', t: 'Desenvolvimento Integral do Goleiro™', d: 'Mais confiança, mais resistência, menos dores, mais desempenho e mais longevidade.' },
+];
+
+// Depoimentos
+const depoimentos = [
+  { nome: 'Carlos Eduardo', txt: 'Meu desempenho em campo está melhorando. Estou chegando em bolas que antes eu não chegava.' },
+  { nome: 'Wagner Ulian',   txt: 'Estou tendo força para dar passadas laterais e impulsão que nunca tinha conseguido antes.' },
+  { nome: 'Aluno da Consultoria', txt: 'Foi a melhor compra em termos de assistência ao cliente que eu já fiz.' },
+];
+
+// Provas sociais (prints) — carrossel abaixo dos depoimentos
+const provas = [
+  { src: '/images/prova-compra.webp',        w: 942,  h: 1580, alt: 'Print de aluno: "foi a minha melhor compra"' },
+  { src: '/images/prova-antesdepois-1.webp', w: 1080, h: 1080, alt: 'Antes e depois de aluno do Sistema Goleiro de Elite' },
+  { src: '/images/prova-wagner.webp',        w: 730,  h: 1580, alt: 'Depoimento do aluno Wagner' },
+  { src: '/images/prova-antesdepois-2.webp', w: 1080, h: 1149, alt: 'Evolução física de aluno' },
+  { src: '/images/prova-crianca.webp',       w: 730,  h: 1580, alt: 'Depoimento de aluno da categoria de base' },
+  { src: '/images/prova-antesdepois-3.webp', w: 711,  h: 1580, alt: 'Antes e depois de aluno' },
+  { src: '/images/prova-msg.webp',           w: 711,  h: 1580, alt: 'Mensagem de aluno satisfeito' },
+];
+
+// Ícones SVG (linha, monocromáticos — herdam o dourado)
+const ICON = {
+  plano: '<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+  app: '<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+  evolucao: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  local: '<path d="M14.4 14.4 9.6 9.6"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.4 12.8a2 2 0 1 1-2.83-2.83l1.77-1.77a2 2 0 1 1-2.83-2.82l2.83-2.83a2 2 0 1 1 2.83 2.83l1.76-1.77a2 2 0 1 1 2.83 2.83z"/><path d="M18.66 21.49a2 2 0 1 1-2.83-2.83l-1.77 1.77a2 2 0 1 1-2.83-2.83l6.37-6.36a2 2 0 1 1 2.82 2.82l-1.76 1.77a2 2 0 1 1 2.83 2.83z"/>',
+  nutri: '<path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/>',
+  pre: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  pos: '<line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/>',
+  chat: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+};
+
+// O que você recebe
+const entregaveis = [
+  { icon: ICON.plano,    t: 'Plano de Treino Personalizado', d: 'Construído para a sua realidade.' },
+  { icon: ICON.app,      t: 'Aplicativo de Treinos',         d: 'Você abre e executa. Sem dúvidas. Sem improviso.' },
+  { icon: ICON.evolucao, t: 'Evolução Contínua',             d: 'Seu treino evolui conforme você evolui.' },
+  { icon: ICON.local,    t: 'Treino para Casa ou Academia',  d: 'Adaptado à estrutura que você possui.' },
+  { icon: ICON.nutri,    t: 'Guia Nutricional',              d: 'Para melhorar recuperação, composição corporal e desempenho.' },
+  { icon: ICON.pre,      t: 'Protocolo Pré-Jogo',            d: 'Prepare seu corpo para competir.' },
+  { icon: ICON.pos,      t: 'Protocolo Pós-Jogo',            d: 'Recupere melhor e continue evoluindo.' },
+  { icon: ICON.chat,     t: 'Suporte Direto Pelo WhatsApp',  d: 'Acompanhamento, ajustes, adaptações e direção.' },
+];
+
+// Objeções (FAQ)
+const faq = [
+  { q: 'Mas será que funciona online?', a: 'Hoje atendemos goleiros de todo o Brasil. O acompanhamento é individual, os ajustes acontecem continuamente e o processo é adaptado à sua realidade.' },
+  { q: 'Não tenho muito tempo.', a: 'O objetivo não é transformar você em atleta profissional. É encaixar a preparação física na sua rotina.' },
+  { q: 'Minha academia é simples. Funciona?', a: 'Sim. O treino é adaptado à estrutura disponível.' },
+  { q: 'Será que serve para mim?', a: 'Se você quer jogar melhor, sentir mais confiança, chegar em mais bolas e parar de treinar sem direção, provavelmente sim.' },
+];
+---
+
+<Base
+  title="Sistema Goleiro de Elite™ | Preparação Física Específica para Goleiros"
+  heroImage="/images/goleiro_de_elite_hero.webp"
+>
+  <!-- Tintim pixel -->
+  <script is:inline>
+    (function(window, document, script) {
+      if (!window.tt) {
+        window.tt = window.tt || {};
+        c = document.getElementsByTagName('head')[0];
+        k = document.createElement('script');
+        k.async = 1;
+        k.src = script;
+        c.appendChild(k);
+      }
+      window.tt.accountCode = '41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8';
+    })(window, document, '//s.tintim.app/static/core/tintim-1.0.js');
+  </script>
+
+  <main class="sge">
+
+    <!-- ============================================================
+         1 — HERO
+    ============================================================ -->
+    <section class="sge-hero">
+      <!-- Banner do programa (substitui o texto eyebrow) -->
+      <div class="sge-hero-media">
+        <img
+          src="/images/goleiro_de_elite_hero.webp"
+          alt="Sistema Goleiro de Elite — preparação física específica para goleiros"
+          width="1536" height="1024"
+          fetchpriority="high" decoding="async"
+          class="sge-hero-img"
+        />
+        <div class="sge-hero-fade"></div>
+      </div>
+      <div class="sge-hero-inner">
+        <h1 class="sge-hero-h1">
+          Descubra o método que já ajudou mais de <span class="sge-hl">2.000 goleiros</span> a transformar sua preparação física em desempenho real dentro do gol.
+        </h1>
+        <p class="sge-hero-sub">
+          Um planejamento criado para quem quer jogar com mais confiança, explosão e desempenho.
+        </p>
+        <div class="sge-hero-stats">
+          <div><strong class="sge-count" data-to="2000" data-prefix="+">+2.000</strong><span>goleiros</span></div>
+          <i></i>
+          <div><strong class="sge-count" data-to="3" data-prefix="+" data-suffix=" anos">+3 anos</strong><span>de método</span></div>
+          <i></i>
+          <div><strong class="sge-count" data-to="100" data-suffix="%">100%</strong><span>online</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2 — A DOR
+    ============================================================ -->
+    <section class="sge-sec sge-pain reveal">
+      <span class="sge-bignum sge-bignum--pain" aria-hidden="true">0,5<small>s</small></span>
+      <div class="sge-pain-body">
+        <span class="sge-tag">A bola</span>
+        <h2 class="sge-h2">Você sabe exatamente qual foi a bola.</h2>
+        <p class="sge-lead">
+          Não foi a impossível.<br />
+          Não foi a que entrou no ângulo.<br />
+          Foi aquela que você <em>quase</em> chegou.
+        </p>
+        <p class="sge-lead">
+          Aquela que raspou na ponta dos dedos.<br />
+          Aquela que ficou voltando na sua cabeça durante o caminho para casa.
+        </p>
+
+        <div class="sge-quote">“Dava para ter pego.”</div>
+
+        <p class="sge-body">
+          Não porque faltou vontade.<br />
+          Não porque faltou comprometimento.<br />
+          Mas porque seu corpo não respondeu como deveria.
+        </p>
+
+        <div class="sge-faltou">
+          <span>Faltou explosão.</span>
+          <span>Faltou velocidade.</span>
+          <span>Faltou reação.</span>
+          <span>Faltou confiança.</span>
+        </div>
+
+        <p class="sge-body sge-strong sge-pain-final">E para um goleiro, <span class="sge-gold-text">meio segundo muda tudo.</span></p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3 — O PROBLEMA REAL
+    ============================================================ -->
+    <section class="sge-sec reveal">
+      <span class="sge-tag">O problema real</span>
+      <h2 class="sge-h2">O problema não é que você está treinando pouco.</h2>
+      <p class="sge-sub-h2">O problema é que seu treino não está aparecendo dentro do gol.</p>
+      <p class="sge-body">
+        A maioria dos goleiros treina, sua, corre, faz musculação e procura exercícios na internet.
+        Mas continua sem saber se aquilo realmente está ajudando a defender mais bolas.
+      </p>
+      <p class="sge-body">
+        Porque uma coisa é ficar mais forte.<br />
+        <span class="sge-gold-text">Outra é transformar força em desempenho.</span>
+      </p>
+    </section>
+
+    <!-- ============================================================
+         4 — O INIMIGO
+    ============================================================ -->
+    <section class="sge-sec sge-enemy reveal">
+      <span class="sge-tag">A mentira</span>
+      <h2 class="sge-h2">Durante anos venderam para goleiros uma mentira.</h2>
+      <ul class="sge-lies">
+        <li>Que qualquer treino serve.</li>
+        <li>Que basta fazer musculação.</li>
+        <li>Que basta correr.</li>
+        <li>Que basta treinar mais.</li>
+      </ul>
+      <p class="sge-body">
+        Mas se isso fosse verdade, todo frequentador de academia seria um grande goleiro.
+      </p>
+      <p class="sge-body sge-strong">
+        Treinos genéricos criam goleiros mais cansados.<br />
+        Não necessariamente melhores.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         5 — BIG IDEA
+    ============================================================ -->
+    <section class="sge-bigidea reveal">
+      <div class="sge-bigidea-inner">
+        <span class="sge-tag">A virada de chave</span>
+        <h2 class="sge-bigidea-h">
+          Treino bom não é o que te deixa <span class="sge-strike">cansado</span>.
+        </h2>
+        <p class="sge-bigidea-sub">Treino bom é o que te deixa <span class="sge-gold-text">melhor dentro do gol.</span></p>
+        <p class="sge-body">Essa é a diferença entre treinar por treinar e treinar para performar.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6 — O MECANISMO
+    ============================================================ -->
+    <section class="sge-sec sge-mech reveal">
+      <span class="sge-tag">A metodologia</span>
+      <h2 class="sge-h2 sge-mech-title">Sistema Goleiro de Elite™</h2>
+      <p class="sge-body">
+        Uma metodologia construída ao longo de mais de 3 anos e aplicada em mais de 2.000 goleiros.
+      </p>
+      <div class="sge-objective">
+        Transformar força de academia em <strong>desempenho real dentro do gol.</strong>
+      </div>
+      <p class="sge-body">
+        Existe apenas uma pergunta que realmente importa:
+      </p>
+      <p class="sge-mech-q">“Esse treino vai me ajudar a defender melhor?”</p>
+    </section>
+
+    <!-- ============================================================
+         7 — OS 5 PILARES
+    ============================================================ -->
+    <section class="sge-sec reveal">
+      <span class="sge-tag">Os 5 pilares</span>
+      <h2 class="sge-h2">Tudo é decidido por estes 5 pilares.</h2>
+      <div class="sge-pillars">
+        {pilares.map((p) => (
+          <article class="sge-pillar">
+            <span class="sge-pillar-n" aria-hidden="true">{p.n}</span>
+            <div class="sge-pillar-body">
+              <h3 class="sge-pillar-t">{p.t}</h3>
+              <p class="sge-pillar-d">{p.d}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============================================================
+         8 — A TRANSFORMAÇÃO
+    ============================================================ -->
+    <section class="sge-sec sge-transform reveal">
+      <span class="sge-tag">A virada</span>
+      <h2 class="sge-h2">O que acontece quando seu treino finalmente faz sentido para a posição?</h2>
+      <ul class="sge-transform-list">
+        <li>Você para de entrar em campo preocupado.</li>
+        <li>Você para de pensar na falta de explosão, mobilidade ou condicionamento.</li>
+        <li>Você volta a confiar.</li>
+        <li>Volta a atacar a bola.</li>
+        <li>Volta a jogar solto.</li>
+        <li>Volta a sentir que seu corpo trabalha a seu favor.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         9 — PROVAS / DEPOIMENTOS
+    ============================================================ -->
+    <section class="sge-sec reveal">
+      <span class="sge-tag">Prova social</span>
+      <h2 class="sge-h2">Mais de 2.000 goleiros já passaram pelo Sistema Goleiro de Elite™</h2>
+
+      <!-- Carrossel de prints reais (conversas + evolução) -->
+      <div class="sge-carousel-wrap">
+        <button class="sge-car-arrow sge-car-arrow--prev" data-dir="-1" aria-label="Ver anterior">‹</button>
+        <div class="sge-carousel" id="sge-provas">
+          {provas.map((p) => (
+            <figure class="sge-slide">
+              <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
+        <button class="sge-car-arrow sge-car-arrow--next" data-dir="1" aria-label="Ver próximo">›</button>
+      </div>
+      <p class="sge-proof-note">Prints reais de conversas e evolução de alunos · arraste para ver mais →</p>
+
+      <!-- Depoimentos em texto, abaixo do carrossel -->
+      <div class="sge-testis">
+        {depoimentos.map((d) => (
+          <figure class="sge-testi">
+            <div class="sge-stars">★★★★★</div>
+            <blockquote>“{d.txt}”</blockquote>
+            <figcaption>
+              <span class="sge-avatar">{d.nome.charAt(0)}</span>
+              {d.nome}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============================================================
+         10 — O QUE VOCÊ RECEBE
+    ============================================================ -->
+    <section class="sge-sec reveal">
+      <span class="sge-tag">O que você recebe</span>
+      <h2 class="sge-h2">Tudo que você precisa para evoluir com direção.</h2>
+      <div class="sge-deliv">
+        {entregaveis.map((e) => (
+          <article class="sge-deliv-card">
+            <div class="sge-deliv-i" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={e.icon}></svg>
+            </div>
+            <h3 class="sge-deliv-t">{e.t}</h3>
+            <p class="sge-deliv-d">{e.d}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============================================================
+         11 — OBJEÇÕES (FAQ ACORDEÃO)
+    ============================================================ -->
+    <section class="sge-sec reveal">
+      <span class="sge-tag">Sem enrolação</span>
+      <h2 class="sge-h2">Talvez você esteja pensando...</h2>
+      <div class="sge-faq">
+        {faq.map((f) => (
+          <div class="sge-faq-item">
+            <button class="sge-faq-q" aria-expanded="false">
+              <span>{f.q}</span>
+              <i class="sge-faq-plus" aria-hidden="true"></i>
+            </button>
+            <div class="sge-faq-a"><p>{f.a}</p></div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============================================================
+         12 — FECHAMENTO + CTA FINAL
+    ============================================================ -->
+    <section class="sge-sec sge-close reveal">
+      <span class="sge-tag">A decisão</span>
+      <h2 class="sge-h2">Daqui alguns meses você terá duas opções.</h2>
+      <div class="sge-paths">
+        <div class="sge-path sge-path--bad">
+          <span class="sge-path-tag">Opção 1</span>
+          <p>Continuar repetindo os mesmos treinos.</p>
+          <p>Continuar tentando descobrir sozinho o que funciona.</p>
+          <p>Continuar voltando para casa pensando:</p>
+          <span class="sge-path-quote">“Dava para ter pego.”</span>
+        </div>
+        <div class="sge-path sge-path--good">
+          <span class="sge-path-tag">Opção 2</span>
+          <p>Ou finalmente seguir um plano construído para transformar seu esforço em desempenho dentro do gol.</p>
+        </div>
+      </div>
+
+      <!-- painel destacado do CTA final -->
+      <div class="sge-cta-box">
+        <p class="sge-final-q">Você gostaria de ter um acompanhamento individualizado e mais clareza nos seus treinos?</p>
+
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="sge-cta sge-cta--final" data-cta>
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="sge-wa-ico"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+          <span>{CTA}</span>
+        </a>
+        <p class="sge-micro">Resposta rápida · Atendimento humano · Sem compromisso</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         QUEM SOMOS (título + imagem com todas as informações)
+    ============================================================ -->
+    <section class="sge-whoweare reveal">
+      <span class="sge-whoweare-kicker">A equipe</span>
+      <h2 class="sge-h2 sge-whoweare-title">Quem Somos</h2>
+      <img
+        src="/images/quem-somos-sge.webp"
+        alt="Equipe Goleiro de Elite — Eder, ex-goleiro profissional, e Pedro Ferreira, preparador físico. Somos goleiros, treinadores e especialistas em desempenho dentro do gol."
+        width="1536" height="1024"
+        loading="lazy" decoding="async"
+        class="sge-whoweare-img"
+      />
+    </section>
+
+    <!-- ============================================================
+         RODAPÉ
+    ============================================================ -->
+    <footer class="sge-footer">
+      <div class="sge-foot-rule" aria-hidden="true"></div>
+      <div class="sge-foot-brand">Programa Goleiro de Elite</div>
+      <div class="sge-foot-social">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="sge-soc sge-soc--wa" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a href="https://instagram.com/goleirodeeliteof" target="_blank" rel="noopener" class="sge-soc sge-soc--ig" aria-label="Instagram @goleirodeeliteof">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          <span>@goleirodeeliteof</span>
+        </a>
+      </div>
+      <div class="sge-foot-meta">CNPJ 52.877.418/0001-85 · © 2026 · Todos os direitos reservados</div>
+    </footer>
+
+    <!-- Botão flutuante de WhatsApp (mobile + desktop), aparece após o hero -->
+    <a id="sge-float" href={WHATSAPP} target="_blank" rel="noopener" class="sge-float" aria-label="Falar no WhatsApp" data-cta>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+
+  </main>
+</Base>
+
+<style>
+  /* ── PALETA — chumbo/preto + dourado elite + verde whatsapp ── */
+  .sge {
+    --bg:    #000000;
+    --bg2:   #0d0f12;
+    --card:  #14171c;
+    --card2: #181c22;
+    --border:#252a32;
+    --gold:  #e8b95a;
+    --gold-d:#c79a3e;
+    --white: #f3f5f7;
+    --gray:  #9aa1ab;
+    --muted: #5d646e;
+    --green: #25d366;
+    --red:   #c0563f;
+
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Barlow', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  .sge * { box-sizing: border-box; }
+
+  /* ── HERO ── */
+  .sge-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px 56px;
+    overflow: hidden;
+  }
+  /* banner do programa no topo */
+  .sge-hero-media {
+    position: relative;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    max-width: 920px;
+  }
+  .sge-hero-img {
+    width: 100%; height: auto; display: block;
+    animation: sgeUp .8s ease both;
+  }
+  /* degradê na base da imagem para fundir com o fundo */
+  .sge-hero-fade {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    height: 38%;
+    background: linear-gradient(180deg, transparent 0%, rgba(8,9,11,.55) 55%, var(--bg) 100%);
+    pointer-events: none;
+  }
+  .sge-hero-inner {
+    position: relative; z-index: 2;
+    max-width: 760px;
+    /* headline sobrepõe levemente a base da imagem */
+    margin-top: -42px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  /* page-load orquestrado: entrada em cascata */
+  .sge-hero-h1   { animation: sgeUp .7s .15s ease both; }
+  .sge-hero-sub  { animation: sgeUp .7s .32s ease both; }
+  .sge-hero-stats{ animation: sgeUp .7s .48s ease both; }
+  .sge-hero-h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 3.6rem);
+    line-height: 1.04;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .sge-hl { color: var(--gold); }
+  .sge-hero-sub {
+    font-size: clamp(1rem, 2.4vw, 1.18rem);
+    line-height: 1.55;
+    color: var(--gray);
+    max-width: 620px;
+    margin-bottom: 34px;
+  }
+  .sge-hero-stats {
+    display: flex; align-items: center; gap: 18px;
+    margin-top: 38px;
+  }
+  .sge-hero-stats > div { display: flex; flex-direction: column; }
+  .sge-hero-stats strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem; line-height: 1; color: var(--white);
+  }
+  .sge-hero-stats span {
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
+  }
+  .sge-hero-stats i { width: 1px; height: 30px; background: var(--border); }
+
+  /* ── CTA principal ── */
+  .sge-cta {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    background: linear-gradient(180deg, #2ee572 0%, var(--green) 55%, #1fc35b 100%);
+    color: #04220f;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(.98rem, 2.7vw, 1.2rem);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    text-decoration: none;
+    padding: 19px 32px;
+    border-radius: 14px;
+    line-height: 1.1;
+    box-shadow: 0 10px 34px rgba(37,211,102,.32);
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    animation: sgeGlow 2.4s ease-in-out infinite;
+  }
+  /* brilho varrendo */
+  .sge-cta::before {
+    content: '';
+    position: absolute; top: 0; bottom: 0; left: -80%;
+    width: 55%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: skewX(-22deg);
+    animation: sgeShine 3.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .sge-cta > * { position: relative; z-index: 1; }
+  .sge-cta:hover { transform: translateY(-3px) scale(1.015); box-shadow: 0 18px 50px rgba(37,211,102,.5); filter: brightness(1.05); }
+  .sge-cta:active { transform: translateY(-1px) scale(.99); }
+  .sge-cta--final { width: 100%; max-width: 560px; margin: 6px auto 0; }
+  .sge-wa-ico { width: 24px; height: 24px; fill: #04220f; flex-shrink: 0; }
+  @keyframes sgeGlow {
+    0%,100% { box-shadow: 0 10px 34px rgba(37,211,102,.3); }
+    50%     { box-shadow: 0 12px 40px rgba(37,211,102,.42), 0 0 0 6px rgba(37,211,102,.08); }
+  }
+  @keyframes sgeShine {
+    0%      { left: -80%; }
+    55%,100%{ left: 130%; }
+  }
+
+  /* ── SEÇÕES BASE ── */
+  .sge-sec {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .sge-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .sge-tag::before { content: '// '; color: var(--muted); }
+  .sge-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 5vw, 2.5rem);
+    line-height: 1.08;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .sge-sub-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.15rem, 3.4vw, 1.5rem);
+    color: var(--gold);
+    margin-bottom: 22px;
+    line-height: 1.2;
+  }
+  .sge-body { font-size: 1.06rem; line-height: 1.65; color: var(--gray); margin-bottom: 16px; }
+  .sge-body.sge-strong { color: var(--white); font-weight: 600; }
+  .sge-lead { font-size: 1.18rem; line-height: 1.6; color: var(--white); margin-bottom: 18px; }
+  .sge-lead em { color: var(--gold); font-style: italic; font-weight: 600; }
+  .sge-gold-text { color: var(--gold); font-weight: 600; }
+
+  /* ── NÚMERO GIGANTE EM OUTLINE (acento assimétrico) ── */
+  .sge-bignum {
+    font-family: 'Bebas Neue', sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(232,185,90,.22);
+    line-height: .8;
+    pointer-events: none;
+    user-select: none;
+  }
+  .sge-bignum small { font-size: .5em; -webkit-text-stroke-width: 1.5px; }
+
+  /* ── DOR (layout assimétrico) ── */
+  .sge-pain { position: relative; overflow: hidden; }
+  .sge-pain-body { position: relative; z-index: 1; }
+  .sge-bignum--pain {
+    position: absolute; z-index: 0;
+    right: -12px; bottom: 40px;
+    font-size: clamp(7rem, 32vw, 15rem);
+    -webkit-text-stroke-width: 2.5px;
+    transform: rotate(-7deg);
+  }
+  .sge-pain-final { font-size: 1.16rem; }
+  .sge-quote {
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 11vw, 4.6rem);
+    color: var(--gold);
+    text-align: left;
+    line-height: .95;
+    letter-spacing: .01em;
+    margin: 36px 0;
+    padding-left: 18px;
+    border-left: 4px solid var(--gold);
+    text-shadow: 0 0 36px rgba(232,185,90,.28);
+  }
+  /* glow dourado por trás da frase de impacto */
+  .sge-quote::before {
+    content: '';
+    position: absolute; left: 50%; top: 50%;
+    width: 360px; height: 180px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse, rgba(232,185,90,.18), transparent 70%);
+    filter: blur(14px);
+    z-index: -1; pointer-events: none;
+  }
+  .sge-faltou {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin: 22px 0;
+  }
+  .sge-faltou span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; text-transform: uppercase;
+    font-size: 1rem; letter-spacing: .03em;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 8px;
+    background: var(--card);
+  }
+
+  /* ── INIMIGO ── */
+  .sge-lies { list-style: none; margin: 0 0 22px; padding: 0; }
+  .sge-lies li {
+    position: relative;
+    padding: 12px 12px 12px 40px;
+    font-size: 1.05rem; color: var(--gray);
+    border-bottom: 1px solid var(--border);
+  }
+  .sge-lies li::before {
+    content: '✕'; position: absolute; left: 12px; top: 12px;
+    color: var(--red); font-weight: 700;
+  }
+
+  /* ── BIG IDEA — faixa full-bleed assimétrica + rede de gol + glow ── */
+  .sge-bigidea {
+    position: relative;
+    width: 100%;
+    padding: 88px 20px;
+    text-align: left;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #050505, #0b0b0b);
+  }
+  .sge-bigidea-inner { max-width: 720px; margin: 0 auto; }
+  .sge-bigidea .sge-tag { margin-bottom: 18px; }
+  /* malha da rede do gol, concentrada e desbotando nas bordas */
+  .sge-bigidea::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(232,185,90,.08) 0 1px, transparent 1px 26px),
+      repeating-linear-gradient(0deg,  rgba(232,185,90,.08) 0 1px, transparent 1px 26px);
+    -webkit-mask-image: radial-gradient(ellipse 62% 72% at 50% 46%, #000 0%, transparent 72%);
+            mask-image: radial-gradient(ellipse 62% 72% at 50% 46%, #000 0%, transparent 72%);
+    pointer-events: none;
+  }
+  /* halo dourado por trás do título */
+  .sge-bigidea::after {
+    content: '';
+    position: absolute; left: 50%; top: 42%; z-index: 0;
+    width: 460px; height: 320px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse, rgba(232,185,90,.16), transparent 65%);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+  .sge-bigidea > * { position: relative; z-index: 1; }
+  .sge-bigidea-h {
+    font-family: 'Bebas Neue', sans-serif;   /* fonte de clímax */
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(2.6rem, 9vw, 5rem);
+    line-height: .92;
+    letter-spacing: .01em;
+    margin-bottom: 16px;
+    max-width: 15ch;            /* corta a linha cedo: cria respiro à direita */
+  }
+  .sge-strike {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 3px;
+  }
+  .sge-bigidea-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.35rem, 4.6vw, 2.1rem);
+    margin-bottom: 18px;
+    max-width: 20ch;
+  }
+
+  /* ── MECANISMO ── */
+  .sge-mech { text-align: center; }
+  .sge-mech-title { color: var(--gold); }
+  .sge-objective {
+    background: linear-gradient(135deg, var(--card), var(--card2));
+    border: 1px solid rgba(232,185,90,.3);
+    border-radius: 16px;
+    padding: 26px 22px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.2rem, 4vw, 1.65rem);
+    line-height: 1.25;
+    margin: 24px 0;
+  }
+  .sge-objective strong { color: var(--gold); }
+  .sge-mech-q {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    color: var(--white);
+    margin-top: 8px;
+  }
+
+  /* ── PILARES (cards) ── */
+  .sge-pillars {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin-top: 10px;
+  }
+  .sge-pillar {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 22px 24px;
+    overflow: hidden;
+    transition: transform .2s ease, border-color .2s ease, background .2s ease;
+  }
+  .sge-pillar::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(var(--gold), transparent);
+    opacity: .55;
+  }
+  .sge-pillar:hover { transform: translateY(-4px); border-color: rgba(232,185,90,.45); background: var(--card2); }
+  .sge-pillar:hover .sge-pillar-n { color: rgba(232,185,90,.22); -webkit-text-stroke-color: rgba(232,185,90,.5); }
+  /* número gigante em outline, vazando pelo canto */
+  .sge-pillar-n {
+    position: absolute;
+    top: -14px; right: -6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(232,185,90,.28);
+    pointer-events: none;
+    transition: color .2s ease, -webkit-text-stroke-color .2s ease;
+  }
+  .sge-pillar-body { position: relative; z-index: 1; }
+  .sge-pillar-t {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; text-transform: uppercase;
+    font-size: 1.3rem; margin-bottom: 8px;
+    max-width: 78%;
+  }
+  .sge-pillar-d { font-size: 1rem; line-height: 1.55; color: var(--gray); }
+
+  /* ── TRANSFORMAÇÃO ── */
+  .sge-transform-list { list-style: none; margin: 8px 0 0; padding: 0; }
+  .sge-transform-list li {
+    position: relative;
+    padding: 13px 12px 13px 40px;
+    font-size: 1.08rem; color: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+  .sge-transform-list li::before {
+    content: '✓'; position: absolute; left: 12px; top: 13px;
+    color: var(--green); font-weight: 800;
+  }
+
+  /* ── DEPOIMENTOS ── */
+  .sge-testis {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin: 32px 0 0;
+  }
+  .sge-testi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    margin: 0;
+  }
+  .sge-stars { color: var(--gold); letter-spacing: 2px; font-size: .95rem; margin-bottom: 10px; }
+  .sge-testi blockquote {
+    font-size: 1.08rem; line-height: 1.55; color: var(--white);
+    margin: 0 0 16px; font-style: italic;
+  }
+  .sge-testi figcaption {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; text-transform: uppercase; letter-spacing: .03em;
+    color: var(--gray);
+  }
+  .sge-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--gold), var(--gold-d));
+    color: #1a1303; font-weight: 800;
+  }
+
+  /* carrossel de prints */
+  .sge-carousel-wrap { position: relative; }
+  .sge-carousel {
+    display: flex; gap: 16px;
+    align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 2px 16px;
+    scrollbar-width: none;
+  }
+  .sge-carousel::-webkit-scrollbar { display: none; }
+  /* largura fixa, altura livre → imagem inteira, sem cortes */
+  .sge-slide {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    width: min(84vw, 360px);
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg2);
+    overflow: hidden;
+  }
+  .sge-slide img { width: 100%; height: auto; display: block; }
+  /* setas (desktop) */
+  .sge-car-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 3;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(13,15,18,.92); border: 1px solid var(--border);
+    color: var(--gold); font-size: 1.7rem; line-height: 1;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    transition: border-color .15s, background .15s;
+  }
+  .sge-car-arrow:hover { border-color: var(--gold); background: var(--card2); }
+  .sge-car-arrow--prev { left: -8px; }
+  .sge-car-arrow--next { right: -8px; }
+  .sge-proof-note { font-size: .82rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+  @media (min-width: 720px) {
+    .sge-slide { width: 400px; }
+    .sge-car-arrow { display: flex; }
+  }
+
+  /* ── ENTREGÁVEIS ── */
+  .sge-deliv {
+    display: grid; gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 8px;
+  }
+  .sge-deliv-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 18px;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .sge-deliv-card:hover { transform: translateY(-3px); border-color: rgba(232,185,90,.4); }
+  .sge-deliv-card:hover .sge-deliv-i { background: rgba(232,185,90,.14); border-color: rgba(232,185,90,.4); }
+  .sge-deliv-i {
+    width: 46px; height: 46px;
+    display: grid; place-items: center;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    color: var(--gold);
+    background: rgba(232,185,90,.08);
+    border: 1px solid rgba(232,185,90,.2);
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .sge-deliv-i svg { width: 24px; height: 24px; }
+  .sge-deliv-t {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; text-transform: uppercase;
+    font-size: 1.1rem; line-height: 1.1; margin-bottom: 6px;
+  }
+  .sge-deliv-d { font-size: .92rem; line-height: 1.45; color: var(--gray); }
+
+  /* ── FAQ ACORDEÃO ── */
+  .sge-faq { margin-top: 8px; }
+  .sge-faq-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card);
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .sge-faq-q {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    background: none; border: none; cursor: pointer;
+    text-align: left;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1.12rem;
+    padding: 18px 18px;
+  }
+  .sge-faq-q[aria-expanded='true'] { color: var(--gold); }
+  .sge-faq-plus {
+    position: relative; width: 16px; height: 16px; flex-shrink: 0;
+  }
+  .sge-faq-plus::before, .sge-faq-plus::after {
+    content: ''; position: absolute; background: var(--gold);
+    transition: transform .25s ease;
+  }
+  .sge-faq-plus::before { left: 0; top: 7px; width: 16px; height: 2px; }
+  .sge-faq-plus::after  { left: 7px; top: 0; width: 2px; height: 16px; }
+  .sge-faq-q[aria-expanded='true'] .sge-faq-plus::after { transform: scaleY(0); }
+  .sge-faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .sge-faq-a.open { max-height: 240px; }
+  .sge-faq-a p {
+    padding: 0 18px 18px;
+    font-size: 1rem; line-height: 1.6; color: var(--gray);
+  }
+
+  /* ── FECHAMENTO ── */
+  .sge-close { text-align: center; padding-bottom: 28px; }
+  .sge-paths {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin: 24px 0;
+    text-align: left;
+  }
+  .sge-path {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    background: var(--card);
+  }
+  .sge-path p { color: var(--gray); margin-bottom: 6px; line-height: 1.5; }
+  .sge-path-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    display: inline-block; margin-bottom: 12px;
+  }
+  .sge-path--bad { border-left: 3px solid var(--red); }
+  .sge-path--bad .sge-path-tag { color: var(--red); }
+  .sge-path--good { border-left: 3px solid var(--green); background: var(--card2); }
+  .sge-path--good .sge-path-tag { color: var(--green); }
+  .sge-path--good p { color: var(--white); font-weight: 500; }
+  .sge-path-quote {
+    display: block; margin-top: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem; color: var(--muted);
+  }
+  /* painel destacado do CTA final */
+  .sge-cta-box {
+    position: relative;
+    margin-top: 30px;
+    padding: 32px 24px 28px;
+    border-radius: 22px;
+    border: 1px solid rgba(232,185,90,.28);
+    background:
+      radial-gradient(120% 100% at 50% 0%, rgba(37,211,102,.10), transparent 60%),
+      linear-gradient(180deg, #11140f 0%, #0a0c0a 100%);
+    box-shadow: 0 24px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow: hidden;
+  }
+  /* faixa de luz no topo do painel */
+  .sge-cta-box::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 70%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: .7;
+  }
+  .sge-final-q {
+    font-family: 'Bebas Neue', sans-serif;   /* fonte de clímax */
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(1.9rem, 6.5vw, 2.9rem);
+    line-height: .98;
+    letter-spacing: .01em;
+    color: var(--white);
+    margin: 0 auto 24px;
+    max-width: 540px;
+  }
+  .sge-micro { font-size: .9rem; color: var(--muted); margin-top: 16px; }
+
+  /* ── QUEM SOMOS — separado do fechamento, imagem flush sem bordas ── */
+  .sge-whoweare {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 52px 0 0;          /* respiro que separa do bloco anterior */
+    text-align: center;
+    background: #000;            /* mesmo preto da imagem */
+  }
+  /* divisor sutil entre o CTA e o Quem Somos */
+  .sge-whoweare::before {
+    content: '';
+    display: block;
+    width: 64px; height: 3px;
+    margin: 0 auto 26px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--gold-d), var(--gold));
+  }
+  .sge-whoweare-kicker {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .sge-whoweare-title { padding: 0 20px; margin-bottom: 26px; }
+  .sge-whoweare-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    max-width: none;
+  }
+
+  /* ── RODAPÉ ── */
+  .sge-footer {
+    text-align: center;
+    padding: 50px 20px 104px;
+    background: #000;
+  }
+  .sge-foot-rule {
+    width: 56px; height: 3px; border-radius: 3px;
+    margin: 0 auto 24px;
+    background: linear-gradient(90deg, var(--gold-d), var(--gold));
+  }
+  .sge-foot-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--gold); font-size: 1.4rem; line-height: 1; margin-bottom: 22px;
+  }
+  .sge-foot-social {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 26px;
+  }
+  .sge-soc {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--white);
+    font-size: .86rem; font-weight: 600;
+    text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .sge-soc svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .sge-soc:hover { transform: translateY(-2px); }
+  .sge-soc--wa svg { fill: var(--green); }
+  .sge-soc--wa:hover { border-color: var(--green); background: rgba(37,211,102,.08); }
+  .sge-soc--ig svg { fill: #e1306c; }
+  .sge-soc--ig:hover { border-color: #e1306c; background: rgba(225,48,108,.08); }
+  .sge-foot-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; letter-spacing: .06em;
+    color: var(--muted); line-height: 1.6;
+  }
+
+  /* ── BOTÃO FLUTUANTE WHATSAPP ── */
+  .sge-float {
+    position: fixed; bottom: 22px; right: 18px; z-index: 998;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 28px rgba(37,211,102,.5);
+    opacity: 0; transform: translateY(16px) scale(.8);
+    transition: opacity .35s ease, transform .35s ease, background .15s;
+    pointer-events: none;
+  }
+  .sge-float svg { width: 30px; height: 30px; fill: #fff; }
+  .sge-float.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  .sge-float:hover { background: #1fbd57; transform: scale(1.08); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @keyframes sgeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── RESPONSIVO (desktop) ── */
+  @media (min-width: 720px) {
+    .sge-hero { padding-bottom: 64px; }
+    .sge-hero-inner { margin-top: -64px; }
+    .sge-pillars { grid-template-columns: repeat(2, 1fr); }
+    .sge-pillars .sge-pillar:nth-child(5) { grid-column: 1 / -1; }
+    .sge-testis { grid-template-columns: repeat(3, 1fr); }
+    .sge-deliv  { grid-template-columns: repeat(4, 1fr); }
+    .sge-paths  { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sge-cta, .sge-cta::before { animation: none; }
+    .sge-cta::before { display: none; }
+    .sge-hero-img, .sge-hero-h1, .sge-hero-sub, .sge-hero-stats { animation: none; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  // Reveal ao rolar
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
+
+  // Count-up nas estatísticas do hero
+  const fmtNum = (n: number) => n.toLocaleString('pt-BR');
+  const finalText = (el: HTMLElement) =>
+    (el.dataset.prefix || '') + fmtNum(Number(el.dataset.to)) + (el.dataset.suffix || '');
+  const counters = document.querySelectorAll<HTMLElement>('.sge-count');
+  const statsEl = document.querySelector('.sge-hero-stats');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (counters.length && statsEl && !reduceMotion) {
+    const runCount = (el: HTMLElement) => {
+      const to = Number(el.dataset.to);
+      const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      const dur = 1300, start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = pre + fmtNum(Math.round(to * eased)) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = finalText(el);
+      };
+      el.textContent = pre + '0' + suf;
+      requestAnimationFrame(tick);
+    };
+    new IntersectionObserver((entries, ob) => {
+      if (entries[0].isIntersecting) { counters.forEach(runCount); ob.disconnect(); }
+    }, { threshold: 0.4 }).observe(statsEl);
+  } else {
+    counters.forEach((el) => { el.textContent = finalText(el); });
+  }
+
+  // Botão flutuante só ativa quando o lead chega no CTA final (e fica ativo dali em diante)
+  const float = document.getElementById('sge-float');
+  const finalCta = document.querySelector('.sge-cta--final');
+  if (float && finalCta) {
+    const floatObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        float.classList.add('is-visible');
+        floatObs.disconnect();
+      }
+    }, { threshold: 0 });
+    floatObs.observe(finalCta);
+  }
+
+  // Carrossel de provas — setas (desktop)
+  document.querySelectorAll<HTMLButtonElement>('.sge-car-arrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const track = btn.closest('.sge-carousel-wrap')?.querySelector<HTMLElement>('.sge-carousel');
+      if (!track) return;
+      track.scrollBy({ left: Number(btn.dataset.dir) * Math.round(track.clientWidth * 0.8), behavior: 'smooth' });
+    });
+  });
+
+  // FAQ acordeão (abre um, fecha os outros)
+  document.querySelectorAll<HTMLButtonElement>('.sge-faq-q').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll<HTMLButtonElement>('.sge-faq-q').forEach((b) => {
+        b.setAttribute('aria-expanded', 'false');
+        (b.nextElementSibling as HTMLElement)?.classList.remove('open');
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        (btn.nextElementSibling as HTMLElement)?.classList.add('open');
+      }
+    });
+  });
+</script>
