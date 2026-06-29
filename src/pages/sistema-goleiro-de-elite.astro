@@ -6,8 +6,8 @@
 ============================================================ */
 import Base from '../layouts/Base.astro';
 
-// ⚽ Link do WhatsApp — troque o número/mensagem se necessário.
-const WHATSAPP = 'https://wa.me/5565981351676?text=Ol%C3%A1%2C%20vim%20da%20p%C3%A1gina%20do%20Sistema%20Goleiro%20de%20Elite%20e%20quero%20saber%20se%20o%20acompanhamento%20faz%20sentido%20pra%20mim';
+// ⚽ Link do WhatsApp (via tintim.link para rastreamento).
+const WHATSAPP = 'https://tintim.link/whatsapp/41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8/5437cb1a-b948-4a6c-b6bb-baf7de8a6547';
 const CTA = 'FALE COM NOSSA EQUIPE AGORA';
 
 // 5 Pilares
@@ -74,6 +74,21 @@ const faq = [
   title="Sistema Goleiro de Elite™ | Preparação Física Específica para Goleiros"
   heroImage="/images/goleiro_de_elite_hero.webp"
 >
+  <!-- Tintim pixel -->
+  <script is:inline>
+    (function(window, document, script) {
+      if (!window.tt) {
+        window.tt = window.tt || {};
+        c = document.getElementsByTagName('head')[0];
+        k = document.createElement('script');
+        k.async = 1;
+        k.src = script;
+        c.appendChild(k);
+      }
+      window.tt.accountCode = '41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8';
+    })(window, document, '//s.tintim.app/static/core/tintim-1.0.js');
+  </script>
+
   <main class="sge">
 
     <!-- ============================================================
