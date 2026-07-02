@@ -472,9 +472,9 @@ const entregaveis = [
     </section>
 
     <!-- ============================================================
-         RODAPÉ
+         RODAPÉ (só aparece junto do diagnóstico final)
     ============================================================ -->
-    <footer class="sge-footer">
+    <footer class="sge-footer" id="sge-footer" style="display:none">
       <div class="sge-foot-rule" aria-hidden="true"></div>
       <div class="sge-foot-brand">Programa Goleiro de Elite</div>
       <div class="sge-foot-social">
@@ -1363,6 +1363,7 @@ const entregaveis = [
     showStep('result');
     document.getElementById('sge-float')?.classList.add('is-visible');
     (document.getElementById('sge-whoweare') as HTMLElement).style.display = '';
+    (document.getElementById('sge-footer') as HTMLElement).style.display = '';
     track({
       event: 'quiz_complete',
       quiz_name: 'quiz_sge',
