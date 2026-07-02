@@ -1,0 +1,1447 @@
+---
+/* ============================================================
+   SISTEMA GOLEIRO DE ELITE™ — Quiz interativo de qualificação
+   Abertura = hero original da landing + botão INICIAR.
+   5 perguntas → bridge → pitch (pilares/entregáveis/provas)
+   → diagnóstico personalizado → CTA de WhatsApp (tintim).
+   O link tintim varia por página (base / julio / lucas) e
+   chega via prop `whatsapp`.
+============================================================ */
+import Base from '../layouts/Base.astro';
+
+interface Props {
+  whatsapp: string;
+}
+const { whatsapp } = Astro.props;
+
+const CTA = 'FALE COM NOSSA EQUIPE AGORA';
+
+// 5 Pilares
+const pilares = [
+  { n: '01', t: 'Especificidade Aplicada™',         d: 'Seu treino é construído para as exigências reais da posição.' },
+  { n: '02', t: 'Individualização Estratégica™',     d: 'Sua idade, rotina, histórico, corpo e objetivos são levados em consideração.' },
+  { n: '03', t: 'Transferência Para o Jogo™',        d: 'Cada exercício precisa gerar resultado dentro do gol.' },
+  { n: '04', t: 'Progressão de Performance™',        d: 'Força. Mobilidade. Potência. Explosão. Velocidade. Cada etapa prepara a próxima.' },
+  { n: '05', t: 'Desenvolvimento Integral do Goleiro™', d: 'Mais confiança, mais resistência, menos dores, mais desempenho e mais longevidade.' },
+];
+
+// Provas sociais (prints) — carrossel no pitch
+const provas = [
+  { src: '/images/prova-compra.webp',        w: 942,  h: 1580, alt: 'Print de aluno: "foi a minha melhor compra"' },
+  { src: '/images/prova-antesdepois-1.webp', w: 1080, h: 1080, alt: 'Antes e depois de aluno do Sistema Goleiro de Elite' },
+  { src: '/images/prova-wagner.webp',        w: 730,  h: 1580, alt: 'Depoimento do aluno Wagner' },
+  { src: '/images/prova-antesdepois-2.webp', w: 1080, h: 1149, alt: 'Evolução física de aluno' },
+  { src: '/images/prova-crianca.webp',       w: 730,  h: 1580, alt: 'Depoimento de aluno da categoria de base' },
+  { src: '/images/prova-antesdepois-3.webp', w: 711,  h: 1580, alt: 'Antes e depois de aluno' },
+  { src: '/images/prova-msg.webp',           w: 711,  h: 1580, alt: 'Mensagem de aluno satisfeito' },
+];
+
+// Ícones SVG (linha, monocromáticos — herdam o dourado)
+const ICON = {
+  plano: '<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+  app: '<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+  evolucao: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  local: '<path d="M14.4 14.4 9.6 9.6"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.4 12.8a2 2 0 1 1-2.83-2.83l1.77-1.77a2 2 0 1 1-2.83-2.82l2.83-2.83a2 2 0 1 1 2.83 2.83l1.76-1.77a2 2 0 1 1 2.83 2.83z"/><path d="M18.66 21.49a2 2 0 1 1-2.83-2.83l-1.77 1.77a2 2 0 1 1-2.83-2.83l6.37-6.36a2 2 0 1 1 2.82 2.82l-1.76 1.77a2 2 0 1 1 2.83 2.83z"/>',
+  nutri: '<path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/>',
+  pre: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  pos: '<line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/>',
+  chat: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+};
+
+// O que você recebe
+const entregaveis = [
+  { icon: ICON.plano,    t: 'Plano de Treino Personalizado', d: 'Construído para a sua realidade.' },
+  { icon: ICON.app,      t: 'Aplicativo de Treinos',         d: 'Você abre e executa. Sem dúvidas. Sem improviso.' },
+  { icon: ICON.evolucao, t: 'Evolução Contínua',             d: 'Seu treino evolui conforme você evolui.' },
+  { icon: ICON.local,    t: 'Treino para Casa ou Academia',  d: 'Adaptado à estrutura que você possui.' },
+  { icon: ICON.nutri,    t: 'Guia Nutricional',              d: 'Para melhorar recuperação, composição corporal e desempenho.' },
+  { icon: ICON.pre,      t: 'Protocolo Pré-Jogo',            d: 'Prepare seu corpo para competir.' },
+  { icon: ICON.pos,      t: 'Protocolo Pós-Jogo',            d: 'Recupere melhor e continue evoluindo.' },
+  { icon: ICON.chat,     t: 'Suporte Direto Pelo WhatsApp',  d: 'Acompanhamento, ajustes, adaptações e direção.' },
+];
+---
+
+<Base
+  title="Sistema Goleiro de Elite™ | Preparação Física Específica para Goleiros"
+  heroImage="/images/goleiro_de_elite_hero.webp"
+>
+  <!-- Tintim pixel -->
+  <script is:inline>
+    (function(window, document, script) {
+      if (!window.tt) {
+        window.tt = window.tt || {};
+        c = document.getElementsByTagName('head')[0];
+        k = document.createElement('script');
+        k.async = 1;
+        k.src = script;
+        c.appendChild(k);
+      }
+      window.tt.accountCode = '41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8';
+    })(window, document, '//s.tintim.app/static/core/tintim-1.0.js');
+  </script>
+
+  <main class="sge">
+
+    <!-- ============================================================
+         ABERTURA — HERO ORIGINAL DA LANDING + BOTÃO INICIAR
+    ============================================================ -->
+    <section class="sge-hero" id="quiz-hero">
+      <!-- Banner do programa (substitui o texto eyebrow) -->
+      <div class="sge-hero-media">
+        <img
+          src="/images/goleiro_de_elite_hero.webp"
+          alt="Sistema Goleiro de Elite — preparação física específica para goleiros"
+          width="1536" height="1024"
+          fetchpriority="high" decoding="async"
+          class="sge-hero-img"
+        />
+        <div class="sge-hero-fade"></div>
+      </div>
+      <div class="sge-hero-inner">
+        <h1 class="sge-hero-h1">
+          Descubra o método que já ajudou mais de <span class="sge-hl">2.000 goleiros</span> a transformar sua preparação física em desempenho real dentro do gol.
+        </h1>
+        <p class="sge-hero-sub">
+          Um planejamento criado para quem quer jogar com mais confiança, explosão e desempenho.
+        </p>
+        <div class="sge-hero-stats">
+          <div><strong class="sge-count" data-to="2000" data-prefix="+">+2.000</strong><span>goleiros</span></div>
+          <i></i>
+          <div><strong class="sge-count" data-to="3" data-prefix="+" data-suffix=" anos">+3 anos</strong><span>de método</span></div>
+          <i></i>
+          <div><strong class="sge-count" data-to="100" data-suffix="%">100%</strong><span>online</span></div>
+        </div>
+
+        <!-- Botão que dá início ao quiz -->
+        <button type="button" class="sge-cta sge-cta--start" id="quiz-start">
+          <span>INICIAR</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="sge-start-arrow" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <p class="sge-micro sge-start-micro">Leva menos de 1 minuto · 5 perguntas rápidas</p>
+
+        <noscript>
+          <a href={whatsapp} target="_blank" rel="noopener" class="sge-cta">{CTA}</a>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         QUIZ — card com steps (oculto até o INICIAR)
+    ============================================================ -->
+    <section class="sge-quiz-sec" id="quiz-sec" style="display:none">
+      <div class="sge-quiz-brand">
+        <span class="sge-quiz-logo">Sistema Goleiro de Elite™</span>
+        <span class="sge-quiz-logo-sub">Avaliação gratuita de perfil</span>
+      </div>
+
+      <div class="sge-card" id="quiz-card">
+
+        <!-- Barra de progresso (visível nos steps 1–5) -->
+        <div class="prog-row" id="prog-row">
+          <div class="prog-track">
+            <div class="prog-fill" id="prog-fill"></div>
+          </div>
+          <div class="prog-label"><span id="prog-current">1</span> / 5</div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             STEP 1 — Perfil
+        ══════════════════════════════════════════════ -->
+        <div class="step" id="step-1" style="display:none">
+          <div class="q-num">// 01 — Perfil</div>
+          <div class="q-text">Você está aqui para...</div>
+          <div class="options">
+            <button type="button" class="opt" data-step="1" data-v="amador">
+              <span class="opt-ico">🥅</span>
+              <span class="opt-label">Mim mesmo — sou goleiro amador</span>
+            </button>
+            <button type="button" class="opt" data-step="1" data-v="profissional">
+              <span class="opt-ico">⭐</span>
+              <span class="opt-label">Mim mesmo — jogo em clube ou categoria de base</span>
+            </button>
+            <button type="button" class="opt" data-step="1" data-v="mae_pai">
+              <span class="opt-ico">👨‍👩‍👦</span>
+              <span class="opt-label">Meu filho — quero melhorar o desempenho dele</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             STEP 2 — Dificuldade (gancho: "dava para ter pego")
+        ══════════════════════════════════════════════ -->
+        <div class="step" id="step-2" style="display:none">
+          <div class="q-num">// 02 — Dificuldade</div>
+          <div class="q-text"
+            data-voce="Todo goleiro tem aquela bola que “dava para ter pego”. O que mais te segura hoje dentro do gol?"
+            data-filho="Todo goleiro tem aquela bola que “dava para ter pego”. O que mais segura o seu filho dentro do gol?">
+            Todo goleiro tem aquela bola que “dava para ter pego”. O que mais te segura hoje dentro do gol?
+          </div>
+          <div class="options">
+            <button type="button" class="opt" data-step="2" data-v="explosao">
+              <span class="opt-ico">⚡</span>
+              <span class="opt-label"
+                data-voce="Falta de explosão e velocidade de reação"
+                data-filho="Falta de explosão e velocidade de reação">
+                Falta de explosão e velocidade de reação
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="2" data-v="duelos">
+              <span class="opt-ico">💪</span>
+              <span class="opt-label"
+                data-voce="Perco os duelos aéreos com frequência"
+                data-filho="Perde os duelos aéreos com frequência">
+                Perco os duelos aéreos com frequência
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="2" data-v="lesoes">
+              <span class="opt-ico">🤕</span>
+              <span class="opt-label"
+                data-voce="Sofro lesões ou dores com frequência"
+                data-filho="Sofre lesões ou dores com frequência">
+                Sofro lesões ou dores com frequência
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="2" data-v="sem_resultado">
+              <span class="opt-ico">🎯</span>
+              <span class="opt-label"
+                data-voce="Treino, mas não vejo resultado dentro do gol"
+                data-filho="Treina, mas não vê resultado dentro do gol">
+                Treino, mas não vejo resultado dentro do gol
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             STEP 3 — Tentativas
+        ══════════════════════════════════════════════ -->
+        <div class="step" id="step-3" style="display:none">
+          <div class="q-num">// 03 — Tentativas</div>
+          <div class="q-text"
+            data-voce="O que você já tentou para resolver isso?"
+            data-filho="O que você já tentou para resolver isso com ele?">
+            O que você já tentou para resolver isso?
+          </div>
+          <div class="options">
+            <button type="button" class="opt" data-step="3" data-v="academia">
+              <span class="opt-ico">🏋️</span>
+              <span class="opt-label"
+                data-voce="Musculação genérica, sem programa para goleiro"
+                data-filho="Academia com treino genérico, sem programa para goleiro">
+                Musculação genérica, sem programa para goleiro
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="3" data-v="tecnico">
+              <span class="opt-ico">📋</span>
+              <span class="opt-label"
+                data-voce="Pedi ajuda ao instrutor / técnico"
+                data-filho="Pediu ajuda ao instrutor / técnico do clube">
+                Pedi ajuda ao instrutor / técnico
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="3" data-v="online">
+              <span class="opt-ico">📱</span>
+              <span class="opt-label"
+                data-voce="Vídeos e conteúdo na internet"
+                data-filho="Vídeos e conteúdo na internet">
+                Vídeos e conteúdo na internet
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="3" data-v="nada">
+              <span class="opt-ico">🚫</span>
+              <span class="opt-label"
+                data-voce="Nada estruturado até agora"
+                data-filho="Nada estruturado até agora">
+                Nada estruturado até agora
+              </span>
+            </button>
+          </div>
+          <p class="q-note">Treino genérico cria goleiro cansado. Não necessariamente melhor.</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             STEP 4 — Obstáculo
+        ══════════════════════════════════════════════ -->
+        <div class="step" id="step-4" style="display:none">
+          <div class="q-num">// 04 — Obstáculo</div>
+          <div class="q-text"
+            data-voce="O que te impede de resolver isso de vez?"
+            data-filho="O que impede de resolver isso de vez para ele?">
+            O que te impede de resolver isso de vez?
+          </div>
+          <div class="options">
+            <button type="button" class="opt" data-step="4" data-v="onde_comecar">
+              <span class="opt-ico">🔍</span>
+              <span class="opt-label"
+                data-voce="Não sei o que treinar para a posição"
+                data-filho="Não sabe o que treinar para a posição">
+                Não sei o que treinar para a posição
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="4" data-v="sem_transferencia">
+              <span class="opt-ico">😓</span>
+              <span class="opt-label"
+                data-voce="Já tentei, mas não aparece no jogo"
+                data-filho="Já tentou, mas não aparece no jogo">
+                Já tentei, mas não aparece no jogo
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="4" data-v="tempo">
+              <span class="opt-ico">⏰</span>
+              <span class="opt-label"
+                data-voce="Falta de tempo e rotina para treinar"
+                data-filho="Falta de tempo e rotina para treinar">
+                Falta de tempo e rotina para treinar
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="4" data-v="acompanhamento">
+              <span class="opt-ico">🧭</span>
+              <span class="opt-label"
+                data-voce="Falta de acompanhamento individual"
+                data-filho="Falta de acompanhamento individual">
+                Falta de acompanhamento individual
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             STEP 5 — Resultado almejado
+        ══════════════════════════════════════════════ -->
+        <div class="step" id="step-5" style="display:none">
+          <div class="q-num">// 05 — Resultado</div>
+          <div class="q-text"
+            data-voce="Qual resultado você quer alcançar como goleiro?"
+            data-filho="Qual resultado você quer para o seu filho?">
+            Qual resultado você quer alcançar como goleiro?
+          </div>
+          <div class="options">
+            <button type="button" class="opt" data-step="5" data-v="explosao">
+              <span class="opt-ico">⚡</span>
+              <span class="opt-label"
+                data-voce="Mais explosão e velocidade de reação"
+                data-filho="Mais explosão e velocidade de reação">
+                Mais explosão e velocidade de reação
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="5" data-v="duelos">
+              <span class="opt-ico">💪</span>
+              <span class="opt-label"
+                data-voce="Dominar os duelos aéreos"
+                data-filho="Dominar os duelos aéreos">
+                Dominar os duelos aéreos
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="5" data-v="longevidade">
+              <span class="opt-ico">🛡️</span>
+              <span class="opt-label"
+                data-voce="Menos lesões e mais longevidade no gol"
+                data-filho="Menos lesões e mais longevidade no gol">
+                Menos lesões e mais longevidade no gol
+              </span>
+            </button>
+            <button type="button" class="opt" data-step="5" data-v="nivel">
+              <span class="opt-ico">📈</span>
+              <span class="opt-label"
+                data-voce="Subir de nível e me destacar"
+                data-filho="Subir de nível e se destacar">
+                Subir de nível e me destacar
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             BRIDGE — decisão
+        ══════════════════════════════════════════════ -->
+        <div class="step step--bridge" id="step-bridge" style="display:none">
+          <div class="bridge-eyebrow">Antes de continuar</div>
+          <div class="bridge-title" id="bridge-title">
+            Se existisse um plano construído para esse resultado,<br />você toparia conhecer como funciona?
+          </div>
+          <div class="bridge-btns">
+            <button type="button" class="bridge-yes" id="bridge-yes">✅ Sim, quero conhecer</button>
+            <button type="button" class="bridge-no" id="bridge-no">Agora não é o meu momento</button>
+          </div>
+          <div class="nurturing" id="nurturing" style="display:none">
+            <p>Tudo bem — quando o momento chegar, estaremos por aqui. Guarde esta página e volte quando fizer sentido para você.</p>
+            <a href="https://instagram.com/goleirodeeliteof" target="_blank" rel="noopener" class="nurturing-link">Enquanto isso, acompanhe a gente no Instagram →</a>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             PITCH — o Sistema Goleiro de Elite™ em versão compacta
+        ══════════════════════════════════════════════ -->
+        <div class="step step--pitch" id="step-pitch" style="display:none">
+          <div class="pitch-badge">🧤 Sistema Goleiro de Elite™</div>
+          <div class="pitch-title" id="pitch-title">O que o programa faz por você</div>
+          <p class="pitch-intro">
+            Uma metodologia construída ao longo de mais de 3 anos e aplicada em mais de 2.000 goleiros —
+            para transformar treino em <strong>desempenho real dentro do gol</strong>.
+          </p>
+
+          <div class="pitch-sub">Os 5 pilares</div>
+          <div class="pitch-pillars">
+            {pilares.map((p) => (
+              <div class="pitch-pillar">
+                <span class="pitch-pillar-n" aria-hidden="true">{p.n}</span>
+                <div>
+                  <strong>{p.t}</strong>
+                  <span>{p.d}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="pitch-sub">O que você recebe</div>
+          <div class="sge-deliv">
+            {entregaveis.map((e) => (
+              <article class="sge-deliv-card">
+                <div class="sge-deliv-i" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={e.icon}></svg>
+                </div>
+                <h3 class="sge-deliv-t">{e.t}</h3>
+                <p class="sge-deliv-d">{e.d}</p>
+              </article>
+            ))}
+          </div>
+
+          <div class="pitch-sub">Quem já passou pelo sistema</div>
+          <div class="sge-carousel-wrap">
+            <button type="button" class="sge-car-arrow sge-car-arrow--prev" data-dir="-1" aria-label="Ver anterior">‹</button>
+            <div class="sge-carousel" id="sge-provas">
+              {provas.map((p) => (
+                <figure class="sge-slide">
+                  <img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" />
+                </figure>
+              ))}
+            </div>
+            <button type="button" class="sge-car-arrow sge-car-arrow--next" data-dir="1" aria-label="Ver próximo">›</button>
+          </div>
+          <p class="sge-proof-note">Prints reais de conversas e evolução de alunos · arraste para ver mais →</p>
+
+          <div class="pitch-stats">
+            <div class="p-stat"><span class="p-n">+2.000</span><span class="p-l">Goleiros</span></div>
+            <div class="p-div"></div>
+            <div class="p-stat"><span class="p-n">+3 anos</span><span class="p-l">de Método</span></div>
+            <div class="p-div"></div>
+            <div class="p-stat"><span class="p-n">100%</span><span class="p-l">Online</span></div>
+          </div>
+
+          <button type="button" class="pitch-cta" id="pitch-cta">VER MEU DIAGNÓSTICO →</button>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             RESULTADO — diagnóstico + CTA WhatsApp
+        ══════════════════════════════════════════════ -->
+        <div class="step step--result" id="step-result" style="display:none">
+          <div class="q-num">// Seu diagnóstico</div>
+          <div class="result-title" id="result-title">Seu diagnóstico está pronto.</div>
+          <p class="result-body" id="result-body"></p>
+
+          <div class="sge-cta-box">
+            <p class="sge-final-q"
+              data-voce="Quer um plano construído para a sua realidade?"
+              data-filho="Quer um plano construído para a realidade do seu filho?">
+              Quer um plano construído para a sua realidade?
+            </p>
+            <a href={whatsapp} target="_blank" rel="noopener" class="sge-cta sge-cta--final" data-cta>
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="sge-wa-ico"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+              <span>{CTA}</span>
+            </a>
+            <p class="sge-micro">Resposta rápida · Atendimento humano · Sem compromisso</p>
+          </div>
+        </div>
+
+      </div><!-- /sge-card -->
+    </section>
+
+    <!-- ============================================================
+         QUEM SOMOS (sempre visível, abaixo do quiz)
+    ============================================================ -->
+    <section class="sge-whoweare reveal">
+      <span class="sge-whoweare-kicker">A equipe</span>
+      <h2 class="sge-h2 sge-whoweare-title">Quem Somos</h2>
+      <img
+        src="/images/quem-somos-sge.webp"
+        alt="Equipe Goleiro de Elite — Eder, ex-goleiro profissional, e Pedro Ferreira, preparador físico. Somos goleiros, treinadores e especialistas em desempenho dentro do gol."
+        width="1536" height="1024"
+        loading="lazy" decoding="async"
+        class="sge-whoweare-img"
+      />
+    </section>
+
+    <!-- ============================================================
+         RODAPÉ
+    ============================================================ -->
+    <footer class="sge-footer">
+      <div class="sge-foot-rule" aria-hidden="true"></div>
+      <div class="sge-foot-brand">Programa Goleiro de Elite</div>
+      <div class="sge-foot-social">
+        <a href={whatsapp} target="_blank" rel="noopener" class="sge-soc sge-soc--wa" aria-label="WhatsApp" data-cta>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a href="https://instagram.com/goleirodeeliteof" target="_blank" rel="noopener" class="sge-soc sge-soc--ig" aria-label="Instagram @goleirodeeliteof">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          <span>@goleirodeeliteof</span>
+        </a>
+      </div>
+      <div class="sge-foot-meta">CNPJ 52.877.418/0001-85 · © 2026 · Todos os direitos reservados</div>
+    </footer>
+
+    <!-- Botão flutuante de WhatsApp — só aparece no diagnóstico final -->
+    <a id="sge-float" href={whatsapp} target="_blank" rel="noopener" class="sge-float" aria-label="Falar no WhatsApp" data-cta>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+
+  </main>
+</Base>
+
+<style>
+  /* ── PALETA — chumbo/preto + dourado elite + verde whatsapp ── */
+  .sge {
+    --bg:    #000000;
+    --bg2:   #0d0f12;
+    --card:  #14171c;
+    --card2: #181c22;
+    --border:#252a32;
+    --gold:  #e8b95a;
+    --gold-d:#c79a3e;
+    --white: #f3f5f7;
+    --gray:  #9aa1ab;
+    --muted: #5d646e;
+    --green: #25d366;
+    --red:   #c0563f;
+
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Barlow', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  .sge * { box-sizing: border-box; }
+
+  /* ── HERO (abertura do quiz — idêntico à landing) ── */
+  .sge-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px 56px;
+    overflow: hidden;
+  }
+  .sge-hero-media {
+    position: relative;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    max-width: 920px;
+  }
+  .sge-hero-img {
+    width: 100%; height: auto; display: block;
+    animation: sgeUp .8s ease both;
+  }
+  .sge-hero-fade {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    height: 38%;
+    background: linear-gradient(180deg, transparent 0%, rgba(8,9,11,.55) 55%, var(--bg) 100%);
+    pointer-events: none;
+  }
+  .sge-hero-inner {
+    position: relative; z-index: 2;
+    max-width: 760px;
+    margin-top: -42px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .sge-hero-h1   { animation: sgeUp .7s .15s ease both; }
+  .sge-hero-sub  { animation: sgeUp .7s .32s ease both; }
+  .sge-hero-stats{ animation: sgeUp .7s .48s ease both; }
+  .sge-cta--start{ animation: sgeUp .7s .62s ease both, sgeGlow 2.4s ease-in-out infinite; }
+  .sge-start-micro{ animation: sgeUp .7s .74s ease both; }
+  .sge-hero-h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 3.6rem);
+    line-height: 1.04;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .sge-hl { color: var(--gold); }
+  .sge-hero-sub {
+    font-size: clamp(1rem, 2.4vw, 1.18rem);
+    line-height: 1.55;
+    color: var(--gray);
+    max-width: 620px;
+    margin-bottom: 34px;
+  }
+  .sge-hero-stats {
+    display: flex; align-items: center; gap: 18px;
+    margin-top: 38px;
+  }
+  .sge-hero-stats > div { display: flex; flex-direction: column; }
+  .sge-hero-stats strong {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem; line-height: 1; color: var(--white);
+  }
+  .sge-hero-stats span {
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
+  }
+  .sge-hero-stats i { width: 1px; height: 30px; background: var(--border); }
+
+  /* ── CTA principal (verde WhatsApp da landing) ── */
+  .sge-cta {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    background: linear-gradient(180deg, #2ee572 0%, var(--green) 55%, #1fc35b 100%);
+    color: #04220f;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(.98rem, 2.7vw, 1.2rem);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 19px 32px;
+    border-radius: 14px;
+    line-height: 1.1;
+    box-shadow: 0 10px 34px rgba(37,211,102,.32);
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    animation: sgeGlow 2.4s ease-in-out infinite;
+  }
+  .sge-cta::before {
+    content: '';
+    position: absolute; top: 0; bottom: 0; left: -80%;
+    width: 55%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: skewX(-22deg);
+    animation: sgeShine 3.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .sge-cta > * { position: relative; z-index: 1; }
+  .sge-cta:hover { transform: translateY(-3px) scale(1.015); box-shadow: 0 18px 50px rgba(37,211,102,.5); filter: brightness(1.05); }
+  .sge-cta:active { transform: translateY(-1px) scale(.99); }
+  .sge-cta--final { width: 100%; max-width: 560px; margin: 6px auto 0; }
+  .sge-cta--start {
+    margin-top: 34px;
+    min-width: min(100%, 320px);
+    font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+    letter-spacing: .1em;
+  }
+  .sge-start-arrow { width: 22px; height: 22px; flex-shrink: 0; }
+  .sge-start-micro { margin-top: 14px; }
+  .sge-wa-ico { width: 24px; height: 24px; fill: #04220f; flex-shrink: 0; }
+  @keyframes sgeGlow {
+    0%,100% { box-shadow: 0 10px 34px rgba(37,211,102,.3); }
+    50%     { box-shadow: 0 12px 40px rgba(37,211,102,.42), 0 0 0 6px rgba(37,211,102,.08); }
+  }
+  @keyframes sgeShine {
+    0%      { left: -80%; }
+    55%,100%{ left: 130%; }
+  }
+
+  .sge-micro { font-size: .9rem; color: var(--muted); margin-top: 16px; }
+
+  /* ── SEÇÃO DO QUIZ ── */
+  .sge-quiz-sec {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 16px 72px;
+  }
+  .sge-quiz-brand {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .sge-quiz-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.35rem;
+    letter-spacing: .14em;
+    color: var(--gold);
+  }
+  .sge-quiz-logo-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .sge-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px 24px 36px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  /* faixa de luz dourada no topo do card */
+  .sge-card::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 70%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: .7;
+  }
+
+  /* ── Progress ── */
+  .prog-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .prog-track {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold-d), var(--gold));
+    border-radius: 99px;
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 8px rgba(232,185,90,.5);
+  }
+  .prog-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+  .prog-label span { color: var(--gold); }
+
+  /* ── Steps ── */
+  .step { animation: fadeUp .35s ease both; }
+
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(1.35rem, 4.5vw, 1.8rem);
+    line-height: 1.12;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .q-note {
+    margin-top: 16px;
+    font-size: .86rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Options ── */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px 16px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, transform .1s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    background: rgba(255,255,255,.02);
+    color: var(--white);
+    font-family: inherit;
+  }
+  .opt:hover { border-color: rgba(232,185,90,.4); background: rgba(232,185,90,.06); }
+  .opt:active { transform: scale(.99); }
+  .opt.selected { border-color: var(--gold); background: rgba(232,185,90,.1); }
+  .opt.selected .opt-label { color: var(--gold); }
+
+  .opt-ico { font-size: 1.15rem; flex-shrink: 0; }
+  .opt-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    transition: color .15s;
+    line-height: 1.3;
+  }
+
+  /* ── Bridge ── */
+  .step--bridge { text-align: center; }
+  .bridge-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .bridge-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .bridge-title em { font-style: normal; color: var(--gold); }
+  .bridge-btns { display: flex; flex-direction: column; gap: 10px; }
+  .bridge-yes {
+    width: 100%;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-d));
+    color: #1a1303;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: filter .15s, transform .1s;
+    box-shadow: 0 6px 32px rgba(232,185,90,.3);
+  }
+  .bridge-yes:hover { filter: brightness(1.08); transform: translateY(-2px); }
+  .bridge-no {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: .06em;
+    cursor: pointer;
+    padding: 8px;
+    transition: color .15s;
+  }
+  .bridge-no:hover { color: var(--gray); }
+
+  .nurturing {
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,.03);
+    animation: fadeUp .3s ease;
+  }
+  .nurturing p {
+    font-size: .9rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .nurturing-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    color: var(--gold);
+    letter-spacing: .06em;
+    text-decoration: none;
+  }
+  .nurturing-link:hover { text-decoration: underline; }
+
+  /* ── Pitch ── */
+  .step--pitch { text-align: center; }
+  .pitch-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #1a1303;
+    background: linear-gradient(135deg, var(--gold), var(--gold-d));
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+  }
+  .pitch-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .pitch-intro {
+    font-size: .96rem;
+    color: var(--gray);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 24px;
+  }
+  .pitch-intro strong { color: var(--gold); }
+  .pitch-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 26px 0 12px;
+    text-align: left;
+  }
+  .pitch-sub::before { content: '// '; color: var(--muted); }
+
+  .pitch-pillars { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+  .pitch-pillar {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    background: rgba(255,255,255,.02);
+  }
+  .pitch-pillar-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.2px rgba(232,185,90,.5);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .pitch-pillar div {
+    display: flex; flex-direction: column; gap: 2px;
+    font-size: .88rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .pitch-pillar strong {
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.02rem;
+  }
+
+  /* entregáveis (grid compacto no card) */
+  .sge-deliv {
+    display: grid; gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+  }
+  .sge-deliv-card {
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 12px;
+  }
+  .sge-deliv-i {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: var(--gold);
+    background: rgba(232,185,90,.08);
+    border: 1px solid rgba(232,185,90,.2);
+  }
+  .sge-deliv-i svg { width: 20px; height: 20px; }
+  .sge-deliv-t {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; text-transform: uppercase;
+    font-size: .96rem; line-height: 1.1; margin-bottom: 4px;
+    color: var(--white);
+  }
+  .sge-deliv-d { font-size: .8rem; line-height: 1.4; color: var(--gray); }
+
+  /* carrossel de provas */
+  .sge-carousel-wrap { position: relative; }
+  .sge-carousel {
+    display: flex; gap: 12px;
+    align-items: center;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 2px 12px;
+    scrollbar-width: none;
+  }
+  .sge-carousel::-webkit-scrollbar { display: none; }
+  .sge-slide {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    width: min(72vw, 280px);
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg2);
+    overflow: hidden;
+  }
+  .sge-slide img { width: 100%; height: auto; display: block; }
+  .sge-car-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 3;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(13,15,18,.92); border: 1px solid var(--border);
+    color: var(--gold); font-size: 1.6rem; line-height: 1;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    transition: border-color .15s, background .15s;
+  }
+  .sge-car-arrow:hover { border-color: var(--gold); background: var(--card2); }
+  .sge-car-arrow--prev { left: -8px; }
+  .sge-car-arrow--next { right: -8px; }
+  .sge-proof-note { font-size: .78rem; color: var(--muted); text-align: center; margin-top: 8px; }
+
+  @media (min-width: 720px) {
+    .sge-car-arrow { display: flex; }
+  }
+
+  .pitch-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,.02);
+    overflow: hidden;
+    margin: 26px 0 22px;
+  }
+  .p-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 14px 8px;
+  }
+  .p-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: .04em;
+  }
+  .p-l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .5rem;
+    color: var(--muted);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .p-div { width: 1px; height: 36px; background: var(--border); }
+
+  .pitch-cta {
+    width: 100%;
+    padding: 17px 24px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-d));
+    border: none;
+    color: #1a1303;
+    border-radius: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: filter .15s, transform .1s;
+    box-shadow: 0 6px 32px rgba(232,185,90,.3);
+  }
+  .pitch-cta:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+  /* ── Resultado ── */
+  .step--result { text-align: center; }
+  .step--result .q-num { text-align: left; }
+  .result-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.7rem, 6vw, 2.4rem);
+    line-height: 1.05;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 14px;
+    text-align: left;
+  }
+  .result-body {
+    font-size: 1.02rem;
+    color: var(--gray);
+    line-height: 1.65;
+    margin-bottom: 26px;
+    text-align: left;
+  }
+  .result-body strong { color: var(--gold); }
+
+  /* painel destacado do CTA final */
+  .sge-cta-box {
+    position: relative;
+    padding: 30px 22px 26px;
+    border-radius: 18px;
+    border: 1px solid rgba(232,185,90,.28);
+    background:
+      radial-gradient(120% 100% at 50% 0%, rgba(37,211,102,.10), transparent 60%),
+      linear-gradient(180deg, #11140f 0%, #0a0c0a 100%);
+    box-shadow: 0 24px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow: hidden;
+  }
+  .sge-cta-box::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 70%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: .7;
+  }
+  .sge-final-q {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400; text-transform: uppercase;
+    font-size: clamp(1.6rem, 5.5vw, 2.3rem);
+    line-height: .98;
+    letter-spacing: .01em;
+    color: var(--white);
+    margin: 0 auto 22px;
+    max-width: 480px;
+  }
+
+  /* ── QUEM SOMOS ── */
+  .sge-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 5vw, 2.5rem);
+    line-height: 1.08;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .sge-whoweare {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 52px 0 0;
+    text-align: center;
+    background: #000;
+  }
+  .sge-whoweare::before {
+    content: '';
+    display: block;
+    width: 64px; height: 3px;
+    margin: 0 auto 26px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--gold-d), var(--gold));
+  }
+  .sge-whoweare-kicker {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .sge-whoweare-title { padding: 0 20px; margin-bottom: 26px; }
+  .sge-whoweare-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    max-width: none;
+  }
+
+  /* ── RODAPÉ ── */
+  .sge-footer {
+    text-align: center;
+    padding: 50px 20px 104px;
+    background: #000;
+  }
+  .sge-foot-rule {
+    width: 56px; height: 3px; border-radius: 3px;
+    margin: 0 auto 24px;
+    background: linear-gradient(90deg, var(--gold-d), var(--gold));
+  }
+  .sge-foot-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--gold); font-size: 1.4rem; line-height: 1; margin-bottom: 22px;
+  }
+  .sge-foot-social {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 26px;
+  }
+  .sge-soc {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--white);
+    font-size: .86rem; font-weight: 600;
+    text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .sge-soc svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .sge-soc:hover { transform: translateY(-2px); }
+  .sge-soc--wa svg { fill: var(--green); }
+  .sge-soc--wa:hover { border-color: var(--green); background: rgba(37,211,102,.08); }
+  .sge-soc--ig svg { fill: #e1306c; }
+  .sge-soc--ig:hover { border-color: #e1306c; background: rgba(225,48,108,.08); }
+  .sge-foot-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; letter-spacing: .06em;
+    color: var(--muted); line-height: 1.6;
+  }
+
+  /* ── BOTÃO FLUTUANTE WHATSAPP ── */
+  .sge-float {
+    position: fixed; bottom: 22px; right: 18px; z-index: 998;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 28px rgba(37,211,102,.5);
+    opacity: 0; transform: translateY(16px) scale(.8);
+    transition: opacity .35s ease, transform .35s ease, background .15s;
+    pointer-events: none;
+  }
+  .sge-float svg { width: 30px; height: 30px; fill: #fff; }
+  .sge-float.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  .sge-float:hover { background: #1fbd57; transform: scale(1.08); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @keyframes sgeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 480px) {
+    .sge-card { padding: 24px 16px 30px; }
+    .sge-deliv { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sge-cta, .sge-cta::before { animation: none; }
+    .sge-cta::before { display: none; }
+    .sge-hero-img, .sge-hero-h1, .sge-hero-sub, .sge-hero-stats, .sge-cta--start, .sge-start-micro { animation: none; }
+    .step { animation: none; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  // ── Estado global ────────────────────────────────────────────────
+  type Mode = 'voce' | 'filho';
+
+  const state: { mode: Mode; answers: Record<number, string> } = {
+    mode: 'voce',
+    answers: {},
+  };
+
+  const TOTAL_STEPS = 5;
+
+  const stepNames: Record<number, string> = {
+    1: 'perfil', 2: 'dificuldade', 3: 'tentativas', 4: 'obstaculo', 5: 'resultado',
+  };
+
+  // Valor → label legível (bridge e diagnóstico)
+  const resultadoLabels: Record<string, { voce: string; filho: string }> = {
+    explosao:   { voce: 'mais explosão e velocidade de reação', filho: 'mais explosão e velocidade de reação' },
+    duelos:     { voce: 'dominar os duelos aéreos',             filho: 'dominar os duelos aéreos' },
+    longevidade:{ voce: 'menos lesões e mais longevidade no gol', filho: 'menos lesões e mais longevidade no gol' },
+    nivel:      { voce: 'subir de nível e me destacar',         filho: 'subir de nível e se destacar' },
+  };
+
+  const dificuldadeLabels: Record<string, string> = {
+    explosao:      'a falta de explosão e velocidade de reação',
+    duelos:        'os duelos aéreos perdidos',
+    lesoes:        'as lesões e dores frequentes',
+    sem_resultado: 'o treino que não aparece dentro do gol',
+  };
+
+  // ── Helpers ──────────────────────────────────────────────────────
+  function track(data: Record<string, unknown>) {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push(data);
+  }
+
+  function showStep(id: string) {
+    document.querySelectorAll<HTMLElement>('.step').forEach(el => {
+      el.style.display = 'none';
+    });
+    const target = document.getElementById(`step-${id}`);
+    if (target) {
+      target.style.display = '';
+      target.style.animation = 'none';
+      void target.offsetWidth; // reflow para reiniciar o fade
+      target.style.animation = '';
+    }
+    document.getElementById('quiz-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateProgress(step: number) {
+    const fill = document.getElementById('prog-fill') as HTMLElement;
+    const current = document.getElementById('prog-current') as HTMLElement;
+    fill.style.width = `${(step / TOTAL_STEPS) * 100}%`;
+    current.textContent = String(step);
+  }
+
+  function applyMode() {
+    document.querySelectorAll<HTMLElement>('[data-voce]').forEach(el => {
+      el.textContent = el.dataset[state.mode] ?? el.dataset.voce ?? '';
+    });
+  }
+
+  // ── Abertura: INICIAR revela o quiz ──────────────────────────────
+  document.getElementById('quiz-start')!.addEventListener('click', () => {
+    track({ event: 'quiz_start', quiz_name: 'quiz_sge' });
+    (document.getElementById('quiz-hero') as HTMLElement).style.display = 'none';
+    (document.getElementById('quiz-sec') as HTMLElement).style.display = '';
+    showStep('1');
+    window.scrollTo({ top: 0 });
+  });
+
+  // ── Seleção de opções ────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const stepNum = parseInt(opt.dataset.step!);
+      const val = opt.dataset.v!;
+
+      // Marca visualmente
+      document.querySelectorAll<HTMLElement>(`.opt[data-step="${stepNum}"]`)
+        .forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+
+      // Salva resposta
+      state.answers[stepNum] = val;
+      track({ event: 'quiz_step', quiz_name: 'quiz_sge', step: stepNum, step_name: stepNames[stepNum], answer: val });
+
+      // Q1 define o modo (você / filho)
+      if (stepNum === 1) {
+        state.mode = val === 'mae_pai' ? 'filho' : 'voce';
+        applyMode();
+      }
+
+      updateProgress(stepNum);
+
+      // Avança após 320ms
+      setTimeout(() => {
+        if (stepNum < TOTAL_STEPS) {
+          showStep(String(stepNum + 1));
+        } else {
+          // Monta texto dinâmico do bridge
+          const resultado = state.answers[5] || '';
+          const labels = resultadoLabels[resultado];
+          const labelText = labels ? labels[state.mode] : 'esse resultado';
+          const alvo = state.mode === 'filho' ? 'para o seu filho' : 'para você';
+          document.getElementById('bridge-title')!.innerHTML =
+            `Se existisse um plano construído ${alvo} — feito para <em>${labelText}</em> —,<br />você toparia conhecer como funciona?`;
+          showStep('bridge');
+          (document.getElementById('prog-row') as HTMLElement).style.display = 'none';
+        }
+      }, 320);
+    });
+  });
+
+  // ── Bridge ───────────────────────────────────────────────────────
+  document.getElementById('bridge-yes')!.addEventListener('click', () => {
+    document.getElementById('pitch-title')!.textContent = state.mode === 'filho'
+      ? 'O que o programa faz pelo seu filho'
+      : 'O que o programa faz por você';
+    showStep('pitch');
+  });
+
+  document.getElementById('bridge-no')!.addEventListener('click', () => {
+    const nurturing = document.getElementById('nurturing')!;
+    nurturing.style.display = '';
+    nurturing.style.animation = 'none';
+    void nurturing.offsetWidth;
+    nurturing.style.animation = '';
+  });
+
+  // ── Pitch → Diagnóstico ─────────────────────────────────────────
+  document.getElementById('pitch-cta')!.addEventListener('click', () => {
+    renderResult();
+    showStep('result');
+    document.getElementById('sge-float')?.classList.add('is-visible');
+    track({
+      event: 'quiz_complete',
+      quiz_name: 'quiz_sge',
+      lead_perfil: state.answers[1],
+      lead_dificuldade: state.answers[2],
+      lead_resultado: state.answers[5],
+    });
+  });
+
+  function renderResult() {
+    const filho = state.mode === 'filho';
+    const dificuldade = dificuldadeLabels[state.answers[2]] || 'a falta de um treino específico para a posição';
+    const resultado = resultadoLabels[state.answers[5]];
+    const objetivo = resultado ? resultado[state.mode] : 'evoluir dentro do gol';
+
+    document.getElementById('result-title')!.textContent = filho
+      ? 'O seu filho tem espaço claro para evoluir.'
+      : 'Você tem espaço claro para evoluir.';
+
+    document.getElementById('result-body')!.innerHTML =
+      `Pelas suas respostas, o que está segurando ${filho ? 'a evolução do seu filho' : 'a sua evolução'} hoje é ` +
+      `<strong>${dificuldade}</strong>. Isso não se resolve com treino genérico — se resolve com um plano específico ` +
+      `para goleiro, construído para <strong>${objetivo}</strong>. É exatamente isso que a nossa equipe monta com você ` +
+      `na consultoria.`;
+  }
+
+  // ── Clique nos CTAs de WhatsApp ─────────────────────────────────
+  // Delegação no document: o pixel Tintim reescreve os <a> de tintim.link
+  // (troca os nós do DOM), o que derrubaria listeners ligados direto neles.
+  document.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest?.('[data-cta]')) return;
+    track({
+      event: 'whatsapp_click',
+      quiz_name: 'quiz_sge',
+      lead_perfil: state.answers[1] || '',
+      lead_resultado: state.answers[5] || '',
+    });
+  });
+
+  // ── Count-up nas estatísticas do hero ───────────────────────────
+  const fmtNum = (n: number) => n.toLocaleString('pt-BR');
+  const finalText = (el: HTMLElement) =>
+    (el.dataset.prefix || '') + fmtNum(Number(el.dataset.to)) + (el.dataset.suffix || '');
+  const counters = document.querySelectorAll<HTMLElement>('.sge-count');
+  const statsEl = document.querySelector('.sge-hero-stats');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (counters.length && statsEl && !reduceMotion) {
+    const runCount = (el: HTMLElement) => {
+      const to = Number(el.dataset.to);
+      const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      const dur = 1300, start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = pre + fmtNum(Math.round(to * eased)) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = finalText(el);
+      };
+      el.textContent = pre + '0' + suf;
+      requestAnimationFrame(tick);
+    };
+    new IntersectionObserver((entries, ob) => {
+      if (entries[0].isIntersecting) { counters.forEach(runCount); ob.disconnect(); }
+    }, { threshold: 0.4 }).observe(statsEl);
+  } else {
+    counters.forEach((el) => { el.textContent = finalText(el); });
+  }
+
+  // ── Carrossel de provas — setas (desktop) ───────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.sge-car-arrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const track_ = btn.closest('.sge-carousel-wrap')?.querySelector<HTMLElement>('.sge-carousel');
+      if (!track_) return;
+      track_.scrollBy({ left: Number(btn.dataset.dir) * Math.round(track_.clientWidth * 0.8), behavior: 'smooth' });
+    });
+  });
+
+  // ── Reveal ao rolar (quem somos) ─────────────────────────────────
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
+</script>
