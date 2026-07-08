@@ -581,6 +581,76 @@ hr {
   line-height: 1.6;
   color: rgba(0,0,0,.68);
 }
+.hero-cta-foot {
+  font-size: .76rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .02em;
+  margin: 0;
+}
+.pivot-bridge {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(0,0,0,.62);
+  line-height: 1.55;
+  max-width: 560px;
+}
+.whom-sub {
+  margin: 40px 0 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+.ico-x { color: #E5484D; font-weight: 700; flex-shrink: 0; }
+.price-why {
+  margin-top: 24px;
+  padding: 18px 22px;
+  background: rgba(244,180,0,.08);
+  border-left: 3px solid var(--yellow);
+  font-size: .95rem;
+  color: rgba(255,255,255,.82);
+  line-height: 1.65;
+}
+.price-why strong { color: var(--yellow); font-weight: 600; }
+.sticky-cta {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(11,11,11,.94);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(244,180,0,.25);
+}
+.sticky-cta.visible { display: flex; }
+.sticky-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #F4C400 0%, #E0A800 100%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.sticky-cta-note {
+  font-size: .72rem;
+  color: rgba(255,255,255,.55);
+  white-space: nowrap;
+}
+@media (min-width: 901px) { .sticky-cta { display: none !important; } }
 
 /* ─── BOTÃO CTA INLINE ─────────────────────────────────────── */
 .btn-inline-wrap { text-align: center; margin-top: 36px; }
@@ -982,8 +1052,8 @@ hr {
 }
 /* nota abaixo do card final */
 .plan-footnote {
-  font-size: .7rem;
-  color: rgba(255,255,255,.2);
+  font-size: .8rem;
+  color: rgba(255,255,255,.5);
   line-height: 1.8;
   text-align: center;
   margin-top: 20px;
@@ -1086,8 +1156,9 @@ hr {
         <vturb-smartplayer id="vid-6a19b604dbdb1fd296650d4b" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
       </div>
       <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="hero-cta" id="hero-cta">
-        Entrar para o desafio
+        Entrar para o desafio · R$ 35
       </a>
+      <p class="hero-cta-foot">Pagamento único · próxima turma começa segunda</p>
     </div>
   </div>
 </section>
@@ -1102,32 +1173,32 @@ hr {
     <div class="schedule-card">
       <div class="schedule-n">01</div>
       <div class="schedule-day">Segunda</div>
-      <div class="schedule-title">Força estrutural</div>
-      <div class="schedule-desc">Base de força para o corpo todo: quadríceps, posterior, glúteo, core. Sustentação pra tudo que vem.</div>
+      <div class="schedule-title">Força de base</div>
+      <div class="schedule-desc">A força que segura o corpo na queda e não deixa a perna ceder no fim do jogo. Daqui sai a sustentação pra explodir a semana toda.</div>
     </div>
     <div class="schedule-card">
       <div class="schedule-n">02</div>
       <div class="schedule-day">Terça</div>
-      <div class="schedule-title">Empurradas e complementos</div>
-      <div class="schedule-desc">Empurrar vertical e horizontal. Movimento de soco e disputa de bola alta. Lançamentos, potência e explosão.</div>
+      <div class="schedule-title">Soco e bola alta</div>
+      <div class="schedule-desc">Força pra socar a bola pra longe e ganhar a disputa no alto — o gesto de empurrar que decide quando a bola sobe na área.</div>
     </div>
     <div class="schedule-card">
       <div class="schedule-n">03</div>
       <div class="schedule-day">Quarta</div>
-      <div class="schedule-title">Potência</div>
-      <div class="schedule-desc">Explosão pura: pliometria, saltos, arrancadas curtas.</div>
+      <div class="schedule-title">Explosão</div>
+      <div class="schedule-desc">Sair do chão e fechar o canto: saltos, arranques curtos, o impulso que chega na bola antes do atacante.</div>
     </div>
     <div class="schedule-card">
       <div class="schedule-n">04</div>
       <div class="schedule-day">Quinta</div>
-      <div class="schedule-title">Puxadas e complementos</div>
-      <div class="schedule-desc">Puxar vertical e horizontal. Disputa aérea, estabilidade no salto, coordenação entre braço e perna. Postural.</div>
+      <div class="schedule-title">Salto e disputa aérea</div>
+      <div class="schedule-desc">Subir mais alto e mais firme na bola alta — braço e perna trabalhando juntos, controle no ar.</div>
     </div>
     <div class="schedule-card">
       <div class="schedule-n">05</div>
       <div class="schedule-day">Sexta</div>
-      <div class="schedule-title">Preventivos e aceleração</div>
-      <div class="schedule-desc">Lesão zero + velocidade de movimento, força coordenativa. Fecha a semana pronto pro jogo.</div>
+      <div class="schedule-title">Velocidade e prevenção</div>
+      <div class="schedule-desc">Reação rápida pro segundo lance e o trabalho que protege o corpo pros 90 minutos. Fecha a semana pronto pro jogo.</div>
     </div>
   </div>
 </section>
@@ -1136,12 +1207,12 @@ hr {
 <section class="s-dark">
   <div class="wrap">
     <div class="cd-block reveal">
-      <div class="label">Próxima turma</div>
+      <div class="label">Inscrições pra próxima turma encerram em</div>
       <div class="cd-time" id="gde-cd">--&nbsp;·&nbsp;--&nbsp;·&nbsp;--&nbsp;·&nbsp;--</div>
       <div class="cd-labels">Dias · Horas · Min · Seg</div>
-      <div class="cd-date">começa <span id="gde-date">segunda-feira</span></div>
+      <div class="cd-date">a turma começa <span id="gde-date">segunda-feira</span> — depois disso, só na semana seguinte</div>
       <div class="cd-bar"><div class="cd-fill"></div></div>
-      <div class="cd-slots"><strong>18 vagas</strong> restantes de 70</div>
+      <div class="cd-slots">Cada turma fecha em <strong>70 goleiros</strong> — o limite pros professores corrigirem todos os vídeos da semana</div>
       <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="btn-inline cd-cta">
         Garantir minha vaga · R$ 35 →
       </a>
@@ -1183,6 +1254,7 @@ hr {
       Não foi falta de treino. Não foi falta de esforço.<br>
       <strong>Foi o tipo de treino errado pra goleiro.</strong>
     </div>
+    <p class="pivot-bridge reveal" style="transition-delay:.18s">O desafio existe pra corrigir exatamente isso — 5 dias treinando o que goleiro usa em campo.</p>
   </div>
 </section>
 
@@ -1197,6 +1269,12 @@ hr {
         <li><span class="ico-y">✓</span> Treina, se dedica, e mesmo assim não vê a diferença dentro do jogo</li>
         <li><span class="ico-y">✓</span> Desconfia que musculação de jogador de linha não serve pra quem explode do chão</li>
         <li><span class="ico-y">✓</span> Pode separar 40 a 60 min por dia durante 5 dias</li>
+      </ul>
+      <div class="whom-sub">Não é pra você se…</div>
+      <ul class="whom-ul">
+        <li><span class="ico-x">✗</span> Você quer treino com bola, queda ou posicionamento — aqui é só o físico</li>
+        <li><span class="ico-x">✗</span> Você espera resultado sem executar os 5 treinos</li>
+        <li><span class="ico-x">✗</span> Você não consegue separar 40 minutos por dia nesta semana</li>
       </ul>
     </div>
   </div>
@@ -1275,6 +1353,11 @@ hr {
       </button>
     </div>
     </div>
+    <div class="btn-inline-wrap reveal">
+      <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="btn-inline">
+        Entrar para o desafio · R$ 35 →
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1284,7 +1367,7 @@ hr {
     <div class="reveal">
       <div class="label">O método</div>
       <h2 class="display" style="color:var(--black)">Goleiro não é jogador de linha.<br><span style="color:var(--black);opacity:.3">O treino também não devia ser.</span></h2>
-      <p class="method-intro">Explosão vertical pra sair do chão. Força lateral pra sustentar a queda. Velocidade pra levantar e estar pronto no próximo lance. É esse tripé — explosão, força e velocidade — que a semana inteira do desafio trabalha.</p>
+      <p class="method-intro">Explosão vertical pra sair do chão. Força lateral pra sustentar a queda. Velocidade pra levantar e estar pronto no próximo lance. É esse tripé — o método EFV: explosão, força e velocidade — que a semana inteira do desafio trabalha.</p>
     </div>
     <div class="method-list reveal" style="transition-delay:.08s">
       <div class="method-item">
@@ -1303,8 +1386,9 @@ hr {
         <div class="method-body">
           <div class="method-title">Acompanhamento ao vivo na turma</div>
           <ul class="method-ul">
-            <li>Professores certificados ativos no grupo durante os 5 dias</li>
+            <li>Professores certificados no método EFV, ativos no grupo durante os 5 dias</li>
             <li>Você manda o vídeo do seu treino, eles corrigem a execução — sem horário fixo</li>
+            <li>Supervisão de Pedro Ferreira (CREF 027014-G/PR)</li>
           </ul>
           <div class="method-result">Você para de treinar no escuro. Entra em campo sabendo que o corpo vai responder — não torcendo pra responder.</div>
         </div>
@@ -1343,7 +1427,7 @@ hr {
   <div class="wrap">
     <div class="reveal">
       <div class="label">O que você recebe</div>
-      <h2 class="display">Tudo por <span class="yl">R$ 35</span></h2>
+      <h2 class="display">Tudo o que <span class="yl">você recebe</span></h2>
     </div>
     <div class="inc-table reveal" style="transition-delay:.1s">
       <div class="inc-row">
@@ -1384,6 +1468,9 @@ hr {
           <div class="inc-price"><sup>R$</sup>35</div>
         </div>
       </div>
+      <div class="price-why reveal">
+        <strong>Por que só R$ 35?</strong> O preço é intencional. Esse desafio é a porta de entrada do Goleiro de Elite — a gente prefere que você conheça o método treinando 5 dias do que lendo promessa. Pagamento único, sem cobrança recorrente. Uma única sessão com um preparador físico presencial custa mais do que a semana inteira do desafio.
+      </div>
       <div class="btn-inline-wrap reveal" style="transition-delay:.12s">
         <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="btn-inline">
           Garantir minha vaga agora →
@@ -1412,14 +1499,14 @@ hr {
         <div class="step-n">2</div>
         <div>
           <div class="step-title">Entra no grupo de acompanhamento</div>
-          <div class="step-desc">Treinadores já estão lá · você treina no seu horário · suporte direto por vídeo</div>
+          <div class="step-desc">Acesso imediato — você já entra hoje no grupo e na plataforma · professores já estão lá</div>
         </div>
       </div>
       <div class="step-item">
         <div class="step-n">3</div>
         <div>
           <div class="step-title">Começa na próxima segunda</div>
-          <div class="step-desc">Treino liberado no domingo à noite · acesso permanente ao material</div>
+          <div class="step-desc">O primeiro treino libera domingo à noite · a turma inteira começa junta · você chega no dia 1 já ambientado</div>
         </div>
       </div>
     </div>
@@ -1450,6 +1537,20 @@ hr {
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
+          Vou treinar queda e pegada de bola?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Não. O desafio é 100% físico — explosão, força e velocidade, a base que faz a queda e a saída acontecerem no jogo. Trabalho com bola e posicionamento é outra etapa. Aqui a gente resolve o motor: a perna que responde na hora.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Já faço musculação. Isso substitui meu treino?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Durante os 5 dias, sim. A diferença não é treinar mais — é treinar o que goleiro usa em campo. Depois da semana, você compara e decide como segue.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
           Tem horário fixo? Quanto tempo preciso separar por dia?
           <div class="faq-ico">+</div>
         </button>
@@ -1460,7 +1561,14 @@ hr {
           5 dias mudam alguma coisa?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>5 dias não te transformam num goleiro novo. O que 5 dias fazem é te tirar do treino errado e te colocar no jeito certo de treinar pra goleiro. Começar certo é o que separa quem evolui de quem fica girando em círculo.</p></div>
+        <div class="faq-body"><p>5 dias não te transformam num goleiro novo. O que 5 dias fazem é te tirar do treino errado e te colocar no jeito certo de treinar pra goleiro. Começar certo é o que separa quem melhora de verdade de quem fica girando em círculo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Preciso já estar em forma?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Não. Os professores ajustam a execução pelo seu vídeo e cada treino tem progressões. Você treina no seu nível — o acompanhamento existe pra isso.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
@@ -1468,6 +1576,20 @@ hr {
           <div class="faq-ico">+</div>
         </button>
         <div class="faq-body"><p>Sem problema. O material fica com você pra sempre — você retoma no dia seguinte, ou refaz todo o desafio quando quiser, no seu próprio ritmo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Por que custa só R$ 35?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Porque o desafio é a porta de entrada do Goleiro de Elite. A gente prefere que você conheça o método treinando 5 dias do que lendo qualquer promessa. Pagamento único, sem cobrança recorrente, sem pegadinha.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Esse desafio substitui a consultoria Goleiro de Elite?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>Não. O desafio é uma imersão de 5 dias na base física. A consultoria é um trabalho individualizado e mais profundo. O desafio é o melhor jeito de conhecer o método por dentro.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
@@ -1499,7 +1621,7 @@ hr {
             <div class="plan-label">Plano único</div>
             <div class="plan-badge">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              Mais popular
+              70 vagas por turma
             </div>
           </div>
 
@@ -1537,7 +1659,7 @@ hr {
               <span class="plan-check">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F4B400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               </span>
-              Menu nutricional específico para os 5 dias
+              Cardápio da semana — plano alimentar pros 5 dias de treino
             </li>
             <li>
               <span class="plan-check">
@@ -1554,6 +1676,12 @@ hr {
   </div>
 </section>
 
+<!-- ── STICKY CTA (mobile) ────────────────────────────────────── -->
+<div class="sticky-cta" id="sticky-cta">
+  <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="sticky-cta-btn">Garantir minha vaga · R$ 35</a>
+  <span class="sticky-cta-note">começa segunda</span>
+</div>
+
 <!-- ── FOOTER ─────────────────────────────────────────────────── -->
 <footer class="foot">
   <img src="/images/logo-gde.webp" alt="Goleiro de Elite" class="foot-logo" width="34" height="34" loading="lazy" decoding="async" />
@@ -1565,6 +1693,16 @@ hr {
 </footer>
 
 <script>
+  // ── Sticky CTA mobile: aparece depois do hero ──────────────
+  (function initStickyCta() {
+    const sticky = document.getElementById('sticky-cta');
+    const hero = document.querySelector('.hero');
+    if (!sticky || !hero) return;
+    window.addEventListener('scroll', () => {
+      sticky.classList.toggle('visible', window.scrollY > hero.offsetHeight);
+    }, { passive: true });
+  })();
+
   // ── VSL loader (sem gate: pagina abre 100% na hora) ────────
   (function loadVSL() {
     const s = document.createElement('script');
