@@ -86,13 +86,6 @@ hr {
 .s-dark  hr { background: rgba(255,255,255,.08); }
 .s-light hr { background: rgba(0,0,0,.1); }
 
-/* ─── LOCKED STATE (página fechada até 3:10 do VSL) ─────── */
-body.is-locked .schedule-sec,
-body.is-locked .s-dark,
-body.is-locked .s-light,
-body.is-locked .plan-sec,
-body.is-locked .foot { display: none !important; }
-.hero-cta.is-hidden { display: none !important; }
 .hero-vsl {
   width: 100%;
   max-width: 420px;
@@ -1092,7 +1085,7 @@ body.is-locked .foot { display: none !important; }
       <div class="hero-vsl">
         <vturb-smartplayer id="vid-6a19b604dbdb1fd296650d4b" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
       </div>
-      <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="hero-cta is-hidden" id="hero-cta">
+      <a href="https://compra.goleirodeelite.com/checkout/KCKEAB250CD" class="hero-cta" id="hero-cta">
         Entrar para o desafio
       </a>
     </div>
@@ -1572,84 +1565,13 @@ body.is-locked .foot { display: none !important; }
 </footer>
 
 <script>
-  // ── Locked state: pagina fica fechada ate 2:40 do VSL ──────
-  document.body.classList.add('is-locked');
+  // ── VSL loader (sem gate: pagina abre 100% na hora) ────────
   (function loadVSL() {
     const s = document.createElement('script');
     s.src = 'https://scripts.converteai.net/54614f94-0915-47ec-b3bb-c6614fdad9d2/players/6a19b604dbdb1fd296650d4b/v4/player.js';
     s.async = true;
     document.head.appendChild(s);
   })();
-
-  // ── VSL gate persistente: desconta tempo ja assistido ──────
-  function initVslGate({ storageKey, targetSeconds, playerId, onUnlock }) {
-    const EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
-    let unlocked = false;
-
-    function readState() {
-      try {
-        const raw = localStorage.getItem(storageKey);
-        if (!raw) return 0;
-        const s = JSON.parse(raw);
-        if (s.playerId !== playerId) return 0;
-        if (Date.now() - s.savedAt > EXPIRY_MS) return 0;
-        return Number(s.watched) || 0;
-      } catch { return 0; }
-    }
-
-    function saveState(watched) {
-      try {
-        localStorage.setItem(storageKey, JSON.stringify({
-          watched, savedAt: Date.now(), playerId
-        }));
-      } catch {}
-    }
-
-    let maxWatched = readState();
-
-    function tryUnlock() {
-      if (unlocked) return;
-      unlocked = true;
-      saveState(targetSeconds);
-      onUnlock();
-    }
-
-    if (maxWatched >= targetSeconds) { tryUnlock(); return; }
-
-    const remainingMs = (targetSeconds - maxWatched) * 1000;
-    const fallbackTimer = setTimeout(tryUnlock, remainingMs);
-
-    const pollInterval = setInterval(() => {
-      if (unlocked) { clearInterval(pollInterval); return; }
-      const el = document.getElementById(playerId);
-      if (!el) return;
-      let t = Number(el.currentTime);
-      if (!isFinite(t) || t < 0) {
-        const innerVideo = el.querySelector && el.querySelector('video');
-        if (innerVideo) t = innerVideo.currentTime;
-      }
-      if (!isFinite(t) || t < 0) return;
-      if (t > maxWatched) {
-        maxWatched = Math.floor(t);
-        saveState(maxWatched);
-        if (maxWatched >= targetSeconds) {
-          clearTimeout(fallbackTimer);
-          tryUnlock();
-        }
-      }
-    }, 1000);
-  }
-
-  initVslGate({
-    storageKey: 'vsl_landing_pt',
-    targetSeconds: 160,
-    playerId: 'vid-6a19b604dbdb1fd296650d4b',
-    onUnlock: () => {
-      document.body.classList.remove('is-locked');
-      const cta = document.getElementById('hero-cta');
-      if (cta) cta.classList.remove('is-hidden');
-    }
-  });
 
   function nextMonday() {
     // Turma fixada: 01/06/2026 — após essa data volta ao cálculo dinâmico
