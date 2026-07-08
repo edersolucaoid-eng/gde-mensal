@@ -172,6 +172,15 @@ body.is-locked .foot { display: none !important; }
   max-width: 620px;
 }
 .hero-headline .yl { color: var(--yellow); }
+.hero-sub {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(.95rem, 1.6vw, 1.08rem);
+  line-height: 1.5;
+  color: rgba(255,255,255,.72);
+  max-width: 560px;
+  margin: 0;
+}
+.hero-sub strong { color: var(--white); font-weight: 600; }
 .hero-media {
   order: -1;
   width: 100%;
@@ -572,6 +581,13 @@ body.is-locked .foot { display: none !important; }
   line-height: 1.55;
 }
 .method-bonus strong { color: var(--black); }
+.method-intro {
+  margin-top: 18px;
+  max-width: 640px;
+  font-size: clamp(.98rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
+  color: rgba(0,0,0,.68);
+}
 
 /* ─── BOTÃO CTA INLINE ─────────────────────────────────────── */
 .btn-inline-wrap { text-align: center; margin-top: 36px; }
@@ -1065,10 +1081,14 @@ body.is-locked .foot { display: none !important; }
   <div class="hero-inner">
     <div class="hero-text">
       <h1 class="hero-headline">
-        Um plano prático de treinos para goleiros com foco em
-        <span class="yl">explosão, força e velocidade</span>,
-        que podem ser feitos em casa ou na academia do seu bairro.
+        Por que você treina a semana toda e a perna ainda
+        <span class="yl">pesa no jogo?</span>
       </h1>
+      <p class="hero-sub">
+        Porque musculação genérica não foi feita pra quem explode do chão.
+        O desafio ataca isso em 5 dias — <strong>explosão, força e velocidade</strong>,
+        treinadas do jeito certo pra goleiro.
+      </p>
       <div class="hero-vsl">
         <vturb-smartplayer id="vid-6a19b604dbdb1fd296650d4b" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
       </div>
@@ -1142,33 +1162,33 @@ body.is-locked .foot { display: none !important; }
   <div class="wrap">
     <div class="reveal">
       <div class="label">O problema</div>
-      <h2 class="display">Você treina.<br>Você se dedica.<br>Mas na hora do jogo…</h2>
+      <h2 class="display">Você treina. Você se dedica.<br>Mas na hora que decide o jogo, o corpo trava.</h2>
     </div>
     <ul class="pain-list reveal" style="transition-delay:.08s">
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Pernas que não respondem no momento decisivo</span>
+        <span>A perna não responde no lance que decide</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Cai e demora pra levantar pra próxima jogada</span>
+        <span>Cai no chão e demora pra levantar pro segundo lance</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Perde a disputa aérea no segundo tempo</span>
+        <span>Perde a disputa aérea quando o segundo tempo aperta</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Treina na academia mas não melhora no gol</span>
+        <span>Treina na academia a semana toda e não sente diferença no gol</span>
       </li>
       <li class="pain-item">
         <div class="pain-x">✗</div>
-        <span>Leva gol que sabia que era pra pegar</span>
+        <span>Sai de campo apagado, sabendo que levou gol que era pra pegar</span>
       </li>
     </ul>
     <div class="pivot-quote reveal" style="transition-delay:.14s">
-      Não faltou treino. Não faltou esforço.<br>
-      <strong>Faltou o tipo certo de treino para goleiro.</strong>
+      Não foi falta de treino. Não foi falta de esforço.<br>
+      <strong>Foi o tipo de treino errado pra goleiro.</strong>
     </div>
   </div>
 </section>
@@ -1181,9 +1201,9 @@ body.is-locked .foot { display: none !important; }
       <h2 class="display" style="margin-bottom:32px">Este desafio é <span class="yl">seu</span> se…</h2>
       <ul class="whom-ul">
         <li><span class="ico-y">✓</span> Você é goleiro amador, universitário, de base ou aspirante</li>
-        <li><span class="ico-y">✓</span> Treina mas não vê melhora dentro do campo</li>
-        <li><span class="ico-y">✓</span> Quer treino físico específico pro goleiro — não treino genérico</li>
-        <li><span class="ico-y">✓</span> Pode separar 40–60 min por dia durante 5 dias</li>
+        <li><span class="ico-y">✓</span> Treina, se dedica, e mesmo assim não vê a diferença dentro do jogo</li>
+        <li><span class="ico-y">✓</span> Desconfia que musculação de jogador de linha não serve pra quem explode do chão</li>
+        <li><span class="ico-y">✓</span> Pode separar 40 a 60 min por dia durante 5 dias</li>
       </ul>
     </div>
   </div>
@@ -1194,7 +1214,7 @@ body.is-locked .foot { display: none !important; }
   <div class="wrap-wide">
     <div class="reveal">
       <div class="label">Resultados reais</div>
-      <h2 class="display">O que muda quando<br>o goleiro treina <span class="yl">certo</span></h2>
+      <h2 class="display">O que muda quando o goleiro<br>treina <span class="yl">do jeito certo</span></h2>
     </div>
     <div class="proof-clip reveal" style="transition-delay:.1s">
     <div class="proof-carousel-outer">
@@ -1270,56 +1290,57 @@ body.is-locked .foot { display: none !important; }
   <div class="wrap">
     <div class="reveal">
       <div class="label">O método</div>
-      <h2 class="display" style="color:var(--black)">4 entregas.<br><span style="color:var(--black);opacity:.3">4 mudanças no seu jogo.</span></h2>
+      <h2 class="display" style="color:var(--black)">Goleiro não é jogador de linha.<br><span style="color:var(--black);opacity:.3">O treino também não devia ser.</span></h2>
+      <p class="method-intro">Explosão vertical pra sair do chão. Força lateral pra sustentar a queda. Velocidade pra levantar e estar pronto no próximo lance. É esse tripé — explosão, força e velocidade — que a semana inteira do desafio trabalha.</p>
     </div>
     <div class="method-list reveal" style="transition-delay:.08s">
       <div class="method-item">
         <div class="method-n">01</div>
         <div class="method-body">
-          <div class="method-title">Treino específico</div>
+          <div class="method-title">Treino específico de goleiro</div>
           <ul class="method-ul">
-            <li>Explosão, força e velocidade</li>
-            <li>Sem bola, sem técnica — só o que decide no jogo</li>
+            <li>Explosão, força e velocidade — o tripé que decide no gol</li>
+            <li>Sem bola, sem técnica — só a base física que o resto do jogo depende</li>
           </ul>
-          <div class="method-result">Pernas que respondem na hora certa. Levanta rápido, explode pro canto, disputa aérea forte até o fim do jogo.</div>
+          <div class="method-result">Pernas que respondem na hora certa. Você levanta rápido, explode pro canto e disputa a bola alta com o mesmo gás até o fim.</div>
         </div>
       </div>
       <div class="method-item">
         <div class="method-n">02</div>
         <div class="method-body">
-          <div class="method-title">Acompanhamento durante a semana</div>
+          <div class="method-title">Acompanhamento ao vivo na turma</div>
           <ul class="method-ul">
-            <li>Treinadores certificados ativos no grupo</li>
-            <li>Você manda vídeo, eles corrigem — sem horário fixo</li>
+            <li>Professores certificados ativos no grupo durante os 5 dias</li>
+            <li>Você manda o vídeo do seu treino, eles corrigem a execução — sem horário fixo</li>
           </ul>
-          <div class="method-result">Confiança real: entra em campo sabendo que o corpo responde. Para de duvidar na hora de decidir.</div>
+          <div class="method-result">Você para de treinar no escuro. Entra em campo sabendo que o corpo vai responder — não torcendo pra responder.</div>
         </div>
       </div>
       <div class="method-item">
         <div class="method-n">03</div>
         <div class="method-body">
-          <div class="method-title">Menu nutricional da semana</div>
+          <div class="method-title">Cardápio que sustenta a semana</div>
           <ul class="method-ul">
-            <li>Plano alimentar simples e prático</li>
-            <li>Otimizado pros 5 dias de treino</li>
+            <li>Plano alimentar simples, pensado pros 5 dias de treino</li>
+            <li>Feito pra dar suporte ao esforço, não pra complicar sua rotina</li>
           </ul>
-          <div class="method-result">Energia pra treinar no ritmo certo, sem chegar quebrado no fim da semana.</div>
+          <div class="method-result">Energia pra treinar no ritmo certo, sem chegar quebrado na sexta.</div>
         </div>
       </div>
       <div class="method-item">
         <div class="method-n">04</div>
         <div class="method-body">
-          <div class="method-title">Ciclo + material permanente</div>
+          <div class="method-title">Ciclo semanal + material permanente</div>
           <ul class="method-ul">
-            <li>Treino liberado na véspera, academia ou casa</li>
-            <li>Material disponível para sempre</li>
+            <li>Treino liberado na véspera, versão casa ou academia</li>
+            <li>Material fica com você pra sempre — refaz quando quiser</li>
           </ul>
-          <div class="method-result">Você nunca mais treina no escuro. Sabe o que fazer, como e por quê — pra sempre.</div>
+          <div class="method-result">Você sabe o que treinar, como e por quê. Pra sempre.</div>
         </div>
       </div>
     </div>
     <div class="method-bonus reveal" style="transition-delay:.16s">
-      <strong>+ Bônus:</strong> 5 dias com goleiros sérios e comprometidos. O ambiente muda como você treina sozinho.
+      <strong>+ Bônus:</strong> 5 dias ao lado de goleiros sérios, na mesma busca. O ambiente muda como você treina depois — sozinho ou não.
     </div>
   </div>
 </section>
@@ -1334,29 +1355,29 @@ body.is-locked .foot { display: none !important; }
     <div class="inc-table reveal" style="transition-delay:.1s">
       <div class="inc-row">
         <div>
-          <div class="inc-name">Acompanhamento ativo no grupo durante a semana</div>
-          <div class="inc-desc">Treinadores certificados corrigem seu vídeo · Q&A diário · sem horário fixo</div>
+          <div class="inc-name">Acompanhamento ao vivo na turma</div>
+          <div class="inc-desc">Professores certificados corrigem seu vídeo · tira-dúvida diário · sem horário fixo</div>
         </div>
         <div class="inc-val">R$ 197</div>
       </div>
       <div class="inc-row">
         <div>
           <div class="inc-name">5 treinos físicos completos</div>
-          <div class="inc-desc">Versão academia + versão casa · segunda a sexta</div>
+          <div class="inc-desc">Versão casa + versão academia · segunda a sexta</div>
         </div>
         <div class="inc-val">R$ 97</div>
       </div>
       <div class="inc-row">
         <div>
-          <div class="inc-name">Menu nutricional da semana</div>
-          <div class="inc-desc">Plano alimentar específico para os 5 dias</div>
+          <div class="inc-name">Cardápio da semana</div>
+          <div class="inc-desc">Plano alimentar específico pra sustentar os 5 dias de treino</div>
         </div>
         <div class="inc-val">R$ 47</div>
       </div>
       <div class="inc-row">
         <div>
-          <div class="inc-name">Material disponível para sempre</div>
-          <div class="inc-desc">Refaça os treinos quando quiser · acesso permanente ao conteúdo</div>
+          <div class="inc-name">Material permanente</div>
+          <div class="inc-desc">Refaz o desafio quantas vezes quiser · acesso pro conteúdo pra sempre</div>
         </div>
         <div class="inc-val">R$ 197</div>
       </div>
@@ -1422,17 +1443,17 @@ body.is-locked .foot { display: none !important; }
     <div class="faq-list reveal" style="transition-delay:.1s">
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          Preciso ter academia pra fazer?
+          Preciso de academia pra fazer?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Não. Cada treino vem em duas versões: academia e casa. Você escolhe.</p></div>
+        <div class="faq-body"><p>Não. Cada treino vem em duas versões: casa e academia. Você escolhe a sua.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
           Funciona pra goleiro amador?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Sim. O desafio foi criado especificamente para goleiros amadores, universitários, de base e aspirantes.</p></div>
+        <div class="faq-body"><p>Sim. O desafio foi montado pra goleiro amador, universitário, de base e aspirante — quem treina sério e quer parar de ser limitado pelo físico.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
@@ -1443,17 +1464,31 @@ body.is-locked .foot { display: none !important; }
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
+          5 dias mudam alguma coisa?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>5 dias não te transformam num goleiro novo. O que 5 dias fazem é te tirar do treino errado e te colocar no jeito certo de treinar pra goleiro. Começar certo é o que separa quem evolui de quem fica girando em círculo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
           E se eu perder um dia ou quiser refazer depois?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Sem problema. O material fica disponível para sempre — você retoma no dia seguinte, ou refaz todo o desafio quando quiser, no seu próprio ritmo.</p></div>
+        <div class="faq-body"><p>Sem problema. O material fica com você pra sempre — você retoma no dia seguinte, ou refaz todo o desafio quando quiser, no seu próprio ritmo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Vou ter contato direto com o Pedro Ferreira?
+          <div class="faq-ico">+</div>
+        </button>
+        <div class="faq-body"><p>O Pedro supervisiona o método e o conteúdo. O acompanhamento diário no grupo é conduzido pelos professores treinados no método EFV.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
           Como recebo meu acesso?
           <div class="faq-ico">+</div>
         </button>
-        <div class="faq-body"><p>Imediatamente após o pagamento você é direcionado ao grupo de acompanhamento. Sem espera, sem e-mail pra chegar.</p></div>
+        <div class="faq-body"><p>Imediatamente após o pagamento você entra no grupo de acompanhamento. Sem espera, sem e-mail pra chegar.</p></div>
       </div>
     </div>
   </div>
@@ -1522,7 +1557,7 @@ body.is-locked .foot { display: none !important; }
         </div>
       </div>
     </div>
-    <p class="plan-footnote reveal" style="transition-delay:.1s">O preço é intencional. Esse desafio é a porta de entrada — queremos que você experimente o método antes de qualquer decisão maior.</p>
+    <p class="plan-footnote reveal" style="transition-delay:.1s">O preço é intencional. Esse desafio é a porta de entrada — a gente quer que você sinta como é treinar do jeito certo antes de qualquer decisão maior.</p>
   </div>
 </section>
 
@@ -1533,7 +1568,7 @@ body.is-locked .foot { display: none !important; }
     <a href="#">Termos de uso</a>
     <a href="#">Política de privacidade</a>
   </div>
-  <p class="foot-copy">© 2026 Goleiro de Elite. Todos os direitos reservados.</p>
+  <p class="foot-copy">Goleiro de Elite · CREF 027014-G/PR · Pedro Ferreira<br>© 2026 Goleiro de Elite. Todos os direitos reservados.</p>
 </footer>
 
 <script>
