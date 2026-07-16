@@ -6,8 +6,8 @@
 ============================================================ */
 import Base from '../layouts/Base.astro';
 
-// ⚽ Link do WhatsApp — VARIAÇÃO JULIO (troque pelo link de rastreio do Julio).
-const WHATSAPP = 'https://tintim.link/whatsapp/41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8/b4187b48-8062-4e27-b2c1-1ab7b7185752';
+// ⚽ Link do WhatsApp — VARIAÇÃO JULIO (via leadfy para rastreamento).
+const WHATSAPP = 'https://links.leadfy.chat/goleirodeeelite-julio';
 const CTA = 'FALE COM NOSSA EQUIPE AGORA';
 
 // 5 Pilares
@@ -74,21 +74,6 @@ const faq = [
   title="Sistema Goleiro de Elite™ | Preparação Física Específica para Goleiros"
   heroImage="/images/goleiro_de_elite_hero.webp"
 >
-  <!-- Tintim pixel -->
-  <script is:inline>
-    (function(window, document, script) {
-      if (!window.tt) {
-        window.tt = window.tt || {};
-        c = document.getElementsByTagName('head')[0];
-        k = document.createElement('script');
-        k.async = 1;
-        k.src = script;
-        c.appendChild(k);
-      }
-      window.tt.accountCode = '41d4c19b-ee85-4cc2-993e-32f0e7d2c0f8';
-    })(window, document, '//s.tintim.app/static/core/tintim-1.0.js');
-  </script>
-
   <main class="sge">
 
     <!-- ============================================================
@@ -403,6 +388,8 @@ const faq = [
         </a>
       </div>
       <div class="sge-foot-meta">CNPJ 52.877.418/0001-85 · © 2026 · Todos os direitos reservados</div>
+      <!-- Trackfy: repasse de UTMs para os links de WhatsApp -->
+      <script is:inline omit-subids omit-xcod src="https://cdn.trackfyads.com/scripts/utms/latest.js" async defer></script>
     </footer>
 
     <!-- Botão flutuante de WhatsApp (mobile + desktop), aparece após o hero -->

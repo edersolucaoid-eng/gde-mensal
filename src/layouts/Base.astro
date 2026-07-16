@@ -31,19 +31,11 @@ const { title = "Método Goleiro 2.0 | Preparação Física para Goleiros", hero
   <link rel="dns-prefetch" href="https://pay.kiwify.com.br" />
   <link rel="preconnect" href="https://pay.kiwify.com" crossorigin />
   <link rel="dns-prefetch" href="https://pay.kiwify.com" />
-  <!-- Google Tag Manager (lazy: primeira interação ou 5s) -->
-  <script>
-    (function(){
-      var loaded=false;
-      function loadGTM(){
-        if(loaded)return; loaded=true;
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://server.goleirodeelite.com/9smvimemi.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','5wlfyfq=AAlYKj07QCMrWVMrWyBVVR9QV0NYUAkdVAoKAQwfHxwNCAABAAIIXQoCCA%3D%3D');
-      }
-      ['scroll','click','touchstart','keydown'].forEach(function(e){
-        window.addEventListener(e,loadGTM,{once:true,passive:true});
-      });
-      setTimeout(loadGTM,5000);
-    })();
+  <!-- Preconnect GTM server-side (carregamento imediato abaixo) -->
+  <link rel="preconnect" href="https://server.goleirodeelite.com" crossorigin />
+  <!-- Google Tag Manager (imediato — lazy perdia pageviews de quem saía antes da 1ª interação/5s) -->
+  <script is:inline>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://server.goleirodeelite.com/9smvimemi.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','5wlfyfq=AAlYKj07QCMrWVMrWyBVVR9QV0NYUAkdVAoKAQwfHxwNCAABAAIIXQoCCA%3D%3D');
   </script>
   <!-- End Google Tag Manager -->
   <!-- Fontes não-bloqueantes -->
