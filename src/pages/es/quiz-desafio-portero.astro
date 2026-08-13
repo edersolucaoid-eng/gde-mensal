@@ -338,10 +338,6 @@ body {
   pointer-events: none;
 }
 .vsl-continue:hover::after { transform: translateX(100%); }
-.vsl-continue.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
 .vsl-continue {
   transition: opacity .6s ease, transform .2s, box-shadow .3s;
 }
@@ -921,7 +917,7 @@ body {
       <div class="vsl-eyebrow">// Tu mensaje personalizado</div>
       <h2 class="vsl-title">Mira este video hasta el final</h2>
       <vturb-smartplayer id="vid-6a7d1fa3b79c62818298c5a8" style="display: block; margin: 0 auto 56px; width: 100%; max-width: 400px;"></vturb-smartplayer>
-      <button class="vsl-continue is-hidden" id="vsl-continue">Acceder al Desafío →</button>
+      <button class="vsl-continue" id="vsl-continue">Acceder al Desafío →</button>
       <button class="qz-back">← volver</button>
     </section>
 
@@ -1002,7 +998,6 @@ body {
 
   // ── VSL: carrega script só na primeira visita ao step ──────
   let vslLoaded = false;
-  let vslButtonTimerStarted = false;
   function loadVSL() {
     if (vslLoaded) return;
     vslLoaded = true;
@@ -1011,79 +1006,6 @@ body {
     s.async = true;
     document.head.appendChild(s);
   }
-  function startVslButtonTimer() {
-    if (vslButtonTimerStarted) return;
-    vslButtonTimerStarted = true;
-    initVslGate({
-      storageKey: 'vsl_quiz_es',
-      targetSeconds: 90,
-      playerId: 'vid-6a7d1fa3b79c62818298c5a8',
-      onUnlock: () => {
-        const btn = document.getElementById('vsl-continue');
-        if (btn) btn.classList.remove('is-hidden');
-      }
-    });
-  }
-
-  // ── VSL gate persistente: desconta tiempo ya visto ─────────
-  function initVslGate({ storageKey, targetSeconds, playerId, onUnlock }) {
-    const EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
-    let unlocked = false;
-
-    function readState() {
-      try {
-        const raw = localStorage.getItem(storageKey);
-        if (!raw) return 0;
-        const s = JSON.parse(raw);
-        if (s.playerId !== playerId) return 0;
-        if (Date.now() - s.savedAt > EXPIRY_MS) return 0;
-        return Number(s.watched) || 0;
-      } catch { return 0; }
-    }
-
-    function saveState(watched) {
-      try {
-        localStorage.setItem(storageKey, JSON.stringify({
-          watched, savedAt: Date.now(), playerId
-        }));
-      } catch {}
-    }
-
-    let maxWatched = readState();
-
-    function tryUnlock() {
-      if (unlocked) return;
-      unlocked = true;
-      saveState(targetSeconds);
-      onUnlock();
-    }
-
-    if (maxWatched >= targetSeconds) { tryUnlock(); return; }
-
-    const remainingMs = (targetSeconds - maxWatched) * 1000;
-    const fallbackTimer = setTimeout(tryUnlock, remainingMs);
-
-    const pollInterval = setInterval(() => {
-      if (unlocked) { clearInterval(pollInterval); return; }
-      const el = document.getElementById(playerId);
-      if (!el) return;
-      let t = Number(el.currentTime);
-      if (!isFinite(t) || t < 0) {
-        const innerVideo = el.querySelector && el.querySelector('video');
-        if (innerVideo) t = innerVideo.currentTime;
-      }
-      if (!isFinite(t) || t < 0) return;
-      if (t > maxWatched) {
-        maxWatched = Math.floor(t);
-        saveState(maxWatched);
-        if (maxWatched >= targetSeconds) {
-          clearTimeout(fallbackTimer);
-          tryUnlock();
-        }
-      }
-    }, 1000);
-  }
-
   // ── Navegación ──────────────────────────────────────────────
   function showStep(idx) {
     if (idx < 0 || idx >= stepOrder.length) return;
@@ -1092,7 +1014,7 @@ body {
     currentIdx = idx;
     updateProgress(idx);
     if (stepOrder[idx] === 'step-2') adaptQ2();
-    if (stepOrder[idx] === 'step-vsl') { loadVSL(); startVslButtonTimer(); }
+    if (stepOrder[idx] === 'step-vsl') loadVSL();
     if (stepOrder[idx] === 'step-result') renderResult();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

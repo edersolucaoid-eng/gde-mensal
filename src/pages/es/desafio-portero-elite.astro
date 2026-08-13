@@ -84,13 +84,6 @@ hr {
 .s-dark  hr { background: rgba(255,255,255,.08); }
 .s-light hr { background: rgba(0,0,0,.1); }
 
-/* ─── LOCKED STATE (página cerrada hasta 2:40 del VSL) ────── */
-body.is-locked .schedule-sec,
-body.is-locked .s-dark,
-body.is-locked .s-light,
-body.is-locked .plan-sec,
-body.is-locked .foot { display: none !important; }
-.hero-cta.is-hidden { display: none !important; }
 .hero-vsl {
   width: 100%;
   max-width: 420px;
@@ -959,7 +952,7 @@ body.is-locked .foot { display: none !important; }
       <div class="hero-vsl">
         <vturb-smartplayer id="vid-6a7d1fa3b79c62818298c5a8" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
       </div>
-      <a href="https://checkout.kashpay.com.br/checkout/checkout-1786575914734" class="hero-cta is-hidden" id="hero-cta">
+      <a href="https://checkout.kashpay.com.br/checkout/checkout-1786575914734" class="hero-cta" id="hero-cta">
         Acceder al Desafío
       </a>
     </div>
@@ -1416,84 +1409,12 @@ body.is-locked .foot { display: none !important; }
 </footer>
 
 <script>
-  // ── Locked state: página cerrada hasta 2:40 del VSL ────────
-  document.body.classList.add('is-locked');
   (function loadVSL() {
     const s = document.createElement('script');
     s.src = 'https://scripts.converteai.net/8dae198c-c5cc-4243-a962-0d260db61e5c/players/6a7d1fa3b79c62818298c5a8/v4/player.js';
     s.async = true;
     document.head.appendChild(s);
   })();
-
-  // ── VSL gate persistente: descuenta tiempo ya visto ────────
-  function initVslGate({ storageKey, targetSeconds, playerId, onUnlock }) {
-    const EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
-    let unlocked = false;
-
-    function readState() {
-      try {
-        const raw = localStorage.getItem(storageKey);
-        if (!raw) return 0;
-        const s = JSON.parse(raw);
-        if (s.playerId !== playerId) return 0;
-        if (Date.now() - s.savedAt > EXPIRY_MS) return 0;
-        return Number(s.watched) || 0;
-      } catch { return 0; }
-    }
-
-    function saveState(watched) {
-      try {
-        localStorage.setItem(storageKey, JSON.stringify({
-          watched, savedAt: Date.now(), playerId
-        }));
-      } catch {}
-    }
-
-    let maxWatched = readState();
-
-    function tryUnlock() {
-      if (unlocked) return;
-      unlocked = true;
-      saveState(targetSeconds);
-      onUnlock();
-    }
-
-    if (maxWatched >= targetSeconds) { tryUnlock(); return; }
-
-    const remainingMs = (targetSeconds - maxWatched) * 1000;
-    const fallbackTimer = setTimeout(tryUnlock, remainingMs);
-
-    const pollInterval = setInterval(() => {
-      if (unlocked) { clearInterval(pollInterval); return; }
-      const el = document.getElementById(playerId);
-      if (!el) return;
-      let t = Number(el.currentTime);
-      if (!isFinite(t) || t < 0) {
-        const innerVideo = el.querySelector && el.querySelector('video');
-        if (innerVideo) t = innerVideo.currentTime;
-      }
-      if (!isFinite(t) || t < 0) return;
-      if (t > maxWatched) {
-        maxWatched = Math.floor(t);
-        saveState(maxWatched);
-        if (maxWatched >= targetSeconds) {
-          clearTimeout(fallbackTimer);
-          tryUnlock();
-        }
-      }
-    }, 1000);
-  }
-
-  initVslGate({
-    storageKey: 'vsl_landing_es',
-    targetSeconds: 160,
-    playerId: 'vid-6a7d1fa3b79c62818298c5a8',
-    onUnlock: () => {
-      document.body.classList.remove('is-locked');
-      const cta = document.getElementById('hero-cta');
-      if (cta) cta.classList.remove('is-hidden');
-    }
-  });
 
   function nextMonday() {
     const fixed = new Date('2026-06-01T03:00:00Z');
